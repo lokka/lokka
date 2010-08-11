@@ -1,0 +1,11 @@
+<h2>Index</h2>
+<div class="articles">
+<% @posts.each do |post| %>
+  <div class="article">
+    <div class="header"><h3><%= post.title %></h3></div>
+    <div class="body">
+      <%= post.body %>
+    </div>
+  </div>
+<% end %>
+</div>
