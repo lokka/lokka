@@ -174,9 +174,9 @@ end
 module Bundler
   ENV_LOADED   = true
   LOCKED_BY    = '0.9.26'
-  FINGERPRINT  = "1cb3138d4377516049b1279c1551571b67fe87b6"
-  HOME         = '/Users/komagata/.rvm/gems/ruby-1.8.7-p299/bundler'
-  AUTOREQUIRES = {:default=>[["dm-migrations", false], ["dm-timestamps", false], ["datamapper", false], ["dm-sqlite-adapter", false], ["sinatra", false], ["sqlite3-ruby", false]]}
+  FINGERPRINT  = "e0293ec6849d42bd3a269a475b5f3e4ec482d563"
+  HOME         = '/Users/komagata/Sites/pyha/bundle/bundler'
+  AUTOREQUIRES = {:default=>[["dm-migrations", false], ["dm-timestamps", false], ["dm-types", false], ["datamapper", false], ["dm-sqlite-adapter", false], ["sinatra", false], ["sinatra-content-for", false], ["sqlite3-ruby", false]]}
   SPECS        = [
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/addressable-2.2.0/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/addressable-2.2.0.gemspec", :name=>"addressable"},
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/data_objects-0.10.2/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/data_objects-0.10.2.gemspec", :name=>"data_objects"},
@@ -200,6 +200,7 @@ module Bundler
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/dm-sqlite-adapter-1.0.0/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/dm-sqlite-adapter-1.0.0.gemspec", :name=>"dm-sqlite-adapter"},
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/rack-1.2.1/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/rack-1.2.1.gemspec", :name=>"rack"},
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/sinatra-1.0/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/sinatra-1.0.gemspec", :name=>"sinatra"},
+        {:load_paths=>["/Users/komagata/Sites/pyha/bundle/gems/sinatra-content-for-0.2/lib"], :loaded_from=>"/Users/komagata/Sites/pyha/bundle/specifications/sinatra-content-for-0.2.gemspec", :name=>"sinatra-content-for"},
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/sqlite3-ruby-1.3.1/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/sqlite3-ruby-1.3.1.gemspec", :name=>"sqlite3-ruby"},
       ].map do |hash|
     if hash[:virtual_spec]

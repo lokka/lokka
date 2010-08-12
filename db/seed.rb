@@ -7,4 +7,6 @@
 end
 
 # setting
+Setting.create(:name => 'title', :value => 'Test Site')
+Setting.create(:name => 'description', :value => 'description...')
 Setting.create(:name => 'theme', :value => 'default')

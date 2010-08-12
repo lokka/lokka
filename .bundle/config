@@ -1,2 +1,3 @@
 --- 
-BUNDLE_WITHOUT: ""
+BUNDLE_WITHOUT: production
+BUNDLE_PATH: bundle

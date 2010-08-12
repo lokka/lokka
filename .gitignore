@@ -1,2 +1,3 @@
 db/db.sqlite3
 tmp/*
+bundle

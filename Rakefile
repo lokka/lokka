@@ -17,3 +17,19 @@ end
 
 desc 'Reset database'
 task 'db:reset' => %w(db:migrate db:seed)
+
+desc 'Bundler'
+task :bundle do
+  `bundle install bundle  --without production`
+end
+
+desc 'Rebundler'
+task :rebundle do
+  `bundle install bundle --without production --relock`
+end
+
+desc 'Install'
+task :install => %w(bundle db:reset)
+
+desc 'Reinstall'
+task :reinstall => %w(rebundle db:reset)
