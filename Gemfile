@@ -10,6 +10,7 @@ gem 'dm-migrations'
 
 group :production do
   gem 'pg', '0.9.0'
+  gem 'dm-postgres-adapter'
 end
 
 group :development do
