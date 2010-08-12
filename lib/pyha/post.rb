@@ -2,7 +2,7 @@ class Post
   include DataMapper::Resource
 
   property :id, Serial
-  property :slug, Slug, :length => 255
+  property :slug, String, :length => 255
   property :title, String, :length => 255
   property :body, Text
   property :created_at, DateTime
