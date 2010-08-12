@@ -24,7 +24,7 @@ module Pyha
 
     get '/' do
       @posts = Post.all
-      erb "theme/#{@setting.theme}/index".to_sym, :layout => "theme/#{@setting.theme}/layout".to_sym
+      erb "theme/#{@setting.theme}/posts".to_sym, :layout => "theme/#{@setting.theme}/layout".to_sym
     end
 
     get %r{/([\d]+)} do |id|
