@@ -24,6 +24,10 @@ dependencies:
     group: 
     - :default
     version: = 1.0.0
+  bundler: 
+    group: 
+    - :default
+    version: = 0.9.26
   dm-sqlite-adapter: 
     group: 
     - :default
@@ -35,6 +39,8 @@ dependencies:
 specs: 
 - addressable: 
     version: 2.2.0
+- bundler: 
+    version: 0.9.26
 - data_objects: 
     version: 0.10.2
 - extlib: 
@@ -81,7 +87,7 @@ specs:
     version: "0.2"
 - sqlite3-ruby: 
     version: 1.3.1
-hash: e0293ec6849d42bd3a269a475b5f3e4ec482d563
+hash: 5a4ffe293257c95686ad7bc541ab17084052b415
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

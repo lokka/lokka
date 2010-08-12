@@ -174,11 +174,12 @@ end
 module Bundler
   ENV_LOADED   = true
   LOCKED_BY    = '0.9.26'
-  FINGERPRINT  = "e0293ec6849d42bd3a269a475b5f3e4ec482d563"
+  FINGERPRINT  = "5a4ffe293257c95686ad7bc541ab17084052b415"
   HOME         = '/Users/komagata/Sites/pyha/bundle/bundler'
-  AUTOREQUIRES = {:default=>[["dm-migrations", false], ["dm-timestamps", false], ["dm-types", false], ["datamapper", false], ["dm-sqlite-adapter", false], ["sinatra", false], ["sinatra-content-for", false], ["sqlite3-ruby", false]]}
+  AUTOREQUIRES = {:default=>[["bundler", false], ["dm-migrations", false], ["dm-timestamps", false], ["dm-types", false], ["datamapper", false], ["dm-sqlite-adapter", false], ["sinatra", false], ["sinatra-content-for", false], ["sqlite3-ruby", false]]}
   SPECS        = [
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/addressable-2.2.0/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/addressable-2.2.0.gemspec", :name=>"addressable"},
+        {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/bundler-0.9.26/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/bundler-0.9.26.gemspec", :name=>"bundler"},
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/data_objects-0.10.2/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/data_objects-0.10.2.gemspec", :name=>"data_objects"},
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/extlib-0.9.15/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/extlib-0.9.15.gemspec", :name=>"extlib"},
         {:load_paths=>["/Users/komagata/.rvm/gems/ruby-1.8.7-p299/gems/dm-core-1.0.0/lib"], :loaded_from=>"/Users/komagata/.rvm/gems/ruby-1.8.7-p299/specifications/dm-core-1.0.0.gemspec", :name=>"dm-core"},
