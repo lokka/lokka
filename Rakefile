@@ -1,6 +1,5 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
-require '.bundle/environment'
 require 'pyha'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/db.sqlite3")
