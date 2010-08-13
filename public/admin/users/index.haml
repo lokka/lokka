@@ -1,0 +1,11 @@
+%h2 User
+%table
+  %tr
+    %th Id
+    %th Name
+    %th Email
+  - @users.each do |user|
+    %tr
+      %td= user.id
+      %td= user.name
+      %td= user.email

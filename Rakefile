@@ -1,8 +1,6 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
+require 'main'
 
-require 'pyha'
-
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/db/db.sqlite3")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Pathname(__FILE__).dirname.realpath}/db.sqlite3")
 
 desc 'Create the Pyha database'
 task 'db:migrate' do
@@ -11,7 +9,22 @@ end
 
 desc 'Execute seed script'
 task 'db:seed' do
-  require 'db/seed'
+  # user
+  User.create(:name => 'komagata', :password => 'test', :password_confirmation => 'test')
+  User.create(:name => 'test1', :password => 'test', :password_confirmation => 'test')
+
+  # post
+  (1..11).each do |i|
+    Post.create(
+      :title => "title... #{i}",
+      :body  => "body... #{i}"
+    )
+  end
+  
+  # site
+  Site.create(:name => 'title', :value => 'Test Site')
+  Site.create(:name => 'description', :value => 'description...')
+  Site.create(:name => 'theme', :value => 'default')
 end
 
 desc 'Reset database'
@@ -24,7 +37,7 @@ end
 
 desc 'Rebundler'
 task :rebundle do
-  `bundle install bundle --without production --relock`
+  `bundle install bundle --without production`
 end
 
 desc 'Install'

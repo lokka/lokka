@@ -1,5 +1,3 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
-
-require 'pyha'
-
-run Pyha::App
+require 'rubygems'
+require 'main'
+run Sinatra::Application

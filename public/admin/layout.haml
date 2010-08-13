@@ -1,0 +1,39 @@
+!!! XML
+!!!
+%html
+  %head
+    %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
+    %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
+    %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
+    %title= 'Title'
+    %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
+    %link{:rel => 'stylesheet', :href => '/admin/style.css'}
+  %body
+    #header
+      %h1
+        %a{:href => '/admin/'} Admin
+      .description
+        description...
+    #nav
+      %ul
+        - if logged_in?
+          %li
+            %a{:href => '/admin/logout'} Logout
+        - else
+          %li
+            %a{:href => '/admin/login'} Login
+          %li
+            %a{:href => '/admin/signup'} Signup
+    #tab
+      %ul
+        %li
+          %a{:href => '/admin/posts'} Post
+        %li
+          %a{:href => '/admin/users'} User
+        %li
+          %a{:href => '/admin/themes'} Theme
+    #main
+      = yield
+    #aside
+    #footer
+      footer

@@ -4,6 +4,22 @@ GEM
     addressable (2.2.0)
     data_objects (0.10.2)
       addressable (~> 2.1)
+    datamapper (1.0.0)
+      dm-aggregates (= 1.0.0)
+      dm-constraints (= 1.0.0)
+      dm-core (= 1.0.0)
+      dm-core (= 1.0.0)
+      dm-migrations (= 1.0.0)
+      dm-serializer (= 1.0.0)
+      dm-timestamps (= 1.0.0)
+      dm-transactions (= 1.0.0)
+      dm-types (= 1.0.0)
+      dm-validations (= 1.0.0)
+    dm-aggregates (1.0.0)
+      dm-core (~> 1.0.0)
+    dm-constraints (1.0.0)
+      dm-core (~> 1.0.0)
+      dm-migrations (~> 1.0.0)
     dm-core (1.0.0)
       addressable (~> 2.1)
       extlib (~> 0.9.15)
@@ -15,31 +31,55 @@ GEM
     dm-postgres-adapter (1.0.0)
       dm-do-adapter (~> 1.0.0)
       do_postgres (~> 0.10.2)
+    dm-serializer (1.0.0)
+      dm-core (~> 1.0.0)
+      fastercsv (~> 1.5.3)
+      json_pure (~> 1.4.3)
     dm-sqlite-adapter (1.0.0)
       dm-do-adapter (~> 1.0.0)
       do_sqlite3 (~> 0.10.2)
+    dm-timestamps (1.0.0)
+      dm-core (~> 1.0.0)
+    dm-transactions (1.0.0)
+      dm-core (~> 1.0.0)
+    dm-types (1.0.0)
+      dm-core (~> 1.0.0)
+      fastercsv (~> 1.5.3)
+      json_pure (~> 1.4.3)
+      stringex (~> 1.1.0)
+      uuidtools (~> 2.1.1)
+    dm-validations (1.0.0)
+      dm-core (~> 1.0.0)
     do_postgres (0.10.2)
       data_objects (= 0.10.2)
     do_sqlite3 (0.10.2)
       data_objects (= 0.10.2)
     extlib (0.9.15)
-    pg (0.9.0)
+    fastercsv (1.5.3)
+    haml (3.0.16)
+    json_pure (1.4.6)
     rack (1.2.1)
+    rack-flash (0.1.1)
+      rack
+    shoulda (2.11.3)
     sinatra (1.0)
       rack (>= 1.0)
-    sinatra-content-for (0.2)
-      sinatra
-    sqlite3-ruby (1.3.1)
+    stringex (1.1.0)
+    uuidtools (2.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  datamapper
   dm-core
   dm-migrations
   dm-postgres-adapter
   dm-sqlite-adapter
-  pg (= 0.9.0)
+  dm-timestamps
+  dm-types
+  dm-validations
+  haml
+  rack-flash
+  shoulda (= 2.11.3)
   sinatra (= 1.0.0)
-  sinatra-content-for
-  sqlite3-ruby (= 1.3.1)

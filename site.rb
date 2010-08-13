@@ -1,4 +1,4 @@
-class Setting
+class Site
   include DataMapper::Resource
 
   property :id, Serial
@@ -12,11 +12,10 @@ class Setting
   end
 
   def self.to_ostruct
-    hash =
-      all.inject({}) do |ret, setting|
-        ret[setting.name.to_sym] = setting.value
-        ret
-      end
+    hash = {}
+    all.each do |site|
+      hash[site.name.to_sym] = site.value
+    end
     OpenStruct.new(hash)
   end
 end

@@ -1,0 +1,13 @@
+%h2 Login
+%form{:action => '/admin/login', :method => 'post'}
+  %p
+    %label{:for => 'user_name'} Name
+    %br
+    %input{:id => 'user_name', :name => 'name', :type => 'text'}
+  %p 
+    %label{:for => 'user_password'} Password
+    %br
+    %input{:id => 'user_password', :name => 'password', :type => 'password'}
+  %p
+    %input{:value => 'login', :type => 'submit'}
+    %a{:href => '/admin/signup'} Signup
