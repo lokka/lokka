@@ -98,6 +98,12 @@ get %r{/([\d]+)} do |id|
   erb "theme/#{@site.theme}/post".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
+get %r{/([0-9a-zA-Z-]+)} do |slug|
+  puts 'slug: ' + slug
+  @post = Post.first(:slug => slug)
+  erb "theme/#{@site.theme}/post".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
+end
+
 before do
   @site = Site.to_ostruct
 end

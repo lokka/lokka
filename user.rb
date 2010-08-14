@@ -9,6 +9,8 @@ class User
   property :created_at, DateTime
   property :permission_level, Integer, :default => 1
 
+  has n, :posts
+
   attr_accessor :password, :password_confirmation
 
   validates_presence_of :password_confirmation, :unless => Proc.new { |t| t.hashed_password }

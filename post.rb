@@ -8,6 +8,8 @@ class Post
   property :created_at, DateTime
   property :updated_at, DateTime
 
+  belongs_to :user
+
   def link
     "/#{id}"
   end

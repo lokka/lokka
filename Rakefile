@@ -16,11 +16,13 @@ task 'db:seed' do
   # post
   (1..11).each do |i|
     Post.create(
-      :title => "title... #{i}",
-      :body  => "body... #{i}"
+      :user_id => 1,
+      :title   => "title... #{i}",
+      :body    => "body... #{i}",
+      :slug    => "slug-#{i}"
     )
   end
-  
+
   # site
   Site.create(:name => 'title', :value => 'Test Site')
   Site.create(:name => 'description', :value => 'description...')
