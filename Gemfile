@@ -8,6 +8,7 @@ gem 'dm-migrations'
 gem 'dm-timestamps'
 gem 'dm-validations'
 gem 'dm-types'
+gem 'dm-is-tree'
 gem 'haml'
 
 group :production do

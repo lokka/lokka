@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title><%= @site.title %></title>
     <link rel="stylesheet" href="/theme/default/style.css" type="text/css" />
-    <script type="text/javascript" src="js/script.js"></script>
   </head>
   <body>
     <div id="header">
@@ -21,6 +20,18 @@
         <h3>Admin</h3>
         <ul>
           <li><a href="/admin/">Admin</a></li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3>Category</h3>
+        <%= category_tree %>
+      </div>
+      <div class="section">
+        <h3>Monthly archive</h3>
+        <ul>
+          <% @year_months.each do |year_month| %>
+          <li><a href="/<%= year_month.year %>/<%= year_month.month %>/"><%= year_month.year %>/<%= year_month.month %></a></li>
+          <% end %>
         </ul>
       </div>
     </div>
