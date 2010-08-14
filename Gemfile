@@ -9,6 +9,7 @@ gem 'dm-timestamps'
 gem 'dm-validations'
 gem 'dm-types'
 gem 'dm-is-tree'
+gem 'dm-pager'
 gem 'haml'
 
 group :production do

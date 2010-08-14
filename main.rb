@@ -12,12 +12,13 @@ require 'dm-migrations'
 require 'dm-validations'
 require 'dm-types'
 require 'dm-is-tree'
+require 'dm-pager'
 require 'haml'
 
 require 'user'
 require 'guest_user'
 require 'site'
-require 'post'
+require 'document'
 require 'category'
 
 configure do
@@ -31,6 +32,7 @@ configure do
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Pathname(__FILE__).dirname.realpath}/db.sqlite3")
   set :views => File.join(File.dirname(__FILE__), 'public')
+  set :per_page, 2
 end
 
 get '/admin/' do
@@ -85,16 +87,17 @@ get '/admin/users' do
   haml 'admin/users/index'.to_sym, :layout => 'admin/layout'.to_sym
 end
 
-get '/admin/posts' do
+get '/admin/documents' do
   login_required
-  @posts = Post.all
-  haml 'admin/posts/index'.to_sym, :layout => 'admin/layout'.to_sym
+  @documents = Document.all
+  haml 'admin/documents/index'.to_sym, :layout => 'admin/layout'.to_sym
 end
 
 # index
 get '/' do
-  @posts = Post.all
-  erb "theme/#{@site.theme}/posts".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
+  @posts = Post.page(params[:page], :per_page => settings.per_page)
+  @pager = @posts.pager
+  erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
 # category archive
@@ -102,36 +105,34 @@ get '/category/*/' do |path|
   category_name = path.split('/').last
   @category = Category.get_by_name_or_slug(category_name)
   return 404 if @category.nil?
-  @posts = @category.posts
-  erb "theme/#{@site.theme}/posts".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
+  @posts = Post.all(:category => @category).
+                page(params[:page], :per_page => settings.per_page)
+  @pager = @posts.pager
+  erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
 # monthly archive
 get %r{/([\d]{4})/([\d]{2})/} do |year, month|
   year, month = year.to_i, month.to_i
   @posts = Post.all(:created_at.gte => DateTime.new(year, month)).
-                all(:created_at.lt => DateTime.new(year, month) >> 1 )
-  erb "theme/#{@site.theme}/posts".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
+                all(:created_at.lt => DateTime.new(year, month) >> 1).
+                page(params[:page], :per_page => settings.per_page)
+  erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
 # yearly archive
 get %r{/([\d]{4})/} do |year|
   year = year.to_i
   @posts = Post.all(:created_at.gte => DateTime.new(year)).
-                all(:created_at.lt => DateTime.new(year + 1))
-  erb "theme/#{@site.theme}/posts".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
-end
-
-# id
-get %r{/([\d]+)} do |id|
-  @post = Post.get(id)
-  erb "theme/#{@site.theme}/post".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
+                all(:created_at.lt => DateTime.new(year + 1)).
+                page(params[:page], :per_page => settings.per_page)
+  erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
 # slug
-get %r{/([0-9a-zA-Z-]+)} do |slug|
-  @post = Post.first(:slug => slug)
-  erb "theme/#{@site.theme}/post".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
+get %r{/([0-9a-zA-Z-]+)} do |id_or_slug|
+  @document = Document.get_by_fuzzy_slug(id_or_slug)
+  erb "theme/#{@site.theme}/document".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
 error 404 do

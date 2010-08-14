@@ -8,7 +8,7 @@ class Category
 
   is :tree, :order => :name
 
-  has n, :posts
+  has n, :documents
 
   validates_uniqueness_of :name
   validates_uniqueness_of :slug

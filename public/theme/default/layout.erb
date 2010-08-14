@@ -17,12 +17,6 @@
     </div>
     <div id="aside">
       <div class="section">
-        <h3>Admin</h3>
-        <ul>
-          <li><a href="/admin/">Admin</a></li>
-        </ul>
-      </div>
-      <div class="section">
         <h3>Category</h3>
         <%= category_tree %>
       </div>
@@ -32,6 +26,12 @@
           <% @year_months.each do |year_month| %>
           <li><a href="/<%= year_month.year %>/<%= year_month.month %>/"><%= year_month.year %>/<%= year_month.month %></a></li>
           <% end %>
+        </ul>
+      </div>
+      <div class="section">
+        <h3>Admin</h3>
+        <ul>
+          <li><a href="/admin/">Admin</a></li>
         </ul>
       </div>
     </div>

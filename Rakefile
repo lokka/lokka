@@ -29,6 +29,17 @@ task 'db:seed' do
     )
   end
 
+  # page
+  (12..20).each do |i|
+    Page.create(
+      :user_id     => 1,
+      :category_id => 1,
+      :title       => "title... #{i}",
+      :body        => "body... #{i}",
+      :slug        => "slug-#{i}"
+    )
+  end
+
   # category
   Category.create(:name => 'category1', :slug => 'slug-1')
   Category.create(:name => 'category2', :slug => 'slug-2')
@@ -42,7 +53,7 @@ task 'db:reset' => %w(db:migrate db:seed)
 
 desc 'Bundler'
 task :bundle do
-  `bundle install bundle  --without production`
+  `bundle install bundle --without production`
 end
 
 desc 'Rebundler'

@@ -1,10 +1,11 @@
-class Post
+class Document
   include DataMapper::Resource
 
   property :id, Serial
   property :slug, Slug, :length => 255, :unique => true
   property :title, String, :length => 255
   property :body, Text
+  property :type, Discriminator
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -31,3 +32,6 @@ class Post
     "/#{fuzzy_slug}"
   end
 end
+
+class Post < Document; end
+class Page < Document; end
