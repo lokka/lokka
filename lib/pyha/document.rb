@@ -29,6 +29,10 @@ class Document
     all(:body.like => "%#{str}%")
   end
 
+  def self.recent(count)
+    all(:limit => count, :order => [:created_at.desc])
+  end
+
   def fuzzy_slug
     slug || id
   end
