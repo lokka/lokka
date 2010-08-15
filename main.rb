@@ -20,6 +20,7 @@ require 'lib/pyha/user'
 require 'lib/pyha/site'
 require 'lib/pyha/document'
 require 'lib/pyha/category'
+require 'lib/pyha/bread_crumb'
 
 configure do
   use Rack::Session::Cookie,
@@ -99,6 +100,12 @@ get '/' do
   @theme_types << :documents
 
   @posts = Post.page(params[:page], :per_page => settings.per_page)
+
+  @title = "Index - #{@site.title}"
+
+  @bread_crumbs = BreadCrumb.new
+  @bread_crumbs.add('Top', '/')
+
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
@@ -110,6 +117,13 @@ get '/search/' do
   @query = params[:query]
   @posts = Post.search(@query).
                 page(params[:page], :per_page => settings.per_page)
+
+  @title = "Search by #{@query} - #{@site.title}"
+
+  @bread_crumbs = BreadCrumb.new
+  @bread_crumbs.add('Top', '/')
+  @bread_crumbs.add('Search', '/search/')
+
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
@@ -123,6 +137,14 @@ get '/category/*/' do |path|
   return 404 if @category.nil?
   @posts = Post.all(:category => @category).
                 page(params[:page], :per_page => settings.per_page)
+
+  @title = "#{@category.name} - #{@site.title}"
+
+  @bread_crumbs = BreadCrumb.new
+  @category.ancestors.each do |cat|
+    @bread_crumbs.add(cat.name, cat.link)
+  end
+  @bread_crumbs.add(@category.name, @category.link)
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
@@ -135,6 +157,14 @@ get %r{/([\d]{4})/([\d]{2})/} do |year, month|
   @posts = Post.all(:created_at.gte => DateTime.new(year, month)).
                 all(:created_at.lt => DateTime.new(year, month) >> 1).
                 page(params[:page], :per_page => settings.per_page)
+
+  @title = "#{year}/#{month} - #{@site.title}"
+
+  @bread_crumbs = BreadCrumb.new
+  @bread_crumbs.add('Top', '/')
+  @bread_crumbs.add("#{year}", "/#{year}/")
+  @bread_crumbs.add("#{year}/#{month}", "/#{year}/#{month}/")
+
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
@@ -147,6 +177,13 @@ get %r{/([\d]{4})/} do |year|
   @posts = Post.all(:created_at.gte => DateTime.new(year)).
                 all(:created_at.lt => DateTime.new(year + 1)).
                 page(params[:page], :per_page => settings.per_page)
+
+  @title = "#{year} - #{@site.title}"
+
+  @bread_crumbs = BreadCrumb.new
+  @bread_crumbs.add('Top', '/')
+  @bread_crumbs.add("#{year}", "/#{year}/")
+
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
@@ -155,6 +192,16 @@ get %r{/([0-9a-zA-Z-]+)} do |id_or_slug|
   @theme_types << :document
 
   @document = Document.get_by_fuzzy_slug(id_or_slug)
+
+  @title = "#{@document.title} - #{@site.title}"
+
+  @bread_crumbs = BreadCrumb.new
+  @document.category.ancestors.each do |cat|
+    @bread_crumbs.add(cat.name, cat.link)
+  end
+  @bread_crumbs.add(@document.category.name, @document.category.link)
+  @bread_crumbs.add(@document.title, @document.link)
+
   erb "theme/#{@site.theme}/document".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
@@ -242,6 +289,21 @@ helpers do
 
   def logged_in?
     !!session[:user]
+  end
+
+  def bread_crumb
+    html = '<ol>'
+    @bread_crumbs.each do |bread|
+      html += '<li>'
+      if bread.last?
+        html += bread.name
+      else
+        html += "<a href=\"#{bread.link}\">#{bread.name}</a>"
+      end
+      html += '</li>'
+    end
+    html += '</ol>'
+    html
   end
 
   def category_tree(categories = Category.roots)

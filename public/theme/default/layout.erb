@@ -9,8 +9,11 @@
   </head>
   <body>
     <div id="header">
-      <h1><a href="/"><%= @title %></a></h1>
+      <h1><a href="/"><%= @site.title %></a></h1>
       <div class="description"><%= @site.description %></div>
+      <div id="bread_crumb">
+        <%= bread_crumb %>
+      </div>
     </div>
     <div id="main">
       <%= yield %>
@@ -43,14 +46,14 @@
         </ul>
       </div>
       <div class="section">
-        <h3>Admin</h3>
+        <h3>Others</h3>
         <ul>
           <li><a href="/admin/">Admin</a></li>
         </ul>
       </div>
     </div>
     <div id="footer">
-      footer
+      powered by <a href="http://github.com/komagata/pyha">Pyha</a>.
     </div>
   </body>
 </html>
