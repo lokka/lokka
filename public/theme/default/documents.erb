@@ -15,10 +15,10 @@
     </div>
   </div>
 <% end %>
-<% if @pager.previous_page %>
-<div class="previous"><a href="?page=<%= @pager.previous_page %>">Previous</a></div>
+<% if @posts.pager.previous_page %>
+<div class="previous"><a href="?page=<%= @posts.pager.previous_page %>">Previous</a></div>
 <% end %>
-<% if @pager.next_page %>
-<div class="next"><a href="?page=<%= @pager.next_page %>">Next</a></div>
+<% if @posts.pager.next_page %>
+<div class="next"><a href="?page=<%= @posts.pager.next_page %>">Next</a></div>
 <% end %>
 </div>

@@ -4,12 +4,12 @@
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
-    <title><%= @site.title %></title>
+    <title><%= @title %></title>
     <link rel="stylesheet" href="/theme/default/style.css" type="text/css" />
   </head>
   <body>
     <div id="header">
-      <h1><%= @site.title %></h1>
+      <h1><a href="/"><%= @title %></a></h1>
       <div class="description"><%= @site.description %></div>
     </div>
     <div id="main">
@@ -17,11 +17,17 @@
     </div>
     <div id="aside">
       <div class="section">
+        <form action="/search/" method="get">
+          <input type="text" name="query" />
+          <button onclick="submit()">Search</button>
+        </form>
+      </div>
+      <div class="section">
         <h3>Category</h3>
         <%= category_tree %>
       </div>
       <div class="section">
-        <h3>Monthly archive</h3>
+        <h3>Archive</h3>
         <ul>
           <% @year_months.each do |year_month| %>
           <li><a href="/<%= year_month.year %>/<%= year_month.month %>/"><%= year_month.year %>/<%= year_month.month %></a></li>

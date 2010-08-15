@@ -15,11 +15,11 @@ require 'dm-is-tree'
 require 'dm-pager'
 require 'haml'
 
-require 'user'
-require 'guest_user'
-require 'site'
-require 'document'
-require 'category'
+require 'lib/pyha/theme'
+require 'lib/pyha/user'
+require 'lib/pyha/site'
+require 'lib/pyha/document'
+require 'lib/pyha/category'
 
 configure do
   use Rack::Session::Cookie,
@@ -95,24 +95,42 @@ end
 
 # index
 get '/' do
+  @theme_types << :index
+  @theme_types << :documents
+
   @posts = Post.page(params[:page], :per_page => settings.per_page)
-  @pager = @posts.pager
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
-# category archive
+# search
+get '/search/' do
+  @theme_types << :search
+  @theme_types << :documents
+
+  @query = params[:query]
+  @posts = Post.search(@query).
+                page(params[:page], :per_page => settings.per_page)
+  erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
+end
+
+# category
 get '/category/*/' do |path|
+  @theme_types << :category
+  @theme_types << :documents
+
   category_name = path.split('/').last
   @category = Category.get_by_name_or_slug(category_name)
   return 404 if @category.nil?
   @posts = Post.all(:category => @category).
                 page(params[:page], :per_page => settings.per_page)
-  @pager = @posts.pager
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
-# monthly archive
+# monthly
 get %r{/([\d]{4})/([\d]{2})/} do |year, month|
+  @theme_types << :monthly
+  @theme_types << :documents
+
   year, month = year.to_i, month.to_i
   @posts = Post.all(:created_at.gte => DateTime.new(year, month)).
                 all(:created_at.lt => DateTime.new(year, month) >> 1).
@@ -120,8 +138,11 @@ get %r{/([\d]{4})/([\d]{2})/} do |year, month|
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
-# yearly archive
+# yearly
 get %r{/([\d]{4})/} do |year|
+  @theme_types << :yearly
+  @theme_types << :documents
+
   year = year.to_i
   @posts = Post.all(:created_at.gte => DateTime.new(year)).
                 all(:created_at.lt => DateTime.new(year + 1)).
@@ -129,8 +150,10 @@ get %r{/([\d]{4})/} do |year|
   erb "theme/#{@site.theme}/documents".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
 
-# slug
+# document
 get %r{/([0-9a-zA-Z-]+)} do |id_or_slug|
+  @theme_types << :document
+
   @document = Document.get_by_fuzzy_slug(id_or_slug)
   erb "theme/#{@site.theme}/document".to_sym, :layout => "theme/#{@site.theme}/layout".to_sym
 end
@@ -141,6 +164,8 @@ end
 
 before do
   @site = Site.to_ostruct
+  @title = @site.title
+  @theme_types = []
 
   years = {}
   year_months = {}
@@ -148,23 +173,23 @@ before do
   Post.all.each do |post|
     year = post.created_at.strftime('%Y')
     if years[year].nil?
-      years[year] = 1 
+      years[year] = 1
     else
-      years[year] += 1 
+      years[year] += 1
     end
-      
+
     year_month = post.created_at.strftime('%Y-%m')
     if year_months[year_month].nil?
-      year_months[year_month] = 1 
+      year_months[year_month] = 1
     else
-      year_months[year_month] += 1 
+      year_months[year_month] += 1
     end
 
     year_month_day = post.created_at.strftime('%Y-%m-%d')
     if year_month_days[year_month_day].nil?
-      year_month_days[year_month_day] = 1 
+      year_month_days[year_month_day] = 1
     else
-      year_month_days[year_month_day] += 1 
+      year_month_days[year_month_day] += 1
     end
   end
   @years = []
@@ -184,6 +209,15 @@ before do
 end
 
 helpers do
+  def index?;     @theme_types.include?(:index); end
+  def search?;    @theme_types.include?(:search); end
+  def category?;  @theme_types.include?(:category); end
+  def yearly?;    @theme_types.include?(:yearly); end
+  def monthly?;   @theme_types.include?(:monthly); end
+  def daily?;     @theme_types.include?(:daily); end
+  def document?;  @theme_types.include?(:document); end
+  def documents?; @theme_types.include?(:documents); end
+
   def hash_to_query_string(hash)
     hash.collect {|k,v| "#{k}=#{v}"}.join('&')
   end

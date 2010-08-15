@@ -24,6 +24,11 @@ class Document
     end
   end
 
+  def self.search(str)
+    all(:title.like => "%#{str}%") |
+    all(:body.like => "%#{str}%")
+  end
+
   def fuzzy_slug
     slug || id
   end
