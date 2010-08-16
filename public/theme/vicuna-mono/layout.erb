@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <title><%= @title %></title>
+    <link rel="stylesheet" href="/theme/vicuna-mono/style.css" type="text/css" />
+  </head>
+  <body>
+    <div id="header">
+      <h1><a href="/"><%= @site.title %></a></h1>
+      <div class="description"><%= @site.description %></div>
+      <div id="bread_crumb">
+        <%= bread_crumb %>
+      </div>
+    </div>
+    <div id="content">
+      <div id="main">
+        <%= yield %>
+      </div>
+      <div id="aside">
+        <dl>
+          <dt>About</dt>
+          <dd><p>Text ...</p><dd>
+          <dt>Recent Entries</dt>
+          <dd>
+            <ul>
+              <% Post.recent(5).each do |post| %>
+              <li><a href="<%= post.link %>"><%= post.title %></a></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dt>Categories</dt>
+          <dd><%= category_tree %><dd>
+          <dt>Archives</dt>
+          <dd>
+            <ul>
+              <% @year_months.each do |year_month| %>
+              <li><a href="/<%= year_month.year %>/<%= year_month.month %>/"><%= year_month.year %>/<%= year_month.month %></a></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dt>Search</dt>
+          <dd>
+            <form action="/search/" method="get">
+              <input type="text" name="query" class="text_field" />
+              <button class="submit" onclick="submit()">Search</button>
+            </form>
+          </dd>
+          <dt>Others</dt>
+          <dd>
+            <ul>
+              <li><a href="/admin/">Admin</a></li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div id="footer">
+      <div class="poweredby">powered by <a href="http://github.com/komagata/pyha">Pyha</a></div>
+    </div>
+  </body>
+</html>
