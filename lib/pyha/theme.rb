@@ -1,10 +1,17 @@
+require 'pyha/site'
+
 class Theme
-  @types = []
-  def index?;    @types.include?(:index); end
-  def search?;   @types.include?(:search); end
-  def category?; @types.include?(:category); end
-  def yearly?;   @types.include?(:yearly); end
-  def monthly?;  @types.include?(:monthly); end
-  def daily?;    @types.include?(:daily); end
-  def document?; @types.include?(:document); end
+  attr_reader :name, :root_dir, :root_path, :dir, :path
+  
+  def initialize(root_dir)
+    @root_dir = root_dir
+    @root_path = '/theme'
+    @name = Site.first(:name => 'theme').value
+    @dir = "#{@root_dir}/#{@name}"
+    @path = "#{@root_path}/#{@name}"
+  end
+
+  def to_path(name)
+    "#{@dir}/#{name}"
+  end
 end

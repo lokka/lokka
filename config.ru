@@ -1,3 +1,2 @@
-require 'rubygems'
-require 'main'
-run Sinatra::Application
+require 'init'
+run Pyha::App
