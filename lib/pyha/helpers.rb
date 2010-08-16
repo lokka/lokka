@@ -8,11 +8,11 @@ module Pyha
     def daily?;     @theme_types.include?(:daily); end
     def document?;  @theme_types.include?(:document); end
     def documents?; @theme_types.include?(:documents); end
-  
+
     def hash_to_query_string(hash)
       hash.collect {|k,v| "#{k}=#{v}"}.join('&')
     end
-  
+
     def login_required
       if current_user.class != GuestUser
         return true
@@ -22,19 +22,19 @@ module Pyha
         return false
       end
     end
-  
+
     def current_user
       if session[:user]
-        User.get(:id => session[:user])
+        User.get(session[:user])
       else
         GuestUser.new
       end
     end
-  
+
     def logged_in?
       !!session[:user]
     end
-  
+
     def bread_crumb
       html = '<ol>'
       @bread_crumbs.each do |bread|
@@ -49,7 +49,7 @@ module Pyha
       html += '</ol>'
       html
     end
-  
+
     def category_tree(categories = Category.roots)
       html = '<ul>'
       categories.each do |category|

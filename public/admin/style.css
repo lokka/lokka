@@ -1,0 +1,35 @@
+#nav {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+#nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#nav ul li {
+  margin: 0 6px;
+  display: inline;
+}
+
+#main {
+  float: left;
+}
+
+#aside {
+  float: right;
+  width: 150px;
+}
+
+#aside ul {
+  margin: 0;
+  padding: 0;
+}
+
+#footer {
+  clear: both;
+  text-align: center;
+}

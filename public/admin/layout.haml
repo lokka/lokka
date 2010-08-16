@@ -5,18 +5,19 @@
     %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
     %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
     %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
-    %title== #{@site.title} - Pyha CMS
+    %title== #{@site.title} - Pyha
     %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
     %link{:rel => 'stylesheet', :href => '/admin/style.css'}
   %body
     #header
       %h1
-        %a{:href => '/admin/'}== #{@site.title} - Pyha CMS
+        %a{:href => '/'}= @site.title
       .description
         description...
     #nav
       %ul
         - if logged_in?
+          %li= current_user.name
           %li
             %a{:href => '/admin/logout'} Logout
         - else
@@ -24,16 +25,34 @@
             %a{:href => '/admin/login'} Login
           %li
             %a{:href => '/admin/signup'} Signup
-    #tab
-      %ul
-        %li
-          %a{:href => '/admin/posts'} Post
-        %li
-          %a{:href => '/admin/users'} User
-        %li
-          %a{:href => '/admin/themes'} Theme
-    #main
-      = yield
-    #aside
+    #content
+      #main
+        = yield
+      #aside
+        %dl
+          %dt Documents
+          %dd
+            %ul
+              %li
+                %a{:href => '/admin/documents'} List
+              %li
+                %a{:href => '/admin/documents/new'} New
+          %dt Users
+          %dd
+            %ul
+              %li
+                %a{:href => '/admin/users'} List
+              %li
+                %a{:href => '/admin/users/new'} New
+          %dt Themes
+          %dd
+            %ul
+              %li
+                %a{:href => '/admin/users'} List
+              %li
+                %a{:href => '/admin/users/new'} New
+          %dt Plugins
+          %dd
+
     #footer
-      footer
+      %a{:href => 'http://github.com/komagata/pyha'} Pyha
