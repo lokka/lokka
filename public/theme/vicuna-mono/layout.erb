@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title><%= @title %></title>
+    <link href="/index.atom" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
     <link rel="stylesheet" href="/theme/vicuna-mono/style.css" type="text/css" />
   </head>
   <body>
@@ -22,7 +23,7 @@
       <div id="aside">
         <dl>
           <dt>About</dt>
-          <dd><p>Text ...</p><dd>
+          <dd><p>Text ...</p></dd>
           <dt>Recent Entries</dt>
           <dd>
             <ul>
@@ -32,7 +33,15 @@
             </ul>
           </dd>
           <dt>Categories</dt>
-          <dd><%= category_tree %><dd>
+          <dd><%= category_tree %></dd>
+          <dt>Tags</dt>
+          <dd>
+            <ul>
+              <% Tag.all.each do |tag| %>
+              <li><a href="<%= tag.link %>"><%= tag.name %></a></li>
+              <% end %>
+            </ul>
+          </dd>
           <dt>Archives</dt>
           <dd>
             <ul>
@@ -52,6 +61,7 @@
           <dd>
             <ul>
               <li><a href="/admin/">Admin</a></li>
+              <li><a href="/index.atom">Feed</a></li>
             </ul>
           </dd>
         </dl>

@@ -1,11 +1,23 @@
-%h2 User
+%h2= t.listing_users
 %table
   %tr
-    %th Id
-    %th Name
-    %th Email
+    %th= t.user.name
+    %th= t.user.email
+    %th= t.user.created_at
+    %th{:colspan => 2}
   - @users.each do |user|
     %tr
-      %td= user.id
-      %td= user.name
+      %td
+        %a{:href => "/admin/users/#{user.id}/edit"}= user.name
       %td= user.email
+      %td= l user.created_at.to_time
+      %td
+        %a{:href => "/admin/users/#{user.id}/edit"}= t.edit
+      %td
+        = link_to t.delete, "/admin/users/#{user.id}", :confirm => t.are_you_sure, :method => :delete
+.pager
+  %ul
+    - if @users.pager.previous_page
+      %li.previous= link_to t.previous, "?page=#{@users.pager.previous_page}"
+    - if @users.pager.next_page
+      %li.next= link_to t.next, "?page=#{@users.pager.next_page}"

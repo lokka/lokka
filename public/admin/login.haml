@@ -1,13 +1,12 @@
-%h2 Login
+%h2= t.login
 %form{:action => '/admin/login', :method => 'post'}
   %p
-    %label{:for => 'user_name'} Name
+    %label{:for => 'user_name'}= t.user.name
     %br
     %input{:id => 'user_name', :name => 'name', :type => 'text'}
   %p 
-    %label{:for => 'user_password'} Password
+    %label{:for => 'user_password'}= t.user.password
     %br
     %input{:id => 'user_password', :name => 'password', :type => 'password'}
   %p
-    %input{:value => 'login', :type => 'submit'}
-    %a{:href => '/admin/signup'} Signup
+    %input{:value => 'login', :type => 'submit', :value => t.login}

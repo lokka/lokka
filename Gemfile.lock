@@ -2,24 +2,11 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.2.0)
+    builder (2.1.2)
     data_objects (0.10.2)
       addressable (~> 2.1)
-    datamapper (1.0.0)
-      dm-aggregates (= 1.0.0)
-      dm-constraints (= 1.0.0)
-      dm-core (= 1.0.0)
-      dm-core (= 1.0.0)
-      dm-migrations (= 1.0.0)
-      dm-serializer (= 1.0.0)
-      dm-timestamps (= 1.0.0)
-      dm-transactions (= 1.0.0)
-      dm-types (= 1.0.0)
-      dm-validations (= 1.0.0)
     dm-aggregates (1.0.0)
       dm-core (~> 1.0.0)
-    dm-constraints (1.0.0)
-      dm-core (~> 1.0.0)
-      dm-migrations (~> 1.0.0)
     dm-core (1.0.0)
       addressable (~> 2.1)
       extlib (~> 0.9.15)
@@ -36,16 +23,12 @@ GEM
     dm-postgres-adapter (1.0.0)
       dm-do-adapter (~> 1.0.0)
       do_postgres (~> 0.10.2)
-    dm-serializer (1.0.0)
-      dm-core (~> 1.0.0)
-      fastercsv (~> 1.5.3)
-      json_pure (~> 1.4.3)
     dm-sqlite-adapter (1.0.0)
       dm-do-adapter (~> 1.0.0)
       do_sqlite3 (~> 0.10.2)
-    dm-timestamps (1.0.0)
+    dm-tags (1.0.0)
       dm-core (~> 1.0.0)
-    dm-transactions (1.0.0)
+    dm-timestamps (1.0.0)
       dm-core (~> 1.0.0)
     dm-types (1.0.0)
       dm-core (~> 1.0.0)
@@ -62,13 +45,19 @@ GEM
     extlib (0.9.15)
     fastercsv (1.5.3)
     haml (3.0.16)
+    i18n (0.4.1)
     json_pure (1.4.6)
+    r18n-core (0.4.7.1)
     rack (1.2.1)
     rack-flash (0.1.1)
       rack
     shoulda (2.11.3)
     sinatra (1.0)
       rack (>= 1.0)
+    sinatra-logger (0.1.0)
+      sinatra (>= 0.10.1)
+    sinatra-r18n (0.4.7.1)
+      r18n-core (= 0.4.7.1)
     stringex (1.1.0)
     uuidtools (2.1.1)
 
@@ -76,17 +65,21 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  datamapper
-  dm-core
+  builder
   dm-is-tree
   dm-migrations
   dm-pager
   dm-postgres-adapter
   dm-sqlite-adapter
+  dm-tags
   dm-timestamps
   dm-types
   dm-validations
+  fastercsv
   haml
+  i18n
   rack-flash
   shoulda (= 2.11.3)
   sinatra (= 1.0.0)
+  sinatra-logger
+  sinatra-r18n

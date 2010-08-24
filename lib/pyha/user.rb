@@ -9,7 +9,7 @@ class User
   property :created_at, DateTime
   property :permission_level, Integer, :default => 1
 
-  has n, :documents
+  has n, :entries
 
   attr_accessor :password, :password_confirmation
 

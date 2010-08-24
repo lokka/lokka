@@ -2,20 +2,20 @@ class Site
   include DataMapper::Resource
 
   property :id, Serial
-  property :name, String, :length => 255
-  property :value, Text
+  property :title, String, :length => 255
+  property :description, String, :length => 255
+  property :theme, String, :length => 64
   property :created_at, DateTime
   property :updated_at, DateTime
 
-  def self.value(name)
-    first(:name => name).value
-  end
-
-  def self.to_ostruct
-    hash = {}
-    all.each do |site|
-      hash[site.name.to_sym] = site.value
+  private
+  def define_field_accessor(name)
+    define_method(name) do
+      first(:name => name).value
     end
-    OpenStruct.new(hash)
+
+    define_method("#{name}=") do |value|
+      first(:name => name).value = value
+    end
   end
 end

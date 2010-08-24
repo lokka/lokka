@@ -1,16 +1,20 @@
 source :gemcutter
 
 gem 'rack-flash'
+gem 'i18n'
 gem 'sinatra', '1.0.0'
-gem 'datamapper'
-gem 'dm-core'
+gem 'sinatra-r18n'
+gem 'sinatra-logger'
 gem 'dm-migrations'
 gem 'dm-timestamps'
 gem 'dm-validations'
 gem 'dm-types'
 gem 'dm-is-tree'
 gem 'dm-pager'
+gem 'dm-tags'
+gem 'builder'
 gem 'haml'
+gem 'fastercsv'
 
 group :production do
   gem 'dm-postgres-adapter'

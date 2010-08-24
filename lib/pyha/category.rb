@@ -2,27 +2,28 @@ class Category
   include DataMapper::Resource
 
   property :id, Serial
-  property :parent_id, Integer
-  property :name, String, :length => 255, :unique => true
   property :slug, Slug, :length => 255, :unique => true
+  property :title, String, :length => 255, :unique => true
+  property :description, Text
+  property :type, Discriminator
+  property :created_at, DateTime
+  property :updated_at, DateTime
+  property :parent_id, Integer
 
-  is :tree, :order => :name
+  is :tree, :order => :title
 
-  has n, :documents
+  has n, :entries
 
-  validates_uniqueness_of :name
-  validates_uniqueness_of :slug
-
-  def self.get_by_name_or_slug(str)
+  def self.get_by_fuzzy_slug(str)
     if ret = first(:slug => str)
       ret
     else
-      first(:name => str)
+      first(:id => str)
     end
   end
 
   def fuzzy_slug
-    slug || name
+    slug || id
   end
 
   def link

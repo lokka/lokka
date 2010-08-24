@@ -16,20 +16,33 @@
 }
 
 #main {
-  float: left;
+  margin-left: 150px;
 }
 
 #aside {
-  float: right;
+  float: left;
   width: 150px;
 }
 
 #aside ul {
-  margin: 0;
-  padding: 0;
 }
 
 #footer {
   clear: both;
   text-align: center;
+}
+
+ul.themes {
+  list-style: none;
+}
+
+li.theme {
+  float: left;
+  padding: 0;
+  margin: 10px;
+  width: 310px;
+}
+
+li.theme .screenshot img {
+  max-width: 300px;
 }
