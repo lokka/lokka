@@ -1,0 +1,5 @@
+%h2 New Entry
+%form{:action => '/admin/entries', :method => 'post'}
+  = partial 'entries/form'
+  %p
+    %input{:type => 'submit', :value => 'New'}

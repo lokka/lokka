@@ -1,0 +1,108 @@
+error: エラー
+profile: プロフィール
+next: 次
+previous: 前
+older_post: 古い記事
+newer_post: 新しい記事
+older: もっと古いもの
+newer: もっと新しいもの
+admin: 管理者
+admin_page: 管理画面
+dashboard: ダッシュボード
+login: ログイン
+logout: ログアウト
+signup: 登録
+users: ユーザー
+categories: カテゴリー
+posts: 投稿
+pages: ページ
+comments: コメント
+themes: テーマ
+plugins: プラグイン
+settings: 設定
+site: サイト
+list: 一覧
+new: 登録
+edit: 編集
+delete: 削除
+about: このサイトについて
+recent_entries: 最近のエントリー
+tags: タグ
+archives: アーカイブ
+search: 検索
+others: その他
+feed: フィード
+listing_posts: 投稿一覧
+listing_pages: ページ一覧
+listing_categories: カテゴリー一覧
+listing_tags: タグ一覧
+listing_comments: コメント一覧
+listing_users: タグ一覧
+listing_themes: テーマ一覧
+new_post: 投稿登録
+new_page: ページ登録
+new_category: カテゴリー登録
+new_user: ユーザー登録
+new_comment: コメント登録
+edit_post: 投稿編集
+edit_page: ページ編集
+edit_category: カテゴリー編集
+edit_comment: コメント編集
+edit_user: ユーザー編集
+edit_site: サイト編集
+are_you_sure: 本当によろしいですか？
+not_select: 未選択
+no_category: カテゴリーがありません
+no_tag: タグがありません
+no_post: 投稿がありません
+no_page: ページがありません
+no_user: ユーザーがいません
+no_comment: コメントがありません
+no_plugin: プラグインがいません
+page:
+  id: ID
+  slug: スラッグ
+  title: タイトル
+  body: 本文
+  category: カテゴリー
+  tags: タグ
+  created_at: 作成日時
+  updated_at: 更新日時
+post:
+  id: ID
+  slug: スラッグ
+  title: タイトル
+  body: 本文
+  category: カテゴリー
+  tags: タグ
+  created_at: 作成日時
+  updated_at: 更新日時
+category:
+  id: ID
+  slug: スラッグ
+  title: タイトル
+  description: 本文
+  created_at: 作成日時
+  updated_at: 更新日時
+user:
+  id: ID
+  name: 名前
+  email: Email
+  password: パスワード
+  password_confirmation: パスワード（確認）
+  created_at: 登録日時
+  updated_at: 更新日時
+site:
+  id: ID
+  title: タイトル
+  description: 詳細
+  theme: テーマ
+  created_at: 作成日時
+  updated_at: 更新日時
+comment:
+  id: ID
+  name: 名前
+  body: 本文
+  homepage: ホームページ
+  created_at: 作成日時
+  updated_at: 更新日時

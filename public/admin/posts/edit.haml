@@ -1,0 +1,6 @@
+%h2= t.edit_post
+%form{:action => "/admin/posts/#{@post.id}", :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  = partial 'posts/form'
+  %p
+    %input{:type => 'submit', :value => t.edit}

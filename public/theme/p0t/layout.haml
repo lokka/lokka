@@ -1,0 +1,59 @@
+!!! XML
+!!!
+%html
+  %head
+    %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
+    %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
+    %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
+    %title== #{@site.title}
+    %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
+    %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
+    %link{:rel => 'stylesheet', :href => '/theme/p0t/style.css', :type => 'text/css'}
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
+  %body
+    #header
+      %h1= link_to @site.title, '/'
+      .description= @site.description
+    - unless index? or entry?
+      #bread_crumb= bread_crumb
+    #nav
+      %ul
+        - if logged_in?
+          %li= link_to t.admin_page, '/admin/'
+          %li= link_to t.new_post, '/admin/posts/new'
+          %li= link_to t.logout, '/admin/logout'
+        - else
+          %li= link_to t.login, '/admin/'
+        %li
+          %form{:action => '/search/', :method => 'get'}
+            %input{:type => 'text', :name => 'query'}
+    #content
+      #main
+        = yield
+      #aside
+        %dl
+          %dt= t.profile
+          %dd
+            - about = Page.first(:slug => 'about')
+            = about.body
+            - if logged_in?
+              %p{:style => 'text-align:right'}= link_to t.edit, "/admin/pages/#{about.id}/edit"
+          %dt= t.recent_entries
+          %dd
+            %ul
+              - Post.recent(5).each do |post|
+                %li= link_to post.title, post.link
+          %dt= t.tags
+          %dd
+            %ul
+              - Tag.all.each do |tag|
+                %li= link_to tag.name, tag.link
+          %dt= t.archives
+          %dd
+            %ul
+              - @year_months.each do |ym|
+                %li= link_to "#{ym.year}年#{ym.month}月", "/#{ym.year}/#{ym.month}/"
+    #footer
+      .poweredby
+        powered by
+        = link_to 'Pyha', 'http://github.com/komagata/pyha'

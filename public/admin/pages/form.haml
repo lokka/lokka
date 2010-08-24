@@ -1,0 +1,29 @@
+- unless @page.errors.empty?
+  #error
+    .title= t.error
+    %ul
+      - @page.errors.each do |error|
+        %li= error
+%p
+  %label{:for => 'page_title'}= t.page.title
+  %br
+  %input{:type => 'text', :id => 'page_title', :name => 'page[title]', :value => @page.title}
+%p
+  %label{:for => 'page_body'}= t.page.body
+  %br
+  %textarea{:id => 'page_body', :name => 'page[body]', :rows => 10, :cols => 50}= @page.body
+%p
+  %label{:for => 'page_slug'}= t.page.slug
+  %br
+  %input{:type => 'text', :id => 'page_slug', :name => 'page[slug]', :value => @page.slug}
+%p
+  %label{:for => 'page_category'}= t.page.category
+  %br
+  - if @categories.size > 1
+    = select_field @page, :category_id, @categories, :id => 'page_category'
+  - else
+    = t.no_category
+%p
+  %label{:for => 'page_tag_collection'}= t.page.tags
+  %br
+  %input{:type => 'text', :id => 'page_tag_collection', :name => 'page[tag_collection]', :value => @page.tag_collection}

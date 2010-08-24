@@ -1,0 +1,6 @@
+%h2 Edit Entry
+%form{:action => "/admin/entries/#{@entry.id}", :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  = partial 'entries/form'
+  %p
+    %input{:type => 'submit', :value => 'Edit'}

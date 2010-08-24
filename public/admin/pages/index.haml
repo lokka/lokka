@@ -1,0 +1,25 @@
+%h2= t.listing_pages
+%table
+  %tr
+    %th= t.page.title
+    %th= t.page.category
+    %th= t.page.created_at
+    %th{:colspan => 2}
+  - @pages.each do |page|
+    %tr
+      %td
+        %a{:href => "/admin/pages/#{page.id}/edit"}= page.title
+      %td
+        - if page.category
+          %a{:href => "/admin/categories/#{page.category.id}/edit"}= page.category.title
+      %td= l page.created_at.to_time
+      %td
+        %a{:href => "/admin/pages/#{page.id}/edit"}= t.edit
+      %td
+        = link_to t.delete, "/admin/pages/#{page.id}", :confirm => t.are_you_sure, :method => :delete
+.pager
+  %ul
+    - if @pages.pager.previous_page
+      %li.previous= link_to t.previous, "?page=#{@pages.pager.previous_page}"
+    - if @pages.pager.next_page
+      %li.next= link_to t.next, "?page=#{@pages.pager.next_page}"

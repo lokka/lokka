@@ -1,0 +1,12 @@
+%p
+  %label{:for => 'entry_title'}= t.title
+  %br
+  %input{:type => 'text', :id => 'entry_title', :name => 'entry[title]', :value => @entry.title}
+%p
+  %label{:for => 'entry_body'}= t.body
+  %br
+  %textarea{:id => 'entry_body', :name => 'entry[body]'}= @entry.body
+%p
+  %label{:for => 'entry_slug'}= t.slug
+  %br
+  %input{:type => 'text', :id => 'entry_slug', :name => 'entry[slug]', :value => @entry.slug}

@@ -1,0 +1,6 @@
+%h2= t.edit_category
+%form{:action => "/admin/categories/#{@category.id}", :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  = partial 'categories/form'
+  %p
+    %input{:type => 'submit', :value => t.edit}

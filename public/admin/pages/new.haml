@@ -1,0 +1,5 @@
+%h2= t.new_page
+%form{:action => '/admin/pages', :method => 'post'}
+  = partial 'pages/form'
+  %p
+    %input{:type => 'submit', :value => t.new}

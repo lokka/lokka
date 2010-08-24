@@ -1,0 +1,13 @@
+%h2= t.edit_site
+%form{:action => '/admin/site', :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  %p
+    %label{:for => 'site_title'}= t.site.title
+    %br
+    %input{:type => 'text', :id => 'site_title', :name => 'site[title]', :value => @site.title}
+  %p
+    %label{:for => 'site_description'}= t.site.description
+    %br
+    %textarea{:id => 'site_description', :name => 'site[description]', :rows => 10, :cols => 50}= @site.description
+  %p
+    %input{:type => 'submit', :value => t.edit}
