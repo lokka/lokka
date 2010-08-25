@@ -425,6 +425,8 @@ logger.info "@entry.title: #{@entry.title}"
     before do
       if request.path_info =~ %r{/admin/.*}
         settings.views = File.join(settings.public, 'admin')
+      else
+        settings.views = File.join(settings.public, 'theme', Site.first.theme)
       end
 
       @site = Site.first
