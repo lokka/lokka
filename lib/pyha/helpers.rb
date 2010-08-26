@@ -76,24 +76,29 @@ module Pyha
       ret
     end
 
-    def render_any(name, options = {}, locals = {})
-      ret = ''
-      settings.supported_templates.each do |ext|
-        if File.exist?("#{settings.views}/#{name}.#{ext}")
-          ret = send(ext.to_sym, name.to_sym, options, locals)
-          break
-        end
-      end
-      ret
+    def render_any(name, options = {})
+      rendering(name, options)
     end
 
     def partial(name, options = {})
-      options.merge!(:layout => false)
-      locals = options[:locals] ? {:locals => options[:locals]} : {}
+      options[:layout] = false
+      rendering(name, options)
+    end
+
+    def rendering(name, options = {})
       ret = ''
+      locals = options[:locals] ? {:locals => options[:locals]} : {}
+      dir = request.path_info =~ %r{^/admin/.*} ? 'admin' : "theme/#{@theme.name}"
+
       settings.supported_templates.each do |ext|
-        if File.exist?("#{settings.views}/#{name}.#{ext}")
-          ret = send(ext.to_sym, name.to_sym, options, locals)
+        layout = "#{dir}/layout"
+        if File.exist?("#{settings.views}/#{layout}.#{ext}")
+          options[:layout] ||= layout.to_sym
+        end
+
+        path = "#{dir}/#{name}"
+        if File.exist?("#{settings.views}/#{path}.#{ext}")
+          ret = send(ext.to_sym, path.to_sym, options, locals)
           break
         end
       end

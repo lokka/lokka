@@ -3,7 +3,7 @@ module Pyha
     enable :method_override
     set :root, File.expand_path('../../..', __FILE__)
     set :public => Proc.new { File.join(root, 'public') }
-    set :views => Proc.new { File.join(public, 'theme', Site.first.theme) }
+    set :views => Proc.new { public }
     set :theme => Proc.new { File.join(public, 'theme') }
     set :supported_templates => %w(erb haml)
     set :per_page, 10
@@ -305,7 +305,8 @@ module Pyha
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add('Home', '/')
 
-      render_detect :index, :entries
+#      render_detect :index, :entries
+      render_any :entries, :layout => :layout
     end
 
     get '/index.atom' do
@@ -423,15 +424,9 @@ logger.info "@entry.title: #{@entry.title}"
     end
 
     before do
-      if request.path_info =~ %r{/admin/.*}
-        settings.views = File.join(settings.public, 'admin')
-      else
-        settings.views = File.join(settings.public, 'theme', Site.first.theme)
-      end
-
       @site = Site.first
       @title = @site.title
-      @theme = Theme.new(options.theme)
+      @theme = Theme.new(settings.theme)
       @theme_types = []
 
       years = {}
