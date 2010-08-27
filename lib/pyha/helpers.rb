@@ -93,7 +93,7 @@ module Pyha
       settings.supported_templates.each do |ext|
         layout = "#{dir}/layout"
         if File.exist?("#{settings.views}/#{layout}.#{ext}")
-          options[:layout] ||= layout.to_sym
+          options[:layout] = layout.to_sym if options[:layout].nil?
         end
 
         path = "#{dir}/#{name}"
