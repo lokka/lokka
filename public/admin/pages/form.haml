@@ -27,3 +27,7 @@
   %label{:for => 'page_tag_collection'}= t.page.tags
   %br
   %input{:type => 'text', :id => 'page_tag_collection', :name => 'page[tag_collection]', :value => @page.tag_collection}
+%p
+  %label{:for => 'page_created_at'}= t.page.created_at
+  %br
+  %input{:type => 'text', :id => 'page_created_at', :name => 'page[created_at]', :value => @page.created_at}

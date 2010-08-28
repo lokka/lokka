@@ -19,6 +19,11 @@
   margin-left: 150px;
 }
 
+.admin_login #main {
+  margin: auto;
+}
+
+
 #aside {
   float: left;
   width: 150px;

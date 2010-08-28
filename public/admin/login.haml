@@ -9,7 +9,7 @@
     %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
     %link{:rel => 'stylesheet', :href => '/admin/style.css', :type => 'text/css'}
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
-  %body
+  %body.admin_login
     #header
       %h1
         %a{:href => '/'}= @site.title
@@ -23,42 +23,6 @@
           %li
             %a{:href => '/admin/login'}= t.login
     #content
-      #aside
-        %ul
-          %li
-            = t.posts
-            %ul
-              %li
-                %a{:href => '/admin/posts'}= t.list
-              %li
-                %a{:href => '/admin/posts/new'}= t.new
-          %li
-            = t.pages
-            %ul
-              %li
-                %a{:href => '/admin/pages'}= t.list
-              %li
-                %a{:href => '/admin/pages/new'}= t.new
-          %li
-            = t.categories
-            %ul
-              %li
-                %a{:href => '/admin/categories'}= t.list
-              %li
-                %a{:href => '/admin/categories/new'}= t.new
-          %li
-            = t.users
-            %ul
-              %li
-                %a{:href => '/admin/users'}= t.list
-              %li
-                %a{:href => '/admin/users/new'}= t.new
-          %li
-            %a{:href => '/admin/themes'}= t.themes
-          %li
-            %a{:href => '/admin/plugin/edit'}= t.plugins
-          %li
-            %a{:href => '/admin/site/edit'}= t.settings
       #main
         %h2= t.login
         %form{:action => '/admin/login', :method => 'post'}

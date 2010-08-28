@@ -27,3 +27,7 @@
   %label{:for => 'post_tag_collection'}= t.post.tags
   %br
   %input{:type => 'text', :id => 'post_tag_collection', :name => 'post[tag_collection]', :value => @post.tag_collection}
+%p
+  %label{:for => 'post_created_at'}= t.post.created_at
+  %br
+  %input{:type => 'text', :id => 'post_created_at', :name => 'post[created_at]', :value => @post.created_at}

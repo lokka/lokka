@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript" />
     <title><%= @title %></title>
     <link href="/index.atom" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
-    <link rel="stylesheet" href="/theme/default/style.css" type="text/css" />
+    <link rel="stylesheet" href="/theme/vicuna-mono/style.css" type="text/css" />
   </head>
   <body>
     <div id="header">
@@ -16,45 +16,59 @@
         <%= bread_crumb %>
       </div>
     </div>
-    <div id="main">
-      <%= yield %>
-    </div>
-    <div id="aside">
-      <div class="section">
-        <form action="/search/" method="get">
-          <input type="text" name="query" />
-          <button onclick="submit()">Search</button>
-        </form>
+    <div id="content">
+      <div id="main">
+        <%= yield %>
       </div>
-      <div class="section">
-        <h3>Recent Entries</h3>
-        <ul>
-          <% Post.recent(5).each do |post| %>
-          <li><a href="<%= post.link %>"><%= post.title %></a></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="section">
-        <h3>Categories</h3>
-        <%= category_tree %>
-      </div>
-      <div class="section">
-        <h3>Archives</h3>
-        <ul>
-          <% @year_months.each do |year_month| %>
-          <li><a href="/<%= year_month.year %>/<%= year_month.month %>/"><%= year_month.year %>/<%= year_month.month %></a></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="section">
-        <h3>Others</h3>
-        <ul>
-          <li><a href="/admin/">Admin</a></li>
-        </ul>
+      <div id="aside">
+        <dl>
+          <dt>About</dt>
+          <dd><p>Text ...</p></dd>
+          <dt>Recent Entries</dt>
+          <dd>
+            <ul>
+              <% Post.recent(5).each do |post| %>
+              <li><a href="<%= post.link %>"><%= post.title %></a></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dt>Categories</dt>
+          <dd><%= category_tree %></dd>
+          <dt>Tags</dt>
+          <dd>
+            <ul>
+              <% Tag.all.each do |tag| %>
+              <li><a href="<%= tag.link %>"><%= tag.name %></a></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dt>Archives</dt>
+          <dd>
+            <ul>
+              <% @year_months.each do |year_month| %>
+              <li><a href="/<%= year_month.year %>/<%= year_month.month %>/"><%= year_month.year %>/<%= year_month.month %></a></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dt>Search</dt>
+          <dd>
+            <form action="/search/" method="get">
+              <input type="text" name="query" class="text_field" />
+              <button class="submit" onclick="submit()">Search</button>
+            </form>
+          </dd>
+          <dt>Others</dt>
+          <dd>
+            <ul>
+              <li><a href="/admin/">Admin</a></li>
+              <li><a href="/index.atom">Feed</a></li>
+            </ul>
+          </dd>
+        </dl>
       </div>
     </div>
     <div id="footer">
-      powered by <a href="http://github.com/komagata/pyha">Pyha</a>.
+      <div class="poweredby">powered by <a href="http://github.com/komagata/pyha">Pyha</a></div>
     </div>
   </body>
 </html>

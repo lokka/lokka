@@ -265,6 +265,12 @@ module Pyha
       redirect '/admin/themes'
     end
 
+    # plugin
+    get '/admin/plugins' do
+      login_required
+      render_any :'plugins/index'
+    end
+
     # site
     get '/admin/site/edit' do
       login_required
