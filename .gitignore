@@ -2,3 +2,4 @@ db.sqlite3
 tmp/*
 bundle
 log/*.log
+*.csv

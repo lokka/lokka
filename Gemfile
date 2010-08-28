@@ -16,6 +16,7 @@ gem 'builder', '2.1.2'
 gem 'haml', '3.0.17'
 gem 'fastercsv'
 gem 'shotgun'
+gem 'rake'
 
 group :production do
   gem 'dm-postgres-adapter', '1.0.0'

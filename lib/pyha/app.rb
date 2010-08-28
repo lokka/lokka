@@ -66,7 +66,7 @@ module Pyha
     
     get '/admin/posts/new' do
       login_required
-      @post = Post.new
+      @post = Post.new(:created_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'posts/new'
     end
@@ -78,6 +78,7 @@ module Pyha
       if @post.save
         redirect '/admin/posts'
       else
+        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'posts/new'
       end
     end
@@ -95,6 +96,7 @@ module Pyha
       if @post.update(params['post'])
         redirect "/admin/posts/#{id}/edit"
       else
+        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'posts/edit'
       end
     end

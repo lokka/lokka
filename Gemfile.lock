@@ -51,6 +51,7 @@ GEM
     rack (1.2.1)
     rack-flash (0.1.1)
       rack
+    rake (0.8.7)
     shotgun (0.8)
       rack (>= 1.0)
     shoulda (2.11.3)
@@ -81,6 +82,7 @@ DEPENDENCIES
   haml (= 3.0.17)
   i18n (= 0.4.1)
   rack-flash (= 0.1.1)
+  rake
   shotgun
   shoulda (= 2.11.3)
   sinatra (= 1.0.0)
