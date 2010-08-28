@@ -393,9 +393,7 @@ module Pyha
     get %r{/([0-9a-zA-Z-]+)} do |id_or_slug|
       @theme_types << :entry
 
-logger.info "id_or_slug: #{id_or_slug}"
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
-logger.info "@entry.title: #{@entry.title}"
 
       @title = "#{@entry.title} - #{@site.title}"
 
