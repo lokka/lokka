@@ -291,8 +291,7 @@ module Pyha
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add('Home', '/')
 
-#      render_detect :index, :entries
-      render_any :entries, :layout => :layout
+      render_detect :index, :entries
     end
 
     get '/index.atom' do
