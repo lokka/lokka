@@ -18,6 +18,10 @@ module Pyha
       use Rack::Flash
     end
 
+    configure :development do
+      DataMapper::Logger.new(STDOUT, :debug)
+    end
+
     register Sinatra::R18n
     register Sinatra::Logger
     register Pyha::Before
@@ -117,7 +121,7 @@ module Pyha
     
     get '/admin/pages/new' do
       login_required
-      @page = Page.new
+      @page = Page.new(:created_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'pages/new'
     end
