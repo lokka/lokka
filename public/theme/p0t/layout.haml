@@ -8,7 +8,7 @@
     %title== #{@site.title}
     %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
     %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
-    %link{:rel => 'stylesheet', :href => '/theme/p0t/style.css', :type => 'text/css'}
+    %link{:rel => 'stylesheet', :href => "#{@theme.path}/style.css", :type => 'text/css'}
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
   %body
     #header
