@@ -30,7 +30,7 @@ module Pyha
     end
     
     get '/admin/login' do
-      render_any :login
+      render_any :login, :layout => false
     end
     
     post '/admin/login' do
@@ -55,20 +55,6 @@ module Pyha
       flash[:notice] = 'Logout successful'
       redirect '/admin/login'
     end
-    
-    get '/admin/signup' do
-      render_any :signup
-    end
-    
-#    post '/admin/signup' do
-#      @user = User.new(params[:user])
-#      if @user.save
-#        session[:user] = @user.id
-#        redirect '/admin/'
-#      else
-#        render_any :signup
-#      end
-#    end
     
     # posts
     get '/admin/posts' do
