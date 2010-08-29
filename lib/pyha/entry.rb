@@ -41,7 +41,7 @@ class Entry
   end
 
   def fuzzy_slug
-    slug || id
+    slug.blank? ? id : slug
   end
 
   def link
