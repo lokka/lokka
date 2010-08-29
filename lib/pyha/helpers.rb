@@ -3,11 +3,12 @@ module Pyha
     def index?;     @theme_types.include?(:index); end
     def search?;    @theme_types.include?(:search); end
     def category?;  @theme_types.include?(:category); end
+    def tag?;       @theme_types.include?(:tag); end
     def yearly?;    @theme_types.include?(:yearly); end
     def monthly?;   @theme_types.include?(:monthly); end
     def daily?;     @theme_types.include?(:daily); end
-    def entry?;  @theme_types.include?(:entry); end
-    def entries?; @theme_types.include?(:entries); end
+    def entry?;     @theme_types.include?(:entry); end
+    def entries?;   @theme_types.include?(:entries); end
 
     def hash_to_query_string(hash)
       hash.collect {|k,v| "#{k}=#{v}"}.join('&')
