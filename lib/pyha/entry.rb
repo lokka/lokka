@@ -15,7 +15,7 @@ class Entry
   belongs_to :category, :required => false
   has n, :comments
 
-  has_tags_on :tags
+  has_tags
 
   default_scope(:default).update(:order => [:created_at.desc])
 

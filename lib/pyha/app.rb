@@ -19,7 +19,7 @@ module Pyha
     end
 
     configure :development do
-      DataMapper::Logger.new(STDOUT, :debug)
+#      DataMapper::Logger.new(STDOUT, :debug)
     end
 
     register Sinatra::R18n
@@ -353,6 +353,24 @@ module Pyha
       @bread_crumbs.add(@category.title, @category.link)
 
       render_detect :category, :entries
+    end
+
+    # tag
+    get '/tags/:tag/' do |tag|
+      @theme_types << :tag
+      @theme_types << :entries
+
+      @tag = Tag.first(:name => tag)
+      return 404 if @tag.nil?
+      @posts = Post.all(:id.in => @tag.taggings.map(&:taggable_id)).
+                    page(params[:page], :per_page => settings.per_page)
+      @title = "#{@tag.name} - #{@site.title}"
+
+      @bread_crumbs = BreadCrumb.new
+      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(@tag.name, @tag.link)
+
+      render_detect :tag, :entries
     end
 
     # monthly
