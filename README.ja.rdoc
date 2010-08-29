@@ -1,6 +1,14 @@
 = Pyha
 
-PyhaはRubyで作られたクラウド環境向けのブログ／CMSです。
+Rubyで書かれたクラウドの為のCMS。
+
+== 特徴
+
+* Windows, Mac, Linuxに加え、Google App Engine, Heroku等のクラウド環境でも動作します。
+* WordPressを参考にして、WordPressユーザーに分かりやすく作られています。
+* インストールが簡単。
+* デザイナーにとってテーマを作るのが簡単。
+* RubyistにとってクリーンなプラグインAPI。
 
 == インストール
 
