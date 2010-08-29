@@ -19,7 +19,7 @@ module Pyha
     end
 
     configure :development do
-#      DataMapper::Logger.new(STDOUT, :debug)
+      DataMapper::Logger.new(STDOUT, :debug)
     end
 
     register Sinatra::R18n
@@ -28,6 +28,7 @@ module Pyha
     helpers Pyha::Helpers
 
     set :logger_level, :debug
+    set :logger_log_file, Proc.new { File.join(root, 'tmp') }
 
     get '/admin/' do
       login_required
