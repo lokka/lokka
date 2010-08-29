@@ -2,8 +2,6 @@ module Pyha
   module Before
     def self.registered(app)
       app.before do
-        logger.info "path_info: #{request.path_info}"
-
         @site = Site.first
         @title = @site.title
         @theme = Theme.new(settings.theme)
@@ -27,12 +25,12 @@ module Pyha
             year_months[year_month] += 1
           end
   
-          year_month_day = post.created_at.strftime('%Y-%m-%d')
-          if year_month_days[year_month_day].nil?
-            year_month_days[year_month_day] = 1
-          else
-            year_month_days[year_month_day] += 1
-          end
+#          year_month_day = post.created_at.strftime('%Y-%m-%d')
+#          if year_month_days[year_month_day].nil?
+#            year_month_days[year_month_day] = 1
+#          else
+#            year_month_days[year_month_day] += 1
+#          end
         end
         @years = []
         years.each do |year, count|
@@ -45,12 +43,12 @@ module Pyha
           @year_months << OpenStruct.new({:year => year, :month => month, :count => count})
         end
         @year_months.sort! {|x, y| y.year + y.month <=> x.year + x.month }
-        @year_month_days = []
-        year_month_days.each do |year_month_day, count|
-          year, month, day = year_month_day.split('-')
-          @year_month_days << OpenStruct.new({:year => year, :month => month, :day => day, :count => count})
-        end
-        @year_month_days.sort! {|x, y| y.year + y.month + y.day <=> x.year + x.month + x.day }
+#        @year_month_days = []
+#        year_month_days.each do |year_month_day, count|
+#          year, month, day = year_month_day.split('-')
+#          @year_month_days << OpenStruct.new({:year => year, :month => month, :day => day, :count => count})
+#        end
+#        @year_month_days.sort! {|x, y| y.year + y.month + y.day <=> x.year + x.month + x.day }
       end
     end
   end
