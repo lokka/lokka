@@ -15,11 +15,8 @@ class Category
   has n, :entries
 
   def self.get_by_fuzzy_slug(str)
-    if ret = first(:slug => str)
-      ret
-    else
-      first(:id => str)
-    end
+    ret = first(:slug => str)
+    ret.blank? ? get(str) : ret
   end
 
   def fuzzy_slug

@@ -418,6 +418,7 @@ module Pyha
       @theme_types << :entry
 
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+      return 404 if @entry.blank?
 
       @title = "#{@entry.title} - #{@site.title}"
 
@@ -434,8 +435,8 @@ module Pyha
       render_any :entry
     end
 
-    error 404 do
-      'File not found'
+    not_found do
+      haml :'system/404', :layout => false
     end
   end
 end
