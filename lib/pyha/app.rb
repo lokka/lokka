@@ -1,7 +1,7 @@
 module Pyha
   class App < Sinatra::Base
     configure do
-      enable :method_override
+      enable :method_override, :raise_errors
       set :root, File.expand_path('../../..', __FILE__)
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
@@ -13,7 +13,7 @@ module Pyha
       set :haml, :ugly => false, :attr_wrapper => '"'
       set :logger_level, :debug
       set :logger_log_file, Proc.new { File.join(root, 'tmp') }
-  
+
       register Sinatra::R18n
       register Sinatra::Logger
       register Pyha::Before
@@ -23,6 +23,7 @@ module Pyha
         :expire_after => 60 * 60 * 24 * 12,
         :secret => '_p_y_h_a_'
       use Rack::Flash
+      use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key'
     end
 
     configure :production do
@@ -37,11 +38,11 @@ module Pyha
       login_required
       render_any :index
     end
-    
+
     get '/admin/login' do
       render_any :login, :layout => false
     end
-    
+
     post '/admin/login' do
       @user = User.authenticate(params[:name], params[:password])
       if @user
@@ -57,14 +58,14 @@ module Pyha
         render_any :login, :layout => false
       end
     end
-    
+
     get '/admin/logout' do
       login_required
       session[:user] = nil
       flash[:notice] = 'Logout successful'
       redirect '/admin/login'
     end
-    
+
     # posts
     get '/admin/posts' do
       login_required
@@ -72,14 +73,14 @@ module Pyha
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'posts/index'
     end
-    
+
     get '/admin/posts/new' do
       login_required
       @post = Post.new(:created_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'posts/new'
     end
-    
+
     post '/admin/posts' do
       login_required
       @post = Post.new(params['post'])
@@ -91,14 +92,14 @@ module Pyha
         render_any :'posts/new'
       end
     end
-    
+
     get '/admin/posts/:id/edit' do |id|
       login_required
       @post = Post.get(id)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'posts/edit'
     end
-    
+
     put '/admin/posts/:id' do |id|
       login_required
       @post = Post.get(id)
@@ -114,7 +115,7 @@ module Pyha
       Post.get(id).destroy
       redirect "/admin/posts"
     end
-    
+
     # pages
     get '/admin/pages' do
       login_required
@@ -122,14 +123,14 @@ module Pyha
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'pages/index'
     end
-    
+
     get '/admin/pages/new' do
       login_required
       @page = Page.new(:created_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'pages/new'
     end
-    
+
     post '/admin/pages' do
       login_required
       @page = Page.new(params['page'])

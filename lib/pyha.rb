@@ -18,6 +18,7 @@ require 'dm-tags'
 require 'dm-pager'
 require 'haml'
 require 'builder'
+require 'exceptional'
 
 require 'pyha/theme'
 require 'pyha/user'

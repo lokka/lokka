@@ -45,6 +45,7 @@ GEM
       data_objects (= 0.10.2)
     do_sqlite3 (0.10.2)
       data_objects (= 0.10.2)
+    exceptional (2.0.25)
     extlib (0.9.15)
     fastercsv (1.5.3)
     haml (3.0.17)
@@ -86,6 +87,7 @@ DEPENDENCIES
   dm-timestamps (= 1.0.0)
   dm-types (= 1.0.0)
   dm-validations (= 1.0.0)
+  exceptional
   fastercsv
   haml (= 3.0.17)
   i18n (= 0.4.1)
