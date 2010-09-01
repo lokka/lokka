@@ -12,7 +12,7 @@ Rubyで書かれたクラウドの為のCMS。
 
 == インストール
 
-  $ gem install bundler --pre
+  $ gem install bundler
   $ git clone git://github.com/komagata/pyha.git
   $ cd pyha
   $ rake install

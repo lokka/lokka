@@ -6,7 +6,7 @@ module Pyha
         @title = @site.title
         @theme = Theme.new(settings.theme)
         @theme_types = []
-  
+
         years = {}
         year_months = {}
         year_month_days = {}
@@ -17,14 +17,14 @@ module Pyha
           else
             years[year] += 1
           end
-  
+
           year_month = post.created_at.strftime('%Y-%m')
           if year_months[year_month].nil?
             year_months[year_month] = 1
           else
             year_months[year_month] += 1
           end
-  
+
 #          year_month_day = post.created_at.strftime('%Y-%m-%d')
 #          if year_month_days[year_month_day].nil?
 #            year_month_days[year_month_day] = 1

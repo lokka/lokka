@@ -66,19 +66,20 @@ module Pyha
     end
 
     def render_detect(*names)
-      ret = nil
+      ret = ''
       names.each do |name|
-        buf = render_any(name)
-        unless buf.empty?
-          ret = buf
+        out = render_any(name)
+        unless out.blank?
+          ret = out
           break
         end
       end
-      ret
-    end
 
-    def render_any(name, options = {})
-      rendering(name, options)
+      if ret.blank?
+        raise Pyha::NoTemplateError, 'Template not found.'
+      else
+        ret
+      end
     end
 
     def partial(name, options = {})
@@ -86,24 +87,31 @@ module Pyha
       rendering(name, options)
     end
 
-    def rendering(name, options = {})
+    def render_any(name, options = {})
       ret = ''
-      locals = options[:locals] ? {:locals => options[:locals]} : {}
-      dir = request.path_info =~ %r{^/admin/.*} ? 'admin' : "theme/#{@theme.name}"
-
       settings.supported_templates.each do |ext|
-        layout = "#{dir}/layout"
-        if File.exist?("#{settings.views}/#{layout}.#{ext}")
-          options[:layout] = layout.to_sym if options[:layout].nil?
-        end
-
-        path = "#{dir}/#{name}"
-        if File.exist?("#{settings.views}/#{path}.#{ext}")
-          ret = send(ext.to_sym, path.to_sym, options, locals)
+        out = rendering(ext, name, options)
+        unless out.blank?
+          ret = out
           break
         end
       end
       ret
+    end
+
+    def rendering(ext, name, options = {})
+      locals = options[:locals] ? {:locals => options[:locals]} : {}
+      dir = request.path_info =~ %r{^/admin/.*} ? 'admin' : "theme/#{@theme.name}"
+
+      layout = "#{dir}/layout"
+      if File.exist?("#{settings.views}/#{layout}.#{ext}")
+        options[:layout] = layout.to_sym if options[:layout].nil?
+      end
+
+      path = "#{dir}/#{name}"
+      if File.exist?("#{settings.views}/#{path}.#{ext}")
+        send(ext.to_sym, path.to_sym, options, locals)
+      end
     end
 
     def link_to(name, url, options = {})

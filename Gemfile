@@ -15,9 +15,8 @@ gem 'dm-tags', '1.0.0'
 gem 'builder', '2.1.2'
 gem 'haml', '3.0.17'
 gem 'fastercsv'
-gem 'shotgun'
 gem 'rake'
-gem 'thin'
+gem 'shotgun'
 
 group :production do
   gem 'dm-postgres-adapter', '1.0.0'
@@ -29,5 +28,9 @@ end
 
 group :test do
   gem 'shoulda', '2.11.3'
+  gem 'rack-test', :require => 'rack/test'
   gem 'dm-sqlite-adapter'
+  gem 'autotest'
+  gem 'autotest-growl', :require => 'autotest/growl'
+  gem 'rcov'
 end

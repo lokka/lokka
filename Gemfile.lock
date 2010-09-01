@@ -2,8 +2,10 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.2.0)
+    autotest (4.3.2)
+    autotest-growl (0.2.4)
+      autotest (>= 4.2.4)
     builder (2.1.2)
-    daemons (1.1.0)
     data_objects (0.10.2)
       addressable (~> 2.1)
     dm-aggregates (1.0.0)
@@ -43,7 +45,6 @@ GEM
       data_objects (= 0.10.2)
     do_sqlite3 (0.10.2)
       data_objects (= 0.10.2)
-    eventmachine (0.12.10)
     extlib (0.9.15)
     fastercsv (1.5.3)
     haml (3.0.17)
@@ -53,7 +54,10 @@ GEM
     rack (1.2.1)
     rack-flash (0.1.1)
       rack
+    rack-test (0.5.4)
+      rack (>= 1.0)
     rake (0.8.7)
+    rcov (0.9.8)
     shotgun (0.8)
       rack (>= 1.0)
     shoulda (2.11.3)
@@ -64,16 +68,14 @@ GEM
     sinatra-r18n (0.4.7.1)
       r18n-core (= 0.4.7.1)
     stringex (1.1.0)
-    thin (1.2.7)
-      daemons (>= 1.0.9)
-      eventmachine (>= 0.12.6)
-      rack (>= 1.0.0)
     uuidtools (2.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  autotest
+  autotest-growl
   builder (= 2.1.2)
   dm-is-tree (= 1.0.0)
   dm-migrations (= 1.0.0)
@@ -88,10 +90,11 @@ DEPENDENCIES
   haml (= 3.0.17)
   i18n (= 0.4.1)
   rack-flash (= 0.1.1)
+  rack-test
   rake
+  rcov
   shotgun
   shoulda (= 2.11.3)
   sinatra (= 1.0.0)
   sinatra-logger (= 0.1.0)
   sinatra-r18n (= 0.4.7.1)
-  thin

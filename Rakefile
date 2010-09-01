@@ -1,8 +1,43 @@
 require 'init'
 
+task :default => :test
+
+desc 'Run all tests'
+task :test => 'test:prepare' do
+   require 'rake/testtask'
+   Rake::TestTask.new do |t|
+      t.test_files = FileList[File.join('test', '**', '*_test.rb')]
+   end
+end
+
+task :rcov do
+  tests = Dir.glob('test/**/*_test.rb').join(' ')
+  system "rcov -x bundle #{tests}"
+end
+
+desc 'Prepare test'
+task 'test:prepare' => 'db:migrate' do
+  User.create(:name => 'test', :password => 'test', :password_confirmation => 'test')
+  Site.create(:title => 'Test Site', :description => 'description...', :theme => 'default')
+  Post.create(
+    :id          => 1,
+    :user_id     => 1,
+    :category_id => 1,
+    :title       => "Test Post ...",
+    :body        => "body ...",
+    :slug        => "slug"
+  )
+end
+
 desc 'Create the Pyha database'
 task 'db:migrate' do
-  DataMapper.auto_migrate!
+  User.auto_migrate!
+  Site.auto_migrate!
+  Entry.auto_migrate!
+  Category.auto_migrate!
+  Tag.auto_migrate!
+  Tagging.auto_migrate!
+  Comment.auto_migrate!
 end
 
 desc 'Execute seed script'

@@ -32,4 +32,5 @@ require 'pyha/helpers'
 require 'pyha/app'
 
 module Pyha
+  class NoTemplateError < StandardError; end
 end

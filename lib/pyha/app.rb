@@ -1,34 +1,37 @@
 module Pyha
   class App < Sinatra::Base
-    enable :method_override
-    set :root, File.expand_path('../../..', __FILE__)
-    set :public => Proc.new { File.join(root, 'public') }
-    set :views => Proc.new { public }
-    set :theme => Proc.new { File.join(public, 'theme') }
-    set :supported_templates => %w(erb haml)
-    set :per_page, 10
-    set :admin_per_page, 50
-    set :default_locale, 'en'
-    set :haml, :ugly => false, :attr_wrapper => '"'
-
     configure do
+      enable :method_override
+      set :root, File.expand_path('../../..', __FILE__)
+      set :public => Proc.new { File.join(root, 'public') }
+      set :views => Proc.new { public }
+      set :theme => Proc.new { File.join(public, 'theme') }
+      set :supported_templates => %w(erb haml erubis)
+      set :per_page, 10
+      set :admin_per_page, 50
+      set :default_locale, 'en'
+      set :haml, :ugly => false, :attr_wrapper => '"'
+      set :logger_level, :debug
+      set :logger_log_file, Proc.new { File.join(root, 'tmp') }
+  
+      register Sinatra::R18n
+      register Sinatra::Logger
+      register Pyha::Before
+      helpers Pyha::Helpers
+
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12,
         :secret => '_p_y_h_a_'
       use Rack::Flash
     end
 
-    configure :development do
-      DataMapper::Logger.new(STDOUT, :debug)
+    configure :production do
+      DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{root}/production.sqlite3")
     end
 
-    register Sinatra::R18n
-    register Sinatra::Logger
-    register Pyha::Before
-    helpers Pyha::Helpers
-
-    set :logger_level, :debug
-    set :logger_log_file, Proc.new { File.join(root, 'tmp') }
+    configure :development do
+      DataMapper.setup(:default, "sqlite3://#{root}/development.sqlite3")
+    end
 
     get '/admin/' do
       login_required
@@ -306,6 +309,7 @@ module Pyha
       @bread_crumbs.add('Home', '/')
 
       render_detect :index, :entries
+#      render_any :entries
     end
 
     get '/index.atom' do
