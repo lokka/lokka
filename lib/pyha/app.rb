@@ -23,7 +23,7 @@ module Pyha
         :expire_after => 60 * 60 * 24 * 12,
         :secret => '_p_y_h_a_'
       use Rack::Flash
-      use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key'
+      use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key' if ENV['RACK_ENV'] == 'production'
     end
 
     configure :production do
