@@ -446,6 +446,8 @@ module Pyha
     end
 
     not_found do
+      logger.debug "path_info: #{request.path_info}"
+      logger.debug "views, theme: #{options.views}, #{options.theme}"
       haml :'system/404', :layout => false
     end
 
