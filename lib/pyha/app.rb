@@ -11,11 +11,11 @@ module Pyha
       set :admin_per_page, 50
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
+      register Sinatra::Logger
       set :logger_level, :debug
-      set :logger_log_file, Proc.new { File.join(root, 'tmp') }
+      set :logger_log_file, Proc.new { File.join(root, 'tmp', "#{environment}.log") }
 
       register Sinatra::R18n
-      register Sinatra::Logger
       register Pyha::Before
       helpers Pyha::Helpers
 
@@ -311,7 +311,9 @@ module Pyha
 
       logger.debug "root: #{settings.root}"
       logger.debug "public: #{settings.public}"
+      logger.debug "views: #{settings.views}"
       logger.debug "theme: #{settings.theme}"
+
       render_detect :index, :entries
 #      render_any :entries
     end
