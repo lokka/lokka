@@ -309,6 +309,9 @@ module Pyha
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add('Home', '/')
 
+      logger.debug "root: #{settings.root}"
+      logger.debug "public: #{settings.public}"
+      logger.debug "theme: #{settings.theme}"
       render_detect :index, :entries
 #      render_any :entries
     end

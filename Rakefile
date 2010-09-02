@@ -117,8 +117,8 @@ desc 'Import csv'
 task 'import:csv' do
   require 'fastercsv'
 
-  User.create(:name => 'test', :password => 'test', :password_confirmation => 'test')
-  Site.create(:title => 'Test Site', :description => 'description...', :theme => 'default')
+  User.create(:name => 'komagata', :password => 'test', :password_confirmation => 'test')
+  Site.create(:title => 'komagata [p0t]', :description => 'ガチ鬱プログラマー日記', :theme => 'p0t')
 
   FasterCSV.foreach('posts.csv', :headers => true) do |r|
     puts "#{r['id']}, #{r['title']}"

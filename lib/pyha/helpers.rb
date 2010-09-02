@@ -101,6 +101,7 @@ module Pyha
 
     def rendering(ext, name, options = {})
       locals = options[:locals] ? {:locals => options[:locals]} : {}
+      logger.debug "theme: #{@theme.name}"
       dir = request.path_info =~ %r{^/admin/.*} ? 'admin' : "theme/#{@theme.name}"
 
       layout = "#{dir}/layout"
