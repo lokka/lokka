@@ -1,7 +1,7 @@
 module Pyha
   class App < Sinatra::Base
     configure do
-      enable :method_override, :raise_errors
+      enable :method_override, :raise_errors, :static
       set :root, File.expand_path('../../..', __FILE__)
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
@@ -385,7 +385,7 @@ module Pyha
     end
 
     # monthly
-    get %r{/([\d]{4})/([\d]{2})/} do |year, month|
+    get %r{^/([\d]{4})/([\d]{2})/$} do |year, month|
       @theme_types << :monthly
       @theme_types << :entries
 
@@ -405,7 +405,7 @@ module Pyha
     end
 
     # yearly
-    get %r{/([\d]{4})/} do |year|
+    get %r{^/([\d]{4})/$} do |year|
       @theme_types << :yearly
       @theme_types << :entries
 
@@ -424,7 +424,7 @@ module Pyha
     end
 
     # entry
-    get %r{/([0-9a-zA-Z-]+)} do |id_or_slug|
+    get %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)

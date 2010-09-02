@@ -102,14 +102,14 @@ module Pyha
     def rendering(ext, name, options = {})
       locals = options[:locals] ? {:locals => options[:locals]} : {}
       dir = request.path_info =~ %r{^/admin/.*} ? 'admin' : "theme/#{@theme.name}"
-      logger.debug "ext, name, theme, dir: #{ext}, #{name}, #{@theme.name}, #{dir}"
-
       layout = "#{dir}/layout"
+      path = "#{dir}/#{name}"
+
+      logger.debug "ext, name, theme, dir, file: #{ext}, #{name}, #{@theme.name}, #{dir}, #{settings.views}/#{path}.#{ext}"
+
       if File.exist?("#{settings.views}/#{layout}.#{ext}")
         options[:layout] = layout.to_sym if options[:layout].nil?
       end
-
-      path = "#{dir}/#{name}"
       if File.exist?("#{settings.views}/#{path}.#{ext}")
         send(ext.to_sym, path.to_sym, options, locals)
       end
