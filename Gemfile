@@ -18,6 +18,7 @@ gem 'fastercsv'
 gem 'rake'
 gem 'shotgun'
 gem 'exceptional'
+gem 'thin'
 
 group :production do
   gem 'dm-postgres-adapter', '1.0.0'

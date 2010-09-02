@@ -6,6 +6,7 @@ GEM
     autotest-growl (0.2.4)
       autotest (>= 4.2.4)
     builder (2.1.2)
+    daemons (1.1.0)
     data_objects (0.10.2)
       addressable (~> 2.1)
     dm-aggregates (1.0.0)
@@ -45,6 +46,7 @@ GEM
       data_objects (= 0.10.2)
     do_sqlite3 (0.10.2)
       data_objects (= 0.10.2)
+    eventmachine (0.12.10)
     exceptional (2.0.25)
     extlib (0.9.15)
     fastercsv (1.5.3)
@@ -69,6 +71,10 @@ GEM
     sinatra-r18n (0.4.7.1)
       r18n-core (= 0.4.7.1)
     stringex (1.1.0)
+    thin (1.2.7)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     uuidtools (2.1.1)
 
 PLATFORMS
@@ -100,3 +106,4 @@ DEPENDENCIES
   sinatra (= 1.0.0)
   sinatra-logger (= 0.1.0)
   sinatra-r18n (= 0.4.7.1)
+  thin

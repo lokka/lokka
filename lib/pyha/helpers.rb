@@ -76,7 +76,7 @@ module Pyha
       end
 
       if ret.blank?
-        raise Pyha::NoTemplateError, 'Template not found.'
+        raise Pyha::NoTemplateError, "Template not found. #{[names.join(', ')]}"
       else
         ret
       end
