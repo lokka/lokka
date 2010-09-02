@@ -90,6 +90,13 @@ task 'db:seed' do
     :parent_id => 1)
 end
 
+desc 'Init database'
+task 'db:init' => %w(db:migrate) do
+  User.create(:name => 'test', :password => 'test', :password_confirmation => 'test')
+  Site.create(:title => 'Test Site', :description => 'description...', :theme => 'default')
+  Post.create(:title => "Test Post ...", :body => "body ...", :user_id => 1)
+end
+
 desc 'Set database'
 task 'db:set' => %w(db:migrate db:seed)
 
