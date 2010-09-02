@@ -319,10 +319,9 @@ module Pyha
     end
 
     get '/index.atom' do
-      settings.views = File.join(settings.public, 'system') 
       @posts = Post.page(params[:page], :per_page => settings.per_page)
       content_type 'application/atom+xml', :charset => 'utf-8'
-      builder :index
+      builder :'system/index'
     end
 
     # search
