@@ -13,13 +13,13 @@
   %body.index
     #header
       .eye_catch
-        %h1= link_to @site.title, '/'
+        %h1=  @site.title
         %h2 CMS for Cloud
-      .description
-        %p= @site.description
-        %ul
-          %li.cloud cloud
-          %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
+        .description
+          %p= @site.description
+          %ul
+            %li.cloud cloud
+            %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
       .capture= link_to 'download', 'http://github.com/komagata/pyha'
       .nav
         %ul
@@ -30,7 +30,7 @@
           %li= link_to 'ダウンロード', '/'
           %li= link_to 'テーマ', '/'
           %li= link_to 'プラグイン', '/'
-    #content
+    #container
       #main
         = yield
       - unless index?
