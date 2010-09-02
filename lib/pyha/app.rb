@@ -443,5 +443,9 @@ module Pyha
     not_found do
       haml :'system/404', :layout => false
     end
+
+    error do
+      'Error: ' + env['sinatra.error'].name
+    end
   end
 end
