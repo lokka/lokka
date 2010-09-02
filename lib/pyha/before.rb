@@ -7,7 +7,7 @@ module Pyha
         @theme = Theme.new(settings.theme)
         @theme_types = []
 
-        logger.debug "path_info: #{requiest.path_info}"
+        logger.debug "path_info: #{request.path_info}"
       end
     end
   end
