@@ -145,5 +145,24 @@ module Pyha
       end
       html + '</select>'
     end
+
+    def months
+      ms = {}
+      Post.all.each do |post|
+        m = post.created_at.strftime('%Y-%m')
+        if ms[m].nil?
+          ms[m] = 1
+        else
+          ms[m] += 1
+        end
+      end
+
+      months = []
+      ms.each do |m, count|
+        year, month = m.split('-')
+        months << OpenStruct.new({:year => year, :month => month, :count => count})
+      end
+      months.sort {|x, y| y.year + y.month <=> x.year + x.month }
+    end
   end
 end

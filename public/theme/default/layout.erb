@@ -45,8 +45,8 @@
           <dt>Archives</dt>
           <dd>
             <ul>
-              <% @year_months.each do |year_month| %>
-              <li><a href="/<%= year_month.year %>/<%= year_month.month %>/"><%= year_month.year %>/<%= year_month.month %></a></li>
+              <% months.each do |month| %>
+              <li><a href="/<%= month.year %>/<%= month.month %>/"><%= month.year %>/<%= month.month %></a></li>
               <% end %>
             </ul>
           </dd>
