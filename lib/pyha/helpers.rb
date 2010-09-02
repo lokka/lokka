@@ -84,7 +84,7 @@ module Pyha
 
     def partial(name, options = {})
       options[:layout] = false
-      rendering(name, options)
+      render_any(name, options)
     end
 
     def render_any(name, options = {})
