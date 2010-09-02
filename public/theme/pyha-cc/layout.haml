@@ -1,0 +1,83 @@
+!!! XML
+!!!
+%html
+  %head
+    %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
+    %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
+    %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
+    %title== #{@site.title}
+    %link{:rel => 'shortcut icon', :href => "#{@theme.path}/favicon.ico"}
+    %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
+    %link{:rel => 'stylesheet', :href => "#{@theme.path}/style.css", :type => 'text/css'}
+    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
+  %body.index
+    #header
+      .eye_catch
+        %h1= link_to @site.title, '/'
+        %h2 CMS for Cloud
+      .description
+        %p= @site.description
+        %ul
+          %li.cloud cloud
+          %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
+      .capture= link_to 'download', 'http://github.com/komagata/pyha'
+      .nav
+        %ul
+          %li.home= link_to 'ホーム', '/'
+          %li= link_to 'はじめよう', '/'
+          %li= link_to 'ドキュメント', '/'
+          %li= link_to 'フォーラム', '/'
+          %li= link_to 'ダウンロード', '/'
+          %li= link_to 'テーマ', '/'
+          %li= link_to 'プラグイン', '/'
+    #content
+      #main
+        = yield
+      - unless index?
+        #aside
+          %dl
+            %dt= t.recent_entries
+            %dd
+              %ul
+                - Post.recent(5).each do |post|
+                  %li= link_to post.title, post.link
+    #footer
+      .sections
+        .section
+          %h3 ああああああああああ
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+        .section
+          %h3 ああああああああああ
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+        .section
+          %h3 ああああああああああ
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+          %ul
+            %li= link_to 'ああああああああ', ''
+      .copy
+        pyha
