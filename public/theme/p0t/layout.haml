@@ -5,7 +5,10 @@
     %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
     %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
     %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
-    %title== #{@site.title}
+    - if entry?
+      %title== #{@entry.title} - #{@site.title}
+    - else
+      %title= @site.title
     %link{:rel => 'shortcut icon', :href => "#{@theme.path}/favicon.ico"}
     %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
     %link{:rel => 'stylesheet', :href => "#{@theme.path}/style.css", :type => 'text/css'}

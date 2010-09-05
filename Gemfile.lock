@@ -66,6 +66,8 @@ GEM
     shoulda (2.11.3)
     sinatra (1.0)
       rack (>= 1.0)
+    sinatra-content-for (0.2)
+      sinatra
     sinatra-logger (0.1.0)
       sinatra (>= 0.10.1)
     sinatra-r18n (0.4.7.1)
@@ -104,6 +106,7 @@ DEPENDENCIES
   shotgun
   shoulda (= 2.11.3)
   sinatra (= 1.0.0)
+  sinatra-content-for
   sinatra-logger (= 0.1.0)
   sinatra-r18n (= 0.4.7.1)
   thin

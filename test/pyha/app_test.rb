@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require 'pyha'
 require 'pyha/app'
 
 class AppTest < Test::Unit::TestCase

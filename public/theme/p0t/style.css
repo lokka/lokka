@@ -107,7 +107,7 @@ blockquote {
   border-top: 8px solid #ec189a;
   padding: 1em 0 0 1em;
   height: 110px;
-  background: url(logo.png) no-repeat;
+  background: url(images/logo.png) no-repeat;
   background-color: black;
 }
 #header .description {
