@@ -24,40 +24,43 @@
     #content.clear
       #aside
         %ul
-          %li
-            = t.posts
+          %li.post
+            %h3= t.posts
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/posts'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/posts/new'}= t.new
-          %li
-            = t.pages
+          %li.page
+            %h3= t.pages
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/pages'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/pages/new'}= t.new
-          %li
-            = t.categories
+          %li.category
+            %h3= t.categories
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/categories'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/categories/new'}= t.new
-          %li
-            = t.users
+          %li.user
+            %h3= t.users
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/users'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/users/new'}= t.new
-          %li
-            %a{:href => '/admin/themes'}= t.themes
-          %li
-            %a{:href => '/admin/plugins'}= t.plugins
-          %li
-            %a{:href => '/admin/site/edit'}= t.settings
+          %li.theme
+            %h3
+              %a{:href => '/admin/themes'}= t.themes
+          %li.plugin
+            %h3
+              %a{:href => '/admin/plugins'}= t.plugins
+          %li.setting
+            %h3
+              %a{:href => '/admin/site/edit'}= t.settings
       #main
         = yield
     #footer

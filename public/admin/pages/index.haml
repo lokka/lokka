@@ -1,5 +1,5 @@
 %h2= t.listing_pages
-%table
+%table.pages
   %tr
     %th= t.page.title
     %th= t.page.user
@@ -7,7 +7,7 @@
     %th{:colspan => 2}
   - @pages.each_with_index do |page, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
-      %td
+      %td.title
         %a{:href => "/admin/pages/#{page.id}/edit"}= page.title
       %td= post.user.name
       %td= l page.created_at.to_time

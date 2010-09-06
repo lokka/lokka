@@ -1,5 +1,5 @@
 %h2= t.listing_posts
-%table
+%table.posts
   %tr
     %th= t.post.title
     %th= t.post.user
@@ -7,7 +7,7 @@
     %th{:colspan => 2}
   - @posts.each_with_index do |post, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
-      %td
+      %td.title
         %a{:href => "/admin/posts/#{post.id}/edit"}= post.title
       %td= post.user.name
       %td= l post.created_at.to_time

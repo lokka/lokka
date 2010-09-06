@@ -117,11 +117,22 @@ label {
 }
 
 #main table td {
-  padding: 5px 10px;
+  padding: 10px 20px;
+}
+
+#main table td.title {
+  background: url(images/file.png) no-repeat scroll 10px 50% transparent;
+  padding-left: 30px;
 }
 
 .admin_login #main {
   margin: auto;
+}
+
+#aside h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
 }
 
 #aside ul {
@@ -136,8 +147,54 @@ label {
 }
 
 #aside ul li ul li {
-  padding-left: 10px;
   font-weight: normal;
+}
+#aside li.list {
+/*
+  background: url(images/files.png) no-repeat scroll 10px 50% transparent;
+*/
+  padding-left: 10px;
+}
+
+#aside li.new {
+/*
+  background: url(images/add.png) no-repeat scroll 10px 50% transparent;
+*/
+  padding-left: 10px;
+}
+#aside li.post h3 {
+  background: url(images/post.png) no-repeat scroll 0px 50% transparent;
+  padding-left: 20px;
+}
+
+#aside li.page h3 {
+  background: url(images/file.png) no-repeat scroll 0px 50% transparent;
+  padding-left: 20px;
+}
+
+#aside li.category h3 {
+  background: url(images/category.png) no-repeat scroll 0px 50% transparent;
+  padding-left: 20px;
+}
+
+#aside li.user h3 {
+  background: url(images/user.png) no-repeat scroll 0px 50% transparent;
+  padding-left: 20px;
+}
+
+#aside li.theme h3 {
+  background: url(images/theme.png) no-repeat scroll 0px 50% transparent;
+  padding-left: 20px;
+}
+
+#aside li.plugin h3 {
+  background: url(images/plugin.png) no-repeat scroll 0px 50% transparent;
+  padding-left: 20px;
+}
+
+#aside li.setting h3 {
+  background: url(images/setting.png) no-repeat scroll 0px 50% transparent;
+  padding-left: 20px;
 }
 
 #footer {
@@ -152,7 +209,7 @@ ul.themes {
   list-style: none;
 }
 
-li.theme {
+#main li.theme {
   float: left;
   padding: 0;
   margin: 10px;

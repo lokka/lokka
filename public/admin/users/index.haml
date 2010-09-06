@@ -1,5 +1,5 @@
 %h2= t.listing_users
-%table
+%table.users
   %tr
     %th= t.user.name
     %th= t.user.email
@@ -7,7 +7,7 @@
     %th{:colspan => 2}
   - @users.each_with_index do |user, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
-      %td
+      %td.name
         %a{:href => "/admin/users/#{user.id}/edit"}= user.name
       %td= user.email
       %td= l user.created_at.to_time
