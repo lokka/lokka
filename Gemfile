@@ -15,11 +15,9 @@ gem 'dm-pager', '1.1.0'
 gem 'dm-tags', '1.0.0'
 gem 'builder', '2.1.2'
 gem 'haml', '3.0.17'
-gem 'fastercsv'
 gem 'rake'
 gem 'shotgun'
 gem 'exceptional'
-gem 'thin'
 
 group :production do
   gem 'dm-postgres-adapter', '1.0.0'
