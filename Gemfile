@@ -32,4 +32,5 @@ group :test do
   gem 'rack-test', :require => 'rack/test'
   gem 'dm-sqlite-adapter'
   gem 'autotest'
+  gem 'autotest-growl', :require => 'autotest/growl'
 end

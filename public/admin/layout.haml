@@ -1,4 +1,3 @@
-!!! XML
 !!!
 %html
   %head
@@ -16,13 +15,13 @@
     #nav
       %ul
         - if logged_in?
-          %li= current_user.name
+          %li= link_to current_user.name, "/admin/users/#{current_user.id}/edit"
           %li
             %a{:href => '/admin/logout'}= t.logout
         - else
           %li
             %a{:href => '/admin/login'}= t.login
-    #content
+    #content.clear
       #aside
         %ul
           %li

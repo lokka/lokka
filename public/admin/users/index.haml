@@ -5,8 +5,8 @@
     %th= t.user.email
     %th= t.user.created_at
     %th{:colspan => 2}
-  - @users.each do |user|
-    %tr
+  - @users.each_with_index do |user, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
       %td
         %a{:href => "/admin/users/#{user.id}/edit"}= user.name
       %td= user.email

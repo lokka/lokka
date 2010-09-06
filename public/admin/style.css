@@ -1,7 +1,67 @@
+html,body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 11px;
+}
+
+.clear {
+  display: inline-block;
+}
+
+.clear:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+label {
+  color: #999;
+  font-weight: bold;
+}
+
+#header {
+  margin: 0;
+  padding: 3px 8px; 
+  border-bottom: 1px solid #717171;
+  background: #41527E;
+}
+
+#header a {
+  color: #fff;
+}
+
 #nav {
   position: absolute;
-  top: 1em;
-  right: 1em;
+  top: 3px;
+  right: 5px;
+}
+
+#nav a {
+  color: #fff;
 }
 
 #nav ul {
@@ -15,26 +75,77 @@
   display: inline;
 }
 
+#content {
+  overflow: hidden !important;
+  overflow: visible;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  width: 100%;
+}
+
+#content div {
+  float: left;
+  padding-bottom: 32767px !important;
+  margin-bottom: -32767px !important; 
+  padding-bottom: 0;
+  margin-bottom: 0; 
+  height: 100%;
+}
+
+#aside {
+  width: 150px;
+  background: #376C85;
+  background: #DDE2EB;
+  border-right: 1px solid #717171;
+  padding: 8px 0;
+  overflow: hidden;
+}
+
 #main {
-  margin-left: 150px;
+  padding: 10px 20px;
+  margin: auto;
+}
+
+#main table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+#main table tr.odd {
+  background: #f1f5fa;
+}
+
+#main table td {
+  padding: 5px 10px;
 }
 
 .admin_login #main {
   margin: auto;
 }
 
-
-#aside {
-  float: left;
-  width: 150px;
+#aside ul {
+  margin: 0 10px;
+  padding: 0;
+  list-style: none;
 }
 
-#aside ul {
+#aside ul li {
+  line-height: 22px;
+  font-weight: bold;
+}
+
+#aside ul li ul li {
+  padding-left: 10px;
+  font-weight: normal;
 }
 
 #footer {
   clear: both;
+  border-top: 1px solid #717171;
+  background: #ccc;
   text-align: center;
+  padding: 3px 0px;
 }
 
 ul.themes {

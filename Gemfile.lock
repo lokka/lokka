@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.2.0)
     autotest (4.3.2)
+    autotest-growl (0.2.5)
     builder (2.1.2)
     data_objects (0.10.2)
       addressable (~> 2.1)
@@ -75,6 +76,7 @@ PLATFORMS
 
 DEPENDENCIES
   autotest
+  autotest-growl
   builder (= 2.1.2)
   dm-is-tree (= 1.0.0)
   dm-migrations (= 1.0.0)

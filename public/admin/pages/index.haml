@@ -2,16 +2,14 @@
 %table
   %tr
     %th= t.page.title
-    %th= t.page.category
+    %th= t.page.user
     %th= t.page.created_at
     %th{:colspan => 2}
-  - @pages.each do |page|
-    %tr
+  - @pages.each_with_index do |page, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
       %td
         %a{:href => "/admin/pages/#{page.id}/edit"}= page.title
-      %td
-        - if page.category
-          %a{:href => "/admin/categories/#{page.category.id}/edit"}= page.category.title
+      %td= post.user.name
       %td= l page.created_at.to_time
       %td
         %a{:href => "/admin/pages/#{page.id}/edit"}= t.edit
