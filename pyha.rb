@@ -6,3 +6,4 @@ end
 Dir.chdir(File.dirname(__FILE__))
 
 _run 'bundle exec rackup'
+puts 'Show http://localhost:9292/'
