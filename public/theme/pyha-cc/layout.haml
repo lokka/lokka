@@ -23,13 +23,8 @@
       .capture= link_to 'download', 'http://github.com/komagata/pyha'
       .nav
         %ul
-          %li.home= link_to 'ホーム', '/'
           %li= link_to 'はじめよう', '/'
-          %li= link_to 'ドキュメント', '/'
-          %li= link_to 'フォーラム', '/'
-          %li= link_to 'ダウンロード', '/'
-          %li= link_to 'テーマ', '/'
-          %li= link_to 'プラグイン', '/'
+          %li= link_to 'ダウンロード', 'http://github.com/komagata/pyha/zipball/master'
     #container
       #main
         = yield
@@ -42,42 +37,5 @@
                 - Post.recent(5).each do |post|
                   %li= link_to post.title, post.link
     #footer
-      .sections
-        .section
-          %h3 ああああああああああ
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-        .section
-          %h3 ああああああああああ
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-        .section
-          %h3 ああああああああああ
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
-          %ul
-            %li= link_to 'ああああああああ', ''
       .copy
         pyha
