@@ -42,12 +42,6 @@ padding:5px 15px;
 -webkit-border-radius:6px;
 -moz-border-radius:6px;
 border-radius:6px;
-}
-
-
-
-.button:link, .button:visited {
-color:#444;
 background:none repeat scroll 0 0 #ccc;
 background:-moz-linear-gradient(#ccc, #bbb) repeat scroll 0 0 transparent;
 background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ccc), to(#bbb));
@@ -55,6 +49,12 @@ background: linear-gradient(#ccc, #bbb);
 -webkit-box-shadow:1px 1px 2px #bbb;
 -moz-box-shadow:1px 1px 2px #bbb;
 box-shadow:1px 1px 2px #bbb;
+}
+
+
+
+.button:link, .button:visited {
+color:#444;
 }
 .button:hover, .button:active ,input[type="submit"]:focus {
 background:-moz-linear-gradient(#e8e8e8, #eee) repeat scroll 0 0 transparent;
