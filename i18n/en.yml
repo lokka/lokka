@@ -1,0 +1,111 @@
+error: Error
+profile: Profile
+next: Next
+previous: Previous
+older_post: Older Post
+newer_post: Newer Post
+older: Older
+newer: Newer
+admin: Admin
+admin_page: Admin page
+dashboard: Dashboard
+login: Login
+logout: Logout
+signup: Signup
+users: Users
+categories: Categories
+posts: Posts
+pages: Pages
+comments: Comments
+themes: Themes
+plugins: Plugins
+settings: Settings
+site: Site
+list: List
+new: New
+edit: Edit
+delete: Delete
+about: About this site
+recent_entries:  Recent Entries
+tags: Tags
+archives: Archives
+search: Search
+others: Others
+feed: Feed
+listing_posts: Listing Posts
+listing_pages: Listing Pages
+listing_categories: Listing Categories
+listing_tags: Listing Tags
+listing_comments: Listing Comments
+listing_users: Listing Users
+listing_themes: Listing Themes
+listing_plugins: Listing Plugins
+new_post: New Post
+new_page: New Page
+new_category: New Category
+new_user: New User
+new_comment: New Comment
+edit_post: Edit Post
+edit_page: Edit Page
+edit_category: Edit Category
+edit_comment: Edit Comment
+edit_user:  Edit User
+edit_site: Edit Site
+are_you_sure: Are you sure?
+not_select: Not Select
+no_category: No Cateogry
+no_tag: No Tag
+no_post: No Post
+no_page: No Page
+no_user: No User
+no_comment: No Comment
+no_plugin: No Plugin
+page:
+  id: ID
+  slug: Slug
+  title: Title
+  body: Body
+  user: Author
+  category: Category
+  tags: Tags
+  created_at: Created at
+  updated_at: Updated at
+post:
+  id: ID
+  slug: Slug
+  title: Title
+  body: Body
+  user: Author
+  category: Category
+  tags: Tags
+  created_at: Created at
+  updated_at: Updated at
+category:
+  id: ID
+  slug: Slug
+  title: Title
+  description: Description
+  created_at: Created at
+  updated_at: Updated at
+user:
+  id: ID
+  name: Name
+  email: Email
+  password: Password
+  password_confirmation: Password Confirmation
+  created_at: Created at
+  updated_at: Updated at
+site:
+  id: ID
+  title: Title
+  description: Description
+  theme: Theme
+  created_at: Created at
+  updated_at: Updated at
+comment:
+  id: ID
+  name: Name
+  body: Body
+  homepage: Homepage
+  created_at: Created at
+  updated_at: Updated at

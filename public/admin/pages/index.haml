@@ -1,22 +1,20 @@
 %h2= t.listing_pages
-%table
+%table.pages
   %tr
     %th= t.page.title
-    %th= t.page.category
+    %th= t.page.user
     %th= t.page.created_at
     %th{:colspan => 2}
-  - @pages.each do |page|
-    %tr
-      %td
+  - @pages.each_with_index do |page, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td.title
         %a{:href => "/admin/pages/#{page.id}/edit"}= page.title
-      %td
-        - if page.category
-          %a{:href => "/admin/categories/#{page.category.id}/edit"}= page.category.title
+      %td= page.user.name
       %td= l page.created_at.to_time
       %td
-        %a{:href => "/admin/pages/#{page.id}/edit"}= t.edit
+        %a.button{:href => "/admin/pages/#{page.id}/edit"}= t.edit
       %td
-        = link_to t.delete, "/admin/pages/#{page.id}", :confirm => t.are_you_sure, :method => :delete
+        = link_to t.delete, "/admin/pages/#{page.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager
   %ul
     - if @pages.pager.previous_page

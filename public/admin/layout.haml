@@ -1,4 +1,3 @@
-!!! XML
 !!!
 %html
   %head
@@ -13,52 +12,55 @@
     #header
       %h1
         %a{:href => '/'}= @site.title
-    #nav
-      %ul
-        - if logged_in?
-          %li= current_user.name
-          %li
-            %a{:href => '/admin/logout'}= t.logout
-        - else
-          %li
-            %a{:href => '/admin/login'}= t.login
+      #nav
+        %ul
+          - if logged_in?
+            %li= link_to current_user.name, "/admin/users/#{current_user.id}/edit"
+            %li
+              %a{:href => '/admin/logout'}= t.logout
+          - else
+            %li
+              %a{:href => '/admin/login'}= t.login
     #content
       #aside
         %ul
-          %li
-            = t.posts
+          %li.post.parent
+            %h3.title= t.posts
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/posts'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/posts/new'}= t.new
-          %li
-            = t.pages
+          %li.page.parent
+            %h3.title= t.pages
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/pages'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/pages/new'}= t.new
-          %li
-            = t.categories
+          %li.category.parent
+            %h3.title= t.categories
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/categories'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/categories/new'}= t.new
-          %li
-            = t.users
+          %li.user.parent
+            %h3.title= t.users
             %ul
-              %li
+              %li.list
                 %a{:href => '/admin/users'}= t.list
-              %li
+              %li.new
                 %a{:href => '/admin/users/new'}= t.new
-          %li
-            %a{:href => '/admin/themes'}= t.themes
-          %li
-            %a{:href => '/admin/plugins'}= t.plugins
-          %li
-            %a{:href => '/admin/site/edit'}= t.settings
+          %li.theme.parent
+            %h3
+              %a{:href => '/admin/themes'}= t.themes
+          %li.plugin.parent
+            %h3
+              %a{:href => '/admin/plugins'}= t.plugins
+          %li.setting.parent
+            %h3
+              %a{:href => '/admin/site/edit'}= t.settings
       #main
         = yield
     #footer

@@ -13,15 +13,15 @@
     #header
       %h1
         %a{:href => '/'}= @site.title
-    #nav
-      %ul
-        - if logged_in?
-          %li= current_user.name
-          %li
+      #nav
+        %ul
+          - if logged_in?
+            %li= current_user.name
+            %li
             %a{:href => '/admin/logout'}= t.logout
-        - else
-          %li
-            %a{:href => '/admin/login'}= t.login
+          - else
+            %li
+              %a{:href => '/admin/login'}= t.login
     #content
       #main
         %h2= t.login

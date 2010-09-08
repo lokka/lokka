@@ -6,6 +6,7 @@ module Pyha
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
       set :theme => Proc.new { File.join(public, 'theme') }
+      set :config => YAML.load(ERB.new(File.read("#{root}/config.yml")).result(binding))
       set :supported_templates => %w(erb haml erubis)
       set :per_page, 10
       set :admin_per_page, 50
@@ -17,6 +18,8 @@ module Pyha
 
       register Sinatra::R18n
       register Pyha::Before
+      register Pyha::Hello
+      helpers Sinatra::ContentFor
       helpers Pyha::Helpers
 
       use Rack::Session::Cookie,
@@ -27,11 +30,11 @@ module Pyha
     end
 
     configure :production do
-      DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{root}/production.sqlite3")
+      DataMapper.setup(:default, ENV['DATABASE_URL'] || config['development']['dsn'])
     end
 
     configure :development do
-      DataMapper.setup(:default, "sqlite3://#{root}/development.sqlite3")
+      DataMapper.setup(:default, config['development']['dsn'])
     end
 
     get '/admin/' do

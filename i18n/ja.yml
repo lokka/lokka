@@ -37,7 +37,7 @@ listing_pages: ページ一覧
 listing_categories: カテゴリー一覧
 listing_tags: タグ一覧
 listing_comments: コメント一覧
-listing_users: タグ一覧
+listing_users: ユーザー一覧
 listing_themes: テーマ一覧
 listing_plugins: プラグイン一覧
 new_post: 投稿登録
@@ -59,12 +59,13 @@ no_post: 投稿がありません
 no_page: ページがありません
 no_user: ユーザーがいません
 no_comment: コメントがありません
-no_plugin: プラグインがいません
+no_plugin: プラグインがありません
 page:
   id: ID
   slug: スラッグ
   title: タイトル
   body: 本文
+  user: 作成者
   category: カテゴリー
   tags: タグ
   created_at: 作成日時
@@ -74,6 +75,7 @@ post:
   slug: スラッグ
   title: タイトル
   body: 本文
+  user: 作成者
   category: カテゴリー
   tags: タグ
   created_at: 作成日時

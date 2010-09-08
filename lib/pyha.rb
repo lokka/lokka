@@ -8,6 +8,7 @@ require 'rack-flash'
 require 'sinatra/base'
 require 'sinatra/r18n'
 require 'sinatra/logger'
+require 'sinatra/content_for'
 require 'dm-core'
 require 'dm-timestamps'
 require 'dm-migrations'
@@ -30,7 +31,11 @@ require 'pyha/comment'
 require 'pyha/bread_crumb'
 require 'pyha/before'
 require 'pyha/helpers'
+
+require 'pyha/hello'
+
 require 'pyha/app'
+
 
 module Pyha
   class NoTemplateError < StandardError; end

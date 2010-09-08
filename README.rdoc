@@ -15,8 +15,8 @@ CMS written in Ruby for cloud computing.
   $ gem install bundler
   $ git clone git://github.com/komagata/pyha.git
   $ cd pyha
-  $ rake install
-  $ rackup
+  $ bundle exec rake install
+  $ bundle exec rackup
 
 View at: http://localhost:9292/
 
