@@ -105,12 +105,12 @@ task 'db:reset' => %w(db:migrate db:seed)
 
 desc 'Bundler'
 task :bundle do
-  `bundle install --without production`
+  `bundle install bundle --without production test`
 end
 
 desc 'Rebundler'
 task :rebundle do
-  `bundle install --without production`
+  `bundle install bundle --without production test`
 end
 
 desc 'Install'

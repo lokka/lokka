@@ -8,9 +8,9 @@ end
 Dir.chdir(File.dirname(__FILE__))
 
 _run 'gem update --system'
-_run 'gem install bundler'
-_run 'bundle install --without production test'
+_run 'gem install bundler --no-rdoc --no-ri --version "1.0.0"'
+_run 'bundle install bundle --without production test'
 _run 'bundle exec rake db:reset'
-puts 'Installation complete.'
+puts '--- Installation complete ---'
 puts 'Press Enter.'
 STDIN.getc
