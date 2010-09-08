@@ -1,19 +1,19 @@
-error: エラー
-profile: プロフィール
-next: 次
-previous: 前
-older_post: 古い記事
-newer_post: 新しい記事
-older: もっと古いもの
-newer: もっと新しいもの
-admin: 管理者
-admin_page: 管理画面
-dashboard: ダッシュボード
-login: ログイン
-logout: ログアウト
-signup: 登録
-users: ユーザー
-categories: カテゴリー
+error: Error
+profile: Profile
+next: Next
+previous: Previous
+older_post: Older Post
+newer_post: Newer Post
+older: Older
+newer: Newer
+admin: Admin
+admin_page: Admin page
+dashboard: Dashboard
+login: Login
+logout: Logout
+signup: Signup
+users: Users
+categories: Categories
 posts: Posts
 pages: Pages
 comments: Comments
@@ -25,8 +25,8 @@ list: List
 new: New
 edit: Edit
 delete: Delete
-about: このサイトについて
-recent_entries: 最近のエントリー
+about: About this site
+recent_entries:  Recent Entries
 tags: Tags
 archives: Archives
 search: Search
@@ -82,30 +82,30 @@ post:
   updated_at: Updated at
 category:
   id: ID
-  slug: スラッグ
-  title: タイトル
-  description: 本文
-  created_at: 作成日時
-  updated_at: 更新日時
+  slug: Slug
+  title: Title
+  description: Description
+  created_at: Created at
+  updated_at: Updated at
 user:
   id: ID
-  name: 名前
+  name: Name
   email: Email
-  password: パスワード
-  password_confirmation: パスワード（確認）
-  created_at: 登録日時
-  updated_at: 更新日時
+  password: Password
+  password_confirmation: Password Confirmation
+  created_at: Created at
+  updated_at: Updated at
 site:
   id: ID
-  title: タイトル
-  description: 詳細
-  theme: テーマ
-  created_at: 作成日時
-  updated_at: 更新日時
+  title: Title
+  description: Description
+  theme: Theme
+  created_at: Created at
+  updated_at: Updated at
 comment:
   id: ID
-  name: 名前
-  body: 本文
-  homepage: ホームページ
-  created_at: 作成日時
-  updated_at: 更新日時
+  name: Name
+  body: Body
+  homepage: Homepage
+  created_at: Created at
+  updated_at: Updated at

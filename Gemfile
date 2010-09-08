@@ -17,7 +17,6 @@ gem 'builder', '2.1.2'
 gem 'haml', '3.0.17'
 gem 'rake'
 gem 'shotgun'
-gem 'thin'
 gem 'exceptional'
 
 group :production do
