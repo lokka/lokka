@@ -31,7 +31,11 @@ require 'pyha/comment'
 require 'pyha/bread_crumb'
 require 'pyha/before'
 require 'pyha/helpers'
+
+require 'pyha/hello'
+
 require 'pyha/app'
+
 
 module Pyha
   class NoTemplateError < StandardError; end
