@@ -10,6 +10,6 @@
         %a{:href => "/admin/categories/#{category.id}/edit"}= category.title
       %td= l category.created_at.to_time
       %td
-        %a{:href => "/admin/categories/#{category.id}/edit"}= t.edit
+        %a.button{:href => "/admin/categories/#{category.id}/edit"}= t.edit
       %td
-        = link_to t.delete, "/admin/categories/#{category.id}", :confirm => t.are_you_sure, :method => :delete
+        = link_to t.delete, "/admin/categories/#{category.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete

@@ -14,7 +14,7 @@
       %td
         %a{:href => "/admin/pages/#{page.id}/edit"}= t.edit
       %td
-        = link_to t.delete, "/admin/pages/#{page.id}", :confirm => t.are_you_sure, :method => :delete
+        = link_to t.delete, "/admin/pages/#{page.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager
   %ul
     - if @pages.pager.previous_page

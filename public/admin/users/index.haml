@@ -12,9 +12,9 @@
       %td= user.email
       %td= l user.created_at.to_time
       %td
-        %a{:href => "/admin/users/#{user.id}/edit"}= t.edit
+        %a.button{:href => "/admin/users/#{user.id}/edit"}= t.edit
       %td
-        = link_to t.delete, "/admin/users/#{user.id}", :confirm => t.are_you_sure, :method => :delete
+        = link_to t.delete, "/admin/users/#{user.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager
   %ul
     - if @users.pager.previous_page
