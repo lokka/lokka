@@ -1,0 +1,15 @@
+general:
+  startup: pyha.rb
+  core: cui
+  kcode: none
+
+file:
+  pyha.rb:
+
+resource:
+  icon:
+    -
+      width : 48
+      height: 48
+      color : 32
+      file  : pyha.ico

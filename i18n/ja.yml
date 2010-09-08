@@ -59,7 +59,7 @@ no_post: 投稿がありません
 no_page: ページがありません
 no_user: ユーザーがいません
 no_comment: コメントがありません
-no_plugin: プラグインがいません
+no_plugin: プラグインがありません
 page:
   id: ID
   slug: スラッグ

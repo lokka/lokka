@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 def _run(cmd)
   puts cmd
   system cmd

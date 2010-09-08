@@ -1,1 +1,16 @@
 = partial :article, :locals => {:post => @entry}
+%ul
+  - @entry.comments.each do |comment|
+    %li
+      .body= comment.body
+      .name= comment.name
+%form{:action => '', :method => 'post', :id => 'comment_form'}
+  %p
+    %label{:for => 'comment_name'}= t.comment.name
+    %br
+    %input{:type => 'text', :name => 'comment[name]', :id => 'comment_name'}
+  %p
+    %label{:for => 'comment_body'}= t.comment.body
+    %br
+    %textarea{:name => 'comment[body]', :id => 'comment_body', :cols => 40, :rows => 10}
+  %input{:type => 'submit'}

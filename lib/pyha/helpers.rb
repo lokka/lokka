@@ -121,6 +121,11 @@ module Pyha
         attrs[:onclick] = "if(confirm('#{options[:confirm]}')){var f = document.createElement('form');f.style.display = 'none';this.parentNode.appendChild(f);f.method = 'POST';f.action = this.href;var m = document.createElement('input');m.setAttribute('type', 'hidden');m.setAttribute('name', '_method');m.setAttribute('value', '#{options[:method]}');f.appendChild(m);f.submit();};return false"
       end
 
+      options.delete :confirm
+      options.delete :method
+
+      attrs.update(options)
+
       str = ''
       attrs.each do |key, value|
         str += %Q(#{key.to_s}="#{value}")

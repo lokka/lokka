@@ -1,0 +1,15 @@
+general:
+  startup: install.rb
+  core: cui
+  kcode: none
+
+file:
+  install.rb:
+
+resource:
+  icon:
+    -
+      width : 48
+      height: 48
+      color : 32
+      file  : setup.ico

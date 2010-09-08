@@ -1,0 +1,111 @@
+error: エラー
+profile: プロフィール
+next: 次
+previous: 前
+older_post: 古い記事
+newer_post: 新しい記事
+older: もっと古いもの
+newer: もっと新しいもの
+admin: 管理者
+admin_page: 管理画面
+dashboard: ダッシュボード
+login: ログイン
+logout: ログアウト
+signup: 登録
+users: ユーザー
+categories: カテゴリー
+posts: Posts
+pages: Pages
+comments: Comments
+themes: Themes
+plugins: Plugins
+settings: Settings
+site: Site
+list: List
+new: New
+edit: Edit
+delete: Delete
+about: このサイトについて
+recent_entries: 最近のエントリー
+tags: Tags
+archives: Archives
+search: Search
+others: Others
+feed: Feed
+listing_posts: Listing Posts
+listing_pages: Listing Pages
+listing_categories: Listing Categories
+listing_tags: Listing Tags
+listing_comments: Listing Comments
+listing_users: Listing Users
+listing_themes: Listing Themes
+listing_plugins: Listing Plugins
+new_post: New Post
+new_page: New Page
+new_category: New Category
+new_user: New User
+new_comment: New Comment
+edit_post: Edit Post
+edit_page: Edit Page
+edit_category: Edit Category
+edit_comment: Edit Comment
+edit_user:  Edit User
+edit_site: Edit Site
+are_you_sure: Are you sure?
+not_select: Not Select
+no_category: No Cateogry
+no_tag: No Tag
+no_post: No Post
+no_page: No Page
+no_user: No User
+no_comment: No Comment
+no_plugin: No Plugin
+page:
+  id: ID
+  slug: Slug
+  title: Title
+  body: Body
+  user: Author
+  category: Category
+  tags: Tags
+  created_at: Created at
+  updated_at: Updated at
+post:
+  id: ID
+  slug: Slug
+  title: Title
+  body: Body
+  user: Author
+  category: Category
+  tags: Tags
+  created_at: Created at
+  updated_at: Updated at
+category:
+  id: ID
+  slug: スラッグ
+  title: タイトル
+  description: 本文
+  created_at: 作成日時
+  updated_at: 更新日時
+user:
+  id: ID
+  name: 名前
+  email: Email
+  password: パスワード
+  password_confirmation: パスワード（確認）
+  created_at: 登録日時
+  updated_at: 更新日時
+site:
+  id: ID
+  title: タイトル
+  description: 詳細
+  theme: テーマ
+  created_at: 作成日時
+  updated_at: 更新日時
+comment:
+  id: ID
+  name: 名前
+  body: 本文
+  homepage: ホームページ
+  created_at: 作成日時
+  updated_at: 更新日時
