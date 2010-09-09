@@ -13,34 +13,48 @@
     %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
     %link{:rel => 'stylesheet', :href => "#{@theme.path}/style.css", :type => 'text/css'}
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
-  %body.index
-    #header
-      .eye_catch
-        %h1= @site.title
-        %h2 CMS for Cloud
-        .description
-          = t.what_about_pyha
+  - if index?
+    %body.index
+      #header
+        .eye_catch
+          %h1= @site.title
+          %h2 CMS for Cloud
+          .description
+            = t.what_about_pyha
+            %ul
+              %li.cloud cloud
+              %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
+        .capture= link_to 'download', 'http://github.com/komagata/pyha'
+        .nav
           %ul
-            %li.cloud cloud
-            %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
-      .capture= link_to 'download', 'http://github.com/komagata/pyha'
-      .nav
-        %ul
-          %li= link_to t.home, "/"
-          %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
-          %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/master'
-          %li= link_to t.source_code, 'http://github.com/komagata/pyha'
-    #container
-      #main
-        = yield
-      - unless index?
-        #aside
-          %dl
-            %dt= t.recent_entries
-            %dd
-              %ul
-                - Post.recent(5).each do |post|
-                  %li= link_to post.title, post.link
-    #footer
-      .copy
-        pyha
+            %li= link_to t.home, "/"
+            %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
+            %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/master'
+            %li= link_to t.source_code, 'http://github.com/komagata/pyha'
+  - else
+    %body
+      #header
+        %h1= link_to @site.title, "/"
+        .nav
+          %ul
+            %li= link_to t.home, "/"
+            %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
+            %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/master'
+            %li= link_to t.source_code, 'http://github.com/komagata/pyha'
+        .bred_crumbs
+          = bread_crumb
+
+  #container
+    #main
+      = yield
+    - unless index?
+      #aside
+        %dl
+          %dt= t.recent_entries
+          %dd
+            %ul
+              - Post.recent(5).each do |post|
+                %li= link_to post.title, post.link
+  #footer
+    .copy
+      pyha
