@@ -27,14 +27,15 @@
         .capture= link_to 'download', 'http://github.com/komagata/pyha/zipball/v0.0.1'
       - else
         %h1= link_to @site.title, "/"
-        .bred_crumbs
-          = bread_crumb
       .nav
         %ul
           %li= link_to t.home, "/"
           %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
           %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/v0.0.1'
           %li= link_to t.source_code, 'http://github.com/komagata/pyha'
+      - unless index?
+        .bred_crumbs
+          = bread_crumb
     #container
       #main
         = yield
