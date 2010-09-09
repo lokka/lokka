@@ -16,15 +16,16 @@
         %h1= @site.title
         %h2 CMS for Cloud
         .description
-          %p= @site.description
+          = t.what_about_pyha
           %ul
             %li.cloud cloud
             %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
       .capture= link_to 'download', 'http://github.com/komagata/pyha'
       .nav
         %ul
-          %li= link_to 'はじめよう', '/'
-          %li= link_to 'ダウンロード', 'http://github.com/komagata/pyha/zipball/master'
+          %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
+          %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/master'
+          %li= link_to t.source_code, 'http://github.com/komagata/pyha'
     #container
       #main
         = yield

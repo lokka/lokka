@@ -1,4 +1,4 @@
-- page = Page.first(:slug => 'home')
+- page = Page.first(:slug => "home-#{r18n.locale.code}")
 .section
   .title
     %h3= page.title
