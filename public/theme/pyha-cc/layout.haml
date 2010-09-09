@@ -25,12 +25,6 @@
               %li.cloud cloud
               %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
         .capture= link_to 'download', 'http://github.com/komagata/pyha'
-        .nav
-          %ul
-            %li= link_to t.home, "/"
-            %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
-            %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/master'
-            %li= link_to t.source_code, 'http://github.com/komagata/pyha'
       - else
         %h1= link_to @site.title, "/"
         .nav
@@ -39,8 +33,8 @@
             %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
             %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/master'
             %li= link_to t.source_code, 'http://github.com/komagata/pyha'
-        .bred_crumbs
-          = bread_crumb
+      .bred_crumbs
+        = bread_crumb
     #container
       #main
         = yield
