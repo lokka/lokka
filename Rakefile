@@ -42,59 +42,9 @@ end
 
 desc 'Execute seed script'
 task 'db:seed' do
-  # user
-  User.create(:name => 'test', :password => 'test', :password_confirmation => 'test')
-
-  # site
-  Site.create(:title => 'Test Site', :description => 'description...', :theme => 'default')
-
-  # post
-  (1..11).each do |i|
-    Post.create(
-      :user_id     => 1,
-      :category_id => 1,
-      :title       => "Test Post ... #{i}",
-      :body        => "body ... #{i}",
-      :slug        => "slug-#{i}"
-    )
-  end
-
-  # page
-  (12..20).each do |i|
-    Page.create(
-      :user_id     => 1,
-      :category_id => 1,
-      :title       => "Test Page ... #{i}",
-      :body        => "body ... #{i}",
-      :slug        => "slug-#{i}"
-    )
-  end
-
-  # category
-  Category.create(
-    :title   => 'Category 1',
-    :slug    => 'slug-1')
-  Category.create(
-    :title   => 'Category 2',
-    :slug    => 'slug-2')
-  Category.create(
-    :title   => 'Category 3',
-    :slug    => 'slug-3')
-  Category.create(
-    :title   => 'Category 4',
-    :slug    => 'slug-4',
-    :parent_id => 1)
-  Category.create(
-    :title   => 'Category 5',
-    :slug    => 'slug-5',
-    :parent_id => 1)
-end
-
-desc 'Init database'
-task 'db:init' => %w(db:migrate) do
   User.create(:name => 'test', :password => 'test', :password_confirmation => 'test')
   Site.create(:title => 'Test Site', :description => 'description...', :theme => 'default')
-  Post.create(:title => "Test Post ...", :body => "body ...", :user_id => 1)
+  Post.create(:title => "Test Post", :body => "Wellcome!<br /><a href=\"/admin/\">Admin login</a> (user / password : test / test)", :user_id => 1)
 end
 
 desc 'Set database'
