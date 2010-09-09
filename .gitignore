@@ -1,5 +1,7 @@
 *.sqlite3
 bundle
+.bundle
+Gemfile.lock
 tmp/*.log
 *.csv
 coverage
