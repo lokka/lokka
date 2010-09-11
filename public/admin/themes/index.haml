@@ -1,12 +1,13 @@
 %h2= t.listing_themes
 %ul.themes
   - @themes.each do |theme|
-    %li.theme
+    - class_for_theme = theme.title == @theme.name ? 'theme selected' : 'theme'
+    %li{:class => class_for_theme}
       .title
         = link_to theme.title, "/admin/themes?title=#{theme.title}", :confirm => t.are_you_sure, :method => 'put'
       - if theme.screenshot
         .screenshot
-          %img{:src => theme.screenshot}
+          = link_to "<img src=\"#{theme.screenshot}\" />", "/admin/themes?title=#{theme.title}", :confirm => t.are_you_sure, :method => 'put'
       - else
         .screenshot
           %span no screenshot
