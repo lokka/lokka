@@ -12,13 +12,21 @@ CMS written in Ruby for cloud computing.
 
 == INSTALLATION
 
-  $ gem install bundler
+  $ gem install bundler --version "1.0.0"
   $ git clone git://github.com/komagata/pyha.git
   $ cd pyha
   $ bundle exec rake install
   $ bundle exec rackup
 
 View at: http://localhost:9292/
+
+== DEPLOY TO HEROKU
+
+  $ gem install bundler --version "1.0.0"
+  $ git clone git://github.com/komagata/pyha.git
+  $ cd pyha
+  $ git push heroku master
+  $ heroku rake db:set
 
 == Note on Patches/Pull Requests
 

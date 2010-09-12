@@ -20,6 +20,14 @@ Rubyで書かれたクラウドの為のCMS。
 
 http://localhost:9292/ を見る。
 
+== Herokuへのデプロイ
+
+  $ gem install bundler --version "1.0.0"
+  $ git clone git://github.com/komagata/pyha.git
+  $ cd pyha
+  $ git push heroku master
+  $ heroku rake db:set
+
 == Note on Patches/Pull Requests
 
 * Fork the project.
