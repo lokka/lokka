@@ -16,10 +16,10 @@ gem 'dm-pager', '1.1.0'
 gem 'builder', '2.1.2'
 gem 'haml', '3.0.17'
 gem 'rake', '0.8.7'
-gem 'shotgun', '0.8'
 gem 'exceptional', '2.0.25'
 gem 'erubis', '2.6.6'
 gem 'activesupport', '3.0.0'
+gem 'thin'
 
 group :production do
   gem 'dm-postgres-adapter', '1.0.0'
