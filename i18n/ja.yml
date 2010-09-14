@@ -112,7 +112,7 @@ comment:
   created_at: 作成日時
   updated_at: 更新日時
 
-what_about_pyha: <p>Pyhaはクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにとって簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>
+what_about_pyha: <p>Pyha(ピュハ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにとって簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>
 home: ホーム
 getting_started: はじめよう
 download: ダウンロード
