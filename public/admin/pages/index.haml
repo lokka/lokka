@@ -8,7 +8,7 @@
   - @pages.each_with_index do |page, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
       %td.title
-        %a{:href => "/admin/pages/#{page.id}/edit"}= page.title
+        %a{:href => page.link}= page.title
       %td= page.user.name
       %td= l page.created_at.to_time
       %td

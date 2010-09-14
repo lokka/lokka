@@ -55,6 +55,7 @@ box-shadow:1px 1px 2px #bbb;
 
 .button:link, .button:visited {
 color:#444;
+white-space: nowrap;
 }
 .button:hover, .button:active ,input[type="submit"]:focus {
 background:-moz-linear-gradient(#e8e8e8, #eee) repeat scroll 0 0 transparent;
@@ -380,6 +381,10 @@ label {
 
 #aside li.page h3 {
   background: url(images/file.png);
+}
+
+#aside li.comment h3 {
+  background: url(images/comment.png);
 }
 
 #aside li.category h3 {

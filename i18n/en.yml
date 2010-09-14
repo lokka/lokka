@@ -1,3 +1,4 @@
+option: Option
 error: Error
 profile: Profile
 next: Next
@@ -106,6 +107,7 @@ comment:
   id: ID
   name: Name
   body: Body
+  entry: Entry
   homepage: Homepage
   created_at: Created at
   updated_at: Updated at

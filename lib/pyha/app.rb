@@ -180,6 +180,55 @@ module Pyha
       redirect "/admin/pages"
     end
 
+    # comment
+    get '/admin/comments' do
+      login_required
+      @comments = Comment.all(:order => :created_at.desc).
+                    page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'comments/index'
+    end
+
+    get '/admin/comments/new' do
+      login_required
+      @comment = Comment.new(:created_at => DateTime.now)
+      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
+      render_any :'comments/new'
+    end
+
+    post '/admin/comments' do
+      login_required
+      @comment = Comment.new(params['comment'])
+      if @comment.save
+        redirect '/admin/comments'
+      else
+        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
+        render_any :'comments/new'
+      end
+    end
+    
+    get '/admin/comments/:id/edit' do |id|
+      login_required
+      @comment = Comment.get(id)
+      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
+      render_any :'comments/edit'
+    end
+    
+    put '/admin/comments/:id' do |id|
+      login_required
+      @comment = Comment.get(id)
+      if @comment.update(params['comment'])
+        redirect "/admin/comments/#{id}/edit"
+      else
+        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
+        render_any :'comments/edit'
+      end
+    end
+
+    delete '/admin/comments/:id' do |id|
+      Comment.get(id).destroy
+      redirect "/admin/comments"
+    end
+
     # category
     get '/admin/categories' do
       login_required
@@ -271,7 +320,7 @@ module Pyha
       User.get(id).destroy
       redirect "/admin/users"
     end
-
+ 
     # theme
     get '/admin/themes' do
       login_required
@@ -456,6 +505,21 @@ module Pyha
       @bread_crumbs.add(@entry.title, @entry.link)
 
       render_any :entry
+    end
+
+    # comment
+    post %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
+      @theme_types << :entry
+
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+      return 404 if @entry.blank?
+
+      @comment = @entry.comments.new(params['comment'])
+      if @comment.save
+        redirect @entry.link
+      else
+        render_any :entry
+      end
     end
 
     not_found do

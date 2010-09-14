@@ -1,0 +1,29 @@
+- unless @comment.errors.empty?
+  #error
+    .title= t.error
+    %ul
+      - @comment.errors.each do |error|
+        %li= error
+%p
+  %label{:for => 'comment_entry'}= t.comment.entry
+  %br
+  - if @entries.size > 1
+    = select_field @comment, :entry_id, @entries, :id => 'comment_entry'
+  - else
+    = t.no_entry
+%p
+  %label{:for => 'comment_name'}= t.comment.name
+  %br
+  %input{:type => 'text', :id => 'comment_name', :name => 'comment[name]', :value => @comment.name}
+%p
+  %label{:for => 'comment_body'}= t.comment.body
+  %br
+  %textarea{:id => 'comment_body', :name => 'comment[body]', :rows => 10, :cols => 50}= @comment.body
+%p
+  %label{:for => 'comment_homepage'}= t.comment.homepage
+  %br
+  %input{:type => 'text', :id => 'comment_homepage', :name => 'comment[homepage]', :value => @comment.homepage}
+%p
+  %label{:for => 'comment_created_at'}= t.comment.created_at
+  %br
+  %input{:type => 'text', :id => 'comment_created_at', :name => 'comment[created_at]', :value => @comment.created_at}

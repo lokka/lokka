@@ -38,6 +38,13 @@
                 %a{:href => '/admin/pages'}= t.list
               %li.new
                 %a{:href => '/admin/pages/new'}= t.new
+          %li.comment.parent
+            %h3.title= t.comments
+            %ul
+              %li.list
+                %a{:href => '/admin/comments'}= t.list
+              %li.new
+                %a{:href => '/admin/comments/new'}= t.new
           %li.category.parent
             %h3.title= t.categories
             %ul

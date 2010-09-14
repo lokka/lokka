@@ -1,16 +1,7 @@
 = partial :article, :locals => {:post => @entry}
-%ul
+%ul.comments
   - @entry.comments.each do |comment|
-    %li
+    %li.comment
       .body= comment.body
-      .name= comment.name
-%form{:action => '', :method => 'post', :id => 'comment_form'}
-  %p
-    %label{:for => 'comment_name'}= t.comment.name
-    %br
-    %input{:type => 'text', :name => 'comment[name]', :id => 'comment_name'}
-  %p
-    %label{:for => 'comment_body'}= t.comment.body
-    %br
-    %textarea{:name => 'comment[body]', :id => 'comment_body', :cols => 40, :rows => 10}
-  %input{:type => 'submit'}
+      .name= link_to comment.name, comment.homepage
+= comment_form

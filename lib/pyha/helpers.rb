@@ -115,6 +115,10 @@ module Pyha
       end
     end
 
+    def comment_form
+      haml :'system/comments/form', :layout => false
+    end
+
     def link_to(name, url, options = {})
       attrs = {:href => url}
       if options[:confirm] and options[:method]
@@ -149,6 +153,19 @@ module Pyha
         html += %Q(<option value="#{value[0]}"#{padding}>#{value[1]}</option>)
       end
       html + '</select>'
+    end
+
+    def truncate(text, options = {})
+      options = {:length => 30, :ommision => '...'}.merge(options)
+      if options[:length] > text.length
+        text[0..options[:length]] + options[:ommision]
+      else
+        text
+      end
+    end
+
+    def strip_tags(text)
+      text.gsub(/<.+?>/, '')
     end
 
     def months

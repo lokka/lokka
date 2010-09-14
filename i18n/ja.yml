@@ -1,3 +1,4 @@
+option: オプション
 error: エラー
 profile: プロフィール
 next: 次
@@ -107,6 +108,7 @@ comment:
   name: 名前
   body: 本文
   homepage: ホームページ
+  entry: エントリー
   created_at: 作成日時
   updated_at: 更新日時
 

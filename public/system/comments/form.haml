@@ -1,0 +1,21 @@
+- if @comment and !@comment.errors.empty?
+  #error
+    .title= t.error
+    %ul
+      - @comment.errors.each do |error|
+        %li= error
+%form{:action => request.path_info, :method => 'post', :id => 'comment_form'}
+  %p
+    %label{:for => 'comment_name'}= t.comment.name
+    %br
+    %input{:type => 'text', :name => 'comment[name]', :id => 'comment_name'}
+  %p
+    %label{:for => 'comment_homepage'}= t.comment.homepage
+    == (#{t.option})
+    %br
+    %input{:type => 'text', :name => 'comment[homepage]', :id => 'comment_homepage'}
+  %p
+    %label{:for => 'comment_body'}= t.comment.body
+    %br
+    %textarea{:name => 'comment[body]', :id => 'comment_body', :cols => 40, :rows => 10}
+  %input{:type => 'submit'}

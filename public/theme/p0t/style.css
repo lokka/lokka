@@ -332,27 +332,22 @@ textarea.text_area {
   display: inline-table;
 }
 
-#comment-plnet {
-  padding: 0px 15px;
-  text-size: 15px;
+ul.comments {
+  list-style: none;
+  margin: 1.5em 2em;
+  padding: 0;
 }
-#comment-plnet h3 {
-  margin: 10px 0;
+
+.comment {
+  margin-bottom: 1.5em;
 }
-#comment-plnet .comments {
-  margin-bottom: 5px;
+
+.comment .body {
+  margin-bottom: 0.5em;
 }
-#comment-plnet .comments .name {
-  font-size: 13px;
-  text-align: right;
-}
-#comment-plnet .comments .created_at {
-  font-size: 13px;
-  text-align: right;
-}
-#comment-plnet .comments .updated_at {
-  font-size: 13px;
-  text-align: right;
+
+#comment_form {
+  margin: 1.5em 2em;
 }
 
 .gist pre {

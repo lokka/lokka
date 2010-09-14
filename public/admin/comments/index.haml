@@ -1,0 +1,22 @@
+%h2= t.listing_comments
+%table.comments
+  %tr
+    %th= t.comment.body
+    %th= t.comment.name
+    %th= t.comment.created_at
+    %th{:colspan => 2}
+  - @comments.each_with_index do |comment, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td.body= truncate(strip_tags(comment.body))
+      %td= comment.name
+      %td= l comment.created_at.to_time
+      %td
+        %a.button{:href => "/admin/comments/#{comment.id}/edit"}= t.edit
+      %td
+        = link_to t.delete, "/admin/comments/#{comment.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
+.pager
+  %ul
+    - if @comments.pager.previous_page
+      %li.previous= link_to t.previous, "?comment=#{@comments.pager.previous_page}"
+    - if @comments.pager.next_page
+      %li.next= link_to t.next, "?comment=#{@comments.pager.next_page}"

@@ -8,7 +8,7 @@
   - @posts.each_with_index do |post, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
       %td.title
-        %a{:href => "/admin/posts/#{post.id}/edit"}= post.title
+        %a{:href => post.link}= post.title
       %td= post.user.name
       %td= l post.created_at.to_time
       %td
