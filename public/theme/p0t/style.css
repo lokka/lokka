@@ -346,6 +346,10 @@ ul.comments {
   margin-bottom: 0.5em;
 }
 
+h4.comment {
+  margin: 0em 2em;
+}
+
 #comment_form {
   margin: 1.5em 2em;
 }
