@@ -34,14 +34,14 @@
             %ul
               %li.cloud cloud
               %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
-        .capture= link_to 'download', 'http://github.com/komagata/pyha/zipball/v0.0.1'
+        .capture= link_to 'download', 'http://github.com/komagata/pyha/downloads'
       - else
         %h1= link_to @site.title, "/"
       .nav
         %ul
           %li= link_to t.home, "/"
           %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
-          %li= link_to t.download, 'http://github.com/komagata/pyha/zipball/v0.0.1'
+          %li= link_to t.download, 'http://github.com/komagata/pyha/downloads'
           %li= link_to t.source_code, 'http://github.com/komagata/pyha'
       - unless index?
         .bred_crumbs
