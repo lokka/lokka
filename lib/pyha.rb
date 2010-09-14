@@ -4,6 +4,7 @@ require 'erb'
 require 'ostruct'
 require 'digest/sha1'
 
+require 'active_support/all'
 require 'rack-flash'
 require 'sinatra/base'
 require 'sinatra/r18n'
