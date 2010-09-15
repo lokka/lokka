@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem 'rack-flash', '0.1.1'
+gem 'rack-flash'
 gem 'i18n', '0.4.1'
 gem 'sinatra', '1.0.0'
 gem 'sinatra-r18n', '0.4.7.1'
