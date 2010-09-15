@@ -782,6 +782,14 @@ color: #ec189a;
 	font-size: 16px;
 	margin-bottom: 12px;
 }
+#footer .language ul {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+#footer .language li {
+  display: inline;
+  margin: 0.3em;
+}
 #footer .copy {
 	color: #FFF;
 	text-align: center;

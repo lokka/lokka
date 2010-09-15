@@ -58,5 +58,11 @@
                 - Post.recent(5).each do |post|
                   %li= link_to post.title, post.link
     #footer
+      .language
+        %ul
+          %li
+            %a{:href => '?locale=en'} English
+          %li
+            %a{:href => '?locale=ja'} 日本語
       .copy
         pyha

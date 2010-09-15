@@ -7,6 +7,8 @@ module Pyha
         @theme = Theme.new(settings.theme)
         @theme_types = []
 
+        session[:locale] = params[:locale] if params[:locale]
+
         logger.debug "path_info: #{request.path_info}"
       end
     end
