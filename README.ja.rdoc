@@ -25,6 +25,7 @@ http://localhost:9292/ を見る。
   $ gem install bundler --version "1.0.0"
   $ git clone git://github.com/komagata/pyha.git
   $ cd pyha
+  $ heroku create
   $ git push heroku master
   $ heroku rake db:set
 
