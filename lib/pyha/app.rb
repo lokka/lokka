@@ -18,7 +18,6 @@ module Pyha
 
       register Sinatra::R18n
       register Pyha::Before
-      register Pyha::Hello
       helpers Sinatra::ContentFor
       helpers Pyha::Helpers
 

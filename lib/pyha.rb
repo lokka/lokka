@@ -33,7 +33,6 @@ require 'pyha/bread_crumb'
 require 'pyha/before'
 require 'pyha/helpers'
 
-require 'pyha/hello'
 require 'pyha/markdown'
 
 require 'pyha/app'
