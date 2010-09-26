@@ -1,5 +1,9 @@
 module Pyha
   module Helpers
+    include Rack::Utils
+
+    alias :h :escape_html
+
     def index?;     @theme_types.include?(:index); end
     def search?;    @theme_types.include?(:search); end
     def category?;  @theme_types.include?(:category); end

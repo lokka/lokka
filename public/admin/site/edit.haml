@@ -8,6 +8,6 @@
   %p
     %label{:for => 'site_description'}= t.site.description
     %br
-    %textarea{:id => 'site_description', :name => 'site[description]', :rows => 10, :cols => 50}= @site.description
+    %textarea{:id => 'site_description', :name => 'site[description]', :rows => 10, :cols => 50}= h @site.description
   %p
     %input{:type => 'submit', :value => t.edit}

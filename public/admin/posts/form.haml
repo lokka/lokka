@@ -11,7 +11,7 @@
 %p
   %label{:for => 'post_body'}= t.post.body
   %br
-  %textarea{:id => 'post_body', :name => 'post[body]', :rows => 10, :cols => 50}= @post.body
+  %textarea{:id => 'post_body', :class => 'editor', :name => 'post[body]', :rows => 10, :cols => 50}= h @post.body
 %p
   %label{:for => 'post_slug'}= t.post.slug
   %br

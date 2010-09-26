@@ -11,7 +11,7 @@
 %p
   %label{:for => 'category_description'}= t.category.description
   %br
-  %textarea{:id => 'category_description', :name => 'category[description]'}= @category.description
+  %textarea{:id => 'category_description', :name => 'category[description]'}= h @category.description
 %p
   %label{:for => 'category_slug'}= t.category.slug
   %br

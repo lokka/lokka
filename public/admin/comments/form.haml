@@ -18,7 +18,7 @@
 %p
   %label{:for => 'comment_body'}= t.comment.body
   %br
-  %textarea{:id => 'comment_body', :name => 'comment[body]', :rows => 10, :cols => 50}= @comment.body
+  %textarea{:id => 'comment_body', :class => 'editor', :name => 'comment[body]', :rows => 10, :cols => 50}= h @comment.body
 %p
   %label{:for => 'comment_homepage'}= t.comment.homepage
   %br

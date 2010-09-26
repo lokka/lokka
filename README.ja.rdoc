@@ -15,7 +15,8 @@ Rubyで書かれたクラウドの為のCMS。
   $ gem install bundler
   $ git clone git://github.com/komagata/pyha.git
   $ cd pyha
-  $ bundle exec rake install
+  $ bundle install bundle --without production test
+  $ bundle exec rake db:set
   $ bundle exec rackup
 
 http://localhost:9292/ を見る。

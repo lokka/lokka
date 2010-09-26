@@ -31,8 +31,7 @@
           %form{:action => '/search/', :method => 'get'}
             %input{:type => 'text', :name => 'query'}
     #content
-      #main
-        = yield
+      #main= yield
       #aside
         %dl
           %dt= t.profile
