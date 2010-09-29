@@ -174,7 +174,7 @@ module Pyha
 
     def truncate(text, options = {})
       options = {:length => 30, :ommision => '...'}.merge(options)
-      if options[:length] > text.length
+      if options[:length] < text.length
         text[0..options[:length]] + options[:ommision]
       else
         text
