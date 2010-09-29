@@ -33,7 +33,7 @@ class Entry
     all(:body.like => "%#{str}%")
   end
 
-  def self.recent(count)
+  def self.recent(count = 5)
     all(:limit => count, :order => [:created_at.desc])
   end
 

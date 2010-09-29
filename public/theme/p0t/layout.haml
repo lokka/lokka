@@ -43,8 +43,13 @@
           %dt= t.recent_entries
           %dd
             %ul
-              - Post.recent(5).each do |post|
+              - Post.recent.each do |post|
                 %li= link_to post.title, post.link
+          %dt= t.recent_comments
+          %dd
+            %ul
+              - Comment.recent.each do |comment|
+                %li= link_to truncate(strip_tags(comment.body), :length => 10), comment.link
           %dt= t.tags
           %dd
             %ul
