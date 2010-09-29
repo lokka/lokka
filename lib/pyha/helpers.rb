@@ -18,6 +18,11 @@ module Pyha
       hash.collect {|k,v| "#{k}=#{v}"}.join('&')
     end
 
+    # h + n2br
+    def hbr(str)
+      str.gsub(/\r\n|\r|\n/, "<br />\n")
+    end
+
     def login_required
       if current_user.class != GuestUser
         return true
@@ -121,6 +126,14 @@ module Pyha
 
     def comment_form
       haml :'system/comments/form', :layout => false
+    end
+
+    def link_to_if(cond, name, url, options = {})
+      cond ? link_to(name, url, options) : name
+    end
+
+    def link_to_unless(cond, name, url, options = {})
+      link_to_if !cond, name, url, options
     end
 
     def link_to(name, url, options = {})
