@@ -1,3 +1,16 @@
+/* clearfix */
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
 background:none repeat scroll 0 0;
 border:0 none;
@@ -75,6 +88,27 @@ form p {
 	display:block;
 	margin-bottom:15px;
 }
+
+form div {
+	display:block;
+	margin-bottom:15px;
+}
+
+form div.textarea {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	background: none repeat scroll 0 0 #eee;
+	border-color: #999 #ccc #ccc #999;
+	border-style: solid;
+	border-width: 1px;
+	clear: both;
+	padding-top: 3px;
+	padding-right: 2px;
+	padding-bottom: 3px;
+	padding-left: 2px;
+}
+
 	
 input[type="text"],
 input[type="password"] {
@@ -459,6 +493,9 @@ label {
 	padding-bottom: 15px;
 	padding-left: 0px;
 }
+#footer a {
+	color: #FFF;
+}
 
 ul.themes {
 	list-style: none;
@@ -569,7 +606,9 @@ textarea.editor {
 /* jHtmlArea */
 div.jHtmlArea { display: inline block; }
 div.jHtmlArea div { padding: 0px; margin: 0px; }
-div.jHtmlArea .ToolBar { }
+div.jHtmlArea .ToolBar {
+	padding-bottom: 3px;
+}
 div.jHtmlArea .ToolBar ul { border: solid 1px #ccc; margin: 1px; padding: 1px; float: left; background: #fff url(../images/jHtmlArea_Toolbar_Group_BG.png) repeat-x;}
 div.jHtmlArea .ToolBar ul li { list-style-type: none; float: left; border: none; padding: 1px; margin: 1px; }
 div.jHtmlArea .ToolBar ul li:hover { border: solid 1px #ccc; background: #ddd url(../images/jHtmlArea_Toolbar_Group__Btn_Select_BG.png); padding: 0; }
@@ -614,3 +653,4 @@ div.jHtmlArea .ToolBar ul li a.justifyright { background-position: -32px -32px;}
 div.jHtmlArea .ToolBar ul li a.increasefontsize { background-position: -48px -32px;}
 div.jHtmlArea .ToolBar ul li a.decreasefontsize { background-position: -64px -32px;}
 div.jHtmlArea .ToolBar ul li a.forecolor { background-position: -80px -32px;}
+div.jHtmlArea .ToolBar ul li a.code { background-position: -96px -32px;}

@@ -2,15 +2,10 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color:transparent;
 }
 
 body {
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  background: none repeat scroll 0 0 #eee;
-  border-color: #999 #ccc #ccc #999;
-  border-style: solid;
-  border-width: 1px;
-  padding: 3px 2px;
+	background: none repeat scroll 0 0 #eee;
 }
+

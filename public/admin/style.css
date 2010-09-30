@@ -610,3 +610,16 @@ div.jHtmlArea .ToolBar ul li a.justifyright { background-position: -32px -32px;}
 div.jHtmlArea .ToolBar ul li a.increasefontsize { background-position: -48px -32px;}
 div.jHtmlArea .ToolBar ul li a.decreasefontsize { background-position: -64px -32px;}
 div.jHtmlArea .ToolBar ul li a.forecolor { background-position: -80px -32px;}
+
+
+
+
+.jHtmlArea iframe {
+  -webkit-border-radius: 6px 0px 0px 6px;
+  -moz-border-radius: 6px 0px 0px 6px;
+  border-radius: 6px 0px 0px 6px;
+  background: none repeat scroll 0 0 #eee;
+  border-color: #999 #ccc #ccc #999;
+  border-style: solid;
+  border-width: 1px;
+}

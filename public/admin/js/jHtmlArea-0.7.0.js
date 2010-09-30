@@ -39,12 +39,12 @@
                 var textarea = this.textarea = $(elem);
                 var container = this.container = $("<div/>").addClass("jHtmlArea").width(textarea.width()).insertAfter(textarea);
 
-                var toolbar = this.toolbar = $("<div/>").addClass("ToolBar").appendTo(container);
+                var toolbar = this.toolbar = $("<div/>").addClass("ToolBar clearfix").appendTo(container);
                 priv.initToolBar.call(this, opts);
 
                 var iframe = this.iframe = $("<iframe/>").height(textarea.height());
                 iframe.width(textarea.width() - ($.browser.msie ? 0 : 4));
-                var htmlarea = this.htmlarea = $("<div/>").append(iframe);
+                var htmlarea = this.htmlarea = $("<div/>").addClass("textarea").append(iframe);
 
                 container.append(htmlarea).append(textarea.hide());
 
