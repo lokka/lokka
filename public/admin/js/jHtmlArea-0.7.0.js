@@ -1,4 +1,4 @@
-﻿/*
+/*
 * jHtmlArea 0.7.0 - WYSIWYG Html Editor jQuery Plugin
 * Copyright (c) 2009 Chris Pietschmann
 * http://jhtmlarea.codeplex.com
