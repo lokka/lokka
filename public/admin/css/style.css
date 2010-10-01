@@ -603,6 +603,43 @@ textarea.editor {
   clear: both;
 }
 
+.pager {
+	clear: both;
+	width: 700px;
+	padding-top: 1em;
+}
+.pager li {
+	list-style-type: none;
+}
+.pager li a {
+	list-style-type: none;
+	display: block;
+}
+.pager li a:link,
+.pager li a:visited {
+	text-decoration: none;
+	color: #1B346F;
+}
+.pager li a:hover,
+.pager li a:active {
+	text-decoration: underline;
+	color: #AF2B3D;
+}
+.pager li.previous a {
+	float: left;
+}
+.pager li.next a {
+	float: right;
+}
+.pager li.previous a:before {
+	content:"\00ab";
+	margin-right: 0.3em;
+}
+.pager li.next a:after {
+	content:"\00bb";
+	margin-left: 0.3em;
+}
+
 /* jHtmlArea */
 div.jHtmlArea { display: inline block; }
 div.jHtmlArea div { padding: 0px; margin: 0px; }
