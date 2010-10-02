@@ -17,6 +17,6 @@
 .pager
   %ul
     - if @comments.pager.previous_page
-      %li.previous= link_to t.previous, "?comment=#{@comments.pager.previous_page}"
+      %li.previous= link_to t.previous, "?page=#{@comments.pager.previous_page}"
     - if @comments.pager.next_page
-      %li.next= link_to t.next, "?comment=#{@comments.pager.next_page}"
+      %li.next= link_to t.next, "?page=#{@comments.pager.next_page}"

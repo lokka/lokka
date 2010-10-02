@@ -1,5 +1,9 @@
 module Pyha
   module Helpers
+    include Rack::Utils
+
+    alias :h :escape_html
+
     def index?;     @theme_types.include?(:index); end
     def search?;    @theme_types.include?(:search); end
     def category?;  @theme_types.include?(:category); end
@@ -12,6 +16,11 @@ module Pyha
 
     def hash_to_query_string(hash)
       hash.collect {|k,v| "#{k}=#{v}"}.join('&')
+    end
+
+    # h + n2br
+    def hbr(str)
+      h(str.gsub(/\r\n|\r|\n/, "<br />\n"))
     end
 
     def login_required
@@ -119,6 +128,14 @@ module Pyha
       haml :'system/comments/form', :layout => false
     end
 
+    def link_to_if(cond, name, url, options = {})
+      cond ? link_to(name, url, options) : name
+    end
+
+    def link_to_unless(cond, name, url, options = {})
+      link_to_if !cond, name, url, options
+    end
+
     def link_to(name, url, options = {})
       attrs = {:href => url}
       if options[:confirm] and options[:method]
@@ -157,7 +174,7 @@ module Pyha
 
     def truncate(text, options = {})
       options = {:length => 30, :ommision => '...'}.merge(options)
-      if options[:length] > text.length
+      if options[:length] < text.length
         text[0..options[:length]] + options[:ommision]
       else
         text

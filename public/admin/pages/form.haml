@@ -11,7 +11,7 @@
 %p
   %label{:for => 'page_body'}= t.page.body
   %br
-  %textarea{:id => 'page_body', :name => 'page[body]', :rows => 10, :cols => 50}= @page.body
+  %textarea{:id => 'page_body', :class => 'editor', :name => 'page[body]', :rows => 10, :cols => 50}= h @page.body
 %p
   %label{:for => 'page_slug'}= t.page.slug
   %br
