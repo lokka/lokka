@@ -20,7 +20,7 @@ module Pyha
 
     # h + n2br
     def hbr(str)
-      h(str.gsub(/\r\n|\r|\n/, "<br />\n"))
+      h(str).gsub(/\r\n|\r|\n/, "<br />\n")
     end
 
     def login_required
