@@ -1,4 +1,4 @@
-= Pyha
+= Lokka
 
 Rubyで書かれたクラウドの為のCMS。
 
@@ -13,8 +13,8 @@ Rubyで書かれたクラウドの為のCMS。
 == インストール
 
   $ gem install bundler
-  $ git clone git://github.com/komagata/pyha.git
-  $ cd pyha
+  $ git clone git://github.com/komagata/lokka.git
+  $ cd lokka
   $ bundle install bundle --without production test
   $ bundle exec rake db:set
   $ bundle exec rackup
@@ -24,8 +24,8 @@ http://localhost:9292/ を見る。
 == Herokuへのデプロイ
 
   $ gem install bundler --version "1.0.0"
-  $ git clone git://github.com/komagata/pyha.git
-  $ cd pyha
+  $ git clone git://github.com/komagata/lokka.git
+  $ cd lokka
   $ heroku create
   $ git push heroku master
   $ heroku rake db:set
