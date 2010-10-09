@@ -4,13 +4,13 @@ require 'rubygems'
 require 'bundler'
 Bundler.require(:default, :test)
 require 'test/unit'
-require 'pyha'
+require 'lokka'
 
 module TestHelper
   include Rack::Test::Methods
 
   def app
-    Pyha::App
+    Lokka::App
   end
 end
 

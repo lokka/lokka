@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'pyha'
-require 'pyha/app'
+require 'lokka'
+require 'lokka/app'
 
 class AppTest < Test::Unit::TestCase
   context "Access pages" do

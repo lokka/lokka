@@ -1,4 +1,4 @@
-module Pyha
+module Lokka
   class App < Sinatra::Base
     configure do
       enable :method_override, :raise_errors, :static
@@ -17,10 +17,10 @@ module Pyha
       set :logger_log_file, Proc.new { File.join(root, 'tmp', "#{environment}.log") }
 
       register Sinatra::R18n
-      register Pyha::Before
-      register Pyha::Hello
+      register Lokka::Before
+      register Lokka::Hello
       helpers Sinatra::ContentFor
-      helpers Pyha::Helpers
+      helpers Lokka::Helpers
 
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12,

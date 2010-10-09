@@ -1,4 +1,4 @@
-module Pyha
+module Lokka
   module Hello
     def self.registered(app)
       app.get '/hello' do

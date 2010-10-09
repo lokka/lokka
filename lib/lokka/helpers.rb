@@ -1,4 +1,4 @@
-module Pyha
+module Lokka
   module Helpers
     include Rack::Utils
 
@@ -85,7 +85,7 @@ module Pyha
       end
 
       if ret.blank?
-        raise Pyha::NoTemplateError, "Template not found. #{[names.join(', ')]}"
+        raise Lokka::NoTemplateError, "Template not found. #{[names.join(', ')]}"
       else
         ret
       end

@@ -1,2 +1,2 @@
 require 'init'
-run Pyha::App
+run Lokka::App

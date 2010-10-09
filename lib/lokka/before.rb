@@ -1,4 +1,4 @@
-module Pyha
+module Lokka
   module Before
     def self.registered(app)
       app.before do

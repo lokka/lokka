@@ -22,22 +22,22 @@ require 'haml'
 require 'builder'
 require 'exceptional'
 
-require 'pyha/theme'
-require 'pyha/user'
-require 'pyha/site'
-require 'pyha/entry'
-require 'pyha/category'
-require 'pyha/tag'
-require 'pyha/comment'
-require 'pyha/bread_crumb'
-require 'pyha/before'
-require 'pyha/helpers'
+require 'lokka/theme'
+require 'lokka/user'
+require 'lokka/site'
+require 'lokka/entry'
+require 'lokka/category'
+require 'lokka/tag'
+require 'lokka/comment'
+require 'lokka/bread_crumb'
+require 'lokka/before'
+require 'lokka/helpers'
 
-require 'pyha/hello'
+require 'lokka/hello'
 
-require 'pyha/app'
+require 'lokka/app'
 
 
-module Pyha
+module Lokka
   class NoTemplateError < StandardError; end
 end

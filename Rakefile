@@ -29,7 +29,7 @@ task 'test:prepare' => 'db:migrate' do
   )
 end
 
-desc 'Create the Pyha database'
+desc 'Create the Lokka database'
 task 'db:migrate' do
   User.auto_migrate!
   Site.auto_migrate!

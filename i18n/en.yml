@@ -117,7 +117,7 @@ comment:
   created_at: Created at
   updated_at: Updated at
 
-what_about_pyha: <p>Pyha is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>
+what_about_lokka: <p>Lokka is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>
 home: Home
 getting_started: Getting Started
 download: Download
