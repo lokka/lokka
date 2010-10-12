@@ -1,4 +1,4 @@
-require 'init'
+require './init'
 
 task :default => :test
 
