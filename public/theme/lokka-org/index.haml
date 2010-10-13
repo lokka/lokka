@@ -1,5 +1,5 @@
 - page = Page.first(:slug => "home-#{r18n.locale.code}")
 .section
-  .title
-    %h3= page.title
+  .header
+    %h2= page.title
   .body= page.body
