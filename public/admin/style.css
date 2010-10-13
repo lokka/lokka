@@ -98,6 +98,7 @@ html,body {
 	font-size: 12px;
 	background-color: #41527e;
     font-family: "Lucida Sans Unicode","Lucida Grande",Arial,Helvetica,"ヒラギノ丸ゴ Pro W4",HiraMaruPro-W4,"ヒラギノ角ゴ Pro W3",HiraKakuPro-W3,Osaka,sans-serif;
+    height: 100%;
 }
 
 .clear {
@@ -108,12 +109,6 @@ html,body {
   content: "";
   display: block;
   clear: both;
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 h1 {
