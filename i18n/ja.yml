@@ -1,5 +1,5 @@
 demo: デモ
-contributor: 協力者
+contributor: 開発参加
 english: English
 japanese: 日本語
 option: オプション
@@ -116,8 +116,7 @@ comment:
   entry: エントリー
   created_at: 作成日時
   updated_at: 更新日時
-
-what_about_lokka: <p>Lokka(ピュハ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにとって簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>
+what_about_lokka: <p>Lokka(ロッカ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにも簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>
 home: ホーム
 getting_started: はじめよう
 download: ダウンロード

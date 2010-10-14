@@ -331,7 +331,7 @@ label {
 }
 
 #main table td.title {
-  background: url(images/file.png) no-repeat scroll 10px 50% transparent;
+  background: url(../images/file.png) no-repeat scroll 10px 50% transparent;
   padding-left: 30px;
 }
 
@@ -383,7 +383,7 @@ label {
 }
 #aside li.list {
 /*
-  background: url(images/files.png) no-repeat scroll 10px 50% transparent;
+  background: url(../images/files.png) no-repeat scroll 10px 50% transparent;
 */
 }
 #aside ul li ul li a {
@@ -401,45 +401,45 @@ label {
 	-moz-border-radius:6px;
 	border-radius:6px;
 	background-color:#ddd;
-	background-image: url(images/aside_arrow.png);
+	background-image: url(../images/aside_arrow.png);
 	background-position: 10px center;
 }
 
 #aside li.new {
 /*
-  background: url(images/add.png) no-repeat scroll 10px 50% transparent;
+  background: url(../images/add.png) no-repeat scroll 10px 50% transparent;
 */
 }
 #aside li.post h3 {
-  background: url(images/post.png);
+  background: url(../images/post.png);
 }
 
 #aside li.page h3 {
-  background: url(images/file.png);
+  background: url(../images/file.png);
 }
 
 #aside li.comment h3 {
-  background: url(images/comment.png);
+  background: url(../images/comment.png);
 }
 
 #aside li.category h3 {
-  background: url(images/category.png);
+  background: url(../images/category.png);
 }
 
 #aside li.user h3 {
-  background: url(images/user.png);
+  background: url(../images/user.png);
 }
 
 #aside li.theme h3 a {
-  background: url(images/theme.png);
+  background: url(../images/theme.png);
 }
 
 #aside li.plugin h3 a {
-  background: url(images/plugin.png);
+  background: url(../images/plugin.png);
 }
 
 #aside li.setting h3 a {
-  background: url(images/setting.png);
+  background: url(../images/setting.png);
 }
 
 #aside li.parent h3.title {
