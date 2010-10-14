@@ -20,7 +20,6 @@ gem 'exceptional', '2.0.25'
 gem 'erubis', '2.6.6'
 gem 'activesupport', '3.0.0'
 gem 'shotgun'
-gem 'thin'
 
 group :production do
   gem 'dm-postgres-adapter', '1.0.0'
