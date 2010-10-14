@@ -26,13 +26,13 @@
   %body{:class => @theme_types.join(' ')}
     #header
       .language
-        %ul
+        %ul.wide
           %li
             %a{:href => '?locale=en'} English
           %li
             %a{:href => '?locale=ja'} 日本語
-      .section.wide
-        - if index?
+      - if index?
+        .section.wide
           .eye_catch
             %h1= @site.title
             %h2 CMS for Cloud
@@ -42,8 +42,7 @@
                 %li.cloud cloud
                 %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
           .capture= link_to 'download', 'http://github.com/komagata/lokka/downloads'
-        - else
-          %h1= link_to @site.title, "/"
+ 
         .nav
           %ul.wide
             %li= link_to t.home, "/"
@@ -52,6 +51,18 @@
             %li= link_to t.demo, 'http://demo.lokka.org/'
             %li= link_to t.download, 'http://github.com/komagata/lokka/downloads'
             %li= link_to t.source_code, 'http://github.com/komagata/lokka'
+ 
+      - else
+        .section.wide
+          %h1= link_to @site.title, "/"
+          .nav
+            %ul
+              %li= link_to t.home, "/"
+              %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
+              %li= link_to t.contributor, "/contributor-#{r18n.locale.code}"
+              %li= link_to t.demo, 'http://demo.lokka.org/'
+              %li= link_to t.download, 'http://github.com/komagata/lokka/downloads'
+              %li= link_to t.source_code, 'http://github.com/komagata/lokka'
       - unless index?
         .bred_crumbs.wide
           = bread_crumb
