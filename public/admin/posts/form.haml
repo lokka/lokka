@@ -4,30 +4,30 @@
     %ul
       - @post.errors.each do |error|
         %li= error
-%div
+.field
   %label{:for => 'post_title'}= t.post.title
   %br
   %input{:type => 'text', :id => 'post_title', :name => 'post[title]', :value => @post.title}
-%div
+.field
   %label{:for => 'post_body'}= t.post.body
   %br
   %textarea{:id => 'post_body', :class => 'editor', :name => 'post[body]', :rows => 10, :cols => 50}= h @post.body
-%div
+.field
   %label{:for => 'post_slug'}= t.post.slug
   %br
   %input{:type => 'text', :id => 'post_slug', :name => 'post[slug]', :value => @post.slug}
-%div
+.field
   %label{:for => 'post_category'}= t.post.category
   %br
   - if @categories.size > 1
     = select_field @post, :category_id, @categories, :id => 'post_category'
   - else
     = t.no_category
-%div
+.field
   %label{:for => 'post_tag_collection'}= t.post.tags
   %br
   %input{:type => 'text', :id => 'post_tag_collection', :name => 'post[tag_collection]', :value => @post.tag_collection}
-%div
+.field
   %label{:for => 'post_created_at'}= t.post.created_at
   %br
   %input{:type => 'text', :id => 'post_created_at', :name => 'post[created_at]', :value => @post.created_at}
