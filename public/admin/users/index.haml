@@ -14,7 +14,8 @@
       %td
         %a.button{:href => "/admin/users/#{user.id}/edit"}= t.edit
       %td
-        = link_to t.delete, "/admin/users/#{user.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
+        - unless user == current_user
+          = link_to t.delete, "/admin/users/#{user.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager
   %ul
     - if @users.pager.previous_page

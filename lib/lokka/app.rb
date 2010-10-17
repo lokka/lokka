@@ -330,8 +330,13 @@ module Lokka
     end
 
     delete '/admin/users/:id' do |id|
-      User.get(id).destroy
-      redirect "/admin/users"
+      target_user = User.get(id)
+      if current_user == target_user
+        flash[:alert] = 'Can not delete your self.'
+      else
+        target_user.destroy
+      end
+      redirect '/admin/users'
     end
  
     # theme
