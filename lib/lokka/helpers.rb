@@ -100,6 +100,7 @@ module Lokka
       ret = ''
       settings.supported_templates.each do |ext|
         out = rendering(ext, name, options)
+        out.force_encoding(Encoding.default_external) unless out.nil?
         unless out.blank?
           ret = out
           break
