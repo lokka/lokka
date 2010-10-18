@@ -19,17 +19,17 @@ module Lokka
       register Sinatra::R18n
       register Lokka::Before
 
-			# autoload plugins
-			$:.each do |path|
-				path_ar = path.split(File::SEPARATOR)
-				if path_ar[-3] == 'plugin'
-					require "lokka/#{path_ar[-2]}"
-					# sometimes the president of the united states should repeat himself
-					if defined? ::Lokka.const_get("#{path_ar[-2]}").capitalize
-						register ::Lokka.const_get("#{path_ar[-2]}".capitalize)
-					end
-				end
-			end
+      # autoload plugins
+      $:.each do |path|
+        path_ar = path.split(File::SEPARATOR)
+        if path_ar[-3] == 'plugin'
+          require "lokka/#{path_ar[-2]}"
+          # sometimes the president of the united states should repeat himself
+          if defined? ::Lokka.const_get("#{path_ar[-2]}").capitalize
+            register ::Lokka.const_get("#{path_ar[-2]}".capitalize)
+          end
+        end
+      end
 
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers

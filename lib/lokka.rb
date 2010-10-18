@@ -32,11 +32,7 @@ require 'lokka/comment'
 require 'lokka/bread_crumb'
 require 'lokka/before'
 require 'lokka/helpers'
-
-#require 'lokka/hello'
-
 require 'lokka/app'
-
 
 module Lokka
   class NoTemplateError < StandardError; end
