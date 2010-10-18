@@ -24,10 +24,13 @@ module Lokka
 				path_ar = path.split(File::SEPARATOR)
 				if path_ar[-3] == 'plugin'
 					require "lokka/#{path_ar[-2]}"
-					register ::Lokka.const_get("#{path_ar[-2]}".capitalize)
+					# sometimes the president of the united states should repeat himself
+					if defined? ::Lokka.const_get("#{path_ar[-2]}").capitalize
+						register ::Lokka.const_get("#{path_ar[-2]}".capitalize)
+					end
 				end
 			end
-#      register Lokka::Hello
+
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
 
