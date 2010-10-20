@@ -32,7 +32,7 @@ form {
 h1 {
   font-size: 2.3em;
   letter-spacing: 2px;
-  margin: 10px 0 3px 80px;
+  margin: 10px 0 3px 0px;
   padding: 0;
   line-height: 1;
 }
@@ -50,8 +50,8 @@ ul {
 
 #nav {
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 20px;
+  right: 50px;
 }
 
 #nav ul {
@@ -105,14 +105,14 @@ blockquote {
 
 #header {
   border-top: 8px solid #ec189a;
-  padding: 1em 0 0 1em;
-  height: 110px;
-  background: url(images/logo.png) no-repeat;
+  padding: 1em 0 0 130px;
+  height: 140px;
+  background: url(images/logo.png) no-repeat 30px 5px;
   background-color: black;
 }
 #header .description {
   color: white;
-  margin: 1em 0 0 80px;
+  margin: 1em 0 0 0;
   font-size: 0.8em;
 }
 #header a {
@@ -153,7 +153,7 @@ blockquote {
   width: 20%;
 }
 #aside dl {
-  margin: 1.5em 2em 0em 0em;
+  margin: 1.5em 4em 0em 0em;
 }
 #aside dt {
   font-size: 1em;
@@ -178,7 +178,7 @@ blockquote {
 }
 
 .article {
-  margin: 1.5em 2em 2em 2em;
+  margin: 1.5em 4em 2em 4em;
 }
 .article .title {
   text-align: left;
@@ -334,7 +334,7 @@ textarea.text_area {
 
 ul.comments {
   list-style: none;
-  margin: 1.5em 2em;
+  margin: 1.5em 4em;
   padding: 0;
 }
 
@@ -347,11 +347,11 @@ ul.comments {
 }
 
 h4.comment {
-  margin: 0em 2em;
+  margin: 0em 4em;
 }
 
 #comment_form {
-  margin: 1.5em 2em;
+  margin: 1.5em 4em;
 }
 
 .gist pre {

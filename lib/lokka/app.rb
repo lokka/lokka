@@ -82,6 +82,7 @@ module Lokka
           redirect '/admin/'
         end
       else
+        @login_failed = true
         render_any :login, :layout => false
       end
     end
