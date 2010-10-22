@@ -16,7 +16,7 @@
       #nav
         %ul
           - if logged_in?
-            %li= current_user.name
+            %li= link_to current_user.name, "/admin/users/#{current_user.id}/edit"
             %li
             %a{:href => '/admin/logout'}= t.logout
           - else
