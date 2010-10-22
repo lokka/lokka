@@ -18,7 +18,20 @@ module Lokka
 
       register Sinatra::R18n
       register Lokka::Before
-      register Lokka::Hello
+
+      # autoload plugins
+      $:.each do |path|
+        path_ar = path.split(File::SEPARATOR)
+        if path_ar[-3] == 'plugin'
+          require "lokka/#{path_ar[-2]}"
+          begin
+            register ::Lokka.const_get("#{path_ar[-2]}".capitalize)
+          rescue => evar
+            p "plugin #{path_ar[-2]} is identified as a suspect."
+          end
+        end
+      end
+
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
 
@@ -69,6 +82,7 @@ module Lokka
           redirect '/admin/'
         end
       else
+        @login_failed = true
         render_any :login, :layout => false
       end
     end

@@ -57,6 +57,24 @@ edit_category: Edit Category
 edit_comment: Edit Comment
 edit_user:  Edit User
 edit_site: Edit Site
+post_was_successfully_created: Post was successfully created.
+post_was_successfully_updated: Post was successfully updated.
+post_was_successfully_deleted: Post was successfully deleted.
+page_was_successfully_created: Page was successfully created.
+page_was_successfully_updated: Page was successfully updated.
+page_was_successfully_deleted: Page was successfully deleted.
+comment_was_successfully_created: Comment was successfully created.
+comment_was_successfully_updated: Comment was successfully updated.
+comment_was_successfully_deleted: Comment was successfully deleted.
+category_was_successfully_created: Category was successfully created.
+category_was_successfully_updated: Category was successfully updated.
+category_was_successfully_deleted: Category was successfully deleted.
+user_was_successfully_created: User was successfully created.
+user_was_successfully_updated: User was successfully updated.
+user_was_successfully_deleted: User was successfully deleted.
+site_was_successfully_updated: Site was successfully updated.
+theme_was_successfully_updated: Theme was successfully updated.
+may_i_change_the_theme: May I change the theme?
 are_you_sure: Are you sure?
 not_select: Not Select
 no_category: No Cateogry
@@ -66,6 +84,8 @@ no_page: No Page
 no_user: No User
 no_comment: No Comment
 no_plugin: No Plugin
+your_name_or_password_is_incorrect: Your username or password is incorrect.
+logged_in_successfully: Logged in successfully.
 page:
   id: ID
   slug: Slug
@@ -122,3 +142,4 @@ home: Home
 getting_started: Getting Started
 download: Download
 source_code: Souce Code
+post_comment: Comment
