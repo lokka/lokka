@@ -24,6 +24,13 @@ class Entry
   validates_uniqueness_of :slug
   validates_uniqueness_of :title
 
+  def tag_collection=(string)
+    reg = RUBY_VERSION >= "1.9.0" ? /[^\p{Word}_]/i : /[^\w\s_-]/i
+    @tag_list = string.to_s.split(',').map { |name|
+      name.force_encoding(Encoding.default_external).gsub(reg, '').strip
+    }.reject{|x|x.blank?}.uniq.sort
+  end
+
   def self.get_by_fuzzy_slug(str)
     ret = first(:slug => str)
     ret.blank? ? get(str) : ret
