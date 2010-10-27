@@ -562,6 +562,17 @@ height:auto !important;
 ul.themes div.screenshot span {
 	line-height: 150px;
 }
+
+ul.plugins {
+  margin: 1.6em 1em;  
+  list-style-type: square;
+}
+
+ul.plugins li {
+  margin: 0.6em 0em;
+  font-size: 14px;
+}
+
 #main li.theme {
 	float: left;
 	padding: 0;

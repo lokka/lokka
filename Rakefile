@@ -55,7 +55,7 @@ task 'db:reset' => %w(db:migrate db:seed)
 
 desc 'Install gems'
 task :bundle do
-  `bundle install bundle --without production test`
+  `bundle install --path bundle --without production test`
 end
 
 desc 'Install'

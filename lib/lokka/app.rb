@@ -16,21 +16,26 @@ module Lokka
       set :logger_level, :debug
       set :logger_log_file, Proc.new { File.join(root, 'tmp', "#{environment}.log") }
 
+      register Sinatra::Logger
       register Sinatra::R18n
       register Lokka::Before
 
       # autoload plugins
-      $:.each do |path|
-        path_ar = path.split(File::SEPARATOR)
-        if path_ar[-3] == 'plugin'
-          require "lokka/#{path_ar[-2]}"
-          begin
-            register ::Lokka.const_get("#{path_ar[-2]}".capitalize)
-          rescue => evar
-            p "plugin #{path_ar[-2]} is identified as a suspect."
-          end
+      plugins = []
+      Dir["public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
+        paths = path.split(File::SEPARATOR)
+#        puts paths.join(' / ')
+        $:.push File.join(paths[0], paths[1], paths[2], paths[3])
+        name, ext = paths[5].split('.')
+        require "lokka/#{name}"
+        begin
+          register ::Lokka.const_get(name.capitalize)
+          plugins << name
+        rescue => e
+          puts "plugin #{paths[2]} is identified as a suspect."
         end
       end
+      set :plugins, plugins
 
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers

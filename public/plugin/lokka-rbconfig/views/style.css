@@ -1,0 +1,12 @@
+dl.rbconfigs {
+  font-size: 14px;
+}
+
+dl.rbconfigs dt {
+  font-weight: bold;
+}
+
+dl.rbconfigs dd {
+  margin-left: 1em;
+  margin-bottom: 1em;
+}

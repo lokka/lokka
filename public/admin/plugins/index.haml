@@ -1,1 +1,4 @@
 %h2= t.listing_plugins
+%ul.plugins
+  - settings.plugins.each do |plugin|
+    %li= plugin
