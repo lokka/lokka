@@ -14,10 +14,6 @@ module Lokka
     def entry?;     @theme_types.include?(:entry); end
     def entries?;   @theme_types.include?(:entries); end
 
-    def hash_to_query_string(hash)
-      hash.collect {|k,v| "#{k}=#{v}"}.join('&')
-    end
-
     # h + n2br
     def hbr(str)
       h(str).gsub(/\r\n|\r|\n/, "<br />\n")

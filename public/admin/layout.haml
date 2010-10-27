@@ -71,6 +71,8 @@
           %li.setting.parent
             %h3
               %a{:href => '/admin/site/edit'}= t.settings
-      #main= yield
+      #main
+        #notice= flash[:notice] if flash[:notice]
+        = yield
     #footer
       %a{:href => 'http://lokka.org/'} Lokka

@@ -1,7 +1,7 @@
 module Lokka
   class App < Sinatra::Base
     configure do
-      enable :method_override, :raise_errors, :static
+      enable :method_override, :raise_errors, :static, :sessions
       set :root, File.expand_path('../../..', __FILE__)
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
@@ -34,30 +34,15 @@ module Lokka
 
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
-
-      use Rack::Session::Cookie,
-        :expire_after => 60 * 60 * 24 * 12,
-        :secret => '_p_y_h_a_'
       use Rack::Flash
       use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key' if ENV['RACK_ENV'] == 'production'
     end
 
     configure :production do
-      DataMapper.setup(:default, ENV['DATABASE_URL'] || config['development']['dsn'])
+      DataMapper.setup(:default, ENV['DATABASE_URL'] || config['production']['dsn'])
     end
 
     configure :development do
-      class Sinatra::Reloader < ::Rack::Reloader
-        def safe_load(file, mtime, stderr)
-          if File.expand_path(file) == File.expand_path(::Sinatra::Application.app_file)
-            ::Sinatra::Application.reset!
-            stderr.puts "#{self.class}: reseting routes"
-          end
-          super
-        end
-      end
-      use Sinatra::Reloader
-
       DataMapper.setup(:default, config['development']['dsn'])
     end
 
@@ -74,6 +59,7 @@ module Lokka
       @user = User.authenticate(params[:name], params[:password])
       if @user
         session[:user] = @user.id
+        flash[:notice] = t.logged_in_successfully
         if session[:return_to]
           redirect_url = session[:return_to]
           session[:return_to] = false
@@ -90,7 +76,6 @@ module Lokka
     get '/admin/logout' do
       login_required
       session[:user] = nil
-      flash[:notice] = 'Logout successful'
       redirect '/admin/login'
     end
 
@@ -114,6 +99,7 @@ module Lokka
       @post = Post.new(params['post'])
       @post.user = current_user
       if @post.save
+        flash[:notice] = t.post_was_successfully_created
         redirect '/admin/posts'
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
@@ -132,7 +118,8 @@ module Lokka
       login_required
       @post = Post.get(id)
       if @post.update(params['post'])
-        redirect "/admin/posts/#{id}/edit"
+        flash[:notice] = t.post_was_successfully_updated
+        redirect '/admin/posts'
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'posts/edit'
@@ -141,7 +128,8 @@ module Lokka
 
     delete '/admin/posts/:id' do |id|
       Post.get(id).destroy
-      redirect "/admin/posts"
+      flash[:notice] = t.post_was_successfully_deleted
+      redirect '/admin/posts'
     end
 
     # pages
@@ -164,6 +152,7 @@ module Lokka
       @page = Page.new(params['page'])
       @page.user = current_user
       if @page.save
+        flash[:notice] = t.page_was_successfully_created
         redirect '/admin/pages'
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
@@ -182,7 +171,8 @@ module Lokka
       login_required
       @page = Page.get(id)
       if @page.update(params['page'])
-        redirect "/admin/pages/#{id}/edit"
+        flash[:notice] = t.page_was_successfully_updated
+        redirect '/admin/pages'
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'pages/edit'
@@ -191,7 +181,8 @@ module Lokka
 
     delete '/admin/pages/:id' do |id|
       Page.get(id).destroy
-      redirect "/admin/pages"
+      flash[:notice] = t.page_was_successfully_deleted
+      redirect '/admin/pages'
     end
 
     # comment
@@ -213,6 +204,7 @@ module Lokka
       login_required
       @comment = Comment.new(params['comment'])
       if @comment.save
+        flash[:notice] = t.comment_was_successfully_created
         redirect '/admin/comments'
       else
         @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
@@ -231,7 +223,8 @@ module Lokka
       login_required
       @comment = Comment.get(id)
       if @comment.update(params['comment'])
-        redirect "/admin/comments/#{id}/edit"
+        flash[:notice] = t.comment_was_successfully_updated
+        redirect '/admin/comments'
       else
         @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
         render_any :'comments/edit'
@@ -240,7 +233,8 @@ module Lokka
 
     delete '/admin/comments/:id' do |id|
       Comment.get(id).destroy
-      redirect "/admin/comments"
+      flash[:notice] = t.comment_was_successfully_deleted
+      redirect '/admin/comments'
     end
 
     # category
@@ -263,6 +257,7 @@ module Lokka
       @category = Category.new(params['category'])
       @category.user = current_user
       if @category.save
+        flash[:notice] = t.category_was_successfully_created
         redirect '/admin/categories'
       else
         render_any :'categories/new'
@@ -279,7 +274,8 @@ module Lokka
       login_required
       @category = Category.get(id)
       if @category.update(params['category'])
-        redirect "/admin/categories/#{id}/edit"
+        flash[:notice] = t.category_was_successfully_updated
+        redirect '/admin/categories'
       else
         render_any :'categories/edit'
       end
@@ -287,7 +283,8 @@ module Lokka
 
     delete '/admin/categories/:id' do |id|
       Category.get(id).destroy
-      redirect "/admin/categories"
+      flash[:notice] = t.category_was_successfully_deleted
+      redirect '/admin/categories'
     end
 
     # users
@@ -308,6 +305,7 @@ module Lokka
       login_required
       @user = User.new(params['user'])
       if @user.save
+        flash[:notice] = t.user_was_successfully_created
         redirect '/admin/users'
       else
         render_any :'users/new'
@@ -324,7 +322,8 @@ module Lokka
       login_required
       @user = User.get(id)
       if @user.update(params['user'])
-        redirect "/admin/users/#{id}/edit"
+        flash[:notice] = t.user_was_successfully_updated
+        redirect '/admin/users'
       else
         render_any :'users/edit'
       end
@@ -337,6 +336,7 @@ module Lokka
       else
         target_user.destroy
       end
+      flash[:notice] = t.user_was_successfully_deleted
       redirect '/admin/users'
     end
  
@@ -356,6 +356,7 @@ module Lokka
     put '/admin/themes' do
       site = Site.first
       site.update(:theme => params[:title])
+      flash[:notice] = t.theme_was_successfully_updated
       redirect '/admin/themes'
     end
 
@@ -375,6 +376,7 @@ module Lokka
     put '/admin/site' do
       login_required
       if Site.first.update(params['site'])
+        flash[:notice] = t.site_was_successfully_updated
         redirect '/admin/site/edit'
       else
         render_any :'site/edit'
@@ -397,7 +399,6 @@ module Lokka
       logger.debug "theme: #{settings.theme}"
 
       render_detect :index, :entries
-#      render_any :entries
     end
 
     get '/index.atom' do
