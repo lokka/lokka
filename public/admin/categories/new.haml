@@ -1,5 +1,5 @@
 %h2= t.new_category
-%form{:action => '/admin/categories', :method => 'category'}
+%form{:action => '/admin/categories', :method => 'post'}
   = partial 'categories/form'
   %p
     %input{:type => 'submit', :value => t.new}

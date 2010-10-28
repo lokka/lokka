@@ -266,7 +266,7 @@ module Lokka
     post '/admin/categories' do
       login_required
       @category = Category.new(params['category'])
-      @category.user = current_user
+      #@category.user = current_user
       if @category.save
         redirect '/admin/categories'
       else
