@@ -8,6 +8,9 @@
     %link{:rel => 'shortcut icon', :href => '/admin/favicon.ico'}
     %link{:rel => 'stylesheet', :href => '/admin/css/style.css', :type => 'text/css'}
     %link{:rel => 'stylesheet', :href => '/admin/css/jquery.cleditor.css', :type => 'text/css'}
+    - css_last = yield_content :css_last
+    - unless css_last.blank?
+      = css_last
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
     %script{:src => "/admin/js/jquery.cleditor.min.js", :type => "text/javascript"}
     %script{:src => "/admin/js/editor.js", :type => "text/javascript"}
