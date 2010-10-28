@@ -58,6 +58,7 @@ edit_post: 投稿編集
 edit_page: ページ編集
 edit_category: カテゴリー編集
 edit_comment: コメント編集
+edit_upload_file: アップロードファイル編集
 edit_user: ユーザー編集
 edit_site: サイト編集
 post_was_successfully_created: 投稿を作成しました。

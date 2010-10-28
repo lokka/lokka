@@ -58,6 +58,7 @@ edit_post: Edit Post
 edit_page: Edit Page
 edit_category: Edit Category
 edit_comment: Edit Comment
+edit_upload_file: Edit Uploaded File
 edit_user:  Edit User
 edit_site: Edit Site
 post_was_successfully_created: Post was successfully created.

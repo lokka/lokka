@@ -3,10 +3,13 @@
   %tr
     %th= t.upload_file.name
     %th= t.upload_file.created_at
-    %th
+    %th{:colspan => 2}
   - @upload_files.each_with_index do |upload_file, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
-      %td= upload_file.name
+      %td
+        %a{:href => "/admin/upload_files/#{upload_file.id}/edit"}= upload_file.name
       %td= l upload_file.created_at.to_time
+      %td
+        %a.button{:href => "/admin/upload_files/#{upload_file.id}/edit"}= t.edit
       %td
         = link_to t.delete, "/admin/upload_files/#{upload_file.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete

@@ -15,7 +15,20 @@ class UploadFile
     first(:name => str)
   end
 
-  def link
-    "/upload_files/#{path}/#{CGI.escape(name)}"
+  def upload(settings, tempfile)
+    absolute_path = File.join(settings.upload_files, path)
+    FileUtils.mkdir_p(absolute_path) unless File.exist? path
+    while tmp = tempfile.read(65535)
+      File.open(File.join(absolute_path, name), "wb") do |f| 
+        f.write(tmp)
+      end 
+    end 
+  end
+
+  def remove(settings)
+    absolute_path = File.join(settings.upload_files, path)
+    FileUtils.rm_f(File.join(absolute_path, name))
+    Dir.chdir(absolute_path)
+    FileUtils.rm_rf(absolute_path) if Dir["*"].length == 0
   end
 end

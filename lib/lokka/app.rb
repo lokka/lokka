@@ -317,14 +317,8 @@ module Lokka
       @upload_file = UploadFile.search(filename)
       @upload_file = UploadFile.new(:name => filename) if @upload_file.blank?
       if @upload_file.save
-        path = File.join(settings.upload_files, @upload_file.path)
         begin
-          FileUtils.mkdir_p(path) unless File.exist? path
-          while tmp = tempfile.read(65535)
-            File.open(File.join(path, @upload_file.name), "wb") do |f|
-              f.write(tmp)
-            end
-          end
+          @upload_file.upload(settings, tempfile)
         rescue
           haml :'system/500', :layout => false
         end
@@ -334,14 +328,40 @@ module Lokka
       end
     end
 
+    get '/admin/upload_files/:id/edit' do |id|
+      login_required
+      @upload_file = UploadFile.get(id)
+      render_any :'upload_files/edit'
+    end
+
+    put '/admin/upload_files/:id' do |id|
+      login_required
+      tempfile = params[:file][:tempfile]
+      filename = params[:file][:filename]
+      @upload_file = UploadFile.get(id)
+      old_upload_file = @upload_file.clone
+      if @upload_file.update(:name => filename)
+        begin
+          old_upload_file.remove(settings)
+          @upload_file.upload(settings, tempfile)
+        rescue
+          haml :'system/500', :layout => false
+        end
+        redirect "/admin/upload_files/#{id}/edit"
+      else
+        render_any :'upload_files/edit'
+      end
+    end
+
     delete '/admin/upload_files/:id' do |id|
       login_required
       upload_file = UploadFile.get(id)
       if upload_file.destroy
-        path = File.join(settings.upload_files, upload_file.path)
-        FileUtils.rm_f(File.join(path, upload_file.name))
-        Dir.chdir(path)
-        FileUtils.rm_rf(path) if Dir["*"].length == 0
+        begin
+          upload_file.remove(settings)
+        rescue
+          haml :'system/500', :layout => false
+        end
       end
       redirect "/admin/upload_files"
     end

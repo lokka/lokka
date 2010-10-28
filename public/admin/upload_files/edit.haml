@@ -1,0 +1,6 @@
+%h2= t.edit_upload_file
+%form{:action => "/admin/upload_files/#{@upload_file.id}", :method => 'post', :enctype => 'multipart/form-data'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  = partial 'upload_files/form'
+  %p
+    %input{:type => 'submit', :value => t.new}
