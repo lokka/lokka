@@ -38,6 +38,7 @@ task 'db:migrate' do
   Tag.auto_migrate!
   Tagging.auto_migrate!
   Comment.auto_migrate!
+  UploadFile.auto_migrate!
 end
 
 desc 'Execute seed script'

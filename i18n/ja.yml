@@ -19,6 +19,7 @@ logout: ログアウト
 signup: 登録
 users: ユーザー
 categories: カテゴリー
+upload_files: アップロードファイル
 posts: 投稿
 pages: ページ
 comments: コメント
@@ -41,6 +42,7 @@ feed: フィード
 listing_posts: 投稿一覧
 listing_pages: ページ一覧
 listing_categories: カテゴリー一覧
+listing_upload_files: アップロードファイル一覧
 listing_tags: タグ一覧
 listing_comments: コメント一覧
 listing_users: ユーザー一覧
@@ -51,6 +53,7 @@ new_page: ページ登録
 new_category: カテゴリー登録
 new_user: ユーザー登録
 new_comment: コメント登録
+new_upload_file: アップロードファイル登録
 edit_post: 投稿編集
 edit_page: ページ編集
 edit_category: カテゴリー編集
@@ -134,6 +137,12 @@ comment:
   body: 本文
   homepage: ホームページ
   entry: エントリー
+  created_at: 作成日時
+  updated_at: 更新日時
+upload_file:
+  id: ID
+  name: ファイル名
+  path: パス名
   created_at: 作成日時
   updated_at: 更新日時
 what_about_lokka: <p>Lokka(ロッカ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにも簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>

@@ -7,3 +7,4 @@ tmp/*.log
 coverage
 .DS_Store
 tags
+public/upload_files/*

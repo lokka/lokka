@@ -1,0 +1,12 @@
+%h2= t.listing_upload_files
+%table
+  %tr
+    %th= t.upload_file.name
+    %th= t.upload_file.created_at
+    %th
+  - @upload_files.each_with_index do |upload_file, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td= upload_file.name
+      %td= l upload_file.created_at.to_time
+      %td
+        = link_to t.delete, "/admin/upload_files/#{upload_file.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete

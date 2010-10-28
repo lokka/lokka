@@ -425,6 +425,10 @@ label {
   background: url(../images/category.png);
 }
 
+#aside li.upload_files h3 {
+  background: url(../images/files.png);
+}
+
 #aside li.user h3 {
   background: url(../images/user.png);
 }

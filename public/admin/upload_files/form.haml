@@ -1,0 +1,10 @@
+- unless @upload_file.errors.empty?
+  #error
+    .title= t.error
+    %ul
+      - @upload_file.errors.each do |error|
+        %li= error
+.field
+  %label{:for => 'upload_file_name'}= t.upload_file.name
+  %br
+  %input{:type => 'file', :id => 'upload_file_title', :name => 'file'}

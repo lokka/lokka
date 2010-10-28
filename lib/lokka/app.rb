@@ -12,6 +12,7 @@ module Lokka
       set :admin_per_page, 50
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
+      set :upload_files, Proc.new { File.join(public, 'upload_files') }
       register Sinatra::Logger
       set :logger_level, :debug
       set :logger_log_file, Proc.new { File.join(root, 'tmp', "#{environment}.log") }
@@ -293,6 +294,56 @@ module Lokka
     delete '/admin/categories/:id' do |id|
       Category.get(id).destroy
       redirect "/admin/categories"
+    end
+
+    #upload_files
+    get '/admin/upload_files' do
+      login_required
+      @upload_files = UploadFile.all(:order => :created_at.desc).
+                                 page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'upload_files/index'
+    end
+
+    get '/admin/upload_files/new' do
+      login_required
+      @upload_file = UploadFile.new
+      render_any :'upload_files/new'
+    end
+
+    post '/admin/upload_files' do
+      login_required
+      tempfile = params[:file][:tempfile]
+      filename = params[:file][:filename]
+      @upload_file = UploadFile.search(filename)
+      @upload_file = UploadFile.new(:name => filename) if @upload_file.blank?
+      if @upload_file.save
+        path = File.join(settings.upload_files, @upload_file.path)
+        begin
+          FileUtils.mkdir_p(path) unless File.exist? path
+          while tmp = tempfile.read(65535)
+            File.open(File.join(path, @upload_file.name), "wb") do |f|
+              f.write(tmp)
+            end
+          end
+        rescue
+          haml :'system/500', :layout => false
+        end
+        redirect '/admin/upload_files'
+      else
+        render_any :'upload_files/new'
+      end
+    end
+
+    delete '/admin/upload_files/:id' do |id|
+      login_required
+      upload_file = UploadFile.get(id)
+      if upload_file.destroy
+        path = File.join(settings.upload_files, upload_file.path)
+        FileUtils.rm_f(File.join(path, upload_file.name))
+        Dir.chdir(path)
+        FileUtils.rm_rf(path) if Dir["*"].length == 0
+      end
+      redirect "/admin/upload_files"
     end
 
     # users

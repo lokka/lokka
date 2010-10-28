@@ -19,6 +19,7 @@ logout: Logout
 signup: Signup
 users: Users
 categories: Categories
+upload_files: Upload Files
 posts: Posts
 pages: Pages
 comments: Comments
@@ -41,6 +42,7 @@ feed: Feed
 listing_posts: Listing Posts
 listing_pages: Listing Pages
 listing_categories: Listing Categories
+listing_upload_files: Listing Uploaded Files
 listing_tags: Listing Tags
 listing_comments: Listing Comments
 listing_users: Listing Users
@@ -51,6 +53,7 @@ new_page: New Page
 new_category: New Category
 new_user: New User
 new_comment: New Comment
+new_upload_file: New Upload File
 edit_post: Edit Post
 edit_page: Edit Page
 edit_category: Edit Category
@@ -136,7 +139,12 @@ comment:
   homepage: Homepage
   created_at: Created at
   updated_at: Updated at
-
+upload_file:
+  id: ID
+  name: Filename
+  path: Pathname
+  created_at: Created at
+  updated_at: Updated at
 what_about_lokka: <p>Lokka is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>
 home: Home
 getting_started: Getting Started
