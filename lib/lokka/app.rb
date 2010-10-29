@@ -25,7 +25,6 @@ module Lokka
       plugins = []
       Dir["public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
         paths = path.split(File::SEPARATOR)
-#        puts paths.join(' / ')
         $:.push File.join(paths[0], paths[1], paths[2], paths[3])
         name, ext = paths[5].split('.')
         require "lokka/#{name}"
