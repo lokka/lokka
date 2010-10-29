@@ -42,10 +42,12 @@ class UploadFile
   end
 
   def file_readable_size 
-    if filesize.to_f / 1000 >= 1000
-      sprintf("%.1fMB", filesize.to_f / 1000 / 1000) 
+    if filesize.to_f / 1024 >= 1024
+      sprintf("%.1fMB", filesize.to_f / 1024 / 1024) 
+    elsif filesize.to_f / 1024 >= 1
+      sprintf("%.fKB", filesize.to_f / 1024) 
     else
-      sprintf("%.fKB", filesize.to_f / 1000) 
+      filesize.to_s + "byte" + (filesize > 1 ? "s" : "")
     end
   end
 end
