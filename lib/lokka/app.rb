@@ -312,13 +312,15 @@ module Lokka
 
     post '/admin/upload_files' do
       login_required
-      tempfile = params[:file][:tempfile]
-      filename = params[:file][:filename]
-      @upload_file = UploadFile.search(filename)
-      @upload_file = UploadFile.new(:name => filename) if @upload_file.blank?
+      params[:upload_file].merge!(
+        :name => params[:file][:filename],
+        :filetype => params[:file][:type],
+        :filesize => params[:file][:tempfile].size
+      ) if params[:file]
+      @upload_file = UploadFile.new(params[:upload_file])
       if @upload_file.save
         begin
-          @upload_file.upload(settings, tempfile)
+          @upload_file.upload(settings, params[:file][:tempfile])
         rescue
           haml :'system/500', :layout => false
         end
@@ -336,16 +338,21 @@ module Lokka
 
     put '/admin/upload_files/:id' do |id|
       login_required
-      tempfile = params[:file][:tempfile]
-      filename = params[:file][:filename]
       @upload_file = UploadFile.get(id)
       old_upload_file = @upload_file.clone
-      if @upload_file.update(:name => filename)
-        begin
-          old_upload_file.remove(settings)
-          @upload_file.upload(settings, tempfile)
-        rescue
-          haml :'system/500', :layout => false
+      params[:upload_file].merge!(
+        :name => params[:file][:filename],
+        :filetype => params[:file][:type],
+        :filesize => params[:file][:tempfile].size
+      ) if params[:file]
+      if @upload_file.update(params[:upload_file])
+        if params[:file]
+          begin
+            old_upload_file.remove(settings)
+            @upload_file.upload(settings, params[:file][:tempfile])
+          rescue
+            haml :'system/500', :layout => false
+          end
         end
         redirect "/admin/upload_files/#{id}/edit"
       else

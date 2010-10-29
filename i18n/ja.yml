@@ -142,7 +142,10 @@ comment:
   updated_at: 更新日時
 upload_file:
   id: ID
+  title: タイトル
   name: ファイル名
+  filetype: 種類
+  filesize: サイズ
   path: パス名
   created_at: 作成日時
   updated_at: 更新日時

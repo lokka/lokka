@@ -142,7 +142,10 @@ comment:
   updated_at: Updated at
 upload_file:
   id: ID
+  title: Title
   name: Filename
+  filetype: Type
+  filesize: Size
   path: Pathname
   created_at: Created at
   updated_at: Updated at

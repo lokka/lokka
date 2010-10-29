@@ -4,7 +4,11 @@
     %ul
       - @upload_file.errors.each do |error|
         %li= error
-.field
+%p
+  %label{:for => 'upload_file_title'}= t.upload_file.title
+  %br
+  %input{:type => 'text', :id => 'upload_file_title', :name => 'upload_file[title]', :value => @upload_file.title}
+%p
   %label{:for => 'upload_file_name'}= t.upload_file.name
   %br
-  %input{:type => 'file', :id => 'upload_file_title', :name => 'file'}
+  %input{:type => 'file', :id => 'upload_file_name', :name => 'file'}
