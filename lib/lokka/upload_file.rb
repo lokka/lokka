@@ -25,9 +25,7 @@ class UploadFile
     size = tempfile.size
     read_size = size < READ_BUFFER ? size : READ_BUFFER
     while tmp = tempfile.read(read_size)
-      File.open(File.join(absolute_path, name), "ab") do |f| 
-        f.write(tmp)
-      end 
+      File.open(File.join(absolute_path, name), "ab") { |f| f.write(tmp) }
       size = size - read_size
       read_size = size < READ_BUFFER ? size : READ_BUFFER
       break if read_size <= 0

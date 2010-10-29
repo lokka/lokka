@@ -373,6 +373,14 @@ module Lokka
       redirect "/admin/upload_files"
     end
 
+    get '/files/:id' do |id|
+      if upload_file = UploadFile.get(id) 
+        if File.exist? file = File.join(settings.upload_files, upload_file.path, upload_file.name)
+          send_file(file, :type => upload_file.filetype, :disposition => 'inline')
+        end
+      end
+    end
+
     # users
     get '/admin/users' do
       login_required
