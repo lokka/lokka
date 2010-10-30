@@ -9,6 +9,11 @@ class Site
   property :updated_at, DateTime
 
   def method_missing(method, *args)
-    Option.send(method, args)
+    if method.to_s =~ /=$/
+      super
+    else
+      o = Option.first_or_new(:name => method)
+      o.value
+    end
   end
 end
