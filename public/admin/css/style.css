@@ -179,6 +179,29 @@ h2 {
 	text-shadow:#eee 1px 1px 0px;
 }
 
+#notice {
+	display: block;
+	position: absolute;
+	left: 360px;
+	z-index: 1000;
+	text-align: center;
+	margin: 0px;
+	top: 69px;
+	line-height: 26px;
+	}
+#notice p {
+	display: block;
+	background-color: #C47240;
+	margin: 0px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	color: #FFF;
+	font-size: 12px;
+	padding-right: 1em;
+	padding-left: 1em;
+}
+
 a {
   color: #000;
   text-decoration: none;
