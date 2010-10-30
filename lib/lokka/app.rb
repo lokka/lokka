@@ -12,6 +12,7 @@ module Lokka
       set :admin_per_page, 50
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
+      set :upload_type, 'db'  # db or file
       set :upload_files, Proc.new { File.join(public, 'upload_files') }
       register Sinatra::Logger
       set :logger_level, :debug
@@ -320,6 +321,7 @@ module Lokka
         rescue
           haml :'system/500', :layout => false
         end
+        flash[:notice] = t.upload_file_was_successfully_created
         redirect '/admin/upload_files'
       else
         render_any :'upload_files/new'
@@ -350,7 +352,8 @@ module Lokka
             haml :'system/500', :layout => false
           end
         end
-        redirect "/admin/upload_files/#{id}/edit"
+        flash[:notice] = t.upload_file_was_successfully_updated
+        redirect '/admin/upload_files'
       else
         render_any :'upload_files/edit'
       end
@@ -366,13 +369,22 @@ module Lokka
           haml :'system/500', :layout => false
         end
       end
-      redirect "/admin/upload_files"
+      flash[:notice] = t.upload_file_was_successfully_deleted
+      redirect '/admin/upload_files'
     end
 
     get '/files/:id' do |id|
       if upload_file = UploadFile.get(id) 
-        if File.exist? file = File.join(settings.upload_files, upload_file.path, upload_file.name)
-          send_file(file, :type => upload_file.filetype, :disposition => 'inline')
+        case settings.upload_type
+        when 'db'
+          response['Content-Type'] = upload_file.filetype
+          response['Content-Disposition'] = 'inline'
+          response['Content-Length'] = upload_file.filesize.to_s
+          halt upload_file.download(settings)
+        when 'file'
+          if file = upload_file.download(settings)
+            send_file(file, :type => upload_file.filetype, :disposition => 'inline')
+          end
         end
       end
     end

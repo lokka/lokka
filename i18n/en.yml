@@ -19,7 +19,7 @@ logout: Logout
 signup: Signup
 users: Users
 categories: Categories
-upload_files: Upload Files
+upload_files: Files
 posts: Posts
 pages: Pages
 comments: Comments
@@ -42,7 +42,7 @@ feed: Feed
 listing_posts: Listing Posts
 listing_pages: Listing Pages
 listing_categories: Listing Categories
-listing_upload_files: Listing Uploaded Files
+listing_upload_files: Listing Files
 listing_tags: Listing Tags
 listing_comments: Listing Comments
 listing_users: Listing Users
@@ -53,12 +53,12 @@ new_page: New Page
 new_category: New Category
 new_user: New User
 new_comment: New Comment
-new_upload_file: New Upload File
+new_upload_file: New File
 edit_post: Edit Post
 edit_page: Edit Page
 edit_category: Edit Category
 edit_comment: Edit Comment
-edit_upload_file: Edit Uploaded File
+edit_upload_file: Edit File
 edit_user:  Edit User
 edit_site: Edit Site
 post_was_successfully_created: Post was successfully created.
@@ -78,6 +78,9 @@ user_was_successfully_updated: User was successfully updated.
 user_was_successfully_deleted: User was successfully deleted.
 site_was_successfully_updated: Site was successfully updated.
 theme_was_successfully_updated: Theme was successfully updated.
+upload_file_was_successfully_created: File was successfully created.
+upload_file_was_successfully_updated: File was successfully updated.
+upload_file_was_successfully_deleted: File was successfully deleted.
 may_i_change_the_theme: May I change the theme?
 are_you_sure: Are you sure?
 not_select: Not Select

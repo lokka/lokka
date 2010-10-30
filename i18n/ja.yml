@@ -19,7 +19,7 @@ logout: ログアウト
 signup: 登録
 users: ユーザー
 categories: カテゴリー
-upload_files: アップロードファイル
+upload_files: ファイル
 posts: 投稿
 pages: ページ
 comments: コメント
@@ -42,7 +42,7 @@ feed: フィード
 listing_posts: 投稿一覧
 listing_pages: ページ一覧
 listing_categories: カテゴリー一覧
-listing_upload_files: アップロードファイル一覧
+listing_upload_files: ファイル一覧
 listing_tags: タグ一覧
 listing_comments: コメント一覧
 listing_users: ユーザー一覧
@@ -53,12 +53,12 @@ new_page: ページ登録
 new_category: カテゴリー登録
 new_user: ユーザー登録
 new_comment: コメント登録
-new_upload_file: アップロードファイル登録
+new_upload_file: ファイル登録
 edit_post: 投稿編集
 edit_page: ページ編集
 edit_category: カテゴリー編集
 edit_comment: コメント編集
-edit_upload_file: アップロードファイル編集
+edit_upload_file: ファイル編集
 edit_user: ユーザー編集
 edit_site: サイト編集
 post_was_successfully_created: 投稿を作成しました。
@@ -78,6 +78,9 @@ user_was_successfully_updated: ユーザーを更新しました。
 user_was_successfully_deleted: ユーザーを削除しました。
 site_was_successfully_updated: サイトを更新しました。
 theme_was_successfully_updated: テーマを更新しました。
+upload_file_was_successfully_created: ファイルを作成しました。
+upload_file_was_successfully_updated: ファイルを更新しました。
+upload_file_was_successfully_deleted: ファイルを削除しました。
 may_i_change_the_theme: テーマを変更してよろしいですか？
 are_you_sure: 本当によろしいですか？
 not_select: 未選択
