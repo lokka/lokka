@@ -75,7 +75,9 @@
             %h3
               %a{:href => '/admin/site/edit'}= t.settings
       #main
-        #notice= flash[:notice] if flash[:notice]
+        - if flash[:notice]
+          #notice
+            %p= flash[:notice]
         = yield
     #footer
       %a{:href => 'http://lokka.org/'} Lokka
