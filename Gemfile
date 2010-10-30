@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem 'rack-flash', '0.1.1', :require => 'rack/flash'
+gem 'rack-flash', '0.1.1'
 gem 'i18n', '0.4.1'
 gem 'sinatra', '1.0.0'
 gem 'sinatra-r18n', '0.4.7.1'
@@ -19,7 +19,6 @@ gem 'rake', '0.8.7'
 gem 'exceptional', '2.0.25'
 gem 'erubis', '2.6.6'
 gem 'activesupport', '3.0.0'
-gem 'shotgun'
 gem 'bluefeather'
 
 group :production do
