@@ -12,7 +12,7 @@
       %td
         %a{:href => "/admin/upload_files/#{upload_file.id}/edit"}=h upload_file.title
       %td
-        %a{:href => "/upload_files/#{upload_file.path}/#{upload_file.name}"}=h upload_file.name
+        %a{:href => "/files/#{upload_file.id}"}=h upload_file.name
       %td= l upload_file.created_at.to_time
       %td= upload_file.file_readable_size
       %td= upload_file.filetype
