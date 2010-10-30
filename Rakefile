@@ -33,6 +33,7 @@ desc 'Create the Lokka database'
 task 'db:migrate' do
   User.auto_migrate!
   Site.auto_migrate!
+  Option.auto_migrate!
   Entry.auto_migrate!
   Category.auto_migrate!
   Tag.auto_migrate!

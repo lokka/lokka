@@ -8,14 +8,7 @@ class Site
   property :created_at, DateTime
   property :updated_at, DateTime
 
-  private
-  def define_field_accessor(name)
-    define_method(name) do
-      first(:name => name).value
-    end
-
-    define_method("#{name}=") do |value|
-      first(:name => name).value = value
-    end
+  def method_missing(method, *args)
+    Option.send(method, args)
   end
 end
