@@ -55,6 +55,7 @@ edit_post: 投稿編集
 edit_page: ページ編集
 edit_category: カテゴリー編集
 edit_comment: コメント編集
+edit_tag: タグ編集
 edit_user: ユーザー編集
 edit_site: サイト編集
 post_was_successfully_created: 投稿を作成しました。
@@ -69,6 +70,8 @@ comment_was_successfully_deleted: コメントを削除しました。
 category_was_successfully_created: カテゴリーを作成しました。
 category_was_successfully_updated: カテゴリーを更新しました。
 category_was_successfully_deleted: カテゴリーを削除しました。
+tag_was_successfully_updated: タグを更新しました。
+tag_was_successfully_deleted: タグを削除しました。
 user_was_successfully_created: ユーザーを作成しました。
 user_was_successfully_updated: ユーザーを更新しました。
 user_was_successfully_deleted: ユーザーを削除しました。
@@ -113,6 +116,8 @@ category:
   description: 本文
   created_at: 作成日時
   updated_at: 更新日時
+tag:
+  name: タグ名
 user:
   id: ID
   name: 名前
