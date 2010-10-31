@@ -55,6 +55,7 @@ edit_post: Edit Post
 edit_page: Edit Page
 edit_category: Edit Category
 edit_comment: Edit Comment
+edit_tag: Edit Tag
 edit_user:  Edit User
 edit_site: Edit Site
 post_was_successfully_created: Post was successfully created.
@@ -69,6 +70,8 @@ comment_was_successfully_deleted: Comment was successfully deleted.
 category_was_successfully_created: Category was successfully created.
 category_was_successfully_updated: Category was successfully updated.
 category_was_successfully_deleted: Category was successfully deleted.
+tag_was_successfully_updated: Tag was successfully updated.
+tag_was_successfully_deleted: Tag was successfully deleted.
 user_was_successfully_created: User was successfully created.
 user_was_successfully_updated: User was successfully updated.
 user_was_successfully_deleted: User was successfully deleted.
@@ -113,6 +116,8 @@ category:
   description: Description
   created_at: Created at
   updated_at: Updated at
+tag:
+  name: Name
 user:
   id: ID
   name: Name
@@ -136,7 +141,6 @@ comment:
   homepage: Homepage
   created_at: Created at
   updated_at: Updated at
-
 what_about_lokka: <p>Lokka is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>
 home: Home
 getting_started: Getting Started

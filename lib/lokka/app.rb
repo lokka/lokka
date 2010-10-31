@@ -291,6 +291,37 @@ module Lokka
       redirect '/admin/categories'
     end
 
+    # tag
+    get '/admin/tags' do
+      login_required
+      @tags = Tag.all.
+                    page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'tags/index'
+    end
+
+    get '/admin/tags/:id/edit' do |id|
+      login_required
+      @tag = Tag.get(id)
+      render_any :'tags/edit'
+    end
+
+    put '/admin/tags/:id' do |id|
+      login_required
+      @tag = Tag.get(id)
+      if @tag.update(params['tag'])
+        flash[:notice] = t.tag_was_successfully_updated
+        redirect '/admin/tags'
+      else
+        render_any :'tags/edit'
+      end
+    end
+
+    delete '/admin/tags/:id' do |id|
+      Tag.get(id).destroy
+      flash[:notice] = t.tag_was_successfully_deleted
+      redirect '/admin/tags'
+    end
+
     # users
     get '/admin/users' do
       login_required
