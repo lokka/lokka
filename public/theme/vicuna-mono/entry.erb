@@ -1,0 +1,23 @@
+<div class="section article">
+  <div class="header">
+    <h2><%= @entry.title %></h2>
+    <ul class="info">
+      <li class="date"><%= l @entry.created_at.to_time %></li>
+      <% unless @entry.category.nil? %>
+      <li class="category"><a href="<%= @entry.category.link %>"><%= @entry.category.title %></a></li>
+      <% end %>
+      <% unless @entry.tags.size.zero? %>
+      <li class="tags"><%= @entry.tags_to_html %></li>
+      <% end %>
+      <li class="auther"><%= @entry.user.name %></li>
+    </ul>
+  </div>
+  <div class="body">
+    <%= @entry.body %>
+  </div>
+  <div class="footer">
+    <% if logged_in? %>
+    <p><a href="<%= @entry.edit_link %>"><%= t.edit %></a></p>
+    <% end %>
+  </div>
+</div>

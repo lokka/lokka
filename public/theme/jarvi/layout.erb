@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="text/css" http-equiv="Content-Style-Type" />
+    <meta content="text/javascript" http-equiv="Content-Script-Type" />
+<% if entry? %>
+    <title><%= @entry.title %> - <%= @site.title %></title>
+<% else %>
+    <title><%= @site.title %></title>
+<% end %>
+    <link rel="shortcut icon" href="<%= @theme.path %>/favicon.ico" />
+    <link rel="alternate" href="/index.atom" type="application/atom+xml" />
+    <link rel="stylesheet" href="<%= @theme.path %>/style.css" type="text/css" />
+  </head>
+  <body class="<%= @theme_types.join(' ') %>">
+    <div id="header">
+      <h1 class="wide"><a href="/"><%= @site.title %></a></h1>
+      <div class="section">
+        <div class="nav">
+          <ul class="wide">
+<% Page.all.each do |page| %>
+            <li><a href="<%= page.link %>"><%= page.title %></a></li>
+<% end %>
+          </ul>
+        </div>
+      </div>
+      <div class="bread_crumbs wide"><%= bread_crumb %></div>
+    </div>
+    <div id="container">
+      <div id="main">
+        <%= yield %>
+      </div>
+      <div id="aside">
+        <dl>
+          <dt><%= t.recent_entries %></dt>
+          <dd>
+            <ul>
+<% Post.recent(5).each do |post| %>
+              <li><a href="<%= post.link %>"><%= post.title %></a></li>
+<% end %>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div id="footer">
+      <div class="copy"><a href="/"><%= @site.title %></a></div>
+      <div class="poweredby wide">powered by <a href="http://lokka.org/">Lokka</a></div>
+    </div>
+  </body>
+</html>
