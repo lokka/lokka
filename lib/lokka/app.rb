@@ -28,7 +28,7 @@ module Lokka
         name, ext = paths[5].split('.')
         require "lokka/#{name}"
         begin
-          register ::Lokka.const_get(name.capitalize)
+          register ::Lokka.const_get(name.camelize)
           plugins << name
         rescue => e
           puts "plugin #{paths[2]} is identified as a suspect."
