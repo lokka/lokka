@@ -1,9 +1,10 @@
-*.sqlite3
-bundle
-.bundle
-Gemfile.lock
-tmp/*.log
-*.csv
-coverage
+/*.sqlite3
+/bundle
+/.bundle
+/Gemfile.lock
+/tmp/*.log
+/log/*.log
+/*.csv
+/coverage
 .DS_Store
 /tags

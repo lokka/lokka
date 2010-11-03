@@ -53,6 +53,10 @@ class Entry
     "/#{fuzzy_slug}"
   end
 
+  def edit_link
+    "/admin/#{self.class.to_s.tableize}/#{id}/edit"
+  end
+
   def tags_to_html
     html = '<ul>'
     tags.each do |tag|

@@ -7,4 +7,4 @@
     .created_at= l post.created_at.to_time
     .comment== #{link_to "#{t.comments} (#{post.comments.size})", "#{post.link}#comment_form"}
     - if logged_in?
-      %p= link_to t.edit, "/admin/posts/#{post.id}/edit"
+      %p= link_to t.edit, post.edit_link

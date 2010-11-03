@@ -12,7 +12,7 @@
       %td= page.user.name
       %td= l page.created_at.to_time
       %td
-        %a.button{:href => "/admin/pages/#{page.id}/edit"}= t.edit
+        %a.button{:href => page.edit_link}= t.edit
       %td
         = link_to t.delete, "/admin/pages/#{page.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager

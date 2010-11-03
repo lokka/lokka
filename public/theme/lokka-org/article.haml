@@ -6,4 +6,4 @@
   .footer
     .created_at= l post.created_at.to_time
     - if logged_in?
-      %p= link_to t.edit, "/admin/posts/#{post.id}/edit"
+      %p= link_to t.edit, post.edit_link
