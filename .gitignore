@@ -8,3 +8,4 @@
 /coverage
 .DS_Store
 /tags
+/import.rb

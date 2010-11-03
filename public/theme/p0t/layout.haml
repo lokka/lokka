@@ -39,7 +39,7 @@
             - if about = Page.first(:slug => 'about')
               = about.body
               - if logged_in?
-              %p{:style => 'text-align:right'}= link_to t.edit, abount.edit_link
+              %p{:style => 'text-align:right'}= link_to t.edit, about.edit_link
           %dt= t.recent_entries
           %dd
             %ul
