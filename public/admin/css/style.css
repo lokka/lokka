@@ -445,6 +445,10 @@ label {
   background: url(../images/category.png);
 }
 
+#aside li.tag h3 {
+  background: url(../images/tag.png);
+}
+
 #aside li.user h3 {
   background: url(../images/user.png);
 }
