@@ -293,10 +293,7 @@ label {
 }
 
 #aside {
-	padding-bottom: 32767px !important;
-	margin-bottom: -32767px !important;
 	float: left;
-	height: 100px;
 	width: 160px;
 	overflow: hidden;
 	padding-right: 0;
