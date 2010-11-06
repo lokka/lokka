@@ -45,7 +45,7 @@ desc 'Execute seed script'
 task 'db:seed' do
   User.create(:name => 'test', :password => 'test', :password_confirmation => 'test')
   Site.create(:title => 'Test Site', :description => 'description...', :theme => 'jarvi')
-  Post.create(:title => "Test Post", :body => "<h3>Wellcome to Lokka!</h3>\n<p><a href=\"/admin/\">Admin login</a> (user / password : test / test)</p>", :user_id => 1)
+  Post.create(:title => "Test Post", :body => "<p>Wellcome to Lokka!</p>\n<p><a href=\"/admin/\">Admin login</a> (user / password : test / test)</p>", :user_id => 1)
 end
 
 desc 'Set database'
