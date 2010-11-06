@@ -597,6 +597,10 @@ ul.plugins li {
   font-size: 14px;
 }
 
+ul.plugins li a {
+  text-decoration: underline;
+}
+
 #main li.theme {
 	float: left;
 	padding: 0;

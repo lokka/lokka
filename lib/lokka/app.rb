@@ -1,5 +1,22 @@
 module Lokka
   class App < Sinatra::Base
+    def self.load_plugin
+      plugins = []
+      Dir["public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
+        paths = path.split(File::SEPARATOR)
+        $:.push File.join(paths[0], paths[1], paths[2], paths[3])
+        name, ext = paths[5].split('.')
+        require "lokka/#{name}"
+        begin
+          plugee = ::Lokka.const_get(name.camelize)
+          register plugee
+          set :plugins, plugins << OpenStruct.new(:name => name, :have_page => plugee.page)
+        rescue => e
+          puts "plugin #{paths[2]} is identified as a suspect."
+        end
+      end
+    end
+
     configure do
       enable :method_override, :raise_errors, :static, :sessions
       set :root, File.expand_path('../../..', __FILE__)
@@ -20,21 +37,7 @@ module Lokka
       register Sinatra::R18n
       register Lokka::Before
 
-      # autoload plugins
-      plugins = []
-      Dir["public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
-        paths = path.split(File::SEPARATOR)
-        $:.push File.join(paths[0], paths[1], paths[2], paths[3])
-        name, ext = paths[5].split('.')
-        require "lokka/#{name}"
-        begin
-          register ::Lokka.const_get(name.camelize)
-          plugins << name
-        rescue => e
-          puts "plugin #{paths[2]} is identified as a suspect."
-        end
-      end
-      set :plugins, plugins
+      load_plugin
 
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
