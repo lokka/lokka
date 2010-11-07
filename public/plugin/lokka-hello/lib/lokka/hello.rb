@@ -1,7 +1,5 @@
 module Lokka
   module Hello
-    include Lokka::Plugin
-
     def self.registered(app)
       app.get '/hello' do
         'hello'

@@ -1,6 +1,6 @@
 - content_for :head_last do
   %link{:rel => 'stylesheet', :href => '/plugin/lokka-rbconfig/views/style.css', :type => 'text/css'}
-%h2 RbConfig
+%h2 Rbconfig
 %dl.rbconfigs
   - Config::CONFIG.each do |key, value|
     %dt= key

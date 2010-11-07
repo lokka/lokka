@@ -23,7 +23,6 @@ require 'haml'
 require 'builder'
 require 'exceptional'
 
-require 'lokka/plugin'
 require 'lokka/theme'
 require 'lokka/user'
 require 'lokka/site'

@@ -1,7 +1,7 @@
 module Lokka
   class App < Sinatra::Base
     def self.load_plugin
-      plugins = []
+      names = []
       Dir["public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
         paths = path.split(File::SEPARATOR)
         $:.push File.join(paths[0], paths[1], paths[2], paths[3])
@@ -10,11 +10,18 @@ module Lokka
         begin
           plugee = ::Lokka.const_get(name.camelize)
           register plugee
-          set :plugins, plugins << OpenStruct.new(:name => name, :have_page => plugee.page)
+          names << name
         rescue => e
           puts "plugin #{paths[2]} is identified as a suspect."
         end
       end
+
+      matchers = @routes['GET'].map(&:first)
+      set :plugins, names.map {|name|
+        OpenStruct.new(
+          :name => name,
+          :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
+      }
     end
 
     configure do
