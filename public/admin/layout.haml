@@ -79,6 +79,9 @@
           %li.setting.parent
             %h3
               %a{:href => '/admin/site/edit'}= t.settings
+          - admin_aside = yield_content :admin_aside
+          - unless admin_aside.blank?
+            = admin_aside
       #main
         - if flash[:notice]
           #notice

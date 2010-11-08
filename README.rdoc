@@ -12,10 +12,10 @@ CMS written in Ruby for cloud computing.
 
 == INSTALLATION
 
-  $ gem install bundler --version "1.0.0"
+  $ gem install bundler
   $ git clone git://github.com/komagata/lokka.git
   $ cd lokka
-  $ bundle install bundle --without production test
+  $ bundle install --path bundle --without production test
   $ bundle exec rake db:set
   $ bundle exec rackup
 
@@ -23,7 +23,7 @@ View at: http://localhost:9292/
 
 == DEPLOY TO HEROKU
 
-  $ gem install bundler --version "1.0.0"
+  $ gem install bundler
   $ git clone git://github.com/komagata/lokka.git
   $ cd lokka
   $ heroku create
