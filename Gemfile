@@ -1,4 +1,4 @@
-source :gemcutter
+source :rubygems
 
 gem 'rack-flash', '0.1.1'
 gem 'i18n', '0.4.1'
