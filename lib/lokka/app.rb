@@ -5,6 +5,10 @@ module Lokka
       Dir["public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
         paths = path.split(File::SEPARATOR)
         $:.push File.join(paths[0], paths[1], paths[2], paths[3])
+
+				i18n = File.join(paths[0], paths[1], paths[2], 'i18n')
+				R18n.extension_places << R18n::Loader::YAML.new(i18n) if File.exist? i18n
+
         name, ext = paths[5].split('.')
         require "lokka/#{name}"
         begin
