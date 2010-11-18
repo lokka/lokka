@@ -345,9 +345,6 @@ label {
 	margin-bottom: 0.8em;
 	line-height: 1.4;
 }
-
-
-
 #main table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -669,6 +666,12 @@ ul.plugins li a {
 
 textarea.editor {
   clear: both;
+}
+textarea.editor {
+  clear: both;
+}
+textarea#post_body {
+  clear: none;
 }
 
 .pager {
