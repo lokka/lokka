@@ -13,6 +13,7 @@
     %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
     %link{:rel => 'stylesheet', :href => "#{@theme.path}/style.css", :type => 'text/css'}
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
+    = header
   %body
     #header
       %h1= link_to @site.title, '/'
@@ -64,11 +65,4 @@
       .poweredby
         powered by
         = link_to 'Lokka', 'http://lokka.org/'
-    - unless logged_in?
-      :javascript
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        try {
-          var pageTracker = _gat._getTracker("UA-107252-9");
-          pageTracker._trackPageview();
-        } catch(err) {}
+    = footer

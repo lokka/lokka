@@ -200,5 +200,15 @@ module Lokka
       end
       months.sort {|x, y| y.year + y.month <=> x.year + x.month }
     end
+
+    def header
+      s = yield_content :header
+      s unless s.blank?
+    end
+
+    def footer
+      s = yield_content :footer
+      s unless s.blank?
+    end
   end
 end

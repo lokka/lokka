@@ -13,16 +13,7 @@
     %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
     %link{:rel => 'stylesheet', :href => "#{@theme.path}/style.css", :type => 'text/css'}
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
-    - if !logged_in? and ENV['RACK_ENV'] == 'production'
-      :javascript
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-107252-10']);
-        _gaq.push(['_trackPageview']);
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+    = header
   %body{:class => @theme_types.join(' ')}
     #header
       .language
@@ -78,3 +69,4 @@
     #footer
       .copy
         Lokka
+    = footer

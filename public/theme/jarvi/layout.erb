@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="<%= @theme.path %>/favicon.ico" />
     <link rel="alternate" href="/index.atom" type="application/atom+xml" />
     <link rel="stylesheet" href="<%= @theme.path %>/style.css" type="text/css" />
+    <%= header %>
   </head>
   <body class="<%= @theme_types.join(' ') %>">
     <div id="header">
@@ -49,5 +50,6 @@
       <div class="copy"><a href="/"><%= @site.title %></a></div>
       <div class="poweredby wide">powered by <a href="http://lokka.org/">Lokka</a></div>
     </div>
+    <%= footer %>
   </body>
 </html>

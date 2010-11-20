@@ -7,6 +7,7 @@
     <title><%= @title %></title>
     <link href="/index.atom" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
     <link rel="stylesheet" href="<%= @theme.path %>/style.css" type="text/css" />
+    <%= header %>
   </head>
   <body>
     <div id="header">
@@ -70,5 +71,6 @@
     <div id="footer">
       <div class="poweredby">powered by <a href="http://github.com/komagata/lokka">Lokka</a></div>
     </div>
+    <%= footer %>
   </body>
 </html>

@@ -6,8 +6,8 @@ module Lokka
         paths = path.split(File::SEPARATOR)
         $:.push File.join(paths[0], paths[1], paths[2], paths[3])
 
-				i18n = File.join(paths[0], paths[1], paths[2], 'i18n')
-				R18n.extension_places << R18n::Loader::YAML.new(i18n) if File.exist? i18n
+        i18n = File.join(paths[0], paths[1], paths[2], 'i18n')
+        R18n.extension_places << R18n::Loader::YAML.new(i18n) if File.exist? i18n
 
         name, ext = paths[5].split('.')
         require "lokka/#{name}"
@@ -43,17 +43,15 @@ module Lokka
       register Sinatra::Logger
       set :logger_level, :debug
       set :logger_log_file, Proc.new { File.join(root, 'tmp', "#{environment}.log") }
-
       register Sinatra::Logger
       register Sinatra::R18n
       register Lokka::Before
-
-      load_plugin
-
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
       use Rack::Flash
       use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key' if ENV['RACK_ENV'] == 'production'
+
+      load_plugin
     end
 
     configure :production do
