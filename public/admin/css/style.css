@@ -667,10 +667,8 @@ ul.plugins li a {
 textarea.editor {
   clear: both;
 }
-textarea.editor {
-  clear: both;
-}
-textarea#post_body {
+textarea#post_body,
+textarea#page_body {
   clear: none;
 }
 
