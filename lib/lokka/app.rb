@@ -20,16 +20,21 @@ module Lokka
         end
       end
 
-      matchers = @routes['GET'].map(&:first)
-      set :plugins, names.map {|name|
-        OpenStruct.new(
-          :name => name,
-          :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
-      }
+      plugins = []
+      unless @routes['GET'].blank?
+        matchers = @routes['GET'].map(&:first)
+        names.map do |name|
+          OpenStruct.new(
+            :name => name,
+            :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
+        end
+      end
+      set :plugins, plugins
     end
 
     configure do
       enable :method_override, :raise_errors, :static, :sessions
+      disable :logging
       set :root, File.expand_path('../../..', __FILE__)
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
@@ -40,10 +45,6 @@ module Lokka
       set :admin_per_page, 50
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
-      register Sinatra::Logger
-      set :logger_level, :debug
-      set :logger_log_file, Proc.new { File.join(root, 'tmp', "#{environment}.log") }
-      register Sinatra::Logger
       register Sinatra::R18n
       register Lokka::Before
       helpers Sinatra::ContentFor
@@ -63,7 +64,6 @@ module Lokka
     end
 
     get '/admin/' do
-      login_required
       render_any :index
     end
 
@@ -90,28 +90,24 @@ module Lokka
     end
 
     get '/admin/logout' do
-      login_required
       session[:user] = nil
       redirect '/admin/login'
     end
 
     # posts
     get '/admin/posts' do
-      login_required
       @posts = Post.all(:order => :created_at.desc).
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'posts/index'
     end
 
     get '/admin/posts/new' do
-      login_required
       @post = Post.new(:created_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'posts/new'
     end
 
     post '/admin/posts' do
-      login_required
       @post = Post.new(params['post'])
       @post.user = current_user
       if @post.save
@@ -124,14 +120,12 @@ module Lokka
     end
 
     get '/admin/posts/:id/edit' do |id|
-      login_required
       @post = Post.get(id)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'posts/edit'
     end
 
     put '/admin/posts/:id' do |id|
-      login_required
       @post = Post.get(id)
       if @post.update(params['post'])
         flash[:notice] = t.post_was_successfully_updated
@@ -150,21 +144,18 @@ module Lokka
 
     # pages
     get '/admin/pages' do
-      login_required
       @pages = Page.all(:order => :created_at.desc).
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'pages/index'
     end
 
     get '/admin/pages/new' do
-      login_required
       @page = Page.new(:created_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'pages/new'
     end
 
     post '/admin/pages' do
-      login_required
       @page = Page.new(params['page'])
       @page.user = current_user
       if @page.save
@@ -177,14 +168,12 @@ module Lokka
     end
     
     get '/admin/pages/:id/edit' do |id|
-      login_required
       @page = Page.get(id)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
       render_any :'pages/edit'
     end
     
     put '/admin/pages/:id' do |id|
-      login_required
       @page = Page.get(id)
       if @page.update(params['page'])
         flash[:notice] = t.page_was_successfully_updated
@@ -203,21 +192,18 @@ module Lokka
 
     # comment
     get '/admin/comments' do
-      login_required
       @comments = Comment.all(:order => :created_at.desc).
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'comments/index'
     end
 
     get '/admin/comments/new' do
-      login_required
       @comment = Comment.new(:created_at => DateTime.now)
       @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
       render_any :'comments/new'
     end
 
     post '/admin/comments' do
-      login_required
       @comment = Comment.new(params['comment'])
       if @comment.save
         flash[:notice] = t.comment_was_successfully_created
@@ -229,14 +215,12 @@ module Lokka
     end
     
     get '/admin/comments/:id/edit' do |id|
-      login_required
       @comment = Comment.get(id)
       @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t.not_select])
       render_any :'comments/edit'
     end
     
     put '/admin/comments/:id' do |id|
-      login_required
       @comment = Comment.get(id)
       if @comment.update(params['comment'])
         flash[:notice] = t.comment_was_successfully_updated
@@ -255,21 +239,18 @@ module Lokka
 
     # category
     get '/admin/categories' do
-      login_required
       @categories = Category.all.
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'categories/index'
     end
     
     get '/admin/categories/new' do
-      login_required
       @category = Category.new
       @categories = [nil, t.not_select] + Category.all.map {|c| [c.id, c.title] }
       render_any :'categories/new'
     end
     
     post '/admin/categories' do
-      login_required
       @category = Category.new(params['category'])
       #@category.user = current_user
       if @category.save
@@ -281,13 +262,11 @@ module Lokka
     end
     
     get '/admin/categories/:id/edit' do |id|
-      login_required
       @category = Category.get(id)
       render_any :'categories/edit'
     end
     
     put '/admin/categories/:id' do |id|
-      login_required
       @category = Category.get(id)
       if @category.update(params['category'])
         flash[:notice] = t.category_was_successfully_updated
@@ -305,20 +284,17 @@ module Lokka
 
     # tag
     get '/admin/tags' do
-      login_required
       @tags = Tag.all.
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'tags/index'
     end
 
     get '/admin/tags/:id/edit' do |id|
-      login_required
       @tag = Tag.get(id)
       render_any :'tags/edit'
     end
 
     put '/admin/tags/:id' do |id|
-      login_required
       @tag = Tag.get(id)
       if @tag.update(params['tag'])
         flash[:notice] = t.tag_was_successfully_updated
@@ -336,20 +312,17 @@ module Lokka
 
     # users
     get '/admin/users' do
-      login_required
       @users = User.all(:order => :created_at.desc).
                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'users/index'
     end
     
     get '/admin/users/new' do
-      login_required
       @user = User.new
       render_any :'users/new'
     end
     
     post '/admin/users' do
-      login_required
       @user = User.new(params['user'])
       if @user.save
         flash[:notice] = t.user_was_successfully_created
@@ -360,13 +333,11 @@ module Lokka
     end
     
     get '/admin/users/:id/edit' do |id|
-      login_required
       @user = User.get(id)
       render_any :'users/edit'
     end
     
     put '/admin/users/:id' do |id|
-      login_required
       @user = User.get(id)
       if @user.update(params['user'])
         flash[:notice] = t.user_was_successfully_updated
@@ -389,7 +360,6 @@ module Lokka
  
     # theme
     get '/admin/themes' do
-      login_required
       @themes =
         Dir.glob("#{settings.theme}/*").map do |f|
           title = f.split('/').last
@@ -409,19 +379,16 @@ module Lokka
 
     # plugin
     get '/admin/plugins' do
-      login_required
       render_any :'plugins/index'
     end
 
     # site
     get '/admin/site/edit' do
-      login_required
       @site = Site.first
       render_any :'site/edit'
     end
 
     put '/admin/site' do
-      login_required
       if Site.first.update(params['site'])
         flash[:notice] = t.site_was_successfully_updated
         redirect '/admin/site/edit'
@@ -439,11 +406,6 @@ module Lokka
 
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add('Home', '/')
-
-      logger.debug "root: #{settings.root}"
-      logger.debug "public: #{settings.public}"
-      logger.debug "views: #{settings.views}"
-      logger.debug "theme: #{settings.theme}"
 
       render_detect :index, :entries
     end
@@ -590,8 +552,6 @@ module Lokka
     end
 
     not_found do
-      logger.debug "path_info: #{request.path_info}"
-      logger.debug "views, theme: #{options.views}, #{options.theme}"
       haml :'system/404', :layout => false
     end
 

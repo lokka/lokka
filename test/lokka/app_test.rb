@@ -1,6 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'lokka'
-require 'lokka/app'
+require File.dirname(__FILE__) + '/../helper'
 
 class AppTest < Test::Unit::TestCase
   context "Access pages" do
