@@ -24,9 +24,9 @@ module Lokka
       unless @routes['GET'].blank?
         matchers = @routes['GET'].map(&:first)
         names.map do |name|
-          OpenStruct.new(
+          plugins << OpenStruct.new(
             :name => name,
-            :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
+            :have_admin_page => matchers.any? { |m| m =~ "/admin/plugins/#{name}" })
         end
       end
       set :plugins, plugins
