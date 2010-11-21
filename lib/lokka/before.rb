@@ -11,6 +11,10 @@ module Lokka
 
         logger.debug "path_info: #{request.path_info}"
       end
+
+      app.before %r{(?!^/admin/login$)^/admin/.*$} do
+        login_required
+      end
     end
   end
 end
