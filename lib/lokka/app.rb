@@ -26,7 +26,7 @@ module Lokka
         names.map do |name|
           plugins << OpenStruct.new(
             :name => name,
-            :have_admin_page => matchers.any? { |m| m =~ "/admin/plugins/#{name}" })
+            :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
         end
       end
       set :plugins, plugins
