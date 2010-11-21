@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'lokka'
+require File.dirname(__FILE__) + '/../helper'
 
 class PostTest < Test::Unit::TestCase
   context "link" do

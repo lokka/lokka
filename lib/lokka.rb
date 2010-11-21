@@ -8,7 +8,6 @@ require 'digest/sha1'
 require 'active_support/all'
 require 'sinatra/base'
 require 'sinatra/r18n'
-require 'sinatra/logger'
 require 'sinatra/content_for'
 require 'rack/flash'
 require 'dm-core'
@@ -38,6 +37,35 @@ require 'lokka/app'
 
 module Lokka
   class NoTemplateError < StandardError; end
+
+  class Database
+    def initialize
+      @@models = [Site, Option, User, Entry, Category, Comment, Tag, Tagging]
+    end
+
+    def create
+      puts 'Creating Database...'
+      @@models.each {|m| m.auto_migrate! }
+      self
+    end
+
+    def setup
+      puts 'Initializing Database...'
+      User.create(
+        :name => 'test',
+        :password => 'test',
+        :password_confirmation => 'test')
+      Site.create(
+        :title => 'Test Site',
+        :description => 'description...',
+        :theme => 'jarvi')
+      Post.create(
+        :user_id => 1,
+        :title => "Test Post",
+        :body => "<p>Wellcome to Lokka!</p>\n<p><a href=\"/admin/\">Admin login</a> (user / password : test / test)</p>")
+      self
+    end
+  end
 end
 
 unless String.public_method_defined?(:force_encoding)

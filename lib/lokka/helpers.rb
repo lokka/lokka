@@ -111,7 +111,7 @@ module Lokka
       layout = "#{dir}/layout"
       path = "#{dir}/#{name}"
 
-      logger.debug "ext, name, theme, dir, file: #{ext}, #{name}, #{@theme.name}, #{dir}, #{settings.views}/#{path}.#{ext}"
+      puts "ext, name, theme, dir, file: #{ext}, #{name}, #{@theme.name}, #{dir}, #{settings.views}/#{path}.#{ext}"
 
       if File.exist?("#{settings.views}/#{layout}.#{ext}")
         options[:layout] = layout.to_sym if options[:layout].nil?

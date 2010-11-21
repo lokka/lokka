@@ -20,16 +20,21 @@ module Lokka
         end
       end
 
-      matchers = @routes['GET'].map(&:first)
-      set :plugins, names.map {|name|
-        OpenStruct.new(
-          :name => name,
-          :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
-      }
+      plugins = []
+      unless @routes['GET'].blank?
+        matchers = @routes['GET'].map(&:first)
+        names.map do |name|
+          OpenStruct.new(
+            :name => name,
+            :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
+        end
+      end
+      set :plugins, plugins
     end
 
     configure do
       enable :method_override, :raise_errors, :static, :sessions
+      disable :logging
       set :root, File.expand_path('../../..', __FILE__)
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
@@ -40,10 +45,6 @@ module Lokka
       set :admin_per_page, 50
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
-      register Sinatra::Logger
-      set :logger_level, :debug
-      set :logger_log_file, Proc.new { File.join(root, 'tmp', "#{environment}.log") }
-      register Sinatra::Logger
       register Sinatra::R18n
       register Lokka::Before
       helpers Sinatra::ContentFor
@@ -406,11 +407,6 @@ module Lokka
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add('Home', '/')
 
-      logger.debug "root: #{settings.root}"
-      logger.debug "public: #{settings.public}"
-      logger.debug "views: #{settings.views}"
-      logger.debug "theme: #{settings.theme}"
-
       render_detect :index, :entries
     end
 
@@ -556,8 +552,6 @@ module Lokka
     end
 
     not_found do
-      logger.debug "path_info: #{request.path_info}"
-      logger.debug "views, theme: #{options.views}, #{options.theme}"
       haml :'system/404', :layout => false
     end
 
