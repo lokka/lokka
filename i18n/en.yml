@@ -1,3 +1,4 @@
+option: Option
 demo: Demo
 contributor: Contributor
 english: English
@@ -131,6 +132,8 @@ site:
   title: Title
   description: Description
   theme: Theme
+  meta_description: Meta description
+  meta_keywords: Meta keywords
   created_at: Created at
   updated_at: Updated at
 comment:
