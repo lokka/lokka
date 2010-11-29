@@ -333,7 +333,7 @@ textarea.text_area {
 
 ul.comments {
   list-style: none;
-  margin: 1.5em 4em;
+  margin: 1.5em 0em;
   padding: 0;
 }
 
@@ -346,11 +346,11 @@ ul.comments {
 }
 
 h4.comment {
-  margin: 0em 4em;
+  margin: 0em 0em;
 }
 
 #comment_form {
-  margin: 1.5em 4em;
+  margin: 1.5em 0em;
 }
 
 .gist pre {
