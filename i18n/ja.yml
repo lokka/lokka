@@ -1,3 +1,4 @@
+option: オプション
 demo: デモ
 contributor: 開発参加
 english: English
@@ -131,6 +132,8 @@ site:
   title: タイトル
   description: 詳細
   theme: テーマ
+  meta_description: メタディスクリプション
+  meta_keywords: メタキーワード
   created_at: 作成日時
   updated_at: 更新日時
 comment:

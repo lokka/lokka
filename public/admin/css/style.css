@@ -124,6 +124,10 @@ textarea#site_description {
 	height:50px;
 }
 
+textarea#site_meta_description {
+	height: 50px;
+}
+
 html,body {
 	margin: 0;
 	padding: 0;
@@ -707,4 +711,9 @@ textarea#page_body {
 .pager li.next a:after {
 	content:"\00bb";
 	margin-left: 0.3em;
+}
+
+#toggle-button-options {
+  cursor:pointer;
+  margin-bottom: 1em;
 }

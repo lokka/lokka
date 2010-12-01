@@ -9,5 +9,14 @@
     %label{:for => 'site_description'}= t.site.description
     %br
     %textarea{:id => 'site_description', :name => 'site[description]', :rows => 10, :cols => 50}= h @site.description
+  #toggle-button-options(onclick="$('.option').toggle()")= t.option
+  %p.option(style="display:none")
+    %label{:for => 'site_meta_description'}= t.site.meta_description
+    %br
+    %textarea{:id => 'site_meta_description', :name => 'site[meta_description]', :rows => 10, :cols => 50}= h @site.meta_description
+  %p.option(style="display:none")
+    %label{:for => 'site_meta_keywords'}= t.site.meta_keywords
+    %br
+    %input{:type => 'text', :id => 'site_meta_keywords', :name => 'site[meta_keywords]', :value => @site.meta_keywords}
   %p
     %input{:type => 'submit', :value => t.edit}

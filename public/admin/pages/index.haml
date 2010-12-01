@@ -9,7 +9,7 @@
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
       %td.title
         %a{:href => page.link}= page.title
-      %td= page.user.name
+      %td= page.user.nil? ? '' : page.user.name
       %td= l page.created_at.to_time
       %td
         %a.button{:href => page.edit_link}= t.edit
