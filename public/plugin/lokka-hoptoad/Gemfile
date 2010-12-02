@@ -1,0 +1,1 @@
+gem 'hoptoad_notifier'

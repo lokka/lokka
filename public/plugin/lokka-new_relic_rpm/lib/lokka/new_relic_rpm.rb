@@ -1,5 +1,5 @@
 module Lokka
-  class NewRelicRpm
+  module NewRelicRpm
     def self.registered(app)
       app.configure :production do
         require 'newrelic_rpm'

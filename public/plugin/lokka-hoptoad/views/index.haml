@@ -1,0 +1,9 @@
+%h2 Hoptoad
+%form{:action => '/admin/plugins/hoptoad', :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  .field
+    %label{:for => 'post_title'} API KEY
+    %br
+    %input{:type => 'text', :id => 'post_title', :name => 'api_key', :value => Option.hoptoad_api_key}
+  .field
+    %input{:type => 'submit', :value => t.edit}
