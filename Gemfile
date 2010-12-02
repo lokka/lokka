@@ -20,13 +20,7 @@ gem 'erubis', '2.6.6'
 gem 'activesupport', '3.0.0'
 gem 'bluefeather'
 
-Dir["public/plugin/lokka-*/Gemfile"].each do |path|
-  File.open(path) do |f|
-    f.lines.each do |line|
-      eval(line)
-    end
-  end
-end
+Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
 group :production do
   gem 'dm-postgres-adapter', '1.0.0'
