@@ -16,8 +16,8 @@ module Lokka
           register plugee
           names << name
         rescue => e
-          puts e
           puts "plugin #{paths[2]} is identified as a suspect."
+          puts e
         end
       end
 
@@ -30,7 +30,6 @@ module Lokka
             :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
         end
       end
-      puts plugins
       set :plugins, plugins
     end
 
