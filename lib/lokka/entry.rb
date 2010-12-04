@@ -24,6 +24,10 @@ class Entry
   validates_uniqueness_of :slug
   validates_uniqueness_of :title
 
+  before :valid? do
+    self.category_id = nil if category_id === ''
+  end
+
   def tag_collection=(string)
     reg = RUBY_VERSION >= "1.9.0" ? /[^\p{Word}_]/i : /[^\w\s_-]/i
     @tag_list = string.to_s.split(',').map { |name|
