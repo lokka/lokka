@@ -17,6 +17,7 @@ module Lokka
           names << name
         rescue => e
           puts "plugin #{paths[2]} is identified as a suspect."
+          puts e
         end
       end
 

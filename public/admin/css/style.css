@@ -37,7 +37,7 @@ select, input, button, textarea, button, .button {
 font:99% arial,helvetica,clean,sans-serif;
 }
 
-input, button, textarea, select, optgroup, option, .button {
+input, button, textarea, select, optgroup, option, .button, .toggle-button {
 font-family:inherit;
 font-size:inherit;
 font-style:inherit;
@@ -81,7 +81,33 @@ text-shadow:1px 1px 0 #FFFFFF;
 box-shadow:none;
 }
 
-
+.toggle-button {
+	cursor:pointer;
+	-webkit-border-radius:12px;
+	-moz-border-radius:12px;
+	border-radius:12px;
+	background:none repeat scroll 0 0 #152753;
+	background:-moz-linear-gradient(#41527E, #152753) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#41527E), to(#152753));
+	background: linear-gradient(#41527E, #152753);
+	width: 6em;
+	padding-top: 3px;
+	padding-right: 15px;
+	padding-bottom: 3px;
+	padding-left: 15px;
+	text-align: center;
+	display: block;
+	color: #FFF;
+	margin-bottom: 20px ;
+	font-size: 11px;
+}
+.toggle-button:hover, .toggle-button:active {
+	background:none repeat scroll 0 0 #152753;
+	background:-moz-linear-gradient(#5e6e97, #41527E) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#41527E), to(#152753));
+	background: linear-gradient(#41527E, #152753);
+	color: #FFF;
+}
 
 
 form p {
@@ -190,12 +216,12 @@ h2 {
 	z-index: 1000;
 	text-align: center;
 	margin: 0px;
-	top: 69px;
+	top: 73px;
 	line-height: 26px;
 	}
 #notice p {
 	display: block;
-	background-color: #C47240;
+	background-color: #f2813c;
 	margin: 0px;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -715,5 +741,4 @@ textarea#page_body {
 
 #toggle-button-options {
   cursor:pointer;
-  margin-bottom: 1em;
 }
