@@ -104,7 +104,7 @@ box-shadow:none;
 .toggle-button:hover, .toggle-button:active {
 	background:none repeat scroll 0 0 #152753;
 	background:-moz-linear-gradient(#5e6e97, #41527E) repeat scroll 0 0 transparent;
-	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#41527E), to(#152753));
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#5e6e97), to(#41527E));
 	background: linear-gradient(#41527E, #152753);
 	color: #FFF;
 }
@@ -287,7 +287,7 @@ label {
 #nav a:link,
 #nav a:visited {
 	background: #23325b;
-	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#6B799E), to(#374772));
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#20325f), to(#0c1a3f));
 	background: -moz-linear-gradient(#20325f, #0c1a3f);
 	background: linear-gradient(#6B799E, #374772);
  }
