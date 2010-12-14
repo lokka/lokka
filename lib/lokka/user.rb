@@ -15,14 +15,14 @@ class User
 
   validates_uniqueness_of :name
   validates_uniqueness_of :email
-  validates_presence_of :password_confirmation, :unless => Proc.new { |t| t.hashed_password }
-  validates_presence_of :password, :unless => Proc.new { |t| t.hashed_password }
+  validates_length_of :password, :minimum => 4, :if => :password_require?
+  validates_presence_of :password_confirmation, :if => :password_require?
   validates_confirmation_of :password
 
   def password=(pass)
     @password = pass
     self.salt = User.random_string(10) if !self.salt
-    self.hashed_password = User.encrypt(@password, self.salt)
+    self.hashed_password = User.encrypt(@password, self.salt) if !@password.blank?
   end
 
   def self.authenticate(name, pass)
@@ -36,7 +36,12 @@ class User
     permission_level == 1
   end
 
+  def password_require?
+    self.new? || (!self.new? && !self.password.blank?)
+  end
+
   protected
+
   def self.encrypt(pass, salt)
     Digest::SHA1.hexdigest(pass+salt)
   end
