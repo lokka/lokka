@@ -62,9 +62,9 @@ class Entry
   end
 
   def tags_to_html
-    html = '<ul>'
+    html = '<ul class="tags">'
     tags.each do |tag|
-      html += %Q(<li><a href="#{tag.link}">#{tag.name}</a></li>)
+      html += %Q(<li class="tag"><a href="#{tag.link}">#{tag.name}</a></li>)
     end
     html + '</ul>'
   end
