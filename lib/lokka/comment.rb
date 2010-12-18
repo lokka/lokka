@@ -1,8 +1,13 @@
 class Comment
   include DataMapper::Resource
 
+	MODERATED = 0
+	APPROVED  = 1
+	SPAM      = 2
+
   property :id, Serial
   property :entry_id, Integer
+	property :status, Integer # 0 => moderated, 1 => approved
   property :name, String
   property :homepage, String
   property :body, Text
@@ -17,7 +22,7 @@ class Comment
   validates_presence_of :body
 
   def self.recent(count = 5)
-    all(:limit => count, :order => [:created_at.desc])
+    all(:status => APPROVED, :limit => count, :order => [:created_at.desc])
   end
 
   def link

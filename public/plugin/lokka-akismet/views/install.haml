@@ -1,7 +1,0 @@
-%h2= t.akismet.title
-%p= t.akismet.banner
-%br
--unless @akismet.value
-  %p= t.akismet.install_message
-%form{:action => "/admin/plugins/akismet/install", :method => 'post'}
-  = partial 'plugin/lokka-akismet/views/key'

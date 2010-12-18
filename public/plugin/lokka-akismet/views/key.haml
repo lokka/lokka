@@ -1,9 +1,0 @@
-  %input{:type => 'hidden', :name => '_method', :value => 'put'}
-  .field
-    %label{:for => 'akismet_key'}= t.akismet.akismet_key_entry
-    %br
-    %input{:type => 'text', :id => 'akismet_key', :name => 'akismet[akismet_key]', :value => @akismet.name}
-  %br
-  .field
-    %p
-    %input{:type => 'submit', :value => t.save}

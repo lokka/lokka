@@ -1,12 +1,15 @@
 %h2= t.listing_comments
 %table.comments
   %tr
+    %th= t.comment_status
     %th= t.comment.body
     %th= t.comment.name
     %th= t.comment.created_at
     %th{:colspan => 2}
   - @comments.each_with_index do |comment, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      - status = case comment.status; when Comment::APPROVED; t.comment_approved; when Comment::MODERATED; t.comment_moderated; when Comment::SPAM; t.comment_spam; end
+      %td= status
       %td.body= truncate(strip_tags(comment.body))
       %td= comment.name
       %td= l comment.created_at.to_time

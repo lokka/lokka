@@ -27,3 +27,8 @@
   %label{:for => 'comment_created_at'}= t.comment.created_at
   %br
   %input{:type => 'text', :id => 'comment_created_at', :name => 'comment[created_at]', :value => @comment.created_at}
+.field
+  %label{:for => 'comment_status'}= t.comment_status
+  %br
+    - ops = [[Comment::APPROVED, t.comment_approved], [Comment::MODERATED, t.comment_moderated], [Comment::SPAM, t.comment_spam]]
+    = select_field @comment, :status, ops, :id => 'comment_status'

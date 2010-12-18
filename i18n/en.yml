@@ -150,3 +150,10 @@ getting_started: Getting Started
 download: Download
 source_code: Souce Code
 post_comment: Comment
+comment_status: Status
+comment_moderated: moderated
+comment_approved: approved
+comment_spam: SPAM
+comment_approved_successfuly: comment approved successfuly
+comment_moderated_successfuly: comment moderated successfuly
+comment_spam_successfuly: comment marked as spam successfuly
