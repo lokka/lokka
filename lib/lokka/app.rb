@@ -61,7 +61,7 @@ module Lokka
     end
 
     configure :development do
-			DataMapper::Logger.new('log/datamapper.log', :debug)
+      DataMapper::Logger.new('log/datamapper.log', :debug)
       DataMapper.setup(:default, config['development']['dsn'])
     end
 
@@ -547,11 +547,11 @@ module Lokka
 
       @comment = @entry.comments.new(params['comment'])
 
-			unless params['comment']['status'] # unless status value is overridden by plugins
-				@comment[:status] = logged_in? ? Comment::APPROVED : Comment::MODERATED
-			else
-				@comment[:status] = params['comment']['status']
-			end
+      unless params['comment']['status'] # unless status value is overridden by plugins
+        @comment[:status] = logged_in? ? Comment::APPROVED : Comment::MODERATED
+      else
+       @comment[:status] = params['comment']['status']
+      end
 
       if @comment.save
         redirect @entry.link

@@ -1,13 +1,13 @@
 class Comment
   include DataMapper::Resource
 
-	MODERATED = 0
-	APPROVED  = 1
-	SPAM      = 2
+  MODERATED = 0
+  APPROVED  = 1
+  SPAM      = 2
 
   property :id, Serial
   property :entry_id, Integer
-	property :status, Integer # 0 => moderated, 1 => approved
+  property :status, Integer # 0 => moderated, 1 => approved
   property :name, String
   property :homepage, String
   property :body, Text
