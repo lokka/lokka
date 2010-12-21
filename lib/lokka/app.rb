@@ -144,6 +144,16 @@ module Lokka
       redirect '/admin/posts'
     end
 
+		get '/admin/posts/search' do
+			@keyword = params[:keyword]
+			search_keyword = params[:keyword].gsub(/[\s　]/, '').strip
+			redirect '/admin/posts' if search_keyword == ''
+			@posts = search_keyword.split(/[\s]+/).map {|keyword|
+					Post.all(:conditions => ['body like ? OR title like ?', "%#{keyword}%", "%#{keyword}%"], :order => :created_at.desc)}.inject(:+).
+                    page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'posts/index'
+		end
+
     # pages
     get '/admin/pages' do
       @pages = Page.all(:order => :created_at.desc).
@@ -192,6 +202,16 @@ module Lokka
       redirect '/admin/pages'
     end
 
+		get '/admin/pages/search' do
+			@keyword = params[:keyword]
+			search_keyword = params[:keyword].gsub(/[\s　]/, '').strip
+			redirect '/admin/pages' if search_keyword == ''
+			@pages = search_keyword.split(/[\s]+/).map {|keyword|
+					Page.all(:conditions => ['body like ? OR title like ?', "%#{keyword}%", "%#{keyword}%"], :order => :created_at.desc)}.inject(:+).
+                    page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'pages/index'
+		end
+
     # comment
     get '/admin/comments' do
       @comments = Comment.all(:order => :created_at.desc).
@@ -238,6 +258,17 @@ module Lokka
       flash[:notice] = t.comment_was_successfully_deleted
       redirect '/admin/comments'
     end
+
+		get '/admin/comments/search' do
+			@keyword = params[:keyword]
+			search_keyword = params[:keyword].gsub(/[\s　]/, '').strip
+			redirect '/admin/comments' if search_keyword == ''
+			@comments = search_keyword.split(/[\s]+/).map {|keyword|
+					Comment.all(:conditions => ["name like ? OR body like ?", "%#{keyword}%", "%#{keyword}%"], :order => :created_at.desc)
+					}.inject(:+).
+                    page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'comments/index'
+		end
 
     # category
     get '/admin/categories' do
@@ -360,6 +391,15 @@ module Lokka
       redirect '/admin/users'
     end
  
+		get '/admin/users/search' do
+			@keyword = params[:keyword]
+			search_keyword = params[:keyword].gsub(/[\s　]/, '').strip
+			redirect '/admin/users' if search_keyword == ''
+			@users = search_keyword.split(/[\s]+/).map {|keyword|
+					User.all(:conditions => ['name like ? OR email like ?', "%#{keyword}%", "%#{keyword}%"], :order => :created_at.desc)}.inject(:+).
+                    page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'users/index'
+		end
     # theme
     get '/admin/themes' do
       @themes =

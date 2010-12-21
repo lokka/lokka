@@ -1,4 +1,7 @@
 %h2= t.listing_pages
+%form{:action => "/admin/pages/search", :method => 'get'}
+  %input{:type => 'text', :name => :keyword, :value => @keyword}
+  %input{:type => 'submit', :value => t.search}
 %table.pages
   %tr
     %th= t.page.title

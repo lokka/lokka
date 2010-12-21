@@ -1,4 +1,7 @@
 %h2= t.listing_posts
+%form{:action => "/admin/posts/search", :method => 'get'}
+  %input{:type => 'text', :name => :keyword, :value => @keyword}
+  %input{:type => 'submit', :value => t.search}
 %table.posts
   %tr
     %th= t.post.title

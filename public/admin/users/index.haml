@@ -1,4 +1,7 @@
 %h2= t.listing_users
+%form{:action => "/admin/users/search", :method => 'get'}
+  %input{:type => 'text', :name => :keyword, :value => @keyword}
+  %input{:type => 'submit', :value => t.search}
 %table.users
   %tr
     %th= t.user.name

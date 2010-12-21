@@ -1,4 +1,7 @@
 %h2= t.listing_comments
+%form{:action => "/admin/comments/search", :method => 'get'}
+  %input{:type => 'text', :name => :keyword, :value => @keyword}
+  %input{:type => 'submit', :value => t.search}
 %table.comments
   %tr
     %th= t.comment_status
