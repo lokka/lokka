@@ -45,7 +45,7 @@ module Lokka
 
     def create
       puts 'Creating Database...'
-      @@models.each {|m| m.auto_update! }
+      @@models.each {|m| m.auto_migrate! }
       self
     end
 
