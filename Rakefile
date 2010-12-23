@@ -93,12 +93,12 @@ end
 
 desc 'Create the Lokka database'
 task 'db:migrate' do
-  Lokka::Database.new.create
+  Lokka::Database.new.upgrade
 end
 
 desc 'Execute seed script'
 task 'db:seed' do
-  Lokka::Database.new.setup
+  Lokka::Database.new.insert_seeds
 end
 
 desc 'Set database'
