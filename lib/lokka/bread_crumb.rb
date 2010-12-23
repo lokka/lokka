@@ -21,7 +21,7 @@ class BreadCrumb
 
   end
 
-  def add(name, link)
+  def add(name, link = nil)
     @breads << Bread.new(name, link)
   end
 

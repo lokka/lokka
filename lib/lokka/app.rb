@@ -431,7 +431,7 @@ module Lokka
 
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add('Home', '/')
-      @bread_crumbs.add('Search', '/search/')
+      @bread_crumbs.add(@query)
 
       render_detect :search, :entries
     end
