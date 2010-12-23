@@ -118,8 +118,12 @@ blockquote {
   text-decoration: none;
 }
 
+#bread_crumb {
+  margin: 0px auto;
+  width: 80%;
+}
+
 #bread_crumb ol {
-  margin: 1.5em 2em 0 2em;
   padding: 0px;
   list-style: none;
 }
@@ -313,10 +317,13 @@ textarea.text_area {
   border-bottom: solid 1px red;
 }
 
-.pagination {
-  font-weight: bold;
+ul.pager {
   text-align: center;
-  margin-bottom: 20px;
+}
+
+ul.pager li {
+  display: inline;
+  margin: 0px 5px;
 }
 
 .clearfix:after {
