@@ -1,3 +1,0 @@
-[submodule "public/plugin/lokka-akismet"]
-	path = public/plugin/lokka-akismet
-	url = git://github.com/yagitoshiro/lokka-akismet.git

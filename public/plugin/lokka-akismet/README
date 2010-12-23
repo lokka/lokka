@@ -1,0 +1,13 @@
+Akismet plugin for lokka
+
+*** NOTE ***
+This plugin works only with this patch:
+https://github.com/yagitoshiro/lokka/commit/fa65e5423d75ff1b790367136fc80229d0a4acd4
+************
+
+(1) Obtain your Akismet account and API KEY at http://akismet.com/ now.
+(2) Put lokka-akismet directory in $LOKKA_HOME/public/plugins
+(3) Restart lokka and login to admin page.
+(4) Open plugins page and select Akismet.
+(5) Type your Akismet API Key solemnly and save.
+(6) Sing a eulogy on spammers.
