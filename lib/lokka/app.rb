@@ -43,7 +43,7 @@ module Lokka
       set :config => YAML.load(ERB.new(File.read("#{root}/config.yml")).result(binding))
       set :supported_templates => %w(erb haml erubis)
       set :per_page, 10
-      set :admin_per_page, 50
+      set :admin_per_page, 200 
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
       register Sinatra::R18n
