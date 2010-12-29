@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-size: medium;
+  font-size: 14px;
   font-family: "メイリオ", "Lucida Sans Unicode", "Lucida Grande", Arial, Helvetica, "ヒラギノ丸ゴ Pro W4", HiraMaruPro-W4, Verdana, HiraMaruPro-W4, "ヒラギノ角ゴ Pro W3", HiraKakuPro-W3, Osaka, sans-serif;
 }
 
@@ -104,7 +104,7 @@ blockquote {
 
 #header {
   height: 120px;
-  width: 80%;
+  width: 970px;
   background: url(images/logo.png) no-repeat 0px 5px;
   margin: 20px auto 0px auto;
 }
@@ -120,7 +120,7 @@ blockquote {
 
 #bread_crumb {
   margin: 0px auto;
-  width: 80%;
+  width: 970px;
 }
 
 #bread_crumb ol {
@@ -142,18 +142,18 @@ blockquote {
 }
 
 #content {
-  width: 80%;
+  width: 970px;
   margin: 0 auto;
 }
 
 #main {
   float: left;
-  width: 80%;
+  width: 730px;
 }
 
 #aside {
   float: right;
-  width: 20%;
+  width: 240px;
 }
 #aside dl {
   margin: 1.5em 4em 0em 0em;
@@ -163,8 +163,8 @@ blockquote {
   font-weight: bold;
 }
 #aside dd {
-  margin: 14px 0px 14px 18px;
-  font-size: 0.8em;
+  margin: 14px 0px;
+  font-size: 1em;
 }
 #aside .section a {
   text-decoration: none;
@@ -173,6 +173,7 @@ blockquote {
 #aside ul {
   margin: 0;
   padding: 0;
+  list-style-type: none;
 }
 
 #aside li {
@@ -181,11 +182,13 @@ blockquote {
 }
 
 .article {
-  margin: 1.5em 4em 2em 0em;
+  margin: 1.5em 3em 2em 0em;
 }
 .article .title {
+  font-size: 24px;
   text-align: left;
   padding: 0;
+  margin-bottom: 1.2em;
 }
 .article .title a {
   text-decoration: none;
@@ -195,23 +198,44 @@ blockquote {
   margin-bottom: 1em;
   line-height: 150%;
 }
+
 .article .footer {
   padding: 0;
   text-align: right;
-  font-size: 0.8em;
 }
-.article .time {
+
+.article .footer ul.tags {
   display: inline;
-  margin-right: 0.3em;
+  list-style-type: none;
 }
-.article .edit {
+
+.article .footer ul.tags li.tag {
   display: inline;
-  margin-left: 0.3em;
 }
-.article .delete {
+
+.article .footer ul.tags li.tag:before {
+  content: ", ";
+}
+
+.article .footer ul.tags li.tag:first-child:before {
+  content: " ";
+}
+
+.article .footer .created_at {
   display: inline;
-  margin-left: 0.3em;
+  margin-left: 0.5em;
 }
+
+.article .footer .comment {
+  display: inline;
+  margin-left: 0.5em;
+}
+
+.article .footer .edit {
+  display: inline;
+  margin-left: 0.5em;
+}
+
 .article form {
   text-align: left;
 }
