@@ -544,6 +544,7 @@ module Lokka
 
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
+      return 404 if params[:check] != 'check'
 
       @comment = @entry.comments.new(params['comment'])
 

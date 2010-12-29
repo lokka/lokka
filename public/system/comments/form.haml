@@ -6,6 +6,8 @@
       - @comment.errors.each do |error|
         %li= error
 %form{:action => request.path_info, :method => 'post', :id => 'comment_form'}
+  :javascript
+    document.write('<input type="hidden" name="check" value="check" />');
   %p
     %label{:for => 'comment_name'}= t.comment.name
     %br

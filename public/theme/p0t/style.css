@@ -364,7 +364,7 @@ ul.pager li {
 
 ul.comments {
   list-style: none;
-  margin: 1.5em 0em;
+  margin: 1.5em 3em 2em 0em;
   padding: 0;
 }
 
@@ -374,6 +374,20 @@ ul.comments {
 
 .comment .body {
   margin-bottom: 0.5em;
+}
+
+.comment .footer {
+  text-align: right;
+}
+
+.comment .footer .name {
+  display: inline;
+  margin-left: 0.5em;
+}
+
+.comment .footer .created_at {
+  display: inline;
+  margin-left: 0.5em;
 }
 
 h4.comment {
