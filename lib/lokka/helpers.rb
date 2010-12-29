@@ -4,15 +4,11 @@ module Lokka
 
     alias :h :escape_html
 
-    def index?;     @theme_types.include?(:index); end
-    def search?;    @theme_types.include?(:search); end
-    def category?;  @theme_types.include?(:category); end
-    def tag?;       @theme_types.include?(:tag); end
-    def yearly?;    @theme_types.include?(:yearly); end
-    def monthly?;   @theme_types.include?(:monthly); end
-    def daily?;     @theme_types.include?(:daily); end
-    def entry?;     @theme_types.include?(:entry); end
-    def entries?;   @theme_types.include?(:entries); end
+    %w[index search category tag yearly monthly daily post page entry entries].each do |name|
+      define_method("#{name}?") do
+        @theme_types.include?(name.to_sym)
+      end
+    end
 
     # h + n2br
     def hbr(str)
@@ -111,8 +107,6 @@ module Lokka
       layout = "#{dir}/layout"
       path = "#{dir}/#{name}"
 
-      puts "ext, name, theme, dir, file: #{ext}, #{name}, #{@theme.name}, #{dir}, #{settings.views}/#{path}.#{ext}"
-
       if File.exist?("#{settings.views}/#{layout}.#{ext}")
         options[:layout] = layout.to_sym if options[:layout].nil?
       end
@@ -171,8 +165,8 @@ module Lokka
 
     def truncate(text, options = {})
       options = {:length => 30, :ommision => '...'}.merge(options)
-      if options[:length] < text.length
-        text[0..options[:length]] + options[:ommision]
+      if options[:length] < text.split(//u).size
+        text.split(//u)[0, options[:length]].to_s + options[:ommision]
       else
         text
       end

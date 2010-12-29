@@ -523,6 +523,8 @@ module Lokka
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
 
+      @theme_types << @entry.class.name.downcase.to_sym
+
       @title = "#{@entry.title} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
