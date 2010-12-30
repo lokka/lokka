@@ -1,6 +1,7 @@
 body {
   margin: 0px;
   padding: 0px;
+  text-align: center;
   background-color: #efebe3;
   font-size: 14px;
   font-family: "メイリオ", "Lucida Sans Unicode", "Lucida Grande", Arial, Helvetica, "ヒラギノ丸ゴ Pro W4", HiraMaruPro-W4, Verdana, HiraMaruPro-W4, "ヒラギノ角ゴ Pro W3", HiraKakuPro-W3, Osaka, sans-serif;
@@ -94,6 +95,7 @@ blockquote {
   background: #fff;
   margin: 0px auto;
   padding: 20px 0px;
+  text-align: left;
 }
 
 #header .description {
@@ -134,6 +136,7 @@ blockquote {
   height: auto;
   margin: 0 auto;
   background-color: #fff;
+  text-align: left;
 }
 
 #main {
@@ -144,6 +147,7 @@ blockquote {
 #aside {
   float: right;
   width: 240px;
+  text-align: left;
 }
 #aside dl {
   margin: 0em 2em 0em 0em;
@@ -359,24 +363,24 @@ ul.comments {
   padding: 0;
 }
 
-.comment {
+ul.comments .comment {
   margin: 0px 30px 0px 30px;
 }
 
-.comment .body {
+ul.comments .comment .body {
   margin-bottom: 0.5em;
 }
 
-.comment .footer {
+ul.comments .comment .footer {
   text-align: right;
 }
 
-.comment .footer .name {
+ul.comments .comment .footer .name {
   display: inline;
   margin-left: 0.5em;
 }
 
-.comment .footer .created_at {
+ul.comments .comment .footer .created_at {
   display: inline;
   margin-left: 0.5em;
 }
