@@ -22,21 +22,14 @@
       .description= @site.description
     - unless index? or entry?
       #bread_crumb= bread_crumb
-    #nav
-      %ul
-        - if logged_in?
-          %li= link_to t.admin_page, '/admin/'
-          %li= link_to t.new_post, '/admin/posts/new'
-          %li= link_to t.logout, '/admin/logout'
-        - else
-          %li= link_to t.login, '/admin/'
-        %li
-          %form(action="/search/" method="get")
-            %input(type="text" name="query")
-    #content
+    #content.clearfix
       #main= yield
       #aside
         %dl
+          %dt= t.search
+          %dd
+            %form(action="/search/" method="get" id="search_form")
+              %input(type="text" name="query")
           %dt= t.profile
           %dd
             - if about = Page.first(:slug => 'about')
@@ -63,6 +56,16 @@
             %ul
               - months.each do |m|
                 %li= link_to "#{m.year}年#{m.month}月", "/#{m.year}/#{m.month}/"
+          %dt= t.admin
+          %dd
+            %ul
+              - if logged_in?
+                %li= link_to t.admin_page, '/admin/'
+                %li= link_to t.new_post, '/admin/posts/new'
+                %li= link_to t.logout, '/admin/logout'
+              - else
+                %li= link_to t.login, '/admin/'
+              %li
     #footer
       .poweredby
         powered by
