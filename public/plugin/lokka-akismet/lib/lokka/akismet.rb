@@ -6,7 +6,8 @@ module Lokka
 	module Akismet
 		def self.registered(app)
 			app.before do
-				if params["comment"]
+        path = request.env['PATH_INFO']
+				if params["comment"] && /^\/admin\/comments/ !~ path
 					if logged_in?
 						params["comment"]["status"] = 1 # approved
 					elsif spam?
