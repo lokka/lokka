@@ -485,6 +485,11 @@ label {
   background: url(../images/add.png) no-repeat scroll 10px 50% transparent;
 */
 }
+
+#aside li.dashboard h3 a {
+  background: url(../images/post.png);
+}
+
 #aside li.post h3 {
   background: url(../images/post.png);
 }
@@ -507,6 +512,10 @@ label {
 
 #aside li.user h3 {
   background: url(../images/user.png);
+}
+
+#aside li.snipet h3 {
+  background: url(../images/file.png);
 }
 
 #aside li.theme h3 a {

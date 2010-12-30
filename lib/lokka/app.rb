@@ -359,6 +359,51 @@ module Lokka
       flash[:notice] = t.user_was_successfully_deleted
       redirect '/admin/users'
     end
+
+    # snipets
+    get '/admin/snipets' do
+      @snipets = Snipet.all(:order => :created_at.desc).
+                        page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'snipets/index'
+    end
+
+    get '/admin/snipets/new' do
+      @snipet = Snipet.new(
+        :created_at => DateTime.now,
+        :updated_at => DateTime.now)
+      render_any :'snipets/new'
+    end
+
+    post '/admin/snipets' do
+      @snipet = Snipet.new(params['snipet'])
+      if @snipet.save
+        flash[:notice] = t.snipet_was_successfully_created
+        redirect '/admin/snipets'
+      else
+        render_any :'snipets/new'
+      end
+    end
+
+    get '/admin/snipets/:id/edit' do |id|
+      @snipet = Snipet.get(id)
+      render_any :'snipets/edit'
+    end
+
+    put '/admin/snipets/:id' do |id|
+      @snipet = Snipet.get(id)
+      if @snipet.update(params['snipet'])
+        flash[:notice] = t.snipet_was_successfully_updated
+        redirect '/admin/snipets'
+      else
+        render_any :'snipets/edit'
+      end
+    end
+
+    delete '/admin/snipets/:id' do |id|
+      Snipet.get(id).destroy
+      flash[:notice] = t.snipet_was_successfully_deleted
+      redirect '/admin/snipets'
+    end
  
     # theme
     get '/admin/themes' do

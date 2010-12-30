@@ -23,6 +23,7 @@ categories: カテゴリー
 posts: 投稿
 pages: ページ
 comments: コメント
+snipets: スニペット
 themes: テーマ
 plugins: プラグイン
 settings: 設定
@@ -44,6 +45,7 @@ listing_pages: ページ一覧
 listing_categories: カテゴリー一覧
 listing_tags: タグ一覧
 listing_comments: コメント一覧
+listing_snipets: スニペット一覧
 listing_users: ユーザー一覧
 listing_themes: テーマ一覧
 listing_plugins: プラグイン一覧
@@ -52,10 +54,12 @@ new_page: ページ登録
 new_category: カテゴリー登録
 new_user: ユーザー登録
 new_comment: コメント登録
+new_snipet: スニペット登録
 edit_post: 投稿編集
 edit_page: ページ編集
 edit_category: カテゴリー編集
 edit_comment: コメント編集
+edit_snipet: スニペット編集
 edit_tag: タグ編集
 edit_user: ユーザー編集
 edit_site: サイト編集
@@ -68,6 +72,9 @@ page_was_successfully_deleted: ページを削除しました。
 comment_was_successfully_created: コメントを作成しました。
 comment_was_successfully_updated: コメントを更新しました。
 comment_was_successfully_deleted: コメントを削除しました。
+snipet_was_successfully_created: スニペットを作成しました。
+snipet_was_successfully_updated: スニペットを更新しました。
+snipet_was_successfully_deleted: スニペットを削除しました。
 category_was_successfully_created: カテゴリーを作成しました。
 category_was_successfully_updated: カテゴリーを更新しました。
 category_was_successfully_deleted: カテゴリーを削除しました。
@@ -87,6 +94,7 @@ no_post: 投稿がありません
 no_page: ページがありません
 no_user: ユーザーがいません
 no_comment: コメントがありません
+no_snipet: スニペットがありません
 no_plugin: プラグインがありません
 your_name_or_password_is_incorrect: 名前かパスワードが違います。
 logged_in_successfully: ログインしました。
@@ -131,6 +139,7 @@ site:
   id: ID
   title: タイトル
   description: 詳細
+  dashboard: ダッシュボード
   theme: テーマ
   meta_description: メタディスクリプション
   meta_keywords: メタキーワード
@@ -142,6 +151,11 @@ comment:
   body: 本文
   homepage: ホームページ
   entry: エントリー
+  created_at: 作成日時
+  updated_at: 更新日時
+snipet:
+  id: ID
+  body: 本文
   created_at: 作成日時
   updated_at: 更新日時
 what_about_lokka: <p>Lokka(ロッカ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにも簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>

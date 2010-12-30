@@ -30,6 +30,9 @@
     #content
       #aside
         %ul
+          %li.dashboard.parent
+            %h3
+              %a{:href => '/admin/'}= t.dashboard
           %li.post.parent
             %h3.title= t.posts
             %ul
@@ -70,6 +73,13 @@
                 %a{:href => '/admin/users'}= t.list
               %li.new
                 %a{:href => '/admin/users/new'}= t.new
+          %li.snipet.parent
+            %h3.title= t.snipets
+            %ul
+              %li.list
+                %a{:href => '/admin/snipets'}= t.list
+              %li.new
+                %a{:href => '/admin/snipets/new'}= t.new
           %li.theme.parent
             %h3
               %a{:href => '/admin/themes'}= t.themes

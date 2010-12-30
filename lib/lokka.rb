@@ -30,6 +30,7 @@ require 'lokka/entry'
 require 'lokka/category'
 require 'lokka/tag'
 require 'lokka/comment'
+require 'lokka/snipet'
 require 'lokka/bread_crumb'
 require 'lokka/before'
 require 'lokka/helpers'
@@ -37,41 +38,7 @@ require 'lokka/app'
 
 module Lokka
   class NoTemplateError < StandardError; end
-
-  class Database
-    def initialize
-      @@models = [Site, Option, User, Entry, Category, Comment, Tag, Tagging]
-    end
-
-    def create
-      puts 'Creating Database...'
-      @@models.each {|m| m.auto_migrate! }
-      self
-    end
-
-    def upgrade
-      puts 'Upgrading Database...'
-      @@models.each {|m| m.auto_upgrade! }
-      self
-    end
-
-    def insert_seeds
-      puts 'Initializing Database...'
-      User.create(
-        :name => 'test',
-        :password => 'test',
-        :password_confirmation => 'test')
-      Site.create(
-        :title => 'Test Site',
-        :description => 'description...',
-        :theme => 'jarvi')
-      Post.create(
-        :user_id => 1,
-        :title => "Test Post",
-        :body => "<p>Wellcome to Lokka!</p>\n<p><a href=\"/admin/\">Admin login</a> (user / password : test / test)</p>")
-      self
-    end
-  end
+  MODELS = [Site, Option, User, Entry, Category, Comment, Snipet, Tag, Tagging]
 end
 
 unless String.public_method_defined?(:force_encoding)
