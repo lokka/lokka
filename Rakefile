@@ -107,7 +107,7 @@ task 'db:seed' do
   Site.create(
     :title => 'Test Site',
     :description => 'description...',
-    :dashboard => "<p>Wellcome to Lokka!</p>",
+    :dashboard => "<p>Welcome to Lokka!</p>\n<p>To post a new article, choose \"<a href=\"/admin/posts/new\">New</a>\" under \"Posts\" on the menu to the left. To change the title of the site, choose \"Settings\" on the menu to the left. (The words displayed here can be changed anytime through the \"<a href=\"/admin/site/edit\">Settings</a>\" screen.)</p>",
     :theme => 'jarvi')
   Post.create(
     :user_id => 1,
@@ -115,10 +115,14 @@ task 'db:seed' do
     :body => "<p>Wellcome to Lokka!</p>\n<p><a href=\"/admin/\">Admin login</a> (user / password : test / test)</p>")
 end
 
-task 'db:reset' do
-  puts 'Reset Database...'
+desc 'Delete database'
+task 'db:delete' do
+  puts 'Delete Database...'
   Lokka::MODELS.each {|m| m.auto_migrate! }
 end
+
+desc 'Reset database'
+task 'db:reset' => %w(db:delete db:seed)
 
 desc 'Set database'
 task 'db:set' => %w(db:migrate db:seed)

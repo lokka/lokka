@@ -32,7 +32,7 @@
               %input(type="text" name="query")
           %dt= t.profile
           %dd
-            - if about = Page.first(:slug => 'about')
+            - if about = Snipet('about')
               = about.body
               - if logged_in?
               %p(style="text-align:right")= link_to t.edit, about.edit_link

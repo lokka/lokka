@@ -155,6 +155,7 @@ comment:
   updated_at: Updated at
 snipet:
   id: ID
+  name: Name
   body: Body
   created_at: Created at
   updated_at: Updated at

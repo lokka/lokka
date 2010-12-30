@@ -5,6 +5,10 @@
       - @snipet.errors.each do |error|
         %li= error
 .field
+  %label{:for => 'snipet_name'}= t.snipet.name
+  %br
+  %input{:type => 'text', :id => 'snipet_name', :name => 'snipet[name]', :value => @snipet.name}
+.field
   %label{:for => 'snipet_body'}= t.snipet.body
   %br
   %textarea{:id => 'snipet_body', :name => 'snipet[body]', :rows => 10, :cols => 50}= h @snipet.body
