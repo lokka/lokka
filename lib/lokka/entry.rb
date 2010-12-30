@@ -1,4 +1,3 @@
-# coding: utf-8
 class Entry
   include DataMapper::Resource
 
