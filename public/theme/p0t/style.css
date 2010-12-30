@@ -110,6 +110,7 @@ blockquote {
   margin: 0px auto;
   width: 970px;
   background-color: #fff;
+  text-align: left;
 }
 
 #bread_crumb ol {
