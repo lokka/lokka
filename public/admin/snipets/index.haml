@@ -9,7 +9,7 @@
   - @snipets.each_with_index do |snipet, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
       %td.title= snipet.name
-      %td= truncate(snipet.body)
+      %td= truncate(strip_tags(snipet.body))
       %td= l snipet.created_at.to_time
       %td= l snipet.updated_at.to_time
       %td
