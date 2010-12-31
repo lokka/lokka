@@ -3,5 +3,7 @@
   - @entry.comments.reverse.each do |comment|
     %li.comment{:id => "comment-#{comment.id}"}
       .body= hbr comment.body
-      .name= link_to_unless comment.homepage.blank?, comment.name, comment.homepage
+      .footer
+        .name= link_to_unless comment.homepage.blank?, comment.name, comment.homepage
+        .created_at= l comment.created_at.to_time
 = comment_form

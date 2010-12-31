@@ -43,16 +43,17 @@ module Lokka
       set :config => YAML.load(ERB.new(File.read("#{root}/config.yml")).result(binding))
       set :supported_templates => %w(erb haml erubis)
       set :per_page, 10
-      set :admin_per_page, 50
+      set :admin_per_page, 200 
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
       register Sinatra::R18n
       register Lokka::Before
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
-      use Rack::Flash
       use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key' if ENV['RACK_ENV'] == 'production'
-
+      use Rack::Session::Cookie,
+        :expire_after => 60 * 60 * 24 * 12
+      use Rack::Flash
       load_plugin
     end
 
@@ -61,7 +62,7 @@ module Lokka
     end
 
     configure :development do
-			DataMapper::Logger.new('log/datamapper.log', :debug)
+      DataMapper::Logger.new('log/datamapper.log', :debug)
       DataMapper.setup(:default, config['development']['dsn'])
     end
 
@@ -390,6 +391,51 @@ module Lokka
       flash[:notice] = t.user_was_successfully_deleted
       redirect '/admin/users'
     end
+
+    # snipets
+    get '/admin/snipets' do
+      @snipets = Snipet.all(:order => :created_at.desc).
+                        page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'snipets/index'
+    end
+
+    get '/admin/snipets/new' do
+      @snipet = Snipet.new(
+        :created_at => DateTime.now,
+        :updated_at => DateTime.now)
+      render_any :'snipets/new'
+    end
+
+    post '/admin/snipets' do
+      @snipet = Snipet.new(params['snipet'])
+      if @snipet.save
+        flash[:notice] = t.snipet_was_successfully_created
+        redirect '/admin/snipets'
+      else
+        render_any :'snipets/new'
+      end
+    end
+
+    get '/admin/snipets/:id/edit' do |id|
+      @snipet = Snipet.get(id)
+      render_any :'snipets/edit'
+    end
+
+    put '/admin/snipets/:id' do |id|
+      @snipet = Snipet.get(id)
+      if @snipet.update(params['snipet'])
+        flash[:notice] = t.snipet_was_successfully_updated
+        redirect '/admin/snipets'
+      else
+        render_any :'snipets/edit'
+      end
+    end
+
+    delete '/admin/snipets/:id' do |id|
+      Snipet.get(id).destroy
+      flash[:notice] = t.snipet_was_successfully_deleted
+      redirect '/admin/snipets'
+    end
  
 		get '/admin/users/search' do
 			@keyword = params[:keyword]
@@ -471,7 +517,7 @@ module Lokka
 
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add('Home', '/')
-      @bread_crumbs.add('Search', '/search/')
+      @bread_crumbs.add(@query)
 
       render_detect :search, :entries
     end
@@ -563,6 +609,8 @@ module Lokka
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
 
+      @theme_types << @entry.class.name.downcase.to_sym
+
       @title = "#{@entry.title} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
@@ -584,14 +632,15 @@ module Lokka
 
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
+      return 404 if params[:check] != 'check'
 
       @comment = @entry.comments.new(params['comment'])
 
-			unless params['comment']['status'] # unless status value is overridden by plugins
-				@comment[:status] = logged_in? ? Comment::APPROVED : Comment::MODERATED
-			else
-				@comment[:status] = params['comment']['status']
-			end
+      unless params['comment']['status'] # unless status value is overridden by plugins
+        @comment[:status] = logged_in? ? Comment::APPROVED : Comment::MODERATED
+      else
+       @comment[:status] = params['comment']['status']
+      end
 
       if @comment.save
         redirect @entry.link

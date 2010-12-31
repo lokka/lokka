@@ -1,0 +1,24 @@
+%h2= t.listing_snipets
+%table.snipets
+  %tr
+    %th= t.snipet.name
+    %th= t.snipet.body
+    %th= t.snipet.created_at
+    %th= t.snipet.updated_at
+    %th{:colspan => 2}
+  - @snipets.each_with_index do |snipet, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td.title= snipet.name
+      %td= truncate(strip_tags(snipet.body))
+      %td= l snipet.created_at.to_time
+      %td= l snipet.updated_at.to_time
+      %td
+        %a.button{:href => snipet.edit_link}= t.edit
+      %td
+        = link_to t.delete, "/admin/snipets/#{snipet.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
+.pager
+  %ul
+    - if @snipets.pager.previous_page
+      %li.previous= link_to t.previous, "?page=#{@snipets.pager.previous_page}"
+    - if @snipets.pager.next_page
+      %li.next= link_to t.next, "?page=#{@snipets.pager.next_page}"

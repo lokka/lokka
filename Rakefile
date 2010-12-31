@@ -93,19 +93,39 @@ end
 
 desc 'Create the Lokka database'
 task 'db:migrate' do
-  Lokka::Database.new.create
+  puts 'Upgrading Database...'
+  Lokka::MODELS.each {|m| m.auto_upgrade! }
 end
 
 desc 'Execute seed script'
 task 'db:seed' do
-  Lokka::Database.new.setup
+  puts 'Initializing Database...'
+  User.create(
+    :name => 'test',
+    :password => 'test',
+    :password_confirmation => 'test')
+  Site.create(
+    :title => 'Test Site',
+    :description => 'description...',
+    :dashboard => "<p>Welcome to Lokka!</p>\n<p>To post a new article, choose \"<a href=\"/admin/posts/new\">New</a>\" under \"Posts\" on the menu to the left. To change the title of the site, choose \"Settings\" on the menu to the left. (The words displayed here can be changed anytime through the \"<a href=\"/admin/site/edit\">Settings</a>\" screen.)</p>",
+    :theme => 'jarvi')
+  Post.create(
+    :user_id => 1,
+    :title => "Test Post",
+    :body => "<p>Wellcome to Lokka!</p>\n<p><a href=\"/admin/\">Admin login</a> (user / password : test / test)</p>")
 end
+
+desc 'Delete database'
+task 'db:delete' do
+  puts 'Delete Database...'
+  Lokka::MODELS.each {|m| m.auto_migrate! }
+end
+
+desc 'Reset database'
+task 'db:reset' => %w(db:delete db:seed)
 
 desc 'Set database'
 task 'db:set' => %w(db:migrate db:seed)
-
-desc 'Reset database'
-task 'db:reset' => %w(db:migrate db:seed)
 
 desc 'Install gems'
 task :bundle do

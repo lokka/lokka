@@ -1,4 +1,3 @@
-# coding: utf-8
 class Entry
   include DataMapper::Resource
 
@@ -28,9 +27,9 @@ class Entry
     self.category_id = nil if category_id === ''
   end
 
-	def comments
-		@comment = Comment.all(:status => Comment::APPROVED, :entry_id => self.id)
-	end
+  def comments
+    @comment = Comment.all(:status => Comment::APPROVED, :entry_id => self.id)
+  end
 
   def tag_collection=(string)
     reg = RUBY_VERSION >= "1.9.0" ? /[^\p{Word}_]/i : /[^\w\s_-]/i

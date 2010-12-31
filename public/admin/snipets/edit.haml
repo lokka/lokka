@@ -1,0 +1,6 @@
+%h2= t.edit_snipet
+%form{:action => "/admin/snipets/#{@snipet.id}", :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  = partial 'snipets/form'
+  %p
+    %input{:type => 'submit', :value => t.edit}

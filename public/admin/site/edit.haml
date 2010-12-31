@@ -9,6 +9,10 @@
     %label{:for => 'site_description'}= t.site.description
     %br
     %textarea{:id => 'site_description', :name => 'site[description]', :rows => 10, :cols => 50}= h @site.description
+  %p
+    %label{:for => 'site_dashboard'}= t.site.dashboard
+    %br
+    %textarea{:id => 'site_dashboard', :name => 'site[dashboard]', :class => 'editor', :rows => 10, :cols => 50}= h @site.dashboard
   #toggle-button-options.toggle-button(onclick="$('.option').toggle()")= t.option
   %p.option(style="display:none")
     %label{:for => 'site_meta_description'}= t.site.meta_description
