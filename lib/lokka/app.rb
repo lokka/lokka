@@ -50,9 +50,10 @@ module Lokka
       register Lokka::Before
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
-      use Rack::Flash
       use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key' if ENV['RACK_ENV'] == 'production'
-
+      use Rack::Session::Cookie,
+        :expire_after => 60 * 60 * 24 * 12
+      use Rack::Flash
       load_plugin
     end
 
