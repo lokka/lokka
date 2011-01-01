@@ -73,5 +73,18 @@ class Entry
   end
 end
 
+def Entry(id_or_slug)
+  Entry.get_by_fuzzy_slug(id_or_slug.to_s)
+end
+
 class Post < Entry; end
+
+def Post(id_or_slug)
+  Post.get_by_fuzzy_slug(id_or_slug.to_s)
+end
+
 class Page < Entry; end
+
+def Page(id_or_slug)
+  page.get_by_fuzzy_slug(id_or_slug.to_s)
+end

@@ -41,3 +41,7 @@ class Comment
     "#{self.entry.link}#comment-#{id}"
   end
 end
+
+def Comment(id)
+  Comment.get(id)
+end

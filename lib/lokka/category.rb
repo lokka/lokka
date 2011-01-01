@@ -31,3 +31,7 @@ class Category
     "/category/#{cats.join('/')}/"
   end
 end
+
+def Category(id_or_slug)
+  Category.get_by_fuzzy_slug(id_or_slug.to_s)
+end
