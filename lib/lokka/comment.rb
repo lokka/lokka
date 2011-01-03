@@ -25,7 +25,23 @@ class Comment
     all(:status => APPROVED, :limit => count, :order => [:created_at.desc])
   end
 
+  def self.moderated
+    all(:status => MODERATED)
+  end
+
+  def self.approved
+    all(:status => APPROVED)
+  end
+
+  def self.spam
+    all(:status => SPAM)
+  end
+
   def link
     "#{self.entry.link}#comment-#{id}"
   end
+end
+
+def Comment(id)
+  Comment.get(id)
 end
