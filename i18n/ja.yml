@@ -172,3 +172,8 @@ comment_approved: 承認済み
 comment_approved_successfuly: コメントが承認されました
 comment_moderated_successfuly: コメントが未承認になりました
 comment_spam_successfuly: コメントはSPAM判定されました
+mail:
+  title: メール設定
+  banner: メールに関する設定
+  mail_service: SMTPサービス
+  local: ローカル

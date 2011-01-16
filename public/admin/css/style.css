@@ -526,7 +526,11 @@ label {
   background: url(../images/plugin.png);
 }
 
-#aside li.setting h3 a {
+#aside li.setting h3 {
+  background: url(../images/setting.png);
+}
+
+#aside li.setting h3 a{
   background: url(../images/setting.png);
 }
 

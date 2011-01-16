@@ -54,7 +54,63 @@ module Lokka
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12
       use Rack::Flash
+			Smtp_Struct = OpenStruct.new(:list => [])
+			set :smtp => Proc.new{|service| Smtp_Struct.list << service unless Smtp_Struct.list.include? service}
+			Admin_Menu_Struct = OpenStruct.new(:menu => [])
+			Admin_Menu_Struct.menu << {:name => :dashboard, :parent => {:link => '/admin/', :title => :dashboard}, :children => []}
+			Admin_Menu_Struct.menu <<	{:name => :post, :parent => {:link => '', :title => :posts},
+				 :children => [
+								{:link => '/admin/posts', :title => :list, :class => :list},
+								{:link => '/admin/posts/new', :title => :new, :class => :new}
+							 ]}
+			Admin_Menu_Struct.menu <<		{:name => :page, :parent => {:link => '', :title => :pages},
+					:children => [
+								{:link => '/admin/pages', :title => :list, :class => :list},
+								{:link => '/admin/pages/new', :title => :new, :class => :new}
+							 ]}
+			Admin_Menu_Struct.menu <<	{:name => :comment, :parent => {:link => '', :title => :comments},
+					 :children => [
+								{:link => '/admin/comments', :title => :list, :class => :list},
+								{:link => '/admin/comments/new', :title => :new, :class => :new}
+							 ]}
+			Admin_Menu_Struct.menu <<	{:name => :category, :parent => {:link => '', :title => :categories},
+					 :children => [
+								{:link => '/admin/categories', :title => :list, :class => :list},
+								{:link => '/admin/categories/new', :title => :new, :class => :new}
+							 ]}
+			Admin_Menu_Struct.menu <<	{:name => :tag, :parent => {:link => '', :title => :tags},
+					 :children => [
+								{:link => '/admin/tags', :title => :list, :class => :list},
+							 ]}
+			Admin_Menu_Struct.menu <<	{:name => :user, :parent => {:link => '', :title => :users},
+					 :children => [
+								{:link => '/admin/users', :title => :list, :class => :list},
+								{:link => '/admin/users/new', :title => :new, :class => :new}
+							 ]}
+			Admin_Menu_Struct.menu <<	{:name => :snipet, :parent => {:link => '', :title => :snipets},
+					 :children => [
+								{:link => '/admin/snipets', :title => :list, :class => :list},
+								{:link => '/admin/snipets/new', :title => :new, :class => :new}
+							 ]}
+			Admin_Menu_Struct.menu << {:name => :plugin, :parent => {:link => '/admin/plugins', :title => :plugins}, :children => []}
+			Admin_Menu_Struct.menu << {:name => :theme, :parent => {:link => '/admin/themes', :title => :themes}, :children => []}
+			Admin_Menu_Struct.menu << {:name => :setting, :parent => {:link => '/admin/site/edit', :title => :settings}, :children => []}
+			set :admin_menu => Proc.new {|admin_block, menu_data|
+				Admin_Menu_Struct.menu.each do |menu|
+					if menu[:name] == admin_block
+						unless menu[:children].include? menu_data
+							if menu[:parent][:link] != ''
+								menu[:children] << {:link => menu[:parent][:link], :title => menu[:parent][:title]}
+								menu[:parent][:link] = ''
+							end
+							menu[:children] << menu_data
+						end
+						break
+					end
+				end
+			}
       load_plugin
+			set :admin_menu_list => Admin_Menu_Struct.menu
     end
 
     configure :production do
@@ -484,6 +540,20 @@ module Lokka
         render_any :'site/edit'
       end
     end
+
+		get '/admin/site/mail' do
+			settings.smtp t.mail.local
+			counter = 0
+			@mail_services = Smtp_Struct.list.map do |mail|
+				counter += 1
+				[counter, mail]
+			end
+			render_any :'site/mail'
+		end
+
+		put '/admin/site/mail' do
+			render_any :'site/mail'
+		end
 
     # index
     get '/' do

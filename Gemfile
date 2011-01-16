@@ -19,6 +19,7 @@ gem 'exceptional', '2.0.25'
 gem 'erubis', '2.6.6'
 gem 'activesupport', '3.0.0'
 gem 'bluefeather'
+gem 'pony', '1.0.0'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 

@@ -204,5 +204,9 @@ module Lokka
       s = yield_content :footer
       s unless s.blank?
     end
+
+		def admin_menu
+			settings.admin_menu_list
+		end
   end
 end
