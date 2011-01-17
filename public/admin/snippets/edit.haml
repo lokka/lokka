@@ -1,6 +1,6 @@
-%h2= t.edit_snipet
-%form{:action => "/admin/snipets/#{@snipet.id}", :method => 'post'}
+%h2= t.edit_snippet
+%form{:action => "/admin/snippets/#{@snippet.id}", :method => 'post'}
   %input{:type => 'hidden', :name => '_method', :value => 'put'}
-  = partial 'snipets/form'
+  = partial 'snippets/form'
   %p
     %input{:type => 'submit', :value => t.edit}

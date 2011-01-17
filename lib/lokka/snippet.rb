@@ -1,4 +1,4 @@
-class Snipet
+class Snippet
   include DataMapper::Resource
 
   property :id, Serial
@@ -16,6 +16,6 @@ class Snipet
   end
 end
 
-def Snipet(name)
-  Snipet.first(:name => name)
+def Snippet(name)
+  Snippet.first(:name => name)
 end

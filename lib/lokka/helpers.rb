@@ -103,7 +103,14 @@ module Lokka
 
     def rendering(ext, name, options = {})
       locals = options[:locals] ? {:locals => options[:locals]} : {}
-      dir = request.path_info =~ %r{^/admin/.*} ? 'admin' : "theme/#{@theme.name}"
+      dir =
+        if request.path_info =~ %r{^/admin/.*}
+          'admin'
+        elsif request.path_info =~ %r{^/install/.*}
+          'install'
+        else
+          "theme/#{@theme.name}"
+        end
       layout = "#{dir}/layout"
       path = "#{dir}/#{name}"
 

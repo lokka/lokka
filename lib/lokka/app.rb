@@ -40,30 +40,20 @@ module Lokka
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
       set :theme => Proc.new { File.join(public, 'theme') }
-      set :config => YAML.load(ERB.new(File.read("#{root}/config.yml")).result(binding))
       set :supported_templates => %w(erb haml erubis)
       set :per_page, 10
-      set :admin_per_page, 200 
+      set :admin_per_page, 200
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
       register Sinatra::R18n
       register Lokka::Before
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
-      use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key' if ENV['RACK_ENV'] == 'production'
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12
       use Rack::Flash
       load_plugin
-    end
-
-    configure :production do
-      DataMapper.setup(:default, ENV['DATABASE_URL'] || config['production']['dsn'])
-    end
-
-    configure :development do
-      DataMapper::Logger.new('log/datamapper.log', :debug)
-      DataMapper.setup(:default, config['development']['dsn'])
+      Lokka::Database.new.connect
     end
 
     get '/admin/' do
@@ -361,49 +351,49 @@ module Lokka
       redirect '/admin/users'
     end
 
-    # snipets
-    get '/admin/snipets' do
-      @snipets = Snipet.all(:order => :created_at.desc).
+    # snippets
+    get '/admin/snippets' do
+      @snippets = Snippet.all(:order => :created_at.desc).
                         page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'snipets/index'
+      render_any :'snippets/index'
     end
 
-    get '/admin/snipets/new' do
-      @snipet = Snipet.new(
+    get '/admin/snippets/new' do
+      @snippet = Snippet.new(
         :created_at => DateTime.now,
         :updated_at => DateTime.now)
-      render_any :'snipets/new'
+      render_any :'snippets/new'
     end
 
-    post '/admin/snipets' do
-      @snipet = Snipet.new(params['snipet'])
-      if @snipet.save
-        flash[:notice] = t.snipet_was_successfully_created
-        redirect '/admin/snipets'
+    post '/admin/snippets' do
+      @snippet = Snippet.new(params['snippet'])
+      if @snippet.save
+        flash[:notice] = t.snippet_was_successfully_created
+        redirect '/admin/snippets'
       else
-        render_any :'snipets/new'
+        render_any :'snippets/new'
       end
     end
 
-    get '/admin/snipets/:id/edit' do |id|
-      @snipet = Snipet.get(id)
-      render_any :'snipets/edit'
+    get '/admin/snippets/:id/edit' do |id|
+      @snippet = Snippet.get(id)
+      render_any :'snippets/edit'
     end
 
-    put '/admin/snipets/:id' do |id|
-      @snipet = Snipet.get(id)
-      if @snipet.update(params['snipet'])
-        flash[:notice] = t.snipet_was_successfully_updated
-        redirect '/admin/snipets'
+    put '/admin/snippets/:id' do |id|
+      @snippet = Snippet.get(id)
+      if @snippet.update(params['snippet'])
+        flash[:notice] = t.snippet_was_successfully_updated
+        redirect '/admin/snippets'
       else
-        render_any :'snipets/edit'
+        render_any :'snippets/edit'
       end
     end
 
-    delete '/admin/snipets/:id' do |id|
-      Snipet.get(id).destroy
-      flash[:notice] = t.snipet_was_successfully_deleted
-      redirect '/admin/snipets'
+    delete '/admin/snippets/:id' do |id|
+      Snippet.get(id).destroy
+      flash[:notice] = t.snippet_was_successfully_deleted
+      redirect '/admin/snippets'
     end
  
     # theme

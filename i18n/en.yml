@@ -23,7 +23,7 @@ categories: Categories
 posts: Posts
 pages: Pages
 comments: Comments
-snipets: Snipets
+snippets: Snippets
 themes: Themes
 plugins: Plugins
 settings: Settings
@@ -45,7 +45,7 @@ listing_pages: Listing Pages
 listing_categories: Listing Categories
 listing_tags: Listing Tags
 listing_comments: Listing Comments
-listing_snipets: Listing Snipets
+listing_snippets: Listing Snippets
 listing_users: Listing Users
 listing_themes: Listing Themes
 listing_plugins: Listing Plugins
@@ -54,12 +54,12 @@ new_page: New Page
 new_category: New Category
 new_user: New User
 new_comment: New Comment
-new_snipet: New Snipet
+new_snippet: New Snippet
 edit_post: Edit Post
 edit_page: Edit Page
 edit_category: Edit Category
 edit_comment: Edit Comment
-edit_snipet: Edit Snipet
+edit_snippet: Edit Snippet
 edit_tag: Edit Tag
 edit_user:  Edit User
 edit_site: Edit Site
@@ -72,9 +72,9 @@ page_was_successfully_deleted: Page was successfully deleted.
 comment_was_successfully_created: Comment was successfully created.
 comment_was_successfully_updated: Comment was successfully updated.
 comment_was_successfully_deleted: Comment was successfully deleted.
-snipet_was_successfully_created: Snipet was successfully created.
-snipet_was_successfully_updated: Snipet was successfully updated.
-snipet_was_successfully_deleted: Snipet was successfully deleted.
+snippet_was_successfully_created: Snippet was successfully created.
+snippet_was_successfully_updated: Snippet was successfully updated.
+snippet_was_successfully_deleted: Snippet was successfully deleted.
 category_was_successfully_created: Category was successfully created.
 category_was_successfully_updated: Category was successfully updated.
 category_was_successfully_deleted: Category was successfully deleted.
@@ -94,7 +94,7 @@ no_post: No Post
 no_page: No Page
 no_user: No User
 no_comment: No Comment
-no_snipet: No Snipet
+no_snippet: No Snippet
 no_plugin: No Plugin
 your_name_or_password_is_incorrect: Your username or password is incorrect.
 logged_in_successfully: Logged in successfully.
@@ -153,7 +153,7 @@ comment:
   homepage: Homepage
   created_at: Created at
   updated_at: Updated at
-snipet:
+snippet:
   id: ID
   name: Name
   body: Body

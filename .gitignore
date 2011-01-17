@@ -1,5 +1,7 @@
 /*.sqlite3
+/db/*.sqlite3
 /bundle
+/vendor/bundle
 /.bundle
 /Gemfile.lock
 /tmp/*.log
@@ -10,3 +12,5 @@
 /tags
 /import.rb
 /pkg
+/.rvmrc
+/Lokka.app
