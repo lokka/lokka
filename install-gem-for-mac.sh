@@ -1,7 +1,7 @@
 #!/bin/sh
 export PATH=`pwd`/vendor/rubygems/bin:$PATH
 export RUBYLIB=`pwd`/vendor/rubygems/lib
-export GEM_HOME=`pwd`/vendor/bundle
+export GEM_HOME=`pwd`/vendor/gem
 gem environment
 gem install bundler             --version="1.0.7"
 gem install rack-flash          --version="0.1.1"

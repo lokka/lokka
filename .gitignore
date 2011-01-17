@@ -2,6 +2,7 @@
 /db/*.sqlite3
 /bundle
 /vendor/bundle
+/vendor/gem
 /.bundle
 /Gemfile.lock
 /tmp/*.log
