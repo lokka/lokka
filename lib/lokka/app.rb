@@ -40,7 +40,7 @@ module Lokka
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
       set :theme => Proc.new { File.join(public, 'theme') }
-      set :supported_templates => %w(erb haml erubis)
+      set :supported_templates => %w(erb haml slim erubis)
       set :per_page, 10
       set :admin_per_page, 200
       set :default_locale, 'en'

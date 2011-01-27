@@ -19,6 +19,8 @@ require 'dm-is-tree'
 require 'dm-tags'
 require 'dm-pager'
 require 'haml'
+require 'sass'
+require 'slim'
 require 'builder'
 
 autoload :Theme, 'lokka/theme'
@@ -167,3 +169,13 @@ module Tilt
     end
   end
 end
+
+module Sinatra
+  module Templates
+    def slim(template, options={}, locals={})
+      render :slim, template, options, locals
+    end
+  end
+end
+
+Slim::Engine.set_default_options :pretty => true
