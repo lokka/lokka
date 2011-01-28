@@ -147,10 +147,10 @@ module Lokka
 
       str = ''
       attrs.each do |key, value|
-        str += %Q(#{key.to_s}="#{value}")
+        str += %Q( #{key.to_s}="#{value}")
       end
 
-      %Q(<a #{str}>#{name}</a>)
+      %Q(<a#{str}>#{name}</a>)
     end
 
     def select_field(object, method, values = [], options = {})
