@@ -1,11 +1,12 @@
-! doctype html
+| <?xml version="1.0" encoding="utf-8" ?>
+| <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 html
   head
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
     meta http-equiv="Content-Style-Type" content="text/css"
     meta http-equiv="Content-Script-Type" content="text/javascript"
     - if entry?
-      title= #{@entry.title} - #{@site.title}
+      title #{@entry.title} - #{@site.title}
     - else
       title= @site.title
     meta name="description" content="#{@site.meta_description}"
@@ -13,16 +14,15 @@ html
     link rel="shortcut icon" href="#{@theme.path}/favicon.ico"
     link title="#{@site.title}" rel="alternate" href="/index.atom" type="application/atom+xml"
     link rel="stylesheet" href="#{@theme.path}/style.css" type="text/css"
-    script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"
     = header
   body
     #header
-      h1= link_to @site.title, '/'
+      h1== link_to @site.title, '/'
       .description= @site.description
     - unless index? or entry?
-      #bread_crumb= bread_crumb
+      #bread_crumb== bread_crumb
     #content.clearfix
-      #main= yield
+      #main== yield
       #aside
         dl
           dt= t.search
@@ -32,42 +32,41 @@ html
           dt= t.profile
           dd
             - if about = Snippet('about')
-              = about.body
+              == about.body
               - if logged_in?
-              p style="text-align:right"
-                = link_to t.edit, about.edit_link
+                p style="text-align:right"== link_to t.edit, about.edit_link
           dt= t.recent_entries
           dd
             ul
               - Post.recent.each do |post|
-                li= link_to post.title, post.link
+                li== link_to post.title, post.link
           dt= t.recent_comments
           dd
             ul
               - Comment.recent.each do |comment|
-                li= link_to truncate(strip_tags(comment.body), :length => 16), comment.link
+                li== link_to truncate(strip_tags(comment.body), :length => 16), comment.link
           dt= t.tags
           dd
             ul
               - Tag.all.each do |tag|
-                li= link_to tag.name, tag.link
+                li== link_to tag.name, tag.link
           dt= t.archives
           dd
             ul
               - months.each do |m|
-                li= link_to "#{m.year}年#{m.month}月", "/#{m.year}/#{m.month}/"
+                li== link_to "#{m.year}年#{m.month}月", "/#{m.year}/#{m.month}/"
           dt= t.admin
           dd
             ul
               - if logged_in?
-                li= link_to t.admin_page, '/admin/'
-                li= link_to t.new_post, '/admin/posts/new'
-                li= link_to t.logout, '/admin/logout'
+                li== link_to t.admin_page, '/admin/'
+                li== link_to t.new_post, '/admin/posts/new'
+                li== link_to t.logout, '/admin/logout'
               - else
-                li= link_to t.login, '/admin/'
+                li== link_to t.login, '/admin/'
               li
     #footer
       .poweredby
         powered by
-        = link_to 'Lokka', 'http://lokka.org/'
+        == link_to 'Lokka', 'http://lokka.org/'
     = footer
