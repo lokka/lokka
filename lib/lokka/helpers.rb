@@ -126,14 +126,6 @@ module Lokka
       haml :'system/comments/form', :layout => false
     end
 
-    def link_to_if(cond, name, url, options = {})
-      cond ? link_to(name, url, options) : name
-    end
-
-    def link_to_unless(cond, name, url, options = {})
-      link_to_if !cond, name, url, options
-    end
-
     def link_to(name, url, options = {})
       attrs = {:href => url}
       if options[:confirm] and options[:method]
@@ -151,6 +143,22 @@ module Lokka
       end
 
       %Q(<a#{str}>#{name}</a>)
+    end
+
+    def link_to_if(cond, name, url, options = {})
+      cond ? link_to(name, url, options) : name
+    end
+
+    def link_to_unless(cond, name, url, options = {})
+      link_to_if !cond, name, url, options
+    end
+
+    def link_to_current(name, url, options = {})
+      request_path == url ? link_to(name, url, options) : name
+    end
+
+    def link_to_unless_current(name, url, options = {})
+      request_path != url ? link_to(name, url, options) : name
     end
 
     def select_field(object, method, values = [], options = {})
@@ -210,6 +218,11 @@ module Lokka
     def footer
       s = yield_content :footer
       s unless s.blank?
+    end
+
+    # example: /foo/bar?buz=aaa
+    def request_path
+      '/' + request.url.split('/')[3..-1].join('/')
     end
   end
 end
