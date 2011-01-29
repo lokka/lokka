@@ -443,7 +443,7 @@ module Lokka
       @posts = Post.page(params[:page], :per_page => settings.per_page)
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
 
       render_detect :index, :entries
     end
@@ -466,7 +466,7 @@ module Lokka
       @title = "Search by #{@query} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add(@query)
 
       render_detect :search, :entries
@@ -486,7 +486,7 @@ module Lokka
       @title = "#{@category.title} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @category.ancestors.each do |cat|
         @bread_crumbs.add(cat.name, cat.link)
       end
@@ -507,7 +507,7 @@ module Lokka
       @title = "#{@tag.name} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add(@tag.name, @tag.link)
 
       render_detect :tag, :entries
@@ -526,7 +526,7 @@ module Lokka
       @title = "#{year}/#{month} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add("#{year}", "/#{year}/")
       @bread_crumbs.add("#{year}/#{month}", "/#{year}/#{month}/")
 
@@ -546,7 +546,7 @@ module Lokka
       @title = "#{year} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add("#{year}", "/#{year}/")
 
       render_detect :yearly, :entries
@@ -566,7 +566,7 @@ module Lokka
       @title = "#{@entry.title} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       if @entry.category
         @entry.category.ancestors.each do |cat|
           @bread_crumbs.add(cat.name, cat.link)
