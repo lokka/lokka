@@ -224,5 +224,7 @@ module Lokka
     def request_path
       '/' + request.url.split('/')[3..-1].join('/')
     end
+
+    def locale; r18n.locale.code end
   end
 end
