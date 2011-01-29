@@ -559,7 +559,9 @@ module Lokka
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
 
-      @theme_types << @entry.class.name.downcase.to_sym
+      type = @entry.class.name.downcase.to_sym
+      @theme_types << type
+      eval "@#{type} = @entry"
 
       @title = "#{@entry.title} - #{@site.title}"
 
@@ -573,7 +575,7 @@ module Lokka
       end
       @bread_crumbs.add(@entry.title, @entry.link)
 
-      render_any :entry
+      render_detect type, :entry
     end
 
     # comment
