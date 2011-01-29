@@ -1,0 +1,4 @@
+.articles.section
+  - @posts.each do |post|
+    = partial :article, :locals => {:post => post}
+  = @posts.pager.to_html(request.url)
