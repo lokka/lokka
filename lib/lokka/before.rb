@@ -12,7 +12,10 @@ module Lokka
         @title = @site.title
         @theme = Theme.new(settings.theme)
         @theme_types = []
-        session[:locale] = params[:locale] if params[:locale]
+        if params[:locale]
+          session[:locale] = params[:locale]
+          redirect request.referrer
+        end
       end
 
       app.before %r{(?!^/admin/login$)^/admin/.*$} do

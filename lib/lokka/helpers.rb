@@ -222,7 +222,11 @@ module Lokka
 
     # example: /foo/bar?buz=aaa
     def request_path
-      '/' + request.url.split('/')[3..-1].join('/')
+      path = '/' + request.url.split('/')[3..-1].join('/')
+      path += '/' if path != '/' and request.url =~ /\/$/
+      path
     end
+
+    def locale; r18n.locale.code end
   end
 end
