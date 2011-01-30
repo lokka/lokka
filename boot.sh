@@ -1,2 +1,2 @@
 #!/bin/sh
-LOKKA_BUNDLE=mac ruby lokka.rb
+LOKKA_BUNDLE=mac /usr/bin/ruby lokka.rb
