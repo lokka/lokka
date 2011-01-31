@@ -31,6 +31,10 @@ class Entry
     @comment = Comment.all(:status => Comment::APPROVED, :entry_id => self.id)
   end
 
+  def recent(count = 5)
+    all(:limit => count, :order => [:created_at.desc])
+  end
+
   def tag_collection=(string)
     reg = RUBY_VERSION >= "1.9.0" ? /[^\p{Word}_]/i : /[^\w\s_-]/i
     @tag_list = string.to_s.split(',').map { |name|
