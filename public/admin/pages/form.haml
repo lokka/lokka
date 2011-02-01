@@ -31,7 +31,7 @@
   %label{:for => 'page_created_at'}= t.page.created_at
   %br
   %input{:type => 'text', :id => 'page_created_at', :name => 'page[created_at]', :value => @page.created_at}
-.field
-  %label{:for => 'page_published'}= t.page.published
-  %br
-  = select_field @page, :published, {true => t.published, false => t.draft}, :id => 'page_published'
+%p
+  %input{:type => 'hidden', :id => 'published', :name => 'page[published]', :value => 1}
+  %input{:type => 'submit', :value => t.publish}
+  %input{:id => 'save_as_draft_button', :type => 'submit', :value => t.save_as_draft}

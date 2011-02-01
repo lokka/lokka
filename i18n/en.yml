@@ -108,7 +108,6 @@ page:
   tags: Tags
   created_at: Created at
   updated_at: Updated at
-  published: Publish
 post:
   id: ID
   slug: Slug
@@ -119,7 +118,6 @@ post:
   tags: Tags
   created_at: Created at
   updated_at: Updated at
-  published: Publish
 category:
   id: ID
   slug: Slug
@@ -176,3 +174,5 @@ comment_moderated_successfuly: comment moderated successfuly
 comment_spam_successfuly: comment marked as spam successfuly
 published: Published
 draft: Draft
+publish: Publish
+save_as_draft: Save as Draft

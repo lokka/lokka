@@ -2,5 +2,3 @@
 %form{:action => "/admin/pages/#{@page.id}", :method => 'post'}
   %input{:type => 'hidden', :name => '_method', :value => 'put'}
   = partial 'pages/form'
-  %p
-    %input{:type => 'submit', :value => t.edit}
