@@ -4,6 +4,7 @@
     %th= t.page.title
     %th= t.page.user
     %th= t.page.created_at
+    %th
     %th{:colspan => 2}
   - @pages.each_with_index do |page, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
@@ -11,6 +12,12 @@
         %a{:href => page.link}= page.title
       %td= page.user.nil? ? '' : page.user.name
       %td= l page.created_at.to_time
+      - if page.published?
+        %td
+          %span.published= t.published
+      - else
+        %td
+          %span.draft= t.draft
       %td
         %a.button{:href => page.edit_link}= t.edit
       %td

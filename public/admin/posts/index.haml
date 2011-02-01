@@ -4,6 +4,7 @@
     %th= t.post.title
     %th= t.post.user
     %th= t.post.created_at
+    %th
     %th{:colspan => 2}
   - @posts.each_with_index do |post, i|
     %tr{:class => (i+1).odd? ? 'odd' : 'even'}
@@ -11,6 +12,12 @@
         %a{:href => post.link}= post.title
       %td= post.user.nil? ? '' : post.user.name
       %td= l post.created_at.to_time
+      - if post.published?
+        %td
+          %span.published= t.published
+      - else
+        %td
+          %span.draft= t.draft
       %td
         %a.button{:href => post.edit_link}= t.edit
       %td

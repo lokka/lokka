@@ -108,6 +108,7 @@ page:
   tags: タグ
   created_at: 作成日時
   updated_at: 更新日時
+  published: 公開
 post:
   id: ID
   slug: スラッグ
@@ -118,6 +119,7 @@ post:
   tags: タグ
   created_at: 作成日時
   updated_at: 更新日時
+  published: 公開
 category:
   id: ID
   slug: スラッグ
@@ -172,3 +174,5 @@ comment_approved: 承認済み
 comment_approved_successfuly: コメントが承認されました
 comment_moderated_successfuly: コメントが未承認になりました
 comment_spam_successfuly: コメントはSPAM判定されました
+published: 公開中
+draft: 下書き

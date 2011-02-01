@@ -31,3 +31,7 @@
   %label{:for => 'post_created_at'}= t.post.created_at
   %br
   %input{:type => 'text', :id => 'post_created_at', :name => 'post[created_at]', :value => @post.created_at}
+.field
+  %label{:for => 'post_published'}= t.post.published
+  %br
+  = select_field @post, :published, {true => t.published, false => t.draft}, :id => 'post_published'

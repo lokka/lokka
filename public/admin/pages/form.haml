@@ -31,3 +31,7 @@
   %label{:for => 'page_created_at'}= t.page.created_at
   %br
   %input{:type => 'text', :id => 'page_created_at', :name => 'page[created_at]', :value => @page.created_at}
+.field
+  %label{:for => 'page_published'}= t.page.published
+  %br
+  = select_field @page, :published, {true => t.published, false => t.draft}, :id => 'page_published'

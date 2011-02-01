@@ -751,3 +751,14 @@ textarea#page_body {
 #toggle-button-options {
   cursor:pointer;
 }
+
+.draft {
+  background-color: #e8c5c5;
+  color: inherit;
+  padding: 5px;
+}
+.published {
+  background-color: transparent;
+  color: inherit;
+  padding: 5px;
+}
