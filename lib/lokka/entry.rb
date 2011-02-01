@@ -8,6 +8,7 @@ class Entry
   property :title, String, :length => 255
   property :body, Text
   property :type, Discriminator
+  property :published, Boolean, :default => true
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -32,7 +33,11 @@ class Entry
   end
 
   def recent(count = 5)
-    all(:limit => count, :order => [:created_at.desc])
+    all(:published => true, :limit => count, :order => [:created_at.desc])
+  end
+
+  def self.published
+    all(:published => true)
   end
 
   def tag_collection=(string)
@@ -43,7 +48,7 @@ class Entry
   end
 
   def self.get_by_fuzzy_slug(str)
-    ret = first(:slug => str)
+    ret = first(:published => true, :slug => str)
     ret.blank? ? get(str) : ret
   end
 
@@ -53,7 +58,7 @@ class Entry
   end
 
   def self.recent(count = 5)
-    all(:limit => count, :order => [:created_at.desc])
+    all(:published => true, :limit => count, :order => [:created_at.desc])
   end
 
   def fuzzy_slug

@@ -440,7 +440,7 @@ module Lokka
       @theme_types << :index
       @theme_types << :entries
 
-      @posts = Post.page(params[:page], :per_page => settings.per_page)
+      @posts = Post.published.page(params[:page], :per_page => settings.per_page)
 
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add(t.home, '/')
@@ -449,7 +449,7 @@ module Lokka
     end
 
     get '/index.atom' do
-      @posts = Post.page(params[:page], :per_page => settings.per_page)
+      @posts = Post.published.page(params[:page], :per_page => settings.per_page)
       content_type 'application/atom+xml', :charset => 'utf-8'
       builder :'system/index'
     end
@@ -460,7 +460,7 @@ module Lokka
       @theme_types << :entries
 
       @query = params[:query]
-      @posts = Post.search(@query).
+      @posts = Post.published.search(@query).
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "Search by #{@query} - #{@site.title}"
@@ -480,7 +480,7 @@ module Lokka
       category_title = path.split('/').last
       @category = Category.get_by_fuzzy_slug(category_title)
       return 404 if @category.nil?
-      @posts = Post.all(:category => @category).
+      @posts = Post.published.all(:category => @category).
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "#{@category.title} - #{@site.title}"
@@ -502,7 +502,7 @@ module Lokka
 
       @tag = Tag.first(:name => tag)
       return 404 if @tag.nil?
-      @posts = Post.all(:id.in => @tag.taggings.map {|o| o.taggable_id }).
+      @posts = Post.published.all(:id.in => @tag.taggings.map {|o| o.taggable_id }).
                     page(params[:page], :per_page => settings.per_page)
       @title = "#{@tag.name} - #{@site.title}"
 
@@ -519,7 +519,7 @@ module Lokka
       @theme_types << :entries
 
       year, month = year.to_i, month.to_i
-      @posts = Post.all(:created_at.gte => DateTime.new(year, month)).
+      @posts = Post.published.all(:created_at.gte => DateTime.new(year, month)).
                     all(:created_at.lt => DateTime.new(year, month) >> 1).
                     page(params[:page], :per_page => settings.per_page)
 
@@ -539,7 +539,7 @@ module Lokka
       @theme_types << :entries
 
       year = year.to_i
-      @posts = Post.all(:created_at.gte => DateTime.new(year)).
+      @posts = Post.published.all(:created_at.gte => DateTime.new(year)).
                     all(:created_at.lt => DateTime.new(year + 1)).
                     page(params[:page], :per_page => settings.per_page)
 
@@ -556,7 +556,7 @@ module Lokka
     get %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+      @entry = Entry.published.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
 
       type = @entry.class.name.downcase.to_sym
@@ -582,7 +582,7 @@ module Lokka
     post %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+      @entry = Entry.published.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
       return 404 if params[:check] != 'check'
 
