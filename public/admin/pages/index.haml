@@ -1,4 +1,7 @@
-%h2= t.listing_pages
+- if '/admin/pages/draft' == request.env['PATH_INFO']
+  %h2= t.listing_draft_pages
+- else
+  %h2= t.listing_pages
 %table.pages
   %tr
     %th= t.page.title

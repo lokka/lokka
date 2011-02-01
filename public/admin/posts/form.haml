@@ -28,6 +28,11 @@
   %br
   %input{:type => 'text', :id => 'post_tag_collection', :name => 'post[tag_collection]', :value => @post.tag_collection}
 .field
+  %label{:for => 'post_draft'}= t.post.draft
+  %br
+  %input{:type => 'hidden', :name => 'post[draft]', :value => 'false'}
+  %input{:type => 'checkbox', :id => 'post_draft', :name => 'post[draft]', :value => 'true', :checked => @post.draft}
+.field
   %label{:for => 'post_created_at'}= t.post.created_at
   %br
   %input{:type => 'text', :id => 'post_created_at', :name => 'post[created_at]', :value => @post.created_at}
