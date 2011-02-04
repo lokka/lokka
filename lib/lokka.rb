@@ -119,6 +119,7 @@ end
 unless defined? Encoding
   class Encoding
     UTF_8 = nil
+    BINARY = nil
     def self.default_external
       nil
     end
