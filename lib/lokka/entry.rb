@@ -31,6 +31,10 @@ class Entry
     @comment = Comment.all(:status => Comment::APPROVED, :entry_id => self.id)
   end
 
+  def recent(count = 5)
+    all(:limit => count, :order => [:created_at.desc])
+  end
+
   def tag_collection=(string)
     reg = RUBY_VERSION >= "1.9.0" ? /[^\p{Word}_]/i : /[^\w\s_-]/i
     @tag_list = string.to_s.split(',').map { |name|
@@ -86,5 +90,5 @@ end
 class Page < Entry; end
 
 def Page(id_or_slug)
-  page.get_by_fuzzy_slug(id_or_slug.to_s)
+  Page.get_by_fuzzy_slug(id_or_slug.to_s)
 end

@@ -1,4 +1,3 @@
 #!/usr/bin/env ruby
-
-Dir.chdir(File.dirname(__FILE__))
-exec 'bundle exec rackup -p 9646'
+require './init'
+Lokka::App.run! :port => 9646

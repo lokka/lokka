@@ -1,0 +1,24 @@
+%h2= t.listing_snippets
+%table.snippets
+  %tr
+    %th= t.snippet.name
+    %th= t.snippet.body
+    %th= t.snippet.created_at
+    %th= t.snippet.updated_at
+    %th{:colspan => 2}
+  - @snippets.each_with_index do |snippet, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td.title= snippet.name
+      %td= truncate(strip_tags(snippet.body))
+      %td= l snippet.created_at.to_time
+      %td= l snippet.updated_at.to_time
+      %td
+        %a.button{:href => snippet.edit_link}= t.edit
+      %td
+        = link_to t.delete, "/admin/snippets/#{snippet.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
+.pager
+  %ul
+    - if @snippets.pager.previous_page
+      %li.previous= link_to t.previous, "?page=#{@snippets.pager.previous_page}"
+    - if @snippets.pager.next_page
+      %li.next= link_to t.next, "?page=#{@snippets.pager.next_page}"

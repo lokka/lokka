@@ -3,6 +3,7 @@ require 'pathname'
 require 'erb'
 require 'ostruct'
 require 'digest/sha1'
+require 'csv'
 
 require 'active_support/all'
 require 'sinatra/base'
@@ -18,26 +19,85 @@ require 'dm-is-tree'
 require 'dm-tags'
 require 'dm-pager'
 require 'haml'
+require 'sass'
+require 'slim'
 require 'builder'
-require 'exceptional'
 
-require 'lokka/theme'
-require 'lokka/user'
-require 'lokka/site'
-require 'lokka/option'
-require 'lokka/entry'
-require 'lokka/category'
+autoload :Theme, 'lokka/theme'
+autoload :User, 'lokka/user'
+autoload :Site, 'lokka/site'
+autoload :Option, 'lokka/option'
+autoload :Entry, 'lokka/entry'
+autoload :Category, 'lokka/category'
+autoload :Comment, 'lokka/comment'
+autoload :Snippet, 'lokka/snippet'
+autoload :Bread, 'lokka/bread'
+autoload :BreadCrumb, 'lokka/bread_crumb'
 require 'lokka/tag'
-require 'lokka/comment'
-require 'lokka/snipet'
-require 'lokka/bread_crumb'
-require 'lokka/before'
-require 'lokka/helpers'
-require 'lokka/app'
 
 module Lokka
+  autoload :Before, 'lokka/before'
+  autoload :Helpers, 'lokka/helpers'
+  autoload :App, 'lokka/app'
+
   class NoTemplateError < StandardError; end
-  MODELS = [Site, Option, User, Entry, Category, Comment, Snipet, Tag, Tagging]
+  MODELS = [Site, Option, User, Entry, Category, Comment, Snippet, Tag, Tagging]
+
+  def self.root
+    File.expand_path('..', File.dirname(__FILE__))
+  end
+
+  def self.config
+    YAML.load(ERB.new(File.read("#{Lokka.root}/config.yml")).result(binding))
+  end
+
+  def self.env
+    if ENV['LOKKA_ENV'] == 'production' or ENV['RACK_ENV'] == 'production'
+      'production'
+    else
+      'development'
+    end
+  end
+
+  class Database
+    def connect
+      DataMapper.setup(:default, Lokka.config[Lokka.env]['dsn'])
+      self
+    end
+
+    def load_fixture(name)
+      model = name.to_s.classify.constantize
+      csv = CSV.read("#{Lokka.root}/db/seed/#{name}.csv")
+      headers = csv.shift.map {|i| i.to_s }
+      csv.map {|row|
+        row.map {|cell| cell.to_s }
+      }.map {|row|
+        Hash[*headers.zip(row).flatten]
+      }.each {|row|
+        fields = {}
+        row.each do |k, v|
+          fields[k] = v if !v.blank?
+        end
+        model.create!(fields)
+      }
+    end
+
+    def migrate
+      Lokka::MODELS.each {|m| m.auto_upgrade! }
+      self
+    end
+
+    def migrate!
+      Lokka::MODELS.each {|m| m.auto_migrate! }
+      self
+    end
+
+    def seed
+      load_fixture :users
+      load_fixture :sites
+      load_fixture :entries
+    end
+  end
 end
 
 unless String.public_method_defined?(:force_encoding)
@@ -58,6 +118,8 @@ end
 
 unless defined? Encoding
   class Encoding
+    UTF_8 = nil
+    BINARY = nil
     def self.default_external
       nil
     end
@@ -108,3 +170,13 @@ module Tilt
     end
   end
 end
+
+module Sinatra
+  module Templates
+    def slim(template, options={}, locals={})
+      render :slim, template, options, locals
+    end
+  end
+end
+
+Slim::Engine.set_default_options :pretty => true

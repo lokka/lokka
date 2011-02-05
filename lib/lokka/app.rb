@@ -40,17 +40,15 @@ module Lokka
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
       set :theme => Proc.new { File.join(public, 'theme') }
-      set :config => YAML.load(ERB.new(File.read("#{root}/config.yml")).result(binding))
-      set :supported_templates => %w(erb haml erubis)
+      set :supported_templates => %w(erb haml slim erubis)
       set :per_page, 10
-      set :admin_per_page, 200 
+      set :admin_per_page, 200
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
       register Sinatra::R18n
       register Lokka::Before
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
-      use Rack::Exceptional, ENV['EXCEPTIONAL_API_KEY'] || 'key' if ENV['RACK_ENV'] == 'production'
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12
       use Rack::Flash
@@ -110,6 +108,7 @@ module Lokka
 				end
 			}
       load_plugin
+<<<<<<< HEAD
 			set :admin_menu_list => Admin_Menu_Struct.menu
     end
 
@@ -120,6 +119,9 @@ module Lokka
     configure :development do
       DataMapper::Logger.new('log/datamapper.log', :debug)
       DataMapper.setup(:default, config['development']['dsn'])
+=======
+      Lokka::Database.new.connect
+>>>>>>> 84c4f1881bde54e7a9f06fe9702b217d49d6f9e5
     end
 
     get '/admin/' do
@@ -448,49 +450,49 @@ module Lokka
       redirect '/admin/users'
     end
 
-    # snipets
-    get '/admin/snipets' do
-      @snipets = Snipet.all(:order => :created_at.desc).
+    # snippets
+    get '/admin/snippets' do
+      @snippets = Snippet.all(:order => :created_at.desc).
                         page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'snipets/index'
+      render_any :'snippets/index'
     end
 
-    get '/admin/snipets/new' do
-      @snipet = Snipet.new(
+    get '/admin/snippets/new' do
+      @snippet = Snippet.new(
         :created_at => DateTime.now,
         :updated_at => DateTime.now)
-      render_any :'snipets/new'
+      render_any :'snippets/new'
     end
 
-    post '/admin/snipets' do
-      @snipet = Snipet.new(params['snipet'])
-      if @snipet.save
-        flash[:notice] = t.snipet_was_successfully_created
-        redirect '/admin/snipets'
+    post '/admin/snippets' do
+      @snippet = Snippet.new(params['snippet'])
+      if @snippet.save
+        flash[:notice] = t.snippet_was_successfully_created
+        redirect '/admin/snippets'
       else
-        render_any :'snipets/new'
+        render_any :'snippets/new'
       end
     end
 
-    get '/admin/snipets/:id/edit' do |id|
-      @snipet = Snipet.get(id)
-      render_any :'snipets/edit'
+    get '/admin/snippets/:id/edit' do |id|
+      @snippet = Snippet.get(id)
+      render_any :'snippets/edit'
     end
 
-    put '/admin/snipets/:id' do |id|
-      @snipet = Snipet.get(id)
-      if @snipet.update(params['snipet'])
-        flash[:notice] = t.snipet_was_successfully_updated
-        redirect '/admin/snipets'
+    put '/admin/snippets/:id' do |id|
+      @snippet = Snippet.get(id)
+      if @snippet.update(params['snippet'])
+        flash[:notice] = t.snippet_was_successfully_updated
+        redirect '/admin/snippets'
       else
-        render_any :'snipets/edit'
+        render_any :'snippets/edit'
       end
     end
 
-    delete '/admin/snipets/:id' do |id|
-      Snipet.get(id).destroy
-      flash[:notice] = t.snipet_was_successfully_deleted
-      redirect '/admin/snipets'
+    delete '/admin/snippets/:id' do |id|
+      Snippet.get(id).destroy
+      flash[:notice] = t.snippet_was_successfully_deleted
+      redirect '/admin/snippets'
     end
  
 		get '/admin/users/search' do
@@ -563,7 +565,7 @@ module Lokka
       @posts = Post.page(params[:page], :per_page => settings.per_page)
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
 
       render_detect :index, :entries
     end
@@ -586,7 +588,7 @@ module Lokka
       @title = "Search by #{@query} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add(@query)
 
       render_detect :search, :entries
@@ -606,7 +608,7 @@ module Lokka
       @title = "#{@category.title} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @category.ancestors.each do |cat|
         @bread_crumbs.add(cat.name, cat.link)
       end
@@ -627,7 +629,7 @@ module Lokka
       @title = "#{@tag.name} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add(@tag.name, @tag.link)
 
       render_detect :tag, :entries
@@ -646,7 +648,7 @@ module Lokka
       @title = "#{year}/#{month} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add("#{year}", "/#{year}/")
       @bread_crumbs.add("#{year}/#{month}", "/#{year}/#{month}/")
 
@@ -666,7 +668,7 @@ module Lokka
       @title = "#{year} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       @bread_crumbs.add("#{year}", "/#{year}/")
 
       render_detect :yearly, :entries
@@ -679,12 +681,14 @@ module Lokka
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
 
-      @theme_types << @entry.class.name.downcase.to_sym
+      type = @entry.class.name.downcase.to_sym
+      @theme_types << type
+      eval "@#{type} = @entry"
 
       @title = "#{@entry.title} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add('Home', '/')
+      @bread_crumbs.add(t.home, '/')
       if @entry.category
         @entry.category.ancestors.each do |cat|
           @bread_crumbs.add(cat.name, cat.link)
@@ -693,7 +697,7 @@ module Lokka
       end
       @bread_crumbs.add(@entry.title, @entry.link)
 
-      render_any :entry
+      render_detect type, :entry
     end
 
     # comment

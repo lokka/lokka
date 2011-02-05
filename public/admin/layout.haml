@@ -30,6 +30,7 @@
     #content
       #aside
         %ul
+<<<<<<< HEAD
           - menu_titles = %w(dashboard post page comment category tag user snipet theme plugin setting)
           - admin_menu.each do |menu|
             - if menu[:parent][:link] != ''
@@ -49,6 +50,67 @@
                     - menu[:children].each do |menu_child|
                       %li{:class => "#{menu_child[:class]}"}
                         %a{:href => "#{menu_child[:link]}"}= t.send menu_child[:title]
+=======
+          %li.dashboard.parent
+            %h3
+              %a{:href => '/admin/'}= t.dashboard
+          %li.post.parent
+            %h3.title= t.posts
+            %ul
+              %li.list
+                %a{:href => '/admin/posts'}= t.list
+              %li.new
+                %a{:href => '/admin/posts/new'}= t.new
+          %li.page.parent
+            %h3.title= t.pages
+            %ul
+              %li.list
+                %a{:href => '/admin/pages'}= t.list
+              %li.new
+                %a{:href => '/admin/pages/new'}= t.new
+          %li.comment.parent
+            %h3.title= t.comments
+            %ul
+              %li.list
+                %a{:href => '/admin/comments'}= t.list
+              %li.new
+                %a{:href => '/admin/comments/new'}= t.new
+          %li.category.parent
+            %h3.title= t.categories
+            %ul
+              %li.list
+                %a{:href => '/admin/categories'}= t.list
+              %li.new
+                %a{:href => '/admin/categories/new'}= t.new
+          %li.tag.parent
+            %h3.title= t.tags
+            %ul
+              %li.list
+                %a{:href => '/admin/tags'}= t.list
+          %li.user.parent
+            %h3.title= t.users
+            %ul
+              %li.list
+                %a{:href => '/admin/users'}= t.list
+              %li.new
+                %a{:href => '/admin/users/new'}= t.new
+          %li.snippet.parent
+            %h3.title= t.snippets
+            %ul
+              %li.list
+                %a{:href => '/admin/snippets'}= t.list
+              %li.new
+                %a{:href => '/admin/snippets/new'}= t.new
+          %li.theme.parent
+            %h3
+              %a{:href => '/admin/themes'}= t.themes
+          %li.plugin.parent
+            %h3
+              %a{:href => '/admin/plugins'}= t.plugins
+          %li.setting.parent
+            %h3
+              %a{:href => '/admin/site/edit'}= t.settings
+>>>>>>> 84c4f1881bde54e7a9f06fe9702b217d49d6f9e5
           - admin_aside = yield_content :admin_aside
           - unless admin_aside.blank?
             = admin_aside

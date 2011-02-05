@@ -14,7 +14,6 @@
     %link{:rel => 'shortcut icon', :href => "#{@theme.path}/favicon.ico"}
     %link{:title => @site.title, :rel => 'alternate', :href => '/index.atom', :type => 'application/atom+xml'}
     %link{:rel => 'stylesheet', :href => "#{@theme.path}/style.css", :type => 'text/css'}
-    %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
     = header
   %body{:class => @theme_types.join(' ')}
     #header
@@ -35,25 +34,21 @@
                 %li.cloud cloud
                 %li.ruby= link_to 'ruby', 'http://www.ruby-lang.org/en/'
           .capture= link_to 'download', 'http://github.com/komagata/lokka/downloads'
-
         .nav
           %ul.wide
-            %li= link_to t.home, '/'
-            %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
-            %li= link_to t.contributor, "/contributor-#{r18n.locale.code}"
+            %li= link_to t.getting_started, '/getting-started'
+            %li= link_to t.contributor, '/contributor'
             %li= link_to t.demo, 'http://demo.lokka.org/'
             %li= link_to t.download, 'http://github.com/komagata/lokka/downloads'
             %li= link_to t.plugins, '/plugins'
             %li= link_to t.source_code, 'http://github.com/komagata/lokka'
-
       - else
         .section.wide
           %h1= link_to @site.title, '/'
           .nav
             %ul
-              %li= link_to t.home, '/'
-              %li= link_to t.getting_started, "/getting-started-#{r18n.locale.code}"
-              %li= link_to t.contributor, "/contributor-#{r18n.locale.code}"
+              %li= link_to t.getting_started, '/getting-started'
+              %li= link_to t.contributor, '/contributor'
               %li= link_to t.demo, 'http://demo.lokka.org/'
               %li= link_to t.download, 'http://github.com/komagata/lokka/downloads'
               %li= link_to t.plugins, '/plugins'

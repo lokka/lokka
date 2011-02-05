@@ -7,6 +7,7 @@ class User
   property :hashed_password, String
   property :salt, String
   property :created_at, DateTime
+  property :updated_at, DateTime
   property :permission_level, Integer, :default => 1
 
   has n, :entries

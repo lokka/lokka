@@ -103,7 +103,14 @@ module Lokka
 
     def rendering(ext, name, options = {})
       locals = options[:locals] ? {:locals => options[:locals]} : {}
-      dir = request.path_info =~ %r{^/admin/.*} ? 'admin' : "theme/#{@theme.name}"
+      dir =
+        if request.path_info =~ %r{^/admin/.*}
+          'admin'
+        elsif request.path_info =~ %r{^/install/.*}
+          'install'
+        else
+          "theme/#{@theme.name}"
+        end
       layout = "#{dir}/layout"
       path = "#{dir}/#{name}"
 
@@ -119,14 +126,6 @@ module Lokka
       haml :'system/comments/form', :layout => false
     end
 
-    def link_to_if(cond, name, url, options = {})
-      cond ? link_to(name, url, options) : name
-    end
-
-    def link_to_unless(cond, name, url, options = {})
-      link_to_if !cond, name, url, options
-    end
-
     def link_to(name, url, options = {})
       attrs = {:href => url}
       if options[:confirm] and options[:method]
@@ -140,10 +139,26 @@ module Lokka
 
       str = ''
       attrs.each do |key, value|
-        str += %Q(#{key.to_s}="#{value}")
+        str += %Q( #{key.to_s}="#{value}")
       end
 
-      %Q(<a #{str}>#{name}</a>)
+      %Q(<a#{str}>#{name}</a>)
+    end
+
+    def link_to_if(cond, name, url, options = {})
+      cond ? link_to(name, url, options) : name
+    end
+
+    def link_to_unless(cond, name, url, options = {})
+      link_to_if !cond, name, url, options
+    end
+
+    def link_to_current(name, url, options = {})
+      request_path == url ? link_to(name, url, options) : name
+    end
+
+    def link_to_unless_current(name, url, options = {})
+      request_path != url ? link_to(name, url, options) : name
     end
 
     def select_field(object, method, values = [], options = {})
@@ -205,8 +220,19 @@ module Lokka
       s unless s.blank?
     end
 
+<<<<<<< HEAD
 		def admin_menu
 			settings.admin_menu_list
 		end
+=======
+    # example: /foo/bar?buz=aaa
+    def request_path
+      path = '/' + request.url.split('/')[3..-1].join('/')
+      path += '/' if path != '/' and request.url =~ /\/$/
+      path
+    end
+
+    def locale; r18n.locale.code end
+>>>>>>> 84c4f1881bde54e7a9f06fe9702b217d49d6f9e5
   end
 end

@@ -1,5 +1,3 @@
-require 'lokka/site'
-
 class Theme
   attr_reader :name, :root_dir, :root_path, :dir, :path
 
