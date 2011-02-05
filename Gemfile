@@ -20,11 +20,8 @@ gem 'rake', '0.8.7'
 gem 'exceptional', '2.0.25'
 gem 'erubis', '2.6.6'
 gem 'activesupport', '3.0.0'
-<<<<<<< HEAD
 gem 'bluefeather'
 gem 'pony', '1.0.0'
-=======
->>>>>>> 84c4f1881bde54e7a9f06fe9702b217d49d6f9e5
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
