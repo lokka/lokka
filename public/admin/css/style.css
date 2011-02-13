@@ -276,13 +276,14 @@ label {
 	border: 1px solid #14203F;
 	text-align: center;
 	-webkit-border-radius: 8px;
+	-o-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
 	display: block;
-	float: right;
-	margin-left: 8px;
+	float: left;
 	padding-right: 12px;
 	padding-left: 12px;
+	margin-right: 8px;
  }
 #nav a:link,
 #nav a:visited {
@@ -343,7 +344,7 @@ label {
 	padding-left: 20px;
 	background-color: #FFF;
 	margin-left: 170px;
-	border: 1px solid #182b5a;
+	border: 1px solid #666;
 	-webkit-border-radius:8px;
 	-moz-border-radius:8px;
 	border-radius:8px;
@@ -376,9 +377,9 @@ label {
 	line-height: 1.4;
 }
 #main table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  min-width:700px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	min-width:700px;
 	width: auto !important;
 	width: 700px;
 }
@@ -487,7 +488,7 @@ label {
 }
 
 #aside li.dashboard h3 a {
-  background: url(../images/post.png);
+	background: url(../images/dashboard.png);
 }
 
 #aside li.post h3 {
@@ -545,6 +546,7 @@ label {
 	-webkit-border-radius: 6px 6px 0px 0px  ;
 	-moz-border-radius: 6px 6px 0px 0px ;
 	border-radius: 6px 6px 0px 0px ;
+	-o-radius: 6px 6px 0px 0px ;
 }
 #aside li.parent h3 a {
 	color: #fff;
@@ -558,9 +560,10 @@ label {
 	padding-bottom: 4px;
 	color: #fff;
 	border: 1px solid #333;
-	-webkit-border-radius: 6px 6px 0px 0px  ;
-	-moz-border-radius: 6px 6px 0px 0px ;
-	border-radius: 6px 6px 0px 0px ;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-o-radius: 6px;
 }
 #aside li.parent h3 a:link,
 #aside li.parent h3 a:visited {
@@ -568,7 +571,7 @@ label {
 }
 #aside li.parent h3 a:hover,
 #aside li.parent h3 a:active {
-	background-color: #595959;
+	background-color: #525252;
 	text-shadow:#222 1px 1px 0px;
 }
 #footer {
@@ -760,4 +763,28 @@ textarea#page_body {
 #main ul.conditions li {
   display: inline;
   margin-right: 8px;
+}
+#main .conditions li a {
+	background-color: #444;
+	padding-top: 4px;
+	padding-right: 9px;
+	padding-bottom: 4px;
+	padding-left: 9px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #333;
+	text-shadow:#222 1px 1px 0px;
+	font-size: 11px;
+}
+#main .conditions li a:link,
+#main .conditions li a:visited {
+	background-color: #444;
+	color: #FFF;
+}
+#main .conditions li a:hover,
+#main .conditions li a:active {
+	background-color: #666;
+	color:#eee;
 }
