@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'bundler', '1.0.9'
+gem 'bundler', '1.0.7'
 gem 'rack-flash', '0.1.1'
 gem 'i18n', '0.4.1'
 gem 'sinatra', '1.1.2'
