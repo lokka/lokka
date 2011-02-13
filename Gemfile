@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'bundler', '1.0.7'
+gem 'bundler', '~> 1.0.7'
 gem 'rack-flash', '0.1.1'
 gem 'i18n', '0.4.1'
 gem 'sinatra', '1.1.2'
@@ -29,9 +29,6 @@ end
 
 group :development do
   gem 'dm-sqlite-adapter', '1.0.2'
-  gem 'shoulda', '2.11.3'
-  gem 'jeweler', '~> 1.5.1'
-  gem 'rcov', '>= 0'
 end
 
 group :test do
