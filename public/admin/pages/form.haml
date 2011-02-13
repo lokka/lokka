@@ -28,6 +28,11 @@
   %br
   %input{:type => 'text', :id => 'page_tag_collection', :name => 'page[tag_collection]', :value => @page.tag_collection}
 .field
+  %label{:for => 'page_draft'}= t.page.draft
+  %br
+  %input{:type => 'hidden', :name => 'page[draft]', :value => 'false'}
+  %input{:type => 'checkbox', :id => 'page_draft', :name => 'page[draft]', :value => 'true', :checked => @page.draft}
+.field
   %label{:for => 'page_created_at'}= t.page.created_at
   %br
   %input{:type => 'text', :id => 'page_created_at', :name => 'page[created_at]', :value => @page.created_at}

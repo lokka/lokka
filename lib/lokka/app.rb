@@ -89,8 +89,10 @@ module Lokka
 
     # posts
     get '/admin/posts' do
-      @posts = Post.all(:order => :created_at.desc).
-                    page(params[:page], :per_page => settings.admin_per_page)
+      model = Post
+      model = model.all(:draft => true) if params[:draft] == 'true'
+      @posts = model.all(:order => :created_at.desc).
+                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'posts/index'
     end
 
@@ -105,7 +107,11 @@ module Lokka
       @post.user = current_user
       if @post.save
         flash[:notice] = t.post_was_successfully_created
-        redirect '/admin/posts'
+        if @post.draft
+          redirect '/admin/posts?draft=true'
+        else
+          redirect '/admin/posts'
+        end
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'posts/new'
@@ -122,7 +128,11 @@ module Lokka
       @post = Post.get(id)
       if @post.update(params['post'])
         flash[:notice] = t.post_was_successfully_updated
-        redirect '/admin/posts'
+        if @post.draft
+          redirect '/admin/posts?draft=true'
+        else
+          redirect '/admin/posts'
+        end
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'posts/edit'
@@ -130,15 +140,22 @@ module Lokka
     end
 
     delete '/admin/posts/:id' do |id|
-      Post.get(id).destroy
+      post = Post.get(id)
+      post.destroy
       flash[:notice] = t.post_was_successfully_deleted
-      redirect '/admin/posts'
+      if post.draft
+        redirect '/admin/posts?draft=true'
+      else
+        redirect '/admin/posts'
+      end
     end
 
     # pages
     get '/admin/pages' do
-      @pages = Page.all(:order => :created_at.desc).
-                    page(params[:page], :per_page => settings.admin_per_page)
+      model = Page
+      model = model.all(:draft => true) if params[:draft] == 'true'
+      @pages = model.all(:order => :created_at.desc).
+                     page(params[:page], :per_page => settings.admin_per_page)
       render_any :'pages/index'
     end
 
@@ -153,7 +170,11 @@ module Lokka
       @page.user = current_user
       if @page.save
         flash[:notice] = t.page_was_successfully_created
-        redirect '/admin/pages'
+        if @page.draft
+          redirect '/admin/pages?draft=true'
+        else
+          redirect '/admin/pages'
+        end
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'pages/new'
@@ -170,7 +191,11 @@ module Lokka
       @page = Page.get(id)
       if @page.update(params['page'])
         flash[:notice] = t.page_was_successfully_updated
-        redirect '/admin/pages'
+        if @page.draft
+          redirect '/admin/pages?draft=true'
+        else
+          redirect '/admin/pages'
+        end
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
         render_any :'pages/edit'
@@ -178,9 +203,14 @@ module Lokka
     end
 
     delete '/admin/pages/:id' do |id|
-      Page.get(id).destroy
+      page = Page.get(id)
+      page.destroy
       flash[:notice] = t.page_was_successfully_deleted
-      redirect '/admin/pages'
+      if page.draft
+        redirect '/admin/pages?draft=true'
+      else
+        redirect '/admin/pages'
+      end
     end
 
     # comment
@@ -440,7 +470,8 @@ module Lokka
       @theme_types << :index
       @theme_types << :entries
 
-      @posts = Post.page(params[:page], :per_page => settings.per_page)
+      @posts = Post.published.
+                    page(params[:page], :per_page => settings.per_page)
 
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add(t.home, '/')
@@ -449,7 +480,8 @@ module Lokka
     end
 
     get '/index.atom' do
-      @posts = Post.page(params[:page], :per_page => settings.per_page)
+      @posts = Post.published.
+                    page(params[:page], :per_page => settings.per_page)
       content_type 'application/atom+xml', :charset => 'utf-8'
       builder :'system/index'
     end
@@ -460,7 +492,7 @@ module Lokka
       @theme_types << :entries
 
       @query = params[:query]
-      @posts = Post.search(@query).
+      @posts = Post.search(@query).published.
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "Search by #{@query} - #{@site.title}"
@@ -480,7 +512,7 @@ module Lokka
       category_title = path.split('/').last
       @category = Category.get_by_fuzzy_slug(category_title)
       return 404 if @category.nil?
-      @posts = Post.all(:category => @category).
+      @posts = Post.all(:category => @category).published
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "#{@category.title} - #{@site.title}"
@@ -503,6 +535,7 @@ module Lokka
       @tag = Tag.first(:name => tag)
       return 404 if @tag.nil?
       @posts = Post.all(:id.in => @tag.taggings.map {|o| o.taggable_id }).
+                    published.
                     page(params[:page], :per_page => settings.per_page)
       @title = "#{@tag.name} - #{@site.title}"
 
@@ -521,6 +554,7 @@ module Lokka
       year, month = year.to_i, month.to_i
       @posts = Post.all(:created_at.gte => DateTime.new(year, month)).
                     all(:created_at.lt => DateTime.new(year, month) >> 1).
+                    published.
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "#{year}/#{month} - #{@site.title}"
@@ -541,6 +575,7 @@ module Lokka
       year = year.to_i
       @posts = Post.all(:created_at.gte => DateTime.new(year)).
                     all(:created_at.lt => DateTime.new(year + 1)).
+                    published.
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "#{year} - #{@site.title}"
@@ -556,7 +591,7 @@ module Lokka
     get %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug).published
       return 404 if @entry.blank?
 
       type = @entry.class.name.downcase.to_sym
@@ -582,7 +617,7 @@ module Lokka
     post %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug).published
       return 404 if @entry.blank?
       return 404 if params[:check] != 'check'
 

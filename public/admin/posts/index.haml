@@ -1,4 +1,10 @@
-%h2= t.listing_posts
+- if params[:draft] == 'true'
+  %h2= t.listing_draft_posts
+- else
+  %h2= t.listing_posts
+%ul.conditions
+  %li= link_to t.all, '/admin/posts'
+  %li= link_to t.draft, '/admin/posts?draft=true'
 %table.posts
   %tr
     %th= t.post.title

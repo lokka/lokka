@@ -751,3 +751,13 @@ textarea#page_body {
 #toggle-button-options {
   cursor:pointer;
 }
+
+#main ul.conditions {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+#main ul.conditions li {
+  display: inline;
+  margin-right: 8px;
+}

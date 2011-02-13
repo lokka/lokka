@@ -1,4 +1,10 @@
-%h2= t.listing_pages
+- if params[:draft] == 'true'
+  %h2= t.listing_draft_pages
+- else
+  %h2= t.listing_pages
+%ul.conditions
+  %li= link_to t.all, '/admin/pages'
+  %li= link_to t.draft, '/admin/pages?draft=true'
 %table.pages
   %tr
     %th= t.page.title

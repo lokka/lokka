@@ -1,3 +1,4 @@
+all: 全て
 option: オプション
 demo: デモ
 contributor: 開発参加
@@ -29,6 +30,7 @@ plugins: プラグイン
 settings: 設定
 site: サイト
 list: 一覧
+draft: 下書き
 new: 登録
 edit: 編集
 delete: 削除
@@ -41,7 +43,9 @@ search: 検索
 others: その他
 feed: フィード
 listing_posts: 投稿一覧
+listing_draft_posts: 投稿下書き一覧
 listing_pages: ページ一覧
+listing_draft_pages: ページ下書き一覧
 listing_categories: カテゴリー一覧
 listing_tags: タグ一覧
 listing_comments: コメント一覧
@@ -106,6 +110,7 @@ page:
   user: 作成者
   category: カテゴリー
   tags: タグ
+  draft: 下書き
   created_at: 作成日時
   updated_at: 更新日時
 post:
@@ -116,6 +121,7 @@ post:
   user: 作成者
   category: カテゴリー
   tags: タグ
+  draft: 下書き
   created_at: 作成日時
   updated_at: 更新日時
 category:
