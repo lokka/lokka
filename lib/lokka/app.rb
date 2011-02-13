@@ -591,7 +591,7 @@ module Lokka
     get %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug).published
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
 
       type = @entry.class.name.downcase.to_sym
@@ -617,7 +617,7 @@ module Lokka
     post %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug).published
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
       return 404 if params[:check] != 'check'
 
