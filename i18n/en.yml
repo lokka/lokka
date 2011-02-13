@@ -1,3 +1,4 @@
+all: All
 option: Option
 demo: Demo
 contributor: Contributor
@@ -109,6 +110,7 @@ page:
   user: Author
   category: Category
   tags: Tags
+  draft: Draft
   created_at: Created at
   updated_at: Updated at
 post:

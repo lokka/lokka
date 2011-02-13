@@ -53,6 +53,14 @@ class Entry
     all(:limit => count, :order => [:created_at.desc], :draft => false)
   end
 
+  def self.published
+    all(:draft => false)
+  end
+
+  def self.unpublished
+    all(:draft => true)
+  end
+
   def fuzzy_slug
     slug.blank? ? id : slug
   end
