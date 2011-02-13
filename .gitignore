@@ -4,7 +4,6 @@
 /vendor/bundle
 /vendor/gem
 /.bundle
-/Gemfile.lock
 /tmp/*.log
 /log/*.log
 /*.csv
