@@ -8,6 +8,7 @@ class Entry
   property :title, String, :length => 255
   property :body, Text
   property :type, Discriminator
+  property :draft, Boolean, :default => false
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -17,7 +18,7 @@ class Entry
 
   has_tags
 
-  default_scope(:default).update(:order => [:created_at.desc])
+  default_scope(:default).update(:draft => false, :order => [:created_at.desc])
 
   validates_presence_of :title
   validates_uniqueness_of :slug
@@ -31,10 +32,6 @@ class Entry
     @comment = Comment.all(:status => Comment::APPROVED, :entry_id => self.id)
   end
 
-  def recent(count = 5)
-    all(:limit => count, :order => [:created_at.desc])
-  end
-
   def tag_collection=(string)
     reg = RUBY_VERSION >= "1.9.0" ? /[^\p{Word}_]/i : /[^\w\s_-]/i
     @tag_list = string.to_s.split(',').map { |name|
@@ -43,17 +40,25 @@ class Entry
   end
 
   def self.get_by_fuzzy_slug(str)
-    ret = first(:slug => str)
+    ret = first(:slug => str, :draft => false)
     ret.blank? ? get(str) : ret
   end
 
   def self.search(str)
-    all(:title.like => "%#{str}%") |
-    all(:body.like => "%#{str}%")
+    all(:title.like => "%#{str}%", :draft => false) |
+    all(:body.like => "%#{str}%", :draft => false)
   end
 
   def self.recent(count = 5)
-    all(:limit => count, :order => [:created_at.desc])
+    all(:limit => count, :order => [:created_at.desc], :draft => false)
+  end
+
+  def self.published
+    all(:draft => false)
+  end
+
+  def self.unpublished
+    all(:draft => true)
   end
 
   def fuzzy_slug

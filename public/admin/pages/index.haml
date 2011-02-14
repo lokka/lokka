@@ -2,6 +2,13 @@
 %form{:action => "/admin/pages/search", :method => 'get'}
   %input{:type => 'text', :name => :keyword, :value => @keyword}
   %input{:type => 'submit', :value => t.search}
+- if params[:draft] == 'true'
+  %h2= t.listing_draft_pages
+- else
+  %h2= t.listing_pages
+%ul.conditions
+  %li= link_to t.all, '/admin/pages'
+  %li= link_to t.draft, '/admin/pages?draft=true'
 %table.pages
   %tr
     %th= t.page.title

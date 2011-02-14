@@ -1,3 +1,4 @@
+all: All
 option: Option
 demo: Demo
 contributor: Contributor
@@ -29,6 +30,7 @@ plugins: Plugins
 settings: Settings
 site: Site
 list: List
+draft: Draft
 new: New
 edit: Edit
 delete: Delete
@@ -41,7 +43,9 @@ search: Search
 others: Others
 feed: Feed
 listing_posts: Listing Posts
+listing_draft_posts: Listing Draft Posts
 listing_pages: Listing Pages
+listing_draft_pages: Listing Draft Pages
 listing_categories: Listing Categories
 listing_tags: Listing Tags
 listing_comments: Listing Comments
@@ -106,6 +110,7 @@ page:
   user: Author
   category: Category
   tags: Tags
+  draft: Draft
   created_at: Created at
   updated_at: Updated at
 post:
@@ -116,6 +121,7 @@ post:
   user: Author
   category: Category
   tags: Tags
+  draft: Draft
   created_at: Created at
   updated_at: Updated at
 category:

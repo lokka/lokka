@@ -30,27 +30,6 @@
     #content
       #aside
         %ul
-<<<<<<< HEAD
-          - menu_titles = %w(dashboard post page comment category tag user snipet theme plugin setting)
-          - admin_menu.each do |menu|
-            - if menu[:parent][:link] != ''
-              %li{:class => "#{menu[:name]} parent"}
-                %h3
-                  %a{:href => "#{menu[:parent][:link]}"}= t.send menu[:parent][:title]
-                - if menu[:children].size > 0
-                  %ul
-                    - menu[:children].each do |menu_child|
-                      %li{:class => "#{menu_child[:class]}"}
-                        %a{:href => "#{menu_child[:link]}"}= t.send menu_child[:title]
-            - else
-              %li{:class => "#{menu[:name]} parent"}
-                %h3.title= t.send menu[:parent][:title]
-                - if menu[:children].size > 0
-                  %ul
-                    - menu[:children].each do |menu_child|
-                      %li{:class => "#{menu_child[:class]}"}
-                        %a{:href => "#{menu_child[:link]}"}= t.send menu_child[:title]
-=======
           %li.dashboard.parent
             %h3
               %a{:href => '/admin/'}= t.dashboard
@@ -110,7 +89,6 @@
           %li.setting.parent
             %h3
               %a{:href => '/admin/site/edit'}= t.settings
->>>>>>> 84c4f1881bde54e7a9f06fe9702b217d49d6f9e5
           - admin_aside = yield_content :admin_aside
           - unless admin_aside.blank?
             = admin_aside

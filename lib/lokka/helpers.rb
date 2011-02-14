@@ -220,11 +220,6 @@ module Lokka
       s unless s.blank?
     end
 
-<<<<<<< HEAD
-		def admin_menu
-			settings.admin_menu_list
-		end
-=======
     # example: /foo/bar?buz=aaa
     def request_path
       path = '/' + request.url.split('/')[3..-1].join('/')
@@ -233,6 +228,5 @@ module Lokka
     end
 
     def locale; r18n.locale.code end
->>>>>>> 84c4f1881bde54e7a9f06fe9702b217d49d6f9e5
   end
 end
