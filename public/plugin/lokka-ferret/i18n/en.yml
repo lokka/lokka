@@ -1,0 +1,8 @@
+ferret:
+  index_dir_updated: Ferret Index is updated.
+  index_dir_db_error: Failed to update Ferret Index.
+  title: Full Text Search (Ferret)
+  banner: Set up full text search functions.
+  index_dir_label: Path to Ferret Index
+  parse_method: * Optional Select a method to leave a space between words.
+  yahoo_id: Yahoo! Japan Application ID (required if you selected Yahoo! above)

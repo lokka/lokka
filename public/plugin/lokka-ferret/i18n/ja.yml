@@ -1,0 +1,8 @@
+ferret:
+  index_dir_updated: インデックスの設置場所を更新しました
+  index_dir_db_error: インデックスの設置場所の更新に失敗しました
+  title: 全文検索インデックス（Ferret）
+  banner: Ferretを利用した全文検索インデックスの設定
+  index_dir_label: インデックスの設置場所
+  parse_method: 分かち書きの方法（オプション *MecabかYahoo! APIを利用すると日本語の分かち書きに対応します）
+  yahoo_id: Yahoo! アプリケーションID（分かち書きにYahoo! APIを利用する場合は必須）

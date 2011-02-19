@@ -1,0 +1,25 @@
+%h2= t.ferret.title
+%p= t.ferret.banner
+%form{:action => "/admin/plugins/ferret", :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  .field
+    %label{:for => 'index_dir'}= t.ferret.index_dir_label
+    %br
+    %input{:type => 'text', :id => 'ferret_index_dir', :name => 'ferret[ferret_index_dir]', :value => @ferret_index_dir}
+  %br
+  .field
+    %label{:for => 'parse_method'}= t.ferret.parse_method
+    %br
+    - if @ferret_methods.size > 1
+    %select{:name => 'ferret[ferret_parse_method]'}
+      - for method in @ferret_methods
+        %option{:value => method[0], :selected => method[0] == Option.ferret_parse_method}= h method[1]
+  %br
+  .field
+    %label{:for => 'ferret_yahoo_id'}= t.ferret.yahoo_id
+    %br
+    %input{:type => 'text', :id => 'ferret_yahoo_id', :name => 'ferret[ferret_yahoo_id]', :value => @ferret_yahoo_id}
+  %br
+  .field
+    %p
+    %input{:type => 'submit', :value => t.save}
