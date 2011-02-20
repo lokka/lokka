@@ -512,7 +512,7 @@ module Lokka
       category_title = path.split('/').last
       @category = Category.get_by_fuzzy_slug(category_title)
       return 404 if @category.nil?
-      @posts = Post.all(:category => @category).published
+      @posts = Post.all(:category => @category).published.
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "#{@category.title} - #{@site.title}"
