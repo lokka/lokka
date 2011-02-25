@@ -53,7 +53,7 @@ GEM
     haml (3.0.18)
     i18n (0.4.1)
     json_pure (1.5.1)
-    r18n-core (0.4.7.1)
+    r18n-core (0.4.9)
     rack (1.2.1)
     rack-flash (0.1.1)
       rack
@@ -66,8 +66,8 @@ GEM
       tilt (~> 1.2)
     sinatra-content-for (0.2)
       sinatra
-    sinatra-r18n (0.4.7.1)
-      r18n-core (= 0.4.7.1)
+    sinatra-r18n (0.4.9)
+      r18n-core (= 0.4.9)
     slim (0.8.4)
       temple (~> 0.1.7)
       tilt (~> 1.2)
@@ -103,5 +103,5 @@ DEPENDENCIES
   shoulda (= 2.11.3)
   sinatra (= 1.1.2)
   sinatra-content-for (= 0.2)
-  sinatra-r18n (= 0.4.7.1)
+  sinatra-r18n (= 0.4.9)
   slim
