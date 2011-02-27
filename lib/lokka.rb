@@ -54,6 +54,8 @@ module Lokka
   def self.env
     if ENV['LOKKA_ENV'] == 'production' or ENV['RACK_ENV'] == 'production'
       'production'
+    elsif ENV['LOKKA_ENV'] == 'test' or ENV['RACK_ENV'] == 'test'
+      'test'
     else
       'development'
     end
