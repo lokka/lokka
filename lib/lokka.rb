@@ -69,6 +69,10 @@ module Lokka
     self.env == 'development'
   end
 
+  def self.test?
+    self.env == 'test'
+  end
+
   class Database
     def connect
       DataMapper::Logger.new(STDOUT, :debug) if Lokka.development?

@@ -15,8 +15,7 @@ Rubyで書かれたクラウドの為のCMS。
   $ gem install bundler
   $ git clone git://github.com/komagata/lokka.git
   $ cd lokka
-  $ bundle install --path vendor/bundle --without production test
-  $ bundle exec rake db:set
+  $ bundle install --path vendor/bundle --without production
   $ bundle exec ruby lokka.rb
 
 http://localhost:9646/ を見る。
@@ -28,7 +27,6 @@ http://localhost:9646/ を見る。
   $ cd lokka
   $ heroku create
   $ git push heroku master
-  $ heroku rake db:set
 
 == テスト
 
