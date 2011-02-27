@@ -395,6 +395,9 @@ label {
 	width: auto !important;
 	width: 700px;
 }
+#main th {
+	min-width:100px;
+}
 #main table tr {
 	border-bottom-width: 1px;
 	border-bottom-style: dotted;
@@ -653,16 +656,25 @@ ul.themes div.screenshot {
 	border-bottom-color: #999;
 	border-left-color: #999;
 }
-ul.themes div.screenshot img {
--webkit-box-shadow: #666 0px 2px 3px;
--moz-box-shadow: #666 0px 2px 3px;
-box-shadow: #666 0px 2px 3px;
+ul.themes div.screenshot a img {
 width: 240px;
 height: 170px;
 max-width: 240px;
 max-height: 170px;
 width:auto !important;
 height:auto !important;
+}
+
+ul.themes div.screenshot a:link img,
+ul.themes div.screenshot a:visited img {
+-webkit-box-shadow: #666 0px 2px 3px;
+-moz-box-shadow: #666 0px 2px 3px;
+box-shadow: #666 0px 2px 3px;
+}
+ul.themes div.screenshot a:hover img,
+ul.themes div.screenshot a:active img {
+	margin-top: -2px;
+	border: 2px solid #ff00a8;
 }
 ul.themes div.screenshot span {
 	line-height: 150px;
@@ -689,6 +701,11 @@ ul.plugins li a {
 	background-color: #EDEDED;
 	width: 280px;
 	display: block;
+}
+#main li.theme .title a {
+	display: block;
+	color: #FFF;
+	text-decoration: none;
 }
 
 #error {
@@ -723,7 +740,9 @@ textarea.editor {
   clear: both;
 }
 textarea#post_body,
-textarea#page_body {
+textarea#page_body,
+textarea#site_dashboard
+ {
   clear: none;
 }
 
