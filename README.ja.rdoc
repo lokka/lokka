@@ -30,6 +30,10 @@ http://localhost:9646/ を見る。
   $ git push heroku master
   $ heroku rake db:set
 
+== テスト
+
+  $ rake spec
+
 == Note on Patches/Pull Requests
 
 * Fork the project.

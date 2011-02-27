@@ -37,4 +37,5 @@ group :test do
   gem 'shoulda', '2.11.3'
   gem 'rack-test', '0.5.4', :require => 'rack/test'
   gem 'autotest', '4.3.2'
+  gem 'rspec', '~> 2.5'
 end

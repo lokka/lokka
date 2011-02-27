@@ -30,6 +30,10 @@ View at: http://localhost:9646/
   $ git push heroku master
   $ heroku rake db:set
 
+== Test
+
+  $ rake spec
+
 == Note on Patches/Pull Requests
 
 * Fork the project.
