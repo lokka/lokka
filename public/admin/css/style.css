@@ -62,23 +62,27 @@ background: linear-gradient(#ccc, #bbb);
 -webkit-box-shadow:1px 1px 2px #bbb;
 -moz-box-shadow:1px 1px 2px #bbb;
 box-shadow:1px 1px 2px #bbb;
+white-space: nowrap;
 }
 
 
 
 .button:link, .button:visited {
-color:#444;
+color:#444 !important;
+text-decoration:none;
+text-shadow:#eee 1px 1px 0px;
 white-space: nowrap;
 }
 .button:hover, .button:active ,input[type="submit"]:focus {
 background:-moz-linear-gradient(#e8e8e8, #eee) repeat scroll 0 0 transparent;
 background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e8e8e8), to(#eee));
 background: linear-gradient(#e8e8e8, #eee);
-color:#000;
+color:#000 !important;
 text-shadow:1px 1px 0 #FFFFFF;
 -webkit-box-shadow:none;
 -moz-box-shadow:none;
 box-shadow:none;
+text-shadow:#fff 1px 1px 0px;
 }
 
 .toggle-button {
@@ -234,7 +238,6 @@ h2 {
 
 a {
   color: #000;
-  text-decoration: none;
 }
 
 label {
@@ -259,6 +262,7 @@ label {
 	color: #fff;
 	line-height: 22px;
 	text-shadow:#222 1px 1px 0px;
+	text-decoration: none;
 }
 #header h1 {
 	font-size:22px;
@@ -348,6 +352,14 @@ label {
 	-webkit-border-radius:8px;
 	-moz-border-radius:8px;
 	border-radius:8px;
+}
+#main a:link,
+#main a:visited {
+	color: #4367c5;
+}
+#main a:hover,
+#main a:active {
+	color: #F6C;
 }
 
 #main h3 {
@@ -564,6 +576,7 @@ label {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	-o-radius: 6px;
+	text-decoration:none;
 }
 #aside li.parent h3 a:link,
 #aside li.parent h3 a:visited {
@@ -777,6 +790,7 @@ textarea#page_body {
 	border: 1px solid #333;
 	text-shadow:#222 1px 1px 0px;
 	font-size: 11px;
+	text-decoration:none;
 }
 #main .conditions li a:link,
 #main .conditions li a:visited {
