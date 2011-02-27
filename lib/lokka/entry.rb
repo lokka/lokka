@@ -45,8 +45,8 @@ class Entry
   end
 
   def self.search(str)
-    all(:title.like => "%#{str}%", :draft => false) |
-    all(:body.like => "%#{str}%", :draft => false)
+    all(:title.like => "%#{str}%") |
+    all(:body.like => "%#{str}%")
   end
 
   def self.recent(count = 5)

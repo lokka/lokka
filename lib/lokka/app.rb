@@ -492,7 +492,7 @@ module Lokka
       @theme_types << :entries
 
       @query = params[:query]
-      @posts = Post.search(@query).published.
+      @posts = Post.published.search(@query).
                     page(params[:page], :per_page => settings.per_page)
 
       @title = "Search by #{@query} - #{@site.title}"
