@@ -59,8 +59,17 @@ module Lokka
     end
   end
 
+  def self.production?
+    self.env == 'production'
+  end
+
+  def self.development?
+    self.env == 'development'
+  end
+
   class Database
     def connect
+      DataMapper::Logger.new(STDOUT, :debug) if Lokka.development?
       DataMapper.setup(:default, Lokka.config[Lokka.env]['dsn'])
       self
     end
