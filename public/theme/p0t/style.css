@@ -4,7 +4,13 @@ body {
   text-align: center;
   background-color: #efebe3;
   font-size: 14px;
+  color: #333;
+  line-height: 22px;
   font-family: "メイリオ", "Lucida Sans Unicode", "Lucida Grande", Arial, Helvetica, "ヒラギノ丸ゴ Pro W4", HiraMaruPro-W4, Verdana, HiraMaruPro-W4, "ヒラギノ角ゴ Pro W3", HiraKakuPro-W3, Osaka, sans-serif;
+}
+
+p {
+  margin: 26px 0px;
 }
 
 a:link { color: #2844ac; }
