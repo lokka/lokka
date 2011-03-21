@@ -1,0 +1,35 @@
+<div id="entry">
+	<%= partial "article", :locals => {:post => @post} %>
+</div>
+
+<div id="comment_wrapper">
+
+	<% if @entry.comments.size > 0 %>
+	<h3>
+		<%= t.comments %>
+	</h3>
+	<ul id="comments">
+		<% @entry.comments.reverse.each do |comment| %>
+			<li id="comment-<%= comment.id %>" class="comment">
+				<div class="body">
+					<%= hbr comment.body %>					
+				</div>
+				<div class="footer">
+					<span class="name">
+						<%= link_to_unless comment.homepage.blank?, comment.name, comment.homepage %>
+					</span>
+					<span class="date">
+						<%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %>
+					</span>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+	<% end %>
+	
+	<div id="comment_form">
+		<%= comment_form %>
+	</div>
+	
+</div>
+

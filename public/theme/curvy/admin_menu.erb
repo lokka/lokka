@@ -1,0 +1,22 @@
+<div id="admin_menu">
+　	<span>
+		<%= t.admin %>：
+	</span>
+	<ul>
+ 		<% if logged_in? %>
+			<li>
+				<%= link_to t.admin_page, '/admin/' %>｜
+			</li>
+			<li>
+				<%= link_to t.new_post, '/admin/posts/new' %>｜
+			</li>
+			<li>
+				<%= link_to t.logout, '/admin/logout' %>
+			</li>
+		<% else %>
+			<li>
+				<%= link_to t.login, "/admin/login" %>
+			</li>		
+		<% end %>
+	</ul>
+</div>

@@ -1,0 +1,25 @@
+<div class="entry_wrapper">
+	<div class="entry">		
+		<h2 class="entry_title">
+			<a href="<%= post.link %>">
+				<%= post.title %>
+			</a>
+		</h2>
+		
+		<div class="entry_body">
+			<%= post.body %>
+		</div>
+
+	</div>
+	<div class="entry_info">
+		<span class="link_to_entry_comment">
+			<%= link_to "#{t.comments}(#{post.comments.size})", "#{post.link}#comment_wrapper" %>
+		</span>
+
+		<span class="entry_date">
+			<%= post.updated_at.strftime("%Y/%m/%d %H:%M:%S") %>
+		</span>
+
+		<%= post.tags_to_html %>
+	</div>
+</div>

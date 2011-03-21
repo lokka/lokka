@@ -1,0 +1,85 @@
+<% if about = Snippet("about") %>
+<div id="profile" class="side_cont_wrapper first_side_cont_wrapper">
+	<h3 class="side_cont_title">
+	  <%= t.profile %>
+	</h3>
+	<div class="side_cont_body">
+		<%= about.body %>
+	</div>
+</div>
+<% end %>
+
+<div id="recent_entry" class="side_cont_wrapper">
+	<h3 class="side_cont_title">
+	  <%= t.recent_entries %>
+	</h3>
+	<div class="side_cont_body">
+		<ul id="side_list">
+			<% Post.recent.each do |post| %>
+				<li>
+					<span>&middot;</span><%= link_to post.title, post.link %>
+				</li>				
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+
+<div id="recent_comment" class="side_cont_wrapper">
+	<h3 class="side_cont_title">
+	  <%= t.recent_comments %>
+	</h3>
+	<div class="side_cont_body">
+		<ul id="side_list">
+			<% Comment.recent.each do |comment| %>
+				<li>
+					<span>&middot;</span><%= link_to truncate(strip_tags(comment.body), :length => 16), comment.link %>
+				</li>				
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+
+<div id="recent_tag" class="side_cont_wrapper">
+	<h3 class="side_cont_title">
+	  <%= t.tags %>
+	</h3>
+	<div class="side_cont_body">
+		<ul id="side_list">
+			<% Tag.all.each do |tag| %>
+				<li>
+					<span>&middot;</span><%= link_to tag.name, tag.link %>
+				</li>				
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+
+<div id="archives" class="side_cont_wrapper">
+	<h3 class="side_cont_title">
+	  <%= t.archives %>
+	</h3>
+	<div class="side_cont_body">
+		<ul id="side_list">
+			<% months.each do |m| %>
+				<li>
+					<span>&middot;</span>
+					<%= link_to "#{m.year}年#{m.month}月", "/#{m.year}/#{m.month}/" %>
+				</li>				
+			<% end %>
+		</ul>
+	</div>
+</div>
+
+<div id="search" class="side_cont_wrapper last_side_cont_wrapper">
+	<h3 class="side_cont_title">
+	  <%= t.search %>
+	</h3>
+	<div class="side_cont_body">
+		<form action="/search/" method="get" id="">
+			<input type="text" name="query" class="search_field">
+		</form>
+	</div>
+</div>
