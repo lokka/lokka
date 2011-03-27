@@ -126,6 +126,10 @@ module Lokka
       haml :'system/comments/form', :layout => false
     end
 
+    def image_tag(src, options = {})
+      %Q(<img src="#{src}" />)
+    end
+
     def link_to(name, url, options = {})
       attrs = {:href => url}
       if options[:confirm] and options[:method]
