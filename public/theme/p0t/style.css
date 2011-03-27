@@ -1,12 +1,12 @@
 body {
   margin: 0px;
-  padding: 0px;
+  padding: 0px 30px;
   text-align: center;
-  background-color: #efebe3;
+  background-color: #fff;
   font-size: 14px;
   color: #333;
   line-height: 22px;
-  font-family: "メイリオ", "Lucida Sans Unicode", "Lucida Grande", Arial, Helvetica, "ヒラギノ丸ゴ Pro W4", HiraMaruPro-W4, Verdana, HiraMaruPro-W4, "ヒラギノ角ゴ Pro W3", HiraKakuPro-W3, Osaka, sans-serif;
+  font-family: メイリオ, Lucida Sans Unicode, Lucida Grande, Arial, Helvetica, ヒラギノ丸ゴ Pro W4, HiraMaruPro-W4, Verdana, HiraMaruPro-W4, ヒラギノ角ゴ Pro W3, HiraKakuPro-W3, Osaka, sans-serif;
 }
 
 p {
@@ -25,11 +25,12 @@ form {
 }
 
 h1 {
-  font-size: 2.3em;
+  font-size: 2.5em;
   letter-spacing: 2px;
-  line-height: 1;
-  margin: 0px 30px;
-  padding: 0px;
+  line-height: 62px;
+  margin: 0;
+  padding: 0px 0px 0px 70px;
+  float: left;
 }
 
 h2 {
@@ -39,35 +40,29 @@ h2 {
   margin: 0 0 0.6em 0;
 }
 
+ul#nav {
+  float: right;
+  list-style: none;
+}
+
+ul#nav li {
+  float: left;
+  margin: 0px 7px;
+}
+
+ul#nav li img {
+  margin: 0px;
+  padding: 0px;
+}
+
+ul#nav li form#search_form input {
+  margin-left: 10px;
+  border: solid 1px #999;
+  height: 16px;
+}
+
 ul {
   list-style: square;
-}
-
-#nav {
-  width: 970px;
-  margin: 0 auto;
-}
-
-#nav ul {
-  text-align: right;
-  font-size: 0.9em;
-  font-weight: bold;
-}
-#nav ul a {
-  text-decoration: none;
-}
-#nav ul li {
-  display: inline;
-  margin-left: 10px;
-}
-#nav ul li form {
-  display: inline;
-}
-#nav ul li form input {
-  border: 1px solid #999999;
-  font-size: 0.9em;
-  font-weight: normal;
-  width: 100px;
 }
 
 li {
@@ -97,15 +92,14 @@ blockquote {
 }
 
 #header {
+  background: url(images/good_face.png) no-repeat;
   width: 970px;
-  background: #fff;
-  margin: 0px auto;
-  padding: 20px 0px;
+  margin: 20px auto;
   text-align: left;
 }
 
 #header .description {
-  margin: 5px 30px;
+  margin: 8px 0px 0px 70px;
 }
 
 #header a {
@@ -115,12 +109,11 @@ blockquote {
 #bread_crumb {
   margin: 0px auto;
   width: 970px;
-  background-color: #fff;
   text-align: left;
 }
 
 #bread_crumb ol {
-  padding: 20px 30px;
+  padding: 20px 0px;
   margin: 0px;
   list-style: none;
 }
@@ -142,7 +135,6 @@ blockquote {
   width: 970px;
   height: auto;
   margin: 0 auto;
-  background-color: #fff;
   text-align: left;
 }
 
@@ -165,7 +157,7 @@ blockquote {
 }
 #aside dd {
   margin: 14px 0px;
-  font-size: 1em;
+  font-size: 0.9em;
 }
 #aside .section a {
   text-decoration: none;
@@ -183,7 +175,7 @@ blockquote {
 }
 
 .article {
-  margin: 0px 30px 30px 30px;
+  margin: 0px 30px 30px 0px;
 }
 .article .title {
   font-size: 24px;
@@ -245,7 +237,6 @@ blockquote {
   clear: both;
   width: 970px;
   margin: 0 auto;
-  background-color: #fff;
   text-align: center;
   padding: 1em 0em;
 }
@@ -371,7 +362,7 @@ ul.comments {
 }
 
 ul.comments .comment {
-  margin: 0px 30px 30px 30px;
+  margin: 0px 30px 30px 0px;
 }
 
 ul.comments .comment .body {
@@ -393,15 +384,15 @@ ul.comments .comment .footer .created_at {
 }
 
 h4.comment {
-  margin: 0px 30px 0px 30px;
+  margin: 0px 30px 0px 0px;
 }
 
 #comment_form {
-  margin: 0px 30px 0px 30px;
+  margin: 0px 30px 0px 0px;
 }
 
 #search_form input {
-  width: 200px;
+  width: 120px;
 }
 
 .gist pre {
