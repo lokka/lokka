@@ -18,7 +18,7 @@ xml.feed(:xmlns => 'http://www.w3.org/2005/Atom') do
       xml.link      :type => 'html', :rel => 'alternate', :href => base_url + post.link
       xml.content   post.body, :type => 'html'
       xml.author do
-        xml.name post.user.name
+        xml.name post.user.nil? ? '' : post.user.name
       end
     end
   end
