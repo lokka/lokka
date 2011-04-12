@@ -637,7 +637,11 @@ module Lokka
     end
 
     not_found do
-      haml :'system/404', :layout => false
+      if output = render_any(:'404', :layout => false)
+        output
+      else
+        haml :'404', :views => 'public/system', :layout => false
+      end
     end
 
     error do

@@ -106,11 +106,10 @@ module Lokka
       dir =
         if request.path_info =~ %r{^/admin/.*}
           'admin'
-        elsif request.path_info =~ %r{^/install/.*}
-          'install'
         else
           "theme/#{@theme.name}"
         end
+
       layout = "#{dir}/layout"
       path = "#{dir}/#{name}"
 
