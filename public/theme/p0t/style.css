@@ -398,3 +398,11 @@ h4.comment {
 .gist pre {
   color: black;
 }
+
+.zenback {
+  margin: 0px 30px 10px 0px !important;
+}
+
+#zenback_loady {
+  margin: 0px 30px 10px 0px !important;
+}
