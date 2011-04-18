@@ -9,7 +9,7 @@ Dir.chdir(File.dirname(__FILE__))
 
 _run 'gem update --system'
 _run 'gem install bundler --no-rdoc --no-ri'
-_run 'bundle install --path bundle --without production test'
+_run 'bundle install --without production'
 _run 'bundle exec rake db:set'
 puts '--- Installation complete ---'
 puts 'Press Enter.'
