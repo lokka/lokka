@@ -3,7 +3,7 @@ source :rubygems
 gem 'bundler', '~> 1.0.7'
 gem 'rack-flash', '0.1.1'
 gem 'i18n', '0.4.1'
-gem 'sinatra', '1.1.2'
+gem 'sinatra', '1.2.3'
 gem 'sinatra-r18n', '0.4.9'
 gem 'sinatra-content-for', '0.2'
 gem 'dm-migrations',  '1.0.2'

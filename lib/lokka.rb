@@ -186,12 +186,4 @@ module Tilt
   end
 end
 
-module Sinatra
-  module Templates
-    def slim(template, options={}, locals={})
-      render :slim, template, options, locals
-    end
-  end
-end
-
 Slim::Engine.set_default_options :pretty => true
