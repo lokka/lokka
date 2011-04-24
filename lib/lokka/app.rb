@@ -36,6 +36,8 @@ module Lokka
     configure do
       enable :method_override, :raise_errors, :static, :sessions
       disable :logging
+      register Sinatra::R18n
+      register Lokka::Before
       set :root, File.expand_path('../../..', __FILE__)
       set :public => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public }
@@ -45,8 +47,6 @@ module Lokka
       set :admin_per_page, 200
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
-      register Sinatra::R18n
-      register Lokka::Before
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
       use Rack::Session::Cookie,
