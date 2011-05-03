@@ -1,6 +1,10 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe "Posts" do
+  before do
+    Lokka::Database.new.connect
+  end
+
   context "link" do
     it "should return correct link path" do
       post = Post.get(1)
