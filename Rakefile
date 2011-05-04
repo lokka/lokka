@@ -29,7 +29,7 @@ desc 'Reset database'
 task 'db:reset' => %w(db:delete db:seed)
 
 desc 'Set database'
-task 'db:set' => %w(db:migrate db:seed)
+task 'db:setup' => %w(db:migrate db:seed)
 
 desc 'Install gems'
 task :bundle do
