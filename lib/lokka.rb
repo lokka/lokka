@@ -33,7 +33,6 @@ autoload :Comment, 'lokka/comment'
 autoload :Snippet, 'lokka/snippet'
 autoload :Bread, 'lokka/bread'
 autoload :BreadCrumb, 'lokka/bread_crumb'
-require 'lokka/tag'
 
 module Lokka
   autoload :Before, 'lokka/before'

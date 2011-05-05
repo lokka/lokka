@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/komagata/dm-tags.git
+  revision: 04909e276669367fd1a5174429d0bb26b8b67ae6
+  specs:
+    dm-tags (1.1.1)
+      dm-core (~> 1.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -31,8 +38,6 @@ GEM
     dm-sqlite-adapter (1.1.0)
       dm-do-adapter (~> 1.1.0)
       do_sqlite3 (~> 0.10.2)
-    dm-tags (1.1.0)
-      dm-core (~> 1.1.0)
     dm-timestamps (1.1.0)
       dm-core (~> 1.1.0)
     dm-types (1.1.0)
@@ -99,7 +104,7 @@ DEPENDENCIES
   dm-pager (= 1.1.0)
   dm-postgres-adapter (= 1.1.0)
   dm-sqlite-adapter (= 1.1.0)
-  dm-tags (= 1.1.0)
+  dm-tags!
   dm-timestamps (= 1.1.0)
   dm-types (= 1.1.0)
   dm-validations (= 1.1.0)
