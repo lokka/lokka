@@ -27,6 +27,7 @@ Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read })
 
 group :production do
   gem 'dm-postgres-adapter', '1.1.0'
+  gem 'dm-mysql-adapter', '1.1.0'
 end
 
 group :development, :test do
