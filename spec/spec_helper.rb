@@ -6,7 +6,7 @@ require 'sinatra'
 require 'rack/test'
 require 'rspec'
 
-ENV['RACK_ENV'] = 'test'
+set :environment, :test
 
 module LokkaTestMethods
   def app

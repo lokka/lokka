@@ -534,7 +534,7 @@ module Lokka
 
       @tag = Tag.first(:name => tag)
       return 404 if @tag.nil?
-      @posts = Post.all(:id.in => @tag.taggings.map {|o| o.taggable_id }).
+      @posts = Post.all(:id => @tag.taggings.map {|o| o.taggable_id }).
                     published.
                     page(params[:page], :per_page => settings.per_page)
       @title = "#{@tag.name} - #{@site.title}"

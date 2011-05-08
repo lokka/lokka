@@ -37,7 +37,7 @@ task :bundle do
 end
 
 desc 'Install'
-task :install => %w(bundle db:set)
+task :install => %w(bundle db:setup)
 
 begin
   require 'rspec/core/rake_task'

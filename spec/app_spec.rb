@@ -12,4 +12,17 @@ describe "App" do
       last_response.body.should match('Test Site')
     end
   end
+
+  context "access tag archive page" do
+    before do
+      post = Post.get(1)
+      post.tag_list = 'lokka'
+      post.save
+    end
+
+    it "should show lokka tag archive" do
+      get '/tags/lokka/'
+      last_response.should be_ok
+    end
+  end
 end
