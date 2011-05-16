@@ -1,22 +1,21 @@
 body {
   margin: 0px;
-  padding: 0px 30px;
-  text-align: center;
+  padding: 20px 30px;
   background-color: #fff;
-  font-size: 14px;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  font-size: 16px;
   color: #333;
-  line-height: 22px;
-  font-family: メイリオ, Lucida Sans Unicode, Lucida Grande, Arial, Helvetica, ヒラギノ丸ゴ Pro W4, HiraMaruPro-W4, Verdana, HiraMaruPro-W4, ヒラギノ角ゴ Pro W3, HiraKakuPro-W3, Osaka, sans-serif;
 }
 
-p {
-  margin: 26px 0px;
+a {
+  color: #00ADEF;
+  text-decoration: none;
 }
 
-a:link { color: #2844ac; }
-a:visited { color: #2844ac; }
-a:hover { color: #ec189a; }
-a:hover { color: #ec189a; }
+h1 a {
+  color: white;
+}
+
 img { border: 0; }
 
 form {
@@ -24,13 +23,23 @@ form {
   padding: 0;
 }
 
-h1 {
-  font-size: 2.5em;
-  letter-spacing: 2px;
-  line-height: 62px;
-  margin: 0;
-  padding: 0px 0px 0px 70px;
+#bubble {
   float: left;
+  margin: 0px 20px 20px 70px;
+  border-bottom: 10px solid #00adef;
+  border-left: 10px solid transparent;
+  -border-left-color: white;
+}
+
+#bubble h1 {
+  display: block;
+  padding: 10px 25px;
+  margin: 0 0 -25px;
+  background: #00adef;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  color: #000;
+  -position: relative;
 }
 
 h2 {
@@ -48,6 +57,8 @@ ul#nav {
 ul#nav li {
   float: left;
   margin: 0px 7px;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
 ul#nav li img {
@@ -79,10 +90,10 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow: hidden;
+  font-size: 0.8em;
 }
 
 code {
-  font-size: 1em;
 }
 
 blockquote {
@@ -93,9 +104,8 @@ blockquote {
 
 #header {
   background: url(images/good_face.png) no-repeat;
-  width: 970px;
-  margin: 20px auto;
   text-align: left;
+  margin-bottom: 20px;
 }
 
 #header .description {
@@ -108,7 +118,6 @@ blockquote {
 
 #bread_crumb {
   margin: 0px auto;
-  width: 970px;
   text-align: left;
 }
 
@@ -131,54 +140,11 @@ blockquote {
   content: "";
 }
 
-#content {
-  width: 970px;
-  height: auto;
-  margin: 0 auto;
-  text-align: left;
-}
-
-#main {
-  float: left;
-  width: 730px;
-}
-
-#aside {
-  float: right;
-  width: 240px;
-  text-align: left;
-}
-#aside dl {
-  margin: 0em 2em 0em 0em;
-}
-#aside dt {
-  font-size: 1em;
-  font-weight: bold;
-}
-#aside dd {
-  margin: 14px 0px;
-  font-size: 0.9em;
-}
-#aside .section a {
-  text-decoration: none;
-}
-
-#aside ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-#aside li {
-  margin: 5px 0;
-  padding: 0;
-}
-
 .article {
-  margin: 0px 30px 30px 0px;
+  margin: 0px 0px 30px 0px;
 }
 .article .title {
-  font-size: 24px;
+  font-size: 30px;
   text-align: left;
   padding: 0;
   margin-bottom: 1.2em;
@@ -189,7 +155,7 @@ blockquote {
 .article .body {
   text-align: left;
   margin-bottom: 1em;
-  line-height: 150%;
+  line-height: 140%;
 }
 
 .article .footer {

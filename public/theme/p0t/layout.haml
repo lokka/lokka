@@ -9,6 +9,7 @@
       %title== #{@entry.title} - #{@site.title}
     - else
       %title= @site.title
+    %meta(name="viewport" content="width=device-width, height=device-height, initial-scale=1.0")
     %meta(name="description" content="#{@site.meta_description}")
     %meta(name="keywords" content="#{@site.meta_keywords}")
     %link(rel="shortcut icon" href="#{@theme.path}/favicon.ico")
@@ -18,7 +19,8 @@
     = header
   %body
     #header.clearfix
-      %h1= link_to @site.title, '/'
+      #bubble
+        %h1= link_to @site.title, '/'
       %ul#nav
         %li.profile= link_to 'Profile', 'http://komagata.makesthis.com'
         %li.github= link_to 'Github', 'http://github.com/komagata'
@@ -31,39 +33,6 @@
       #bread_crumb= bread_crumb
     #content.clearfix
       #main= yield
-      #aside
-        %dl
-          %dt= t.recent_entries
-          %dd
-            %ul
-              - Post.recent.each do |post|
-                %li= link_to post.title, post.link
-          %dt= t.recent_comments
-          %dd
-            %ul
-              - Comment.recent.each do |comment|
-                %li= link_to truncate(strip_tags(comment.body), :length => 16), comment.link
-          %dt= t.tags
-          %dd
-            %ul
-              - Tag.all.each do |tag|
-                %li= link_to tag.name, tag.link
-          %dt= t.archives
-          %dd
-            %ul
-              - months.each do |m|
-                %li= link_to "#{m.year}年#{m.month}月", "/#{m.year}/#{m.month}/"
-          %dt= t.admin
-          %dd
-            %ul
-              - if logged_in?
-                %li= link_to t.admin_page, '/admin/'
-                %li= link_to t.new_post, '/admin/posts/new'
-                %li= link_to t.logout, '/admin/logout'
-              - else
-                %li= link_to t.login, '/admin/'
-              %li
-
     #footer
       .poweredby
         powered by
