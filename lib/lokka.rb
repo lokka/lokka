@@ -110,6 +110,8 @@ module Lokka
       load_fixture :users
       load_fixture :sites
       load_fixture :entries
+      load_fixture :tags
+      load_fixture :taggings
     end
   end
 end

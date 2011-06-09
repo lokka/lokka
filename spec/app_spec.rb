@@ -22,7 +22,7 @@ describe "App" do
 
     it "should show lokka tag archive" do
       get '/tags/lokka/'
-      last_response.status.should == 404
+      last_response.should be_ok
     end
   end
 end
