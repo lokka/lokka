@@ -112,6 +112,7 @@ module Lokka
       load_fixture :entries
       load_fixture :tags
       load_fixture :taggings
+      load_fixture :snippets
     end
   end
 end

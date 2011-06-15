@@ -2,12 +2,6 @@ module Lokka
   module Before
     def self.registered(app)
       app.before do
-        begin
-          Site.first
-        rescue DataObjects::SyntaxError => e
-          Lokka::Database.new.connect.migrate.seed
-        end
-
         @site = Site.first
         @title = @site.title
         @theme = Theme.new(settings.theme)
