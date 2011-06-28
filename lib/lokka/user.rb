@@ -20,6 +20,10 @@ class User
   validates_presence_of :password_confirmation, :if => :password_require?
   validates_confirmation_of :password
 
+  before :valid? do
+    self.name = name.strip
+  end
+
   def password=(pass)
     @password = pass
     self.salt = User.random_string(10) if !self.salt
