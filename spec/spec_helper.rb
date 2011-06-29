@@ -6,6 +6,7 @@ require 'rack/test'
 require 'rspec'
 
 set :environment, :test
+Lokka::Database.new.connect
 
 module LokkaTestMethods
   def app
