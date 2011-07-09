@@ -18,23 +18,25 @@
     %script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript")
     = header
   %body
-    #header.clearfix
-      #bubble
-        %h1= link_to @site.title, '/'
-      %ul#nav
-        %li.profile= link_to 'Profile', 'http://komagata.makesthis.com'
-        %li.github= link_to 'Github', 'http://github.com/komagata'
-        %li.twitter= link_to 'Twitter', 'http://twitter.com/komagata'
-        %li.facebook= link_to 'Facebook', 'http://www.facebook.com/profile.php?id=507289693'
-        %li
-          %form#search_form(action="/search/" method="get")
-            %input(type="text" name="query")
-    - unless index? or entry?
-      #bread_crumb= bread_crumb
-    #content.clearfix
-      #main= yield
-    #footer
-      .poweredby
-        powered by
-        = link_to 'Lokka', 'http://lokka.org/'
-    = footer
+    #wrapper
+      #header.clearfix
+        #bubble
+          %h1= link_to @site.title, '/'
+        %ul#nav
+          %li= link_to 'Profile', 'http://komagata.org/'
+          %li= link_to 'Twitter', 'http://komagata.org/'
+          %li= link_to 'Github', 'http://komagata.org/'
+          %li= link_to 'Facebook', 'http://komagata.org/'
+          %li
+            %form#search(action="/search/" method="get")
+              %input(type="text" name="query")
+              %button(type="submit") Search
+      - unless index? or entry?
+        #bread_crumb= bread_crumb
+      #content.clearfix
+        = yield
+      #footer
+        .poweredby
+          powered by
+          = link_to 'Lokka', 'http://lokka.org/'
+      = footer
