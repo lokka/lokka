@@ -16,6 +16,7 @@ CMS written in Ruby for cloud computing.
   $ git clone git://github.com/komagata/lokka.git
   $ cd lokka
   $ bundle install --without=production:test
+  $ bundle exec rake db:setup
   $ bundle exec ruby lokka.rb
 
 View at: http://localhost:9646/
