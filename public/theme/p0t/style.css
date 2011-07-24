@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: futura, sans-serif;
+  font-family: sans-serif;
   color: #333;
   text-align: center;
 }
@@ -45,7 +45,7 @@ select {
 
 #bubble h1 {
   display: block;
-  padding: 10px 25px;
+  padding: 14px 25px;
   margin: 0 0 -25px;
   background: #00adef;
   -moz-border-radius: 6px;
@@ -70,6 +70,7 @@ li {
 }
 
 pre {
+  max-width: 790px;
   margin: 0.5em 0em;
   padding: 0.5em;
   background-color: #000;
@@ -79,6 +80,7 @@ pre {
   white-space: -o-pre-wrap;
   white-space: pre-wrap;
   word-wrap: break-word;
+  overflow: auto;
 }
 
 code {
@@ -91,7 +93,7 @@ blockquote {
 }
 
 #wrapper {
-  margin: 0px auto;
+  margin: 10px auto;
   text-align: left;
   max-width: 800px;
   padding: 0.5em;
@@ -116,7 +118,7 @@ blockquote {
 
 #nav li {
   float: left;
-  margin-right: 0.5em;
+  margin-right: 0.4em;
 }
 
 #nav li a {
@@ -132,6 +134,10 @@ blockquote {
   background: #00adef;
   padding: 0.5em 1em;
   color: #fff;
+}
+
+#search input {
+  width: 100px;
 }
 
 #bread_crumb {
