@@ -87,7 +87,8 @@ module Lokka
 
     def render_any(name, options = {})
       ret = ''
-      settings.supported_templates.each do |ext|
+      templates = settings.supported_templates + settings.supported_stylesheet_templates
+      templates.each do |ext|
         out = rendering(ext, name, options)
         out.force_encoding(Encoding.default_external) unless out.nil?
         unless out.blank?
@@ -108,7 +109,12 @@ module Lokka
         end
 
       layout = "#{dir}/layout"
-      path = "#{dir}/#{name}"
+      path = 
+        if settings.supported_stylesheet_templates.include?(ext)
+          "#{name}"
+        else
+          "#{dir}/#{name}"
+        end
 
       if File.exist?("#{settings.views}/#{layout}.#{ext}")
         options[:layout] = layout.to_sym if options[:layout].nil?
