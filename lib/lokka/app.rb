@@ -445,6 +445,25 @@ module Lokka
       redirect '/admin/themes'
     end
 
+    # mobile_theme
+    get '/admin/mobile_themes' do
+      @themes =
+        Dir.glob("#{settings.theme}/*").map do |f|
+          title = f.split('/').last
+          s = Dir.glob("#{f}/screenshot.*")
+          screenshot = s.empty? ? nil : "/#{s.first.split('/')[-3, 3].join('/')}"
+          OpenStruct.new(:title => title, :screenshot => screenshot)
+        end
+      render_any :'mobile_themes/index'
+    end
+
+    put '/admin/mobile_themes' do
+      site = Site.first
+      site.update(:mobile_theme => params[:title])
+      flash[:notice] = t.theme_was_successfully_updated
+      redirect '/admin/mobile_themes'
+    end
+
     # plugin
     get '/admin/plugins' do
       render_any :'plugins/index'
