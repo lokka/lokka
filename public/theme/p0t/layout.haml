@@ -9,6 +9,7 @@
       %title== #{@entry.title} - #{@site.title}
     - else
       %title= @site.title
+    %meta(name="viewport" content="width=device-width, height=device-height, initial-scale=1.0")
     %meta(name="description" content="#{@site.meta_description}")
     %meta(name="keywords" content="#{@site.meta_keywords}")
     %link(rel="shortcut icon" href="#{@theme.path}/favicon.ico")
@@ -17,55 +18,25 @@
     %script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript")
     = header
   %body
-    #header.clearfix
-      %h1= link_to @site.title, '/'
-      %ul#nav
-        %li.profile= link_to 'Profile', 'http://komagata.makesthis.com'
-        %li.github= link_to 'Github', 'http://github.com/komagata'
-        %li.twitter= link_to 'Twitter', 'http://twitter.com/komagata'
-        %li.facebook= link_to 'Facebook', 'http://www.facebook.com/profile.php?id=507289693'
-        %li
-          %form#search_form(action="/search/" method="get")
-            %input(type="text" name="query")
-    - unless index? or entry?
-      #bread_crumb= bread_crumb
-    #content.clearfix
-      #main= yield
-      #aside
-        %dl
-          %dt= t.recent_entries
-          %dd
-            %ul
-              - Post.recent.each do |post|
-                %li= link_to post.title, post.link
-          %dt= t.recent_comments
-          %dd
-            %ul
-              - Comment.recent.each do |comment|
-                %li= link_to truncate(strip_tags(comment.body), :length => 16), comment.link
-          %dt= t.tags
-          %dd
-            %ul
-              - Tag.all.each do |tag|
-                %li= link_to tag.name, tag.link
-          %dt= t.archives
-          %dd
-            %ul
-              - months.each do |m|
-                %li= link_to "#{m.year}年#{m.month}月", "/#{m.year}/#{m.month}/"
-          %dt= t.admin
-          %dd
-            %ul
-              - if logged_in?
-                %li= link_to t.admin_page, '/admin/'
-                %li= link_to t.new_post, '/admin/posts/new'
-                %li= link_to t.logout, '/admin/logout'
-              - else
-                %li= link_to t.login, '/admin/'
-              %li
-
-    #footer
-      .poweredby
-        powered by
-        = link_to 'Lokka', 'http://lokka.org/'
-    = footer
+    #wrapper
+      #header.clearfix
+        #bubble
+          %h1= link_to @site.title, '/'
+        %ul#nav
+          %li= link_to 'Profile', 'http://komagata.org/'
+          %li= link_to 'Twitter', 'http://komagata.org/'
+          %li= link_to 'Github', 'http://komagata.org/'
+          %li= link_to 'Facebook', 'http://komagata.org/'
+          %li
+            %form#search(action="/search/" method="get")
+              %input(type="text" name="query")
+              %button(type="submit") Search
+      - unless index? or entry?
+        #bread_crumb= bread_crumb
+      #content.clearfix
+        = yield
+      #footer
+        .poweredby
+          powered by
+          = link_to 'Lokka', 'http://lokka.org/'
+      = footer

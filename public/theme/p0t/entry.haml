@@ -6,6 +6,4 @@
       .footer
         .name= link_to_unless comment.homepage.blank?, comment.name, comment.homepage
         .created_at= l comment.created_at.to_time
-:javascript
-  document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//docs.komagata.org&nsid=95568419767735604%3A%3A95568428894519555&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"))
 = comment_form
