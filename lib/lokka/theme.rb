@@ -4,7 +4,8 @@ class Theme
   def initialize(root_dir, mobile = false)
     @root_dir = root_dir
     @root_path = '/theme'
-    @name = mobile ? Site.first.mobile_theme : Site.first.theme 
+    mobile_theme = Site.first.mobile_theme || Site.first.theme
+    @name = mobile ? mobile_theme : Site.first.theme
     @dir = "#{@root_dir}/#{@name}"
     @path = "#{@root_path}/#{@name}"
     @i18n_dir = "#{@dir}/i18n"
