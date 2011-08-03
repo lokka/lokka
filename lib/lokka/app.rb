@@ -429,7 +429,7 @@ module Lokka
     # theme
     get '/admin/themes' do
       @themes =
-        Dir.glob("#{settings.theme}/*").map do |f|
+        (Dir.glob("#{settings.theme}/*") - Dir.glob("#{settings.theme}/*[-_]mobile")).map do |f|
           title = f.split('/').last
           s = Dir.glob("#{f}/screenshot.*")
           screenshot = s.empty? ? nil : "/#{s.first.split('/')[-3, 3].join('/')}"
@@ -448,7 +448,7 @@ module Lokka
     # mobile_theme
     get '/admin/mobile_themes' do
       @themes =
-        Dir.glob("#{settings.theme}/*").map do |f|
+        Dir.glob("#{settings.theme}/*[-_]mobile").map do |f|
           title = f.split('/').last
           s = Dir.glob("#{f}/screenshot.*")
           screenshot = s.empty? ? nil : "/#{s.first.split('/')[-3, 3].join('/')}"
