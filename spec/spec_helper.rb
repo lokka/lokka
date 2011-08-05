@@ -17,4 +17,5 @@ end
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include LokkaTestMethods
+  config.include Lokka::Helpers
 end
