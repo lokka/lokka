@@ -8,6 +8,6 @@ class Bread
   end
 
   def last?
-    @last
+    !!@last
   end
 end
