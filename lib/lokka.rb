@@ -79,21 +79,17 @@ module Lokka
       self
     end
 
-    def load_fixture(name)
-      model = name.to_s.classify.constantize
-      csv = CSV.read("#{Lokka.root}/db/seed/#{name}.csv")
-      headers = csv.shift.map {|i| i.to_s }
-      csv.map {|row|
-        row.map {|cell| cell.to_s }
-      }.map {|row|
-        Hash[*headers.zip(row).flatten]
-      }.each {|row|
-        fields = {}
-        row.each do |k, v|
-          fields[k] = v if !v.blank?
+    def load_fixture(path, model_name=nil)
+      model = model_name || File.basename(path).sub('.csv','').classify.constantize
+      csv = CSV.read(path)
+      headers = csv.shift.map(&:to_s)
+      fields = {}
+      csv.each do |row|
+        row.each_with_index do |col,index|
+          fields[headers[index]] = col.to_s
         end
         model.create!(fields)
-      }
+      end
     end
 
     def migrate
@@ -106,13 +102,11 @@ module Lokka
       self
     end
 
-    def seed
-      load_fixture :users
-      load_fixture :sites
-      load_fixture :entries
-      load_fixture :tags
-      load_fixture :taggings
-      load_fixture :snippets
+    def seed(base=nil)
+      base_path = base || "#{Lokka.root}/db/seed"
+      Dir[base_path + "/*.csv"].each do |path|
+        load_fixture path
+      end
     end
   end
 end
