@@ -26,11 +26,7 @@ module Lokka
     end
 
     def current_user
-      if session[:user]
-        User.get(session[:user])
-      else
-        GuestUser.new
-      end
+      logged_in? ? User.get(session[:user]) : GuestUser.new
     end
 
     def logged_in?
