@@ -1,3 +1,4 @@
+# encoding: utf-8
 class BreadCrumb
   include Enumerable
   attr_accessor :breads

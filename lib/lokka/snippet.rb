@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Snippet
   include DataMapper::Resource
 

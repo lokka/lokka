@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Bread
   attr_accessor :name, :link, :last
 
