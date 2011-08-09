@@ -81,9 +81,8 @@ module Lokka
 
     def load_fixture(path, model_name=nil)
       model = model_name || File.basename(path).sub('.csv','').classify.constantize
-      csv = CSV.read(path)
-      headers = csv.shift
-      csv.each { |row| model.create!(Hash[*(headers.zip(row).reject {|i|i[1].blank?}.flatten)]) }
+      headers, *body = CSV.read(path)
+      body.each { |row| model.create!(Hash[*(headers.zip(row).reject {|i|i[1].blank?}.flatten)]) }
     end
 
     def migrate
