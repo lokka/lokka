@@ -86,12 +86,12 @@ module Lokka
     end
 
     def migrate
-      Lokka::MODELS.each {|m| m.auto_upgrade! }
+      Lokka::MODELS.map(&:auto_upgrade!)
       self
     end
 
     def migrate!
-      Lokka::MODELS.each {|m| m.auto_migrate! }
+      Lokka::MODELS.map(&:auto_migrate!)
       self
     end
 
