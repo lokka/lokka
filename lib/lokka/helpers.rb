@@ -186,19 +186,10 @@ module Lokka
 
     def truncate(text, options = {})
       options = {:length => 30, :omission => '...'}.merge(options)
-
-      if RUBY_VERSION < '1.9.1'
-        if options[:length] < text.split(//u).size
-          text.split(//u)[0, options[:length]].to_s + options[:omission]
-        else
-          text
-        end
+      if options[:length] < text.mb_chars.size
+        text.mb_chars[0, options[:length]].to_s + options[:omission]
       else
-        if options[:length] < text.size
-          text[0, options[:length]] + options[:omission]
-        else
-          text
-        end
+        text
       end
     end
 
