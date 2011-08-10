@@ -186,11 +186,9 @@ module Lokka
 
     def truncate(text, options = {})
       options = {:length => 30, :omission => '...'}.merge(options)
-      if options[:length] < text.mb_chars.size
-        text.mb_chars[0, options[:length]].to_s + options[:omission]
-      else
-        text
-      end
+      mb_text = text.mb_chars
+      max_length = options[:length]
+      mb_text.size > max_length ? mb_text.to_s.first(max_length) + options[:omission] : text
     end
 
     def strip_tags(text)
