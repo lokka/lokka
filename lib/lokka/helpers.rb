@@ -196,22 +196,11 @@ module Lokka
     end
 
     def months
-      ms = {}
-      Post.all.each do |post|
-        m = post.created_at.strftime('%Y-%m')
-        if ms[m].nil?
-          ms[m] = 1
-        else
-          ms[m] += 1
-        end
-      end
-
-      months = []
-      ms.each do |m, count|
-        year, month = m.split('-')
-        months << OpenStruct.new({:year => year, :month => month, :count => count})
-      end
-      months.sort {|x, y| y.year + y.month <=> x.year + x.month }
+      count_by_month = Post.all.inject(Hash.new(0)) {|h,post| h[post.created_at.strftime('%Y-%m')] += 1; h }
+      count_by_month.sort.map do |pair|
+        year, month = pair[0].split('-')
+        OpenStruct.new({:year => year, :month => month, :count => pair[1]})
+      end.reverse
     end
 
     def header
