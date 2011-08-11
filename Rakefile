@@ -1,5 +1,7 @@
 require './init'
 
+task :default => [:spec]
+
 desc 'Prepare test'
 task 'test:prepare' => 'db:migrate' do
   Lokka::Database.new.connect.seed
