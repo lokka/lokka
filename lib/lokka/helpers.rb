@@ -35,18 +35,9 @@ module Lokka
     end
 
     def bread_crumb
-      html = '<ol>'
-      @bread_crumbs.each do |bread|
-        html += '<li>'
-        if bread.last?
-          html += bread.name
-        else
-          html += "<a href=\"#{bread.link}\">#{bread.name}</a>"
-        end
-        html += '</li>'
-      end
-      html += '</ol>'
-      html
+      @bread_crumbs.breads[0..-2].inject('<ol>') do |html,bread|
+        html += "<li><a href=\"#{bread.link}\">#{bread.name}</a></li>"
+      end + "<li>#{@bread_crumbs.breads[-1].name}</li></ol>"
     end
 
     def category_tree(categories = Category.roots)
