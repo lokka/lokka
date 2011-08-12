@@ -1,4 +1,4 @@
-= Lokka http://travis-ci.org/komagata/lokka.png[http://travis-ci.org/#!/komagata/lokka]
+= Lokka {http://travis-ci.org/komagata/lokka.png}[http://travis-ci.org/#!/komagata/lokka]
 
 CMS written in Ruby for cloud computing.
 
