@@ -38,5 +38,5 @@ end
 group :test do
   gem 'rack-test', '0.6.0', :require => 'rack/test'
   gem 'rspec', '~> 2.5'
-  gem 'cucumber'
+  gem 'cucumber-sinatra'
 end
