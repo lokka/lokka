@@ -747,7 +747,8 @@ textarea.editor {
 textarea#post_body,
 textarea#page_body,
 textarea#site_dashboard,
-textarea#snippet_body
+textarea#snippet_body,
+textarea#category_description
  {
   clear: none;
 }
