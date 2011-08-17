@@ -44,10 +44,14 @@ module Lokka
       set :views => Proc.new { public }
       set :theme => Proc.new { File.join(public, 'theme') }
       set :supported_templates => %w(erb haml slim erubis)
+      set :supported_stylesheet_templates => %w(scss sass)
       set :per_page, 10
       set :admin_per_page, 200
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
+      supported_stylesheet_templates.each do |style|
+        set style, :style => :expanded
+      end
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
       use Rack::Session::Cookie,
@@ -664,6 +668,11 @@ module Lokka
 
     error do
       'Error: ' + env['sinatra.error'].name
+    end
+
+    get '/*.css' do |path|
+      content_type 'text/css', :charset => 'utf-8'
+      render_any path.to_sym
     end
   end
 end

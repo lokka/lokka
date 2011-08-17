@@ -31,6 +31,10 @@ class Category
     end
     "/category/#{cats.join('/')}/"
   end
+
+  def edit_link
+    "/admin/#{self.class.to_s.tableize}/#{id}/edit"
+  end
 end
 
 def Category(id_or_slug)
