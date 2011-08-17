@@ -87,8 +87,12 @@
             %h3
               %a{:href => '/admin/plugins'}= t.plugins
           %li.setting.parent
-            %h3
-              %a{:href => '/admin/site/edit'}= t.settings
+            %h3.title= t.settings
+            %ul
+              %li.list
+                %a(href="/admin/site/edit")= t.sites
+              %li.list
+                %a(href="/admin/import")= t.import
           - admin_aside = yield_content :admin_aside
           - unless admin_aside.blank?
             = admin_aside

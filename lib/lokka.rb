@@ -23,6 +23,7 @@ require 'haml'
 require 'sass'
 require 'slim'
 require 'builder'
+require 'nokogiri'
 
 autoload :Theme, 'lokka/theme'
 autoload :User, 'lokka/user'
@@ -39,6 +40,7 @@ module Lokka
   autoload :Before, 'lokka/before'
   autoload :Helpers, 'lokka/helpers'
   autoload :App, 'lokka/app'
+  autoload :Importer, 'lokka/importer'
 
   class NoTemplateError < StandardError; end
   MODELS = [Site, Option, User, Entry, Category, Comment, Snippet, Tag, Tagging]

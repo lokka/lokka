@@ -28,7 +28,7 @@ snippets: Snippets
 themes: Themes
 plugins: Plugins
 settings: Settings
-site: Site
+sites: Site
 list: List
 draft: Draft
 new: New
@@ -165,6 +165,10 @@ snippet:
   body: Body
   created_at: Created at
   updated_at: Updated at
+import: Import
+import_from_wordpress: Import from WordPress
+import_file: Import File
+data_was_successfully_imported: Data was successfully imported
 what_about_lokka: <p>Lokka is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>
 home: Home
 getting_started: Getting Started

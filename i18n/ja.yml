@@ -28,7 +28,7 @@ snippets: スニペット
 themes: テーマ
 plugins: プラグイン
 settings: 設定
-site: サイト
+sites: サイト
 list: 一覧
 draft: 下書き
 new: 登録
@@ -165,6 +165,10 @@ snippet:
   body: 本文
   created_at: 作成日時
   updated_at: 更新日時
+import: インポート
+import_from_wordpress: WordPressからのインポート
+import_file: インポートファイル
+data_was_successfully_imported: データをインポートしました
 what_about_lokka: <p>Lokka(ロッカ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにも簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>
 home: ホーム
 getting_started: はじめよう
