@@ -98,11 +98,9 @@ module Lokka
       self
     end
 
-    def seed(base=nil)
-      base_path = base || "#{Lokka.root}/db/seed"
-      Dir[base_path + "/*.csv"].each do |path|
-        load_fixture path
-      end
+    def seed
+      seed_file = File.join(Lokka.root, 'db', 'seeds.rb')
+      load(seed_file) if File.exist?(seed_file)
     end
   end
 end
