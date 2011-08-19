@@ -98,7 +98,7 @@ module Lokka
       self
     end
 
-    def seed(base=nil)
+    def seed
       seed_file = File.join(Lokka.root, 'db', 'seeds.rb')
       load(seed_file) if File.exist?(seed_file)
     end
