@@ -1,2 +1,0 @@
-"user_id","category_id","slug","title","body","type","created_at","updated_at","frozen_tag_list"
-"1","","","Test Post","<p>Welcome to Lokka!</p><p><a href=""/admin/"">Admin login</a> (user / password : test / test)</p>","Post","2011-01-09T05:39:08+09:00","2011-01-09T05:39:08+09:00",""
