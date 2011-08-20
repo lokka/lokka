@@ -1,6 +1,6 @@
 require './init'
 
-task :default => [:spec]
+task :default => ['db:setup', :spec]
 
 desc 'Prepare test'
 task 'test:prepare' => 'db:migrate' do
