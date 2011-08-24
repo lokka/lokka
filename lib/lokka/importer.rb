@@ -42,7 +42,9 @@ module Lokka
               :id    => item.xpath('wp:post_id').text.to_i,
               :title => item.xpath('title').text,
               :body  => item.xpath('content:encoded').text,
-              :draft => item.xpath('wp:status').text == 'publish' ? false : true
+              :draft => item.xpath('wp:status').text == 'publish' ? false : true,
+              :created_at => Time.parse(item.xpath('wp:post_date_gmt').text),
+              :updated_at => Time.parse(item.xpath('wp:post_date_gmt').text)
             }
 
             if entry = model.get(attrs[:id])
