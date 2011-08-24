@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Lokka
   module Before
     def self.registered(app)

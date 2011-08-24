@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Lokka
   class App < Sinatra::Base
     def self.load_plugin
@@ -43,10 +44,14 @@ module Lokka
       set :views => Proc.new { public }
       set :theme => Proc.new { File.join(public, 'theme') }
       set :supported_templates => %w(erb haml slim erubis)
+      set :supported_stylesheet_templates => %w(scss sass)
       set :per_page, 10
       set :admin_per_page, 200
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
+      supported_stylesheet_templates.each do |style|
+        set style, :style => :expanded
+      end
       helpers Sinatra::ContentFor
       helpers Lokka::Helpers
       use Rack::Session::Cookie,
@@ -484,6 +489,23 @@ module Lokka
       end
     end
 
+    # import
+    get '/admin/import' do
+      render_any :import
+    end
+
+    post '/admin/import' do
+      file = params['import']['file'][:tempfile]
+
+      if file
+        Lokka::Importer::WordPress.new(file).import
+        flash[:notice] = t.data_was_successfully_imported
+        redirect '/admin/import'
+      else
+        render_any :import
+      end
+    end
+
     # index
     get '/' do
       @theme_types << :index
@@ -492,8 +514,7 @@ module Lokka
       @posts = Post.published.
                     page(params[:page], :per_page => settings.per_page)
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
+      @bread_crumbs = [{:name => t.home, :link => '/'}]
 
       render_detect :index, :entries
     end
@@ -516,9 +537,8 @@ module Lokka
 
       @title = "Search by #{@query} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add(@query)
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => @query }]
 
       render_detect :search, :entries
     end
@@ -536,12 +556,11 @@ module Lokka
 
       @title = "#{@category.title} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
+      @bread_crumbs = [{:name => t.home, :link => '/'}]
       @category.ancestors.each do |cat|
-        @bread_crumbs.add(cat.name, cat.link)
+        @bread_crumbs << {:name => cat.name, :link => cat.link}
       end
-      @bread_crumbs.add(@category.title, @category.link)
+      @bread_crumbs << {:name => @category.title, :link => @category.link}
 
       render_detect :category, :entries
     end
@@ -558,9 +577,8 @@ module Lokka
                     page(params[:page], :per_page => settings.per_page)
       @title = "#{@tag.name} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add(@tag.name, @tag.link)
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => @tag.name, :link => @tag.link}]
 
       render_detect :tag, :entries
     end
@@ -578,10 +596,9 @@ module Lokka
 
       @title = "#{year}/#{month} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add("#{year}", "/#{year}/")
-      @bread_crumbs.add("#{year}/#{month}", "/#{year}/#{month}/")
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => "#{year}", :link => "/#{year}/"},
+                       {:name => "#{year}/#{month}", :link => "/#{year}/#{month}/"}]
 
       render_detect :monthly, :entries
     end
@@ -599,9 +616,8 @@ module Lokka
 
       @title = "#{year} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add("#{year}", "/#{year}/")
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => "#{year}", :link => "/#{year}/"}]
 
       render_detect :yearly, :entries
     end
@@ -619,15 +635,14 @@ module Lokka
 
       @title = "#{@entry.title} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
+      @bread_crumbs = [{:name => t.home, :link => '/'}]
       if @entry.category
         @entry.category.ancestors.each do |cat|
-          @bread_crumbs.add(cat.name, cat.link)
+          @bread_crumbs << {:name => cat.name, :link => cat.link}
         end
-        @bread_crumbs.add(@entry.category.title, @entry.category.link)
+        @bread_crumbs << {:name => @entry.category.title, :link => @entry.category.link}
       end
-      @bread_crumbs.add(@entry.title, @entry.link)
+      @bread_crumbs << {:name => @entry.title, :link => @entry.link}
 
       render_detect type, :entry
     end
@@ -665,6 +680,11 @@ module Lokka
 
     error do
       'Error: ' + env['sinatra.error'].name
+    end
+
+    get '/*.css' do |path|
+      content_type 'text/css', :charset => 'utf-8'
+      render_any path.to_sym
     end
   end
 end

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require File.join(File.dirname(__FILE__), '..', 'init.rb')
 
 require 'rubygems'
@@ -17,4 +18,5 @@ end
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include LokkaTestMethods
+  config.include Lokka::Helpers
 end

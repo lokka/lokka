@@ -70,7 +70,7 @@ white-space: nowrap;
 .button:link, .button:visited {
 color:#444 !important;
 text-decoration:none;
-text-shadow:#eee 1px 1px 0px;
+text-shadow:#eee 0px 1px 0px;
 white-space: nowrap;
 }
 .button:hover, .button:active ,input[type="submit"]:focus {
@@ -78,7 +78,7 @@ background:-moz-linear-gradient(#e8e8e8, #eee) repeat scroll 0 0 transparent;
 background: -webkit-gradient(linear, 0 0, 0 bottom, from(#e8e8e8), to(#eee));
 background: linear-gradient(#e8e8e8, #eee);
 color:#000 !important;
-text-shadow:1px 1px 0 #FFFFFF;
+text-shadow:0px 1px 0 #FFFFFF;
 -webkit-box-shadow:none;
 -moz-box-shadow:none;
 box-shadow:none;
@@ -210,7 +210,7 @@ h2 {
 	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#aaa), to(#ccc));
 	background: -moz-linear-gradient(#aaa, #ccc);
 	background: linear-gradient(#aaa, #ccc);
-	text-shadow:#eee 1px 1px 0px;
+	text-shadow:#eee 0px 1px 0px;
 }
 
 #notice {
@@ -407,8 +407,8 @@ label {
   border-collapse: collapse;
   border-spacing: 0;
   min-width:600px;
-	width: auto !important;
 	width: 600px;
+	font-weight: bold;
 }
 
 
@@ -665,6 +665,11 @@ width:auto !important;
 height:auto !important;
 }
 
+ul.themes li.selected div.screenshot a img {
+	margin-top: -3px;
+	border: 3px solid #3ae8ea;
+}
+
 ul.themes div.screenshot a:link img,
 ul.themes div.screenshot a:visited img {
 -webkit-box-shadow: #666 0px 2px 3px;
@@ -742,7 +747,8 @@ textarea.editor {
 textarea#post_body,
 textarea#page_body,
 textarea#site_dashboard,
-textarea#snippet_body
+textarea#snippet_body,
+textarea#category_description
  {
   clear: none;
 }
@@ -808,7 +814,7 @@ textarea#snippet_body
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	border: 1px solid #333;
-	text-shadow:#222 1px 1px 0px;
+	text-shadow:#222 0px -1px 0px;
 	font-size: 11px;
 	text-decoration:none;
 }

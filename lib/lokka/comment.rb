@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Comment
   include DataMapper::Resource
 
@@ -9,6 +10,7 @@ class Comment
   property :entry_id, Integer
   property :status, Integer # 0 => moderated, 1 => approved
   property :name, String
+  property :email, String, :length => (5..40), :format => :email_address
   property :homepage, String
   property :body, Text
   property :created_at, DateTime

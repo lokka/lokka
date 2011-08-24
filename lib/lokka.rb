@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'rubygems'
 require 'pathname'
 require 'erb'
@@ -22,6 +23,7 @@ require 'haml'
 require 'sass'
 require 'slim'
 require 'builder'
+require 'nokogiri'
 
 autoload :Theme, 'lokka/theme'
 autoload :User, 'lokka/user'
@@ -31,13 +33,12 @@ autoload :Entry, 'lokka/entry'
 autoload :Category, 'lokka/category'
 autoload :Comment, 'lokka/comment'
 autoload :Snippet, 'lokka/snippet'
-autoload :Bread, 'lokka/bread'
-autoload :BreadCrumb, 'lokka/bread_crumb'
 
 module Lokka
   autoload :Before, 'lokka/before'
   autoload :Helpers, 'lokka/helpers'
   autoload :App, 'lokka/app'
+  autoload :Importer, 'lokka/importer'
 
   class NoTemplateError < StandardError; end
   MODELS = [Site, Option, User, Entry, Category, Comment, Snippet, Tag, Tagging]
@@ -79,40 +80,25 @@ module Lokka
       self
     end
 
-    def load_fixture(name)
-      model = name.to_s.classify.constantize
-      csv = CSV.read("#{Lokka.root}/db/seed/#{name}.csv")
-      headers = csv.shift.map {|i| i.to_s }
-      csv.map {|row|
-        row.map {|cell| cell.to_s }
-      }.map {|row|
-        Hash[*headers.zip(row).flatten]
-      }.each {|row|
-        fields = {}
-        row.each do |k, v|
-          fields[k] = v if !v.blank?
-        end
-        model.create!(fields)
-      }
+    def load_fixture(path, model_name=nil)
+      model = model_name || File.basename(path).sub('.csv','').classify.constantize
+      headers, *body = CSV.read(path)
+      body.each { |row| model.create!(Hash[*(headers.zip(row).reject {|i|i[1].blank?}.flatten)]) }
     end
 
     def migrate
-      Lokka::MODELS.each {|m| m.auto_upgrade! }
+      Lokka::MODELS.map(&:auto_upgrade!)
       self
     end
 
     def migrate!
-      Lokka::MODELS.each {|m| m.auto_migrate! }
+      Lokka::MODELS.map(&:auto_migrate!)
       self
     end
 
     def seed
-      load_fixture :users
-      load_fixture :sites
-      load_fixture :entries
-      load_fixture :tags
-      load_fixture :taggings
-      load_fixture :snippets
+      seed_file = File.join(Lokka.root, 'db', 'seeds.rb')
+      load(seed_file) if File.exist?(seed_file)
     end
   end
 end

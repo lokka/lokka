@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Category
   include DataMapper::Resource
 
@@ -29,6 +30,10 @@ class Category
       cats.unshift ancestor.fuzzy_slug
     end
     "/category/#{cats.join('/')}/"
+  end
+
+  def edit_link
+    "/admin/#{self.class.to_s.tableize}/#{id}/edit"
   end
 end
 

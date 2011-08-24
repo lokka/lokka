@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Theme
   attr_reader :name, :root_dir, :root_path, :dir, :path, :i18n_dir
 

@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Lokka
   module Helpers
     include Rack::Utils
@@ -26,11 +27,7 @@ module Lokka
     end
 
     def current_user
-      if session[:user]
-        User.get(session[:user])
-      else
-        GuestUser.new
-      end
+      logged_in? ? User.get(session[:user]) : GuestUser.new
     end
 
     def logged_in?
@@ -38,18 +35,9 @@ module Lokka
     end
 
     def bread_crumb
-      html = '<ol>'
-      @bread_crumbs.each do |bread|
-        html += '<li>'
-        if bread.last?
-          html += bread.name
-        else
-          html += "<a href=\"#{bread.link}\">#{bread.name}</a>"
-        end
-        html += '</li>'
-      end
-      html += '</ol>'
-      html
+      @bread_crumbs[0..-2].inject('<ol>') do |html,bread|
+        html += "<li><a href=\"#{bread[:link]}\">#{bread[:name]}</a></li>"
+      end + "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
     end
 
     def category_tree(categories = Category.roots)
@@ -90,7 +78,8 @@ module Lokka
 
     def render_any(name, options = {})
       ret = ''
-      settings.supported_templates.each do |ext|
+      templates = settings.supported_templates + settings.supported_stylesheet_templates
+      templates.each do |ext|
         out = rendering(ext, name, options)
         out.force_encoding(Encoding.default_external) unless out.nil?
         unless out.blank?
@@ -111,7 +100,12 @@ module Lokka
         end
 
       layout = "#{dir}/layout"
-      path = "#{dir}/#{name}"
+      path = 
+        if settings.supported_stylesheet_templates.include?(ext)
+          "#{name}"
+        else
+          "#{dir}/#{name}"
+        end
 
       if File.exist?("#{settings.views}/#{layout}.#{ext}")
         options[:layout] = layout.to_sym if options[:layout].nil?
@@ -182,12 +176,10 @@ module Lokka
     end
 
     def truncate(text, options = {})
-      options = {:length => 30, :ommision => '...'}.merge(options)
-      if options[:length] < text.split(//u).size
-        text.split(//u)[0, options[:length]].to_s + options[:ommision]
-      else
-        text
-      end
+      options = {:length => 30, :omission => '...'}.merge(options)
+      mb_text = text.mb_chars
+      max_length = options[:length]
+      mb_text.size > max_length ? mb_text.to_s.first(max_length) + options[:omission] : text
     end
 
     def strip_tags(text)
