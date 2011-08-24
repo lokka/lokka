@@ -1,4 +1,39 @@
 GIT
+  remote: git://github.com/datamapper/dm-core.git
+  revision: aed5df8db1811de7edfcd10159426ea2c0fc79a8
+  specs:
+    dm-core (1.1.1)
+      addressable (~> 2.2.4)
+
+GIT
+  remote: git://github.com/datamapper/dm-is-searchable.git
+  revision: f80803840b2d83e5efeeccbd89ab1cd937bd9d1f
+  specs:
+    dm-is-searchable (1.1.1)
+      dm-core (~> 1.1.0)
+
+GIT
+  remote: git://github.com/datamapper/dm-is-tree.git
+  revision: 9b95190742e57f1ae20d1f6924646176de7c00c9
+  specs:
+    dm-is-tree (1.1.1)
+      dm-core (~> 1.1.0)
+
+GIT
+  remote: git://github.com/datamapper/dm-migrations.git
+  revision: b7b55662779da3d519dc3650267643ac95f1126d
+  specs:
+    dm-migrations (1.1.1)
+      dm-core (~> 1.1.0)
+
+GIT
+  remote: git://github.com/datamapper/dm-timestamps.git
+  revision: 00bbe2537c8bc399003520d4590f2bfc72174a57
+  specs:
+    dm-timestamps (1.1.1)
+      dm-core (~> 1.1.0)
+
+GIT
   remote: git://github.com/datamapper/dm-types.git
   revision: 52d223bc8c1495125710500b85282d1cfa229b67
   specs:
@@ -12,10 +47,25 @@ GIT
       uuidtools (~> 2.1.2)
 
 GIT
+  remote: git://github.com/datamapper/dm-validations.git
+  revision: eeca11d6bb5c0b7591ae6fbcf697e37b2306c798
+  specs:
+    dm-validations (1.1.1)
+      dm-core (~> 1.1.0)
+
+GIT
   remote: git://github.com/komagata/dm-tags.git
   revision: 04909e276669367fd1a5174429d0bb26b8b67ae6
   specs:
     dm-tags (1.1.1)
+      dm-core (~> 1.1.0)
+
+GIT
+  remote: git://github.com/visionmedia/dm-pagination.git
+  revision: a9d422530e31f91f12c4612093e09419c5b332cd
+  specs:
+    dm-pager (1.1.1)
+      dm-aggregates (~> 1.1.0)
       dm-core (~> 1.1.0)
 
 GEM
@@ -32,33 +82,18 @@ GEM
     diff-lcs (1.1.2)
     dm-aggregates (1.1.0)
       dm-core (~> 1.1.0)
-    dm-core (1.1.0)
-      addressable (~> 2.2.4)
     dm-do-adapter (1.1.0)
       data_objects (~> 0.10.2)
-      dm-core (~> 1.1.0)
-    dm-is-searchable (1.1.0)
-      dm-core (~> 1.1.0)
-    dm-is-tree (1.1.0)
-      dm-core (~> 1.1.0)
-    dm-migrations (1.1.0)
       dm-core (~> 1.1.0)
     dm-mysql-adapter (1.1.0)
       dm-do-adapter (~> 1.1.0)
       do_mysql (~> 0.10.2)
-    dm-pager (1.1.0)
-      dm-aggregates (>= 0.10.1)
-      dm-core (>= 0.10.1)
     dm-postgres-adapter (1.1.0)
       dm-do-adapter (~> 1.1.0)
       do_postgres (~> 0.10.2)
     dm-sqlite-adapter (1.1.0)
       dm-do-adapter (~> 1.1.0)
       do_sqlite3 (~> 0.10.2)
-    dm-timestamps (1.1.0)
-      dm-core (~> 1.1.0)
-    dm-validations (1.1.0)
-      dm-core (~> 1.1.0)
     do_mysql (0.10.6)
       data_objects (= 0.10.6)
     do_postgres (0.10.6)
@@ -124,18 +159,18 @@ DEPENDENCIES
   activesupport (= 3.0.7)
   builder (= 3.0.0)
   bundler (~> 1.0.7)
-  dm-core (= 1.1.0)
-  dm-is-searchable (= 1.1.0)
-  dm-is-tree (= 1.1.0)
-  dm-migrations (= 1.1.0)
+  dm-core!
+  dm-is-searchable!
+  dm-is-tree!
+  dm-migrations!
   dm-mysql-adapter (= 1.1.0)
-  dm-pager (= 1.1.0)
+  dm-pager!
   dm-postgres-adapter (= 1.1.0)
   dm-sqlite-adapter (= 1.1.0)
   dm-tags!
-  dm-timestamps (= 1.1.0)
+  dm-timestamps!
   dm-types!
-  dm-validations (= 1.1.0)
+  dm-validations!
   erubis (= 2.6.6)
   haml (= 3.1.1)
   i18n (= 0.5.0)
