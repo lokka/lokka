@@ -514,8 +514,7 @@ module Lokka
       @posts = Post.published.
                     page(params[:page], :per_page => settings.per_page)
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
+      @bread_crumbs = [{:name => t.home, :link => '/'}]
 
       render_detect :index, :entries
     end
@@ -538,9 +537,8 @@ module Lokka
 
       @title = "Search by #{@query} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add(@query)
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => @query }]
 
       render_detect :search, :entries
     end
@@ -558,12 +556,11 @@ module Lokka
 
       @title = "#{@category.title} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
+      @bread_crumbs = [{:name => t.home, :link => '/'}]
       @category.ancestors.each do |cat|
-        @bread_crumbs.add(cat.name, cat.link)
+        @bread_crumbs << {:name => cat.name, :link => cat.link}
       end
-      @bread_crumbs.add(@category.title, @category.link)
+      @bread_crumbs << {:name => @category.title, :link => @category.link}
 
       render_detect :category, :entries
     end
@@ -580,9 +577,8 @@ module Lokka
                     page(params[:page], :per_page => settings.per_page)
       @title = "#{@tag.name} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add(@tag.name, @tag.link)
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => @tag.name, :link => @tag.link}]
 
       render_detect :tag, :entries
     end
@@ -600,10 +596,9 @@ module Lokka
 
       @title = "#{year}/#{month} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add("#{year}", "/#{year}/")
-      @bread_crumbs.add("#{year}/#{month}", "/#{year}/#{month}/")
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => "#{year}", :link => "/#{year}/"},
+                       {:name => "#{year}/#{month}", :link => "/#{year}/#{month}/"}]
 
       render_detect :monthly, :entries
     end
@@ -621,9 +616,8 @@ module Lokka
 
       @title = "#{year} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
-      @bread_crumbs.add("#{year}", "/#{year}/")
+      @bread_crumbs = [{:name => t.home, :link => '/'},
+                       {:name => "#{year}", :link => "/#{year}/"}]
 
       render_detect :yearly, :entries
     end
@@ -641,15 +635,14 @@ module Lokka
 
       @title = "#{@entry.title} - #{@site.title}"
 
-      @bread_crumbs = BreadCrumb.new
-      @bread_crumbs.add(t.home, '/')
+      @bread_crumbs = [{:name => t.home, :link => '/'}]
       if @entry.category
         @entry.category.ancestors.each do |cat|
-          @bread_crumbs.add(cat.name, cat.link)
+          @bread_crumbs << {:name => cat.name, :link => cat.link}
         end
-        @bread_crumbs.add(@entry.category.title, @entry.category.link)
+        @bread_crumbs << {:name => @entry.category.title, :link => @entry.category.link}
       end
-      @bread_crumbs.add(@entry.title, @entry.link)
+      @bread_crumbs << {:name => @entry.title, :link => @entry.link}
 
       render_detect type, :entry
     end
