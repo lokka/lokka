@@ -26,6 +26,8 @@ pages: Pages
 comments: Comments
 snippets: Snippets
 themes: Themes
+default_themes: Default Themes
+mobile_themes: Mobile Themes
 plugins: Plugins
 settings: Settings
 sites: Site
@@ -52,6 +54,7 @@ listing_comments: Listing Comments
 listing_snippets: Listing Snippets
 listing_users: Listing Users
 listing_themes: Listing Themes
+listing_mobile_themes: Listing Mobile Themes
 listing_plugins: Listing Plugins
 new_post: New Post
 new_page: New Page

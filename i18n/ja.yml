@@ -26,6 +26,8 @@ pages: ページ
 comments: コメント
 snippets: スニペット
 themes: テーマ
+default_themes: デフォルト
+mobile_themes: スマートフォン用
 plugins: プラグイン
 settings: 設定
 sites: サイト
@@ -52,6 +54,7 @@ listing_comments: コメント一覧
 listing_snippets: スニペット一覧
 listing_users: ユーザー一覧
 listing_themes: テーマ一覧
+listing_mobile_themes: スマートフォン用テーマ一覧
 listing_plugins: プラグイン一覧
 new_post: 投稿登録
 new_page: ページ登録

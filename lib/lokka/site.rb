@@ -7,6 +7,7 @@ class Site
   property :description, String, :length => 255
   property :dashboard, Text, :length => 65535
   property :theme, String, :length => 64
+  property :mobile_theme, String, :length => 64
   property :meta_description, String, :length => 255
   property :meta_keywords, String, :length => 255
   property :created_at, DateTime
