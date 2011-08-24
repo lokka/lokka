@@ -306,6 +306,10 @@ color: #ec189a;
 	line-height: 1.6;
 	margin-bottom: 1.6em;
 }
+#main .article .body img {
+  max-width: 100%;
+  height: auto;
+}
 #main .section .body h3 {
 	font-size: 108%;
 	line-height: 1.3;
