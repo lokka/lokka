@@ -1,0 +1,43 @@
+<div class="article section">
+  <div class="header">
+    <h2 class="title"><a href="<%= @entry.link %>"><%= @entry.title %></a></h2>
+<div class="created_at">
+  <span class="mounth <%= @entry.created_at.strftime("%b") %>"><%= @entry.created_at.strftime("%b") %></span>
+  <span class="day"><%=@entry.created_at.day %></span>
+  <span class="year"><%= @entry.created_at.year %></span>
+</div>
+  </div>
+  <div class="body">
+    <%= @entry.body %>
+  </div>
+<% if logged_in? %>
+    <p><a href="<%= @entry.edit_link %>"><%= t.edit %></a></p>
+<% end %>    
+</div>
+
+<div class="comments">
+
+	<% if @entry.comments.size > 0 %>
+	<h3><%= t.comments %></h3>
+	<ul class="clearfix">
+		<% @entry.comments.reverse.each do |comment| %>
+			<li id="comment-<%= comment.id %>" class="comment">
+				<div class="bubble">
+				  <div class="body">
+					  <%= hbr comment.body %>					
+          </div>
+				</div>
+				<div class="commenter">
+					<span class="name"><%= link_to_unless comment.homepage.blank?, comment.name, comment.homepage %></span>
+					<span class="date"><%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %></span>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+	<% end %>
+	
+	<div class="form">
+		<%= comment_form %>
+	</div>
+	
+</div>
