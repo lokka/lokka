@@ -33,8 +33,6 @@ autoload :Entry, 'lokka/entry'
 autoload :Category, 'lokka/category'
 autoload :Comment, 'lokka/comment'
 autoload :Snippet, 'lokka/snippet'
-autoload :Bread, 'lokka/bread'
-autoload :BreadCrumb, 'lokka/bread_crumb'
 
 module Lokka
   autoload :Before, 'lokka/before'

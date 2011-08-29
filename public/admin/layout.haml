@@ -81,8 +81,12 @@
               %li.new
                 %a{:href => '/admin/snippets/new'}= t.new
           %li.theme.parent
-            %h3
-              %a{:href => '/admin/themes'}= t.themes
+            %h3.title= t.themes
+            %ul
+              %li.list
+                %a{:href => '/admin/themes'}= t.default_themes
+              %li.list
+                %a{:href => '/admin/mobile_themes'}= t.mobile_themes
           %li.plugin.parent
             %h3
               %a{:href => '/admin/plugins'}= t.plugins

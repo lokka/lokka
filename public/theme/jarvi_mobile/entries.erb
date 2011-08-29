@@ -1,0 +1,32 @@
+<% @posts.each do |post| %>
+<div class="article section">
+  <div class="header">
+    <h2 class="title"><a href="<%= post.link %>"><%= post.title %></a></h2>
+    <div class="created_at">
+      <span class="mounth <%= post.created_at.strftime("%b") %>"><%= post.created_at.strftime("%b") %></span>
+      <span class="day"><%=post.created_at.day %></span>
+      <span class="year"><%= post.created_at.year %></span>
+    </div>
+
+  </div>
+  <div class="body">
+    <%= post.body %>
+  </div>
+  <div class="footer">
+
+<% if logged_in? %>
+    <p><a href="<%= post.edit_link %>"><%= t.edit %></a></p>
+<% end %>
+  </div>
+</div>
+<% end %>
+<div class="pager">
+  <ul>
+<% if @posts.pager.previous_page %>
+    <li class="previous"><a href="?page=<%= @posts.pager.previous_page %>"><%= t.newer %></a></li>
+<% end %>
+<% if @posts.pager.next_page %>
+    <li class="next"><a href="?page=<%= @posts.pager.next_page %>"><%= t.older %></a></li>
+<% end %>
+  </ul>
+</div>

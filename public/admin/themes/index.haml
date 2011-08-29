@@ -1,7 +1,7 @@
 %h2= t.listing_themes
 %ul.themes
   - @themes.each do |theme|
-    - class_for_theme = theme.title == @theme.name ? 'theme selected' : 'theme'
+    - class_for_theme = theme.title == Site.first.theme ? 'theme selected' : 'theme'
     %li{:class => class_for_theme}
       .title
         = link_to theme.title, "/admin/themes?title=#{theme.title}", :confirm => t.are_you_sure, :method => 'put'

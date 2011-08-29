@@ -534,7 +534,7 @@ label {
   background: url(../images/file.png);
 }
 
-#aside li.theme h3 a {
+#aside li.theme h3 {
   background: url(../images/theme.png);
 }
 
