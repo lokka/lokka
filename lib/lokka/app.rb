@@ -493,7 +493,7 @@ module Lokka
       @theme_types << :entries
 
       @posts = Post.published.
-                    page(params[:page], :per_page => settings.per_page)
+                    page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
       @bread_crumbs = BreadCrumb.new
       @bread_crumbs.add(t.home, '/')
@@ -503,7 +503,7 @@ module Lokka
 
     get '/index.atom' do
       @posts = Post.published.
-                    page(params[:page], :per_page => settings.per_page)
+                    page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
       content_type 'application/atom+xml', :charset => 'utf-8'
       builder :'system/index'
     end
@@ -515,7 +515,7 @@ module Lokka
 
       @query = params[:query]
       @posts = Post.published.search(@query).
-                    page(params[:page], :per_page => settings.per_page)
+                    page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
       @title = "Search by #{@query} - #{@site.title}"
 
@@ -535,7 +535,7 @@ module Lokka
       @category = Category.get_by_fuzzy_slug(category_title)
       return 404 if @category.nil?
       @posts = Post.all(:category => @category).published.
-                    page(params[:page], :per_page => settings.per_page)
+                    page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
       @title = "#{@category.title} - #{@site.title}"
 
@@ -558,7 +558,7 @@ module Lokka
       return 404 if @tag.nil?
       @posts = Post.all(:id => @tag.taggings.map {|o| o.taggable_id }).
                     published.
-                    page(params[:page], :per_page => settings.per_page)
+                    page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
       @title = "#{@tag.name} - #{@site.title}"
 
       @bread_crumbs = BreadCrumb.new
@@ -577,7 +577,7 @@ module Lokka
       @posts = Post.all(:created_at.gte => DateTime.new(year, month)).
                     all(:created_at.lt => DateTime.new(year, month) >> 1).
                     published.
-                    page(params[:page], :per_page => settings.per_page)
+                    page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
       @title = "#{year}/#{month} - #{@site.title}"
 
@@ -598,7 +598,7 @@ module Lokka
       @posts = Post.all(:created_at.gte => DateTime.new(year)).
                     all(:created_at.lt => DateTime.new(year + 1)).
                     published.
-                    page(params[:page], :per_page => settings.per_page)
+                    page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
       @title = "#{year} - #{@site.title}"
 
