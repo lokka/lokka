@@ -36,10 +36,13 @@ module Lokka
                 Post
               when 'page'
                 Page
+              when 'attachment'
+                next
               end
 
-            puts item.xpath('content:encoded').text
-            puts item.xpath('wp:post_date_gmt').text
+            # Skip if a post is in draft mode and the post date is 0000-00-00 00:00:00
+            next if item.xpath('wp:post_date_gmt').text == "0000-00-00 00:00:00"
+
             attrs = {
               :id    => item.xpath('wp:post_id').text.to_i,
               :title => item.xpath('title').text,
