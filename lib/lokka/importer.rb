@@ -6,7 +6,7 @@ module Lokka
       end
 
       def import
-        doc = Nokogiri::XML(@file)
+        doc = Nokogiri::XML(@file.read.gsub(//, ''))
         doc.xpath('/rss/channel',
         'content' => 'http://purl.org/rss/1.0/modules/content/',
         'wp' => 'http://wordpress.org/export/1.1/').each do |channel|
@@ -38,6 +38,8 @@ module Lokka
                 Page
               end
 
+            puts item.xpath('content:encoded').text
+            puts item.xpath('wp:post_date_gmt').text
             attrs = {
               :id    => item.xpath('wp:post_id').text.to_i,
               :title => item.xpath('title').text,
