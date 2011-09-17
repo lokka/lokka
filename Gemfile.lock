@@ -18,6 +18,15 @@ GIT
     dm-tags (1.1.1)
       dm-core (~> 1.1.0)
 
+GIT
+  remote: git://github.com/yayugu/dm-do-adapter.git
+  revision: 65d9a814a7be1d76670fee10031d88cc487dac10
+  branch: 1.1.0.fix
+  specs:
+    dm-do-adapter (1.1.0)
+      data_objects (~> 0.10.2)
+      dm-core (~> 1.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -34,9 +43,6 @@ GEM
       dm-core (~> 1.1.0)
     dm-core (1.1.0)
       addressable (~> 2.2.4)
-    dm-do-adapter (1.1.0)
-      data_objects (~> 0.10.2)
-      dm-core (~> 1.1.0)
     dm-is-searchable (1.1.0)
       dm-core (~> 1.1.0)
     dm-is-tree (1.1.0)
@@ -125,6 +131,7 @@ DEPENDENCIES
   builder (= 3.0.0)
   bundler (~> 1.0.7)
   dm-core (= 1.1.0)
+  dm-do-adapter!
   dm-is-searchable (= 1.1.0)
   dm-is-tree (= 1.1.0)
   dm-migrations (= 1.1.0)
