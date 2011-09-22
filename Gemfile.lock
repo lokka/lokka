@@ -103,6 +103,10 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
     sass (3.1.1)
+    simplecov (0.5.3)
+      multi_json (~> 1.0.3)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
     sinatra (1.2.3)
       rack (~> 1.1)
       tilt (< 2.0, >= 1.2.2)
@@ -152,6 +156,7 @@ DEPENDENCIES
   rake (= 0.8.7)
   rspec (~> 2.5)
   sass (= 3.1.1)
+  simplecov
   sinatra (= 1.2.3)
   sinatra-content-for (= 0.2)
   sinatra-r18n (= 0.4.9)
