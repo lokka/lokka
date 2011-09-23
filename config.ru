@@ -1,3 +1,4 @@
-Encoding.default_external = 'utf-8' if defined?(Encoding) && Encoding.respond_to?('default_external')
-require './init'
-run Lokka::App
+# This file is used by Rack-based servers to start the application.
+
+require ::File.expand_path('../config/environment',  __FILE__)
+run Lokka::Application
