@@ -40,9 +40,9 @@ module Lokka
       register Sinatra::R18n
       register Lokka::Before
       set :root, File.expand_path('../../..', __FILE__)
-      set :public => Proc.new { File.join(root, 'public') }
-      set :views => Proc.new { public }
-      set :theme => Proc.new { File.join(public, 'theme') }
+      set :public_folder => Proc.new { File.join(root, 'public') }
+      set :views => Proc.new { public_folder }
+      set :theme => Proc.new { File.join(public_folder, 'theme') }
       set :supported_templates => %w(erb haml slim erubis)
       set :supported_stylesheet_templates => %w(scss sass)
       set :per_page, 10
