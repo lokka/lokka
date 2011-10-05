@@ -1,7 +1,8 @@
 module Lokka
   module BasicAuth
     def self.registered(app)
-      app.before do
+      app.before '*' do |path|
+        return if path =~ %r{^/admin/.*$}
         username = Option.basic_auth_username
         password = Option.basic_auth_password
         if username and password
