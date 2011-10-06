@@ -68,20 +68,20 @@ module Lokka
               end
             end
 
+            entry.save
+
             entry.comments.destroy
 
             item.xpath('wp:comment').each do |comment|
-              comment = Comment.new(
+              comment = entry.comments.new(
                 :name => comment.xpath('wp:comment_author').text,
                 :email => comment.xpath('wp:comment_email').text,
                 :body => comment.xpath('wp:comment_content').text,
                 :created_at => comment.xpath('wp:comment_date').text,
                 :status => comment.xpath('wp:comment_approvied').text == '1' ? 1 : 0
               )
-              entry.comments << comment
+              comment.save
             end
-
-            entry.save
           end
         end
       end
