@@ -17,8 +17,12 @@
 		</span>
 
 		<span class="entry_date">
-			<%= post.updated_at.strftime("%Y/%m/%d %H:%M:%S") %>
+			<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
 		</span>
+
+		<% if logged_in? %>
+		  <span><a href="<%= post.edit_link %>"><%= t.edit %></a></span>
+		<% end %>
 
 		<%= post.tags_to_html %>
 	</div>
