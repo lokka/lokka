@@ -25,14 +25,14 @@ require 'slim'
 require 'builder'
 require 'nokogiri'
 
-autoload :Theme, 'lokka/theme'
-autoload :User, 'lokka/user'
-autoload :Site, 'lokka/site'
-autoload :Option, 'lokka/option'
-autoload :Entry, 'lokka/entry'
-autoload :Category, 'lokka/category'
-autoload :Comment, 'lokka/comment'
-autoload :Snippet, 'lokka/snippet'
+require 'lokka/theme'
+require 'lokka/user'
+require 'lokka/site'
+require 'lokka/option'
+require 'lokka/entry'
+require 'lokka/category'
+require 'lokka/comment'
+require 'lokka/snippet'
 
 module Lokka
   autoload :Before, 'lokka/before'
@@ -75,6 +75,7 @@ module Lokka
 
   class Database
     def connect
+      DataMapper.finalize
       DataMapper::Logger.new(STDOUT, :debug) if Lokka.development?
       DataMapper.setup(:default, Lokka.config[Lokka.env]['dsn'])
       self
@@ -152,6 +153,12 @@ module DataMapper
         value_length_org(value)
       end
     end
+  end
+end
+
+class Tag
+  def link
+    "/tags/#{name}/"
   end
 end
 
