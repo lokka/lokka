@@ -4,7 +4,7 @@ describe 'Tag' do
   context 'link' do
     it 'should return link path' do
       tag = Tag.first(:name => 'lokka')
-      tag.link.should eq('/tag/lokka/')
+      tag.link.should eq('/tags/lokka/')
     end
   end
 end
