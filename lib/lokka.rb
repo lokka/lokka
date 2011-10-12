@@ -26,14 +26,15 @@ require 'builder'
 require 'nokogiri'
 require 'ruby19' if RUBY_VERSION >= '1.9'
 
-autoload :Theme, 'lokka/theme'
-autoload :User, 'lokka/user'
-autoload :Site, 'lokka/site'
-autoload :Option, 'lokka/option'
-autoload :Entry, 'lokka/entry'
-autoload :Category, 'lokka/category'
-autoload :Comment, 'lokka/comment'
-autoload :Snippet, 'lokka/snippet'
+require 'lokka/theme'
+require 'lokka/user'
+require 'lokka/site'
+require 'lokka/option'
+require 'lokka/entry'
+require 'lokka/category'
+require 'lokka/comment'
+require 'lokka/snippet'
+require 'lokka/tag'
 
 module Lokka
   autoload :Before, 'lokka/before'
@@ -76,6 +77,7 @@ module Lokka
 
   class Database
     def connect
+      DataMapper.finalize
       DataMapper::Logger.new(STDOUT, :debug) if Lokka.development?
       DataMapper.setup(:default, Lokka.config[Lokka.env]['dsn'])
       self
