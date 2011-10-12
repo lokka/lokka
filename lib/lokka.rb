@@ -78,7 +78,6 @@ module Lokka
   class Database
     def connect
       DataMapper.finalize
-      DataMapper::Logger.new(STDOUT, :debug) if Lokka.development?
       DataMapper.setup(:default, Lokka.config[Lokka.env]['dsn'])
       self
     end
