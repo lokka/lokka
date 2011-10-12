@@ -17,9 +17,9 @@ Rubyで書かれたクラウドの為のCMS。
   $ cd lokka
   $ bundle install --without=production:test
   $ bundle exec rake db:setup
-  $ bundle exec ruby lokka.rb
+  $ bundle exec rackup
 
-http://localhost:9646/ を見る。
+http://localhost:9292/ を見る。
 
 == Herokuへのデプロイ
 

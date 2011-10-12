@@ -17,9 +17,9 @@ CMS written in Ruby for cloud computing.
   $ cd lokka
   $ bundle install --without=production:test
   $ bundle exec rake db:setup
-  $ bundle exec ruby lokka.rb
+  $ bundle exec rackup
 
-View at: http://localhost:9646/
+View at: http://localhost:9292/
 
 == DEPLOY TO HEROKU
 
