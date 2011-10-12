@@ -34,6 +34,10 @@ module Lokka
       set :plugins, plugins
     end
 
+    configure :development do
+      register Sinatra::Reloader
+    end
+
     configure do
       enable :method_override, :raise_errors, :static, :sessions
       disable :logging

@@ -8,6 +8,7 @@ require 'csv'
 
 require 'active_support/all'
 require 'sinatra/base'
+require 'sinatra/reloader'
 require 'sinatra/r18n'
 require 'sinatra/content_for'
 require 'rack/flash'
