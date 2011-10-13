@@ -1,4 +1,5 @@
 require './init'
+include Rake::DSL if defined? Rake::DSL
 
 task :default => ['db:setup', :spec]
 
