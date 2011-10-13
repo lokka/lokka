@@ -2,11 +2,8 @@ rvm:
   - 1.8.7
   - 1.9.2
   - 1.9.3
-env:
-  DATABASE_URL:
-    adapter: sqlite3
-    database: ":memory:"
-    timeout: 500
+before_script:
+  - "cp config.sample.yml config.yml"
 notifications:
   irc: "irc.freenode.org#lokka"
   irc: "irc.freenode.org#lokka-ja"
