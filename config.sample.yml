@@ -1,0 +1,12 @@
+# To set dsn, 
+# write config.yml following this sample 
+# or set ENV['DATABASE_URL']
+# 
+# If using Heroku, ENV['DATABASE_URL'] is automatically set.
+
+production:
+  dsn: mysql://sampleuser:samplepassword@localhost/db_name
+development:
+  dsn: sqlite3://<%= root %>/db/development.sqlite3
+test:
+  dsn: sqlite3://<%= root %>/db/test.sqlite3
