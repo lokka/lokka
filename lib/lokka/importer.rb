@@ -36,7 +36,7 @@ module Lokka
                 Post
               when 'page'
                 Page
-              when 'attachment'
+              else
                 next
               end
 
