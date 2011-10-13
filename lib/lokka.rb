@@ -57,6 +57,9 @@ module Lokka
   def self.dsn
     if File.exist?("#{Lokka.root}/config.yml")
       YAML.load(ERB.new(File.read("#{Lokka.root}/config.yml")).result(binding))[self.env]['dsn']
+    elsif !ENV['DATABASE_URL'] && File.exist?("#{Lokka.root}/config.sample.yml")
+      warn "WARNING: Using config.sample.yml instead because config.yml doesn't exist and ENV['DATABASE_URL'] is not set"
+      YAML.load(ERB.new(File.read("#{Lokka.root}/config.sample.yml")).result(binding))[self.env]['dsn']
     elsif ENV['DATABASE_URL']
       ENV['DATABASE_URL']
     else
