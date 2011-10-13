@@ -54,8 +54,14 @@ module Lokka
     File.expand_path('..', File.dirname(__FILE__))
   end
 
-  def self.config
-    YAML.load(ERB.new(File.read("#{Lokka.root}/config.yml")).result(binding))
+  def self.dsn
+    if File.exist?("#{Lokka.root}/config.yml")
+      YAML.load(ERB.new(File.read("#{Lokka.root}/config.yml")).result(binding))[self.env]['dsn']
+    elsif ENV['DATABASE_URL']
+      ENV['DATABASE_URL']
+    else
+      raise("DSN is not set. Write config.yml or set ENV['DATABASE_URL']")
+    end
   end
 
   def self.env
@@ -83,7 +89,7 @@ module Lokka
   class Database
     def connect
       DataMapper.finalize
-      DataMapper.setup(:default, Lokka.config[Lokka.env]['dsn'])
+      DataMapper.setup(:default, Lokka.dsn)
       self
     end
 
