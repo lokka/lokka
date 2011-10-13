@@ -25,7 +25,11 @@ require 'sass'
 require 'slim'
 require 'builder'
 require 'nokogiri'
-require 'ruby19' if RUBY_VERSION >= '1.9'
+if RUBY_VERSION >= '1.9'
+  require 'ruby19'
+else
+  require 'ruby18'
+end
 
 require 'lokka/theme'
 require 'lokka/user'
