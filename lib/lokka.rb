@@ -55,7 +55,8 @@ module Lokka
   end
 
   def self.dsn
-    YAML.load(ERB.new(File.read("#{Lokka.root}/config.yml")).result(binding))[self.env]['dsn']
+    filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
+    YAML.load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[self.env]['dsn']
   end
 
   def self.env
