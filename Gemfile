@@ -32,12 +32,9 @@ gem 'tux'
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
 group :production do
-  gem 'dm-postgres-adapter', '1.2.0.rc2'
-  gem 'dm-mysql-adapter', '1.2.0.rc2'
 end
 
-group :development, :test do
-  gem 'dm-sqlite-adapter', '1.2.0.rc2'
+group :development do
 end
 
 group :test do
@@ -45,3 +42,16 @@ group :test do
   gem 'rspec', '~> 2.5'
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'
 end
+
+group :mysql do
+  gem 'dm-mysql-adapter', '1.2.0.rc2'
+end
+
+group :postgresql do
+  gem 'dm-postgres-adapter', '1.2.0.rc2'
+end
+
+group :sqlite do
+  gem 'dm-sqlite-adapter', '1.2.0.rc2'
+end
+
