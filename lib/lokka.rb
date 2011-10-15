@@ -54,10 +54,6 @@ module Lokka
     File.expand_path('..', File.dirname(__FILE__))
   end
 
-  def self.dsn
-    YAML.load(ERB.new(File.read("#{Lokka.root}/config.yml")).result(binding))[self.env]['dsn']
-  end
-
   def self.env
     if ENV['LOKKA_ENV'] == 'production' or ENV['RACK_ENV'] == 'production'
       'production'
@@ -81,9 +77,20 @@ module Lokka
   end
 
   class Database
+    def dsn
+      if File.exist?("#{Lokka.root}/database.yml")
+        config = YAML.load(File.read("#{Lokka.root}/database.yml"))
+        if config[Lokka.env]
+          return config[Lokka.env]['dsn']
+        end
+      end
+      require 'lokka/default_database_config'
+      DefaultConfig[Lokka.env]['dsn']
+    end
+
     def connect
       DataMapper.finalize
-      DataMapper.setup(:default, Lokka.dsn)
+      DataMapper.setup(:default, dsn)
       self
     end
 
