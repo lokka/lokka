@@ -1,4 +1,4 @@
-# Lokka
+# Lokka [<img src="https://secure.travis-ci.org/komagata/lokka.png"/>](http://travis-ci.org/komagata/lokka)
 
 Rubyで書かれたクラウドの為のCMS。
 
@@ -12,7 +12,6 @@ Rubyで書かれたクラウドの為のCMS。
 
 ## インストール
 
-    $ gem install bundler
     $ git clone git://github.com/komagata/lokka.git
     $ cd lokka
     $ bundle install --without=production:test
@@ -32,7 +31,7 @@ http://localhost:9292/ を見る。
 
 ## テスト
 
-  $ rake spec
+    $ rake spec
 
 ## テーマの作り方
 

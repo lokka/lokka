@@ -1,8 +1,8 @@
-## Lokka [<img src="https://secure.travis-ci.org/komagata/lokka.png"/>](http://travis-ci.org/komagata/lokka)
+# Lokka [<img src="https://secure.travis-ci.org/komagata/lokka.png"/>](http://travis-ci.org/komagata/lokka)
 
 CMS written in Ruby for cloud computing.
 
-## FEATURES
+## Features
 
 * Performs in the cloud environment such as Google App Engine and Heroku as well as Windows, Mac, and Linux.
 * Designed with reference to WordPress for WordPress users to easily understand.
@@ -10,7 +10,7 @@ CMS written in Ruby for cloud computing.
 * Easy to create a theme for designers.
 * A clear plug-in API for Rubyists
 
-## INSTALLATION
+## Installation
 
     $ git clone git://github.com/komagata/lokka.git
     $ cd lokka
@@ -20,7 +20,7 @@ CMS written in Ruby for cloud computing.
 
 View at: http://localhost:9292/
 
-## DEPLOY TO HEROKU
+## Deploy to Heroku
 
     $ git clone git://github.com/komagata/lokka.git
     $ cd lokka
@@ -31,13 +31,13 @@ View at: http://localhost:9292/
 
 ## Test
 
-  $ rake spec
+    $ rake spec
 
 ## How to make theme
 
 Make a directory for theme in public/theme and you need to create entries.erb and entry.erb at least. (erb, haml and slim is available.)
 
-### index page
+### Index page
 
 public/theme/example/entries.haml:
 
@@ -52,7 +52,7 @@ public/theme/example/entries.haml:
           %h2= entry.title
           .body= entry.body
 
-### individual page
+### Individual page
 
 public/theme/example/entry.haml:
 
