@@ -1,4 +1,4 @@
-created_at = updated_at = "2011-01-09T05:39:08+09:00"
+created_at = updated_at = Time.parse("2011-01-09T05:39:08+09:00").iso8601
 
 Site.create!(:title => "Test Site",
              :description => "description...",
