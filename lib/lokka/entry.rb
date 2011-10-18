@@ -19,8 +19,6 @@ class Entry
 
   has_tags
 
-  default_order 'created_at DESC'
-
   validates_presence_of :title
   validates_uniqueness_of :slug
   validates_uniqueness_of :title
@@ -40,6 +38,30 @@ class Entry
     }.reject{|x|x.blank?}.uniq.sort
   end
 
+  class << self
+    def _default_scope
+      {:order => :created_at.desc}
+    end
+
+    def first_with_scope(limit, query = DataMapper::Undefined)
+      unless limit.kind_of? Integer
+        query = limit
+        limit = 1
+      end
+      query = _default_scope.update(query) if query.kind_of? Hash
+      query = _default_scope if query == DataMapper::Undefined
+      first_without_scope query
+    end
+    alias_method_chain :first, :scope
+
+    def all_with_scope(query = DataMapper::Undefined)
+      query = _default_scope.update(query) if query.kind_of? Hash
+      query = _default_scope if query == DataMapper::Undefined
+      all_without_scope query
+    end
+    alias_method_chain :all, :scope
+  end
+
   def self.get_by_fuzzy_slug(str)
     ret = first(:slug => str, :draft => false)
     ret.blank? ? first(:id => str, :draft => false) : ret
@@ -47,7 +69,7 @@ class Entry
 
   def self.search(str)
     all(:title.like => "%#{str}%") |
-    all(:body.like => "%#{str}%")
+      all(:body.like => "%#{str}%")
   end
 
   def self.recent(count = 5)
