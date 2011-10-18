@@ -14,7 +14,7 @@ gem 'dm-timestamps',    '1.2.0.rc2'
 gem 'dm-validations',   '1.2.0.rc2'
 gem 'dm-types',         '1.2.0.rc2'
 gem 'dm-is-tree',       '1.2.0.rc2'
-gem 'dm-tags',          '1.2.0.rc2' 
+gem 'dm-tags',          '1.2.0.rc2'
 gem 'dm-is-searchable', '1.2.0.rc2'
 gem 'dm-pager',         :git => 'git://github.com/yayugu/dm-pagination.git'
 gem 'dm-aggregates',    '1.2.0.rc2'
@@ -54,4 +54,3 @@ end
 group :sqlite do
   gem 'dm-sqlite-adapter', '1.2.0.rc2'
 end
-
