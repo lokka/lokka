@@ -98,10 +98,8 @@ module Lokka
 
     # posts
     get '/admin/posts' do
-      model = Post
-      model = model.all(:draft => true) if params[:draft] == 'true'
-      @posts = model.all(:order => :created_at.desc).
-                     page(params[:page], :per_page => settings.admin_per_page)
+      @posts = params[:draft] == 'true' ? Post.unpublished.all : Post.all
+      @posts = @posts.page(params[:page], :per_page => settings.admin_per_page)
       render_any :'posts/index'
     end
 
@@ -161,10 +159,8 @@ module Lokka
 
     # pages
     get '/admin/pages' do
-      model = Page
-      model = model.all(:draft => true) if params[:draft] == 'true'
-      @pages = model.all(:order => :created_at.desc).
-                     page(params[:page], :per_page => settings.admin_per_page)
+      @pages = params[:draft] == 'true' ? Page.unpublished.all : Page.all
+      @pages = @pages.page(params[:page], :per_page => settings.admin_per_page)
       render_any :'pages/index'
     end
 

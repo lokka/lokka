@@ -19,7 +19,7 @@ class Entry
 
   has_tags
 
-  default_scope(:default).update(:draft => false, :order => [:created_at.desc])
+  default_order 'created_at DESC'
 
   validates_presence_of :title
   validates_uniqueness_of :slug
@@ -42,7 +42,7 @@ class Entry
 
   def self.get_by_fuzzy_slug(str)
     ret = first(:slug => str, :draft => false)
-    ret.blank? ? get(str) : ret
+    ret.blank? ? first(:id => str, :draft => false) : ret
   end
 
   def self.search(str)
@@ -51,7 +51,7 @@ class Entry
   end
 
   def self.recent(count = 5)
-    all(:limit => count, :order => [:created_at.desc], :draft => false)
+    all(:limit => count)
   end
 
   def self.published

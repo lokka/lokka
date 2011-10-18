@@ -1,7 +1,7 @@
 require './init'
 include Rake::DSL if defined? Rake::DSL
 
-task :default => ['spec:setup', 'db:migrate', 'db:spec_seed', :spec]
+task :default => ['spec:setup', 'db:delete', 'db:spec_seed', :spec]
 
 desc 'Migrate the Lokka database'
 task 'db:migrate' do
