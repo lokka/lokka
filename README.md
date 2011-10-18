@@ -33,7 +33,7 @@ View at: http://localhost:9292/
 
     $ rake spec
 
-## How to make theme
+## How to make a theme
 
 Make a directory for theme in public/theme and you need to create entries.erb and entry.erb at least. (erb, haml and slim is available.)
 
@@ -66,7 +66,7 @@ public/theme/example/entry.haml:
         %h2= @entry.title
         .body= @entry.body
 
-## How to make plugin
+## How to make a plugin
 
 Lokka Plugin is subset of [Sinatra Extension](http://www.sinatrarb.com/extensions.html). but Lokka had a specific rules of nomenclature.
 If you need display "Hello, World" when access to "/hello", Write a following.
