@@ -1,4 +1,4 @@
-# encoding: utf-8
+$:.unshift File.dirname(__FILE__)
 require 'rubygems'
 require 'pathname'
 require 'erb'
@@ -25,12 +25,14 @@ require 'sass'
 require 'slim'
 require 'builder'
 require 'nokogiri'
+
 if RUBY_VERSION >= '1.9'
   require 'ruby19'
 else
   require 'ruby18'
 end
 
+require 'lokka/version'
 require 'lokka/theme'
 require 'lokka/user'
 require 'lokka/site'
@@ -55,8 +57,17 @@ module Lokka
   end
 
   def self.dsn
-    filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
-    YAML.load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[self.env]['dsn']
+    filename = 'database.yml'
+    path =
+      if File.exist?("#{Dir.pwd}/#{filename}")
+        "#{Dir.pwd}/#{filename}"
+      else
+        "#{Lokka.root}/#{filename}"
+      end
+    puts "pwd: #{Dir.pwd}"
+    puts "path: #{path}"
+    puts "dsn: #{YAML.load(ERB.new(File.read(path)).result(binding))[self.env]['dsn']}"
+    YAML.load(ERB.new(File.read(path)).result(binding))[self.env]['dsn']
   end
 
   def self.env
@@ -107,6 +118,11 @@ module Lokka
     def seed
       seed_file = File.join(Lokka.root, 'db', 'seeds.rb')
       load(seed_file) if File.exist?(seed_file)
+    end
+
+    def setup
+      migrate
+      seed
     end
   end
 end

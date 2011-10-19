@@ -1,6 +1,5 @@
 config.yml
 /db/*.sqlite3
-/bundle
 /vendor/bundle
 /vendor/gem
 /.bundle
@@ -11,6 +10,8 @@ config.yml
 .DS_Store
 /tags
 /import.rb
-/pkg
 /.rvmrc
 /Lokka.app
+*.gem
+.bundle
+pkg/*
