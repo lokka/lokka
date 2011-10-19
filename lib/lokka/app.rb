@@ -514,6 +514,8 @@ module Lokka
       @posts = Post.published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
+      @title = @site.title
+
       @bread_crumbs = [{:name => t.home, :link => '/'}]
 
       render_detect :index, :entries
@@ -535,7 +537,7 @@ module Lokka
       @posts = Post.published.search(@query).
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
-      @title = "Search by #{@query} - #{@site.title}"
+      @title = "Search by #{@query}"
 
       @bread_crumbs = [{:name => t.home, :link => '/'},
                        {:name => @query }]
@@ -554,7 +556,7 @@ module Lokka
       @posts = Post.all(:category => @category).published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
-      @title = "#{@category.title} - #{@site.title}"
+      @title = @category.title
 
       @bread_crumbs = [{:name => t.home, :link => '/'}]
       @category.ancestors.each do |cat|
@@ -575,7 +577,7 @@ module Lokka
       @posts = Post.all(:id => @tag.taggings.map {|o| o.taggable_id }).
                     published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
-      @title = "#{@tag.name} - #{@site.title}"
+      @title = @tag.name
 
       @bread_crumbs = [{:name => t.home, :link => '/'},
                        {:name => @tag.name, :link => @tag.link}]
@@ -594,7 +596,7 @@ module Lokka
                     published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
-      @title = "#{year}/#{month} - #{@site.title}"
+      @title = "#{year}/#{month}"
 
       @bread_crumbs = [{:name => t.home, :link => '/'},
                        {:name => "#{year}", :link => "/#{year}/"},
@@ -614,7 +616,7 @@ module Lokka
                     published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
 
-      @title = "#{year} - #{@site.title}"
+      @title = year
 
       @bread_crumbs = [{:name => t.home, :link => '/'},
                        {:name => "#{year}", :link => "/#{year}/"}]
@@ -633,7 +635,7 @@ module Lokka
       @theme_types << type
       eval "@#{type} = @entry"
 
-      @title = "#{@entry.title} - #{@site.title}"
+      @title = @entry.title
 
       @bread_crumbs = [{:name => t.home, :link => '/'}]
       if @entry.category
