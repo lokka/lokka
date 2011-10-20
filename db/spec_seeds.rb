@@ -65,3 +65,19 @@ Entry.create!(:user_id => 3,
               :type => "Post",
               :created_at => (Time.parse(created_at) + 1.minutes).iso8601,
               :updated_at => (Time.parse(created_at) + 1.minutes).iso8601)
+
+# page
+Entry.create!(:user_id => 1,
+              :title => "Test Page",
+              :body => "test Page",
+              :type => "Page",
+              :created_at => created_at,
+              :updated_at => updated_at)
+
+# draft page
+Entry.create!(:user_id => 1,
+              :title => "Draft Page",
+              :body => "draft Page",
+              :type => "Page",
+              :created_at => created_at,
+              :updated_at => updated_at)

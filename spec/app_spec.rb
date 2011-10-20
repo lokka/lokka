@@ -79,5 +79,41 @@ end
       post '/admin/login', {:name => 'test', :password => 'test'}
       follow_redirect!
     end
+
+    context '/admin/posts' do
+      context 'when no option' do
+        it 'show all posts' do
+          get '/admin/posts'
+          last_response.body.should match('Test Post')
+          last_response.body.should match('Draft Post')
+        end
+      end
+
+      context 'when draft option' do
+        it 'show only draft posts' do
+          get '/admin/posts', {:draft => 'true'}
+          last_response.body.should_not match('Test Post')
+          last_response.body.should match('Draft Post')
+        end
+      end
+    end
+
+    context '/admin/pages' do
+      context 'when no option' do
+        it 'show all pages' do
+          get '/admin/pages'
+          last_response.body.should match('Test Page')
+          last_response.body.should match('Draft Page')
+        end
+      end
+
+      context 'when draft option' do
+        it 'show only draft pages' do
+          get '/admin/pages', {:draft => 'true'}
+          last_response.body.should_not match('Test Page')
+          last_response.body.should match('Draft Page')
+        end
+      end
+    end
   end
 end

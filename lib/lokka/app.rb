@@ -98,9 +98,7 @@ module Lokka
 
     # posts
     get '/admin/posts' do
-      @posts = params[:draft] == 'true' ? Post.unpublished.all : Post.all
-      @posts = @posts.page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'posts/index'
+      get_admin_entries(Post)
     end
 
     get '/admin/posts/new' do
@@ -136,9 +134,7 @@ module Lokka
 
     # pages
     get '/admin/pages' do
-      @pages = params[:draft] == 'true' ? Page.unpublished.all : Page.all
-      @pages = @pages.page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'pages/index'
+      get_admin_entries(Page)
     end
 
     get '/admin/pages/new' do

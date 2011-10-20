@@ -265,6 +265,13 @@ module Lokka
       render_detect_with_options [type, :entry], :theme => true 
     end
 
+    def get_admin_entries(entry_class)
+      name = entry_class.name.downcase
+      entry = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
+      eval "@#{name.pluralize} = entry.page(params[:page], :per_page => settings.admin_per_page)"
+      render_any :"#{name.pluralize}/index"
+    end
+
     def post_admin_entry(entry_class)
       name = entry_class.name.downcase
       entry = entry_class.new(params[name])
