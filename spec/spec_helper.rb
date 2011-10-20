@@ -31,6 +31,7 @@ module LokkaTestMethods
 end
 
 RSpec.configure do |config|
+  config.mock_with :rspec
   config.include Rack::Test::Methods
   config.include LokkaTestMethods
   config.include Lokka::Helpers

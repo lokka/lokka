@@ -16,7 +16,6 @@ describe "App" do
     it "entries is sort by created_at in descending" do
       get '/'
       body = last_response.body
-      p body
       (body.index(/Test Post2/) < body.index(/Test Post[^\d]/)).should be_true
     end
 
@@ -54,6 +53,31 @@ end
     it "should show lokka tag archive" do
       get '/tags/lokka/'
       last_response.should be_ok
+    end
+  end
+
+  describe 'login' do
+    context 'when valid username and password' do
+      it 'redirect /admin/' do
+        post '/admin/login', {:name => 'test', :password => 'test'}
+        last_response.should be_redirect
+        follow_redirect!
+        last_request.env['PATH_INFO'].should == '/admin/'
+      end
+    end
+
+    context 'when invalid username and password' do
+      it 'not redirect' do
+        post '/admin/login', {:name => 'test', :password => 'wrong'}
+        last_response.should_not be_redirect
+      end
+    end
+  end
+
+  describe 'access admin page' do
+    before do
+      post '/admin/login', {:name => 'test', :password => 'test'}
+      follow_redirect!
     end
   end
 end

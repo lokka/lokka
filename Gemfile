@@ -38,7 +38,7 @@ group :development do
 end
 
 group :test do
-  gem 'rack-test', '0.6.0', :require => 'rack/test'
+  gem 'rack-test', '0.6.1', :require => 'rack/test'
   gem 'rspec', '~> 2.5'
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'
 end
