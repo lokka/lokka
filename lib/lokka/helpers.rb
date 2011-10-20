@@ -264,5 +264,40 @@ module Lokka
 
       render_detect_with_options [type, :entry], :theme => true 
     end
+
+    def post_admin_entry(entry_class)
+      name = entry_class.name.downcase
+      entry = entry_class.new(params[name])
+      eval "@#{name} = entry"
+      if params['preview']
+        render_preview entry
+      else
+        entry.user = current_user
+        if entry.save
+          flash[:notice] = eval "t.#{name}_was_successfully_created"
+          redirect_after_edit(entry)
+        else
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          render_any :"#{name.pluralize}/new"
+        end
+      end
+    end
+
+    def put_admin_entry(entry_class, id)
+      name = entry_class.name.downcase
+      entry = entry_class.get(id)
+      eval "@#{name} = entry"
+      if params['preview']
+        render_preview entry_class.new(params[name])
+      else
+        if entry.update(params[name])
+          flash[:notice] = eval "t.#{name}_was_successfully_updated"
+          redirect_after_edit(entry)
+        else
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          render_any :'#{name.pluralize}/edit'
+        end
+      end
+    end
   end
 end

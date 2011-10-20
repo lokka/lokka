@@ -2,4 +2,5 @@
 %form{:action => '/admin/pages', :method => 'post'}
   = partial 'pages/form'
   %p
-    %input{:type => 'submit', :value => t.new}
+    %input{:type => 'submit', :value => t.preview, :name => 'preview'}
+    %input{:type => 'submit', :value => t.new,    :name => 'edit'}

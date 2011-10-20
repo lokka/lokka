@@ -110,19 +110,7 @@ module Lokka
     end
 
     post '/admin/posts' do
-      @post = Post.new(params['post'])
-      if params['preview']
-        render_preview @post
-      else
-        @post.user = current_user
-        if @post.save
-          flash[:notice] = t.post_was_successfully_created
-          redirect_after_edit(@post)
-        else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-          render_any :'posts/new'
-        end
-      end
+      post_admin_entry(Post)
     end
 
     get '/admin/posts/:id/edit' do |id|
@@ -132,18 +120,7 @@ module Lokka
     end
 
     put '/admin/posts/:id' do |id|
-      if params['preview']
-        render_preview Post.new(params['post'])
-      else
-        @post = Post.get(id)
-        if @post.update(params['post'])
-          flash[:notice] = t.post_was_successfully_updated
-          redirect_after_edit(@post)
-        else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-          render_any :'posts/edit'
-        end
-      end
+      put_admin_entry(Post, id)
     end
 
     delete '/admin/posts/:id' do |id|
@@ -171,19 +148,7 @@ module Lokka
     end
 
     post '/admin/pages' do
-      @page = Page.new(params['page'])
-      if params['preview']
-        render_preview @page
-      else
-        @page.user = current_user
-        if @page.save
-          flash[:notice] = t.page_was_successfully_created
-          redirect_after_edit(@page)
-        else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-          render_any :'pages/new'
-        end
-      end
+      post_admin_entry(Page)
     end
     
     get '/admin/pages/:id/edit' do |id|
@@ -193,18 +158,7 @@ module Lokka
     end
     
     put '/admin/pages/:id' do |id|
-      @page = Page.get(id)
-      if params['preview']
-        render_preview Post.new(params['post'])
-      else
-        if @page.update(params['page'])
-          flash[:notice] = t.page_was_successfully_updated
-          redirect_after_edit(@page)
-        else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-          render_any :'pages/edit'
-        end
-      end
+      put_admin_entry(Page, id)
     end
 
     delete '/admin/pages/:id' do |id|
