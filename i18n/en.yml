@@ -35,6 +35,7 @@ list: List
 draft: Draft
 new: New
 edit: Edit
+preview: Preview
 delete: Delete
 about: About this site
 recent_entries: Recent Entries

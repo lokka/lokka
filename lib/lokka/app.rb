@@ -111,17 +111,17 @@ module Lokka
 
     post '/admin/posts' do
       @post = Post.new(params['post'])
-      @post.user = current_user
-      if @post.save
-        flash[:notice] = t.post_was_successfully_created
-        if @post.draft
-          redirect '/admin/posts?draft=true'
-        else
-          redirect '/admin/posts'
-        end
+      if params['preview']
+        render_preview @post
       else
-        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-        render_any :'posts/new'
+        @post.user = current_user
+        if @post.save
+          flash[:notice] = t.post_was_successfully_created
+          redirect_after_edit(@post)
+        else
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          render_any :'posts/new'
+        end
       end
     end
 
@@ -132,17 +132,17 @@ module Lokka
     end
 
     put '/admin/posts/:id' do |id|
-      @post = Post.get(id)
-      if @post.update(params['post'])
-        flash[:notice] = t.post_was_successfully_updated
-        if @post.draft
-          redirect '/admin/posts?draft=true'
-        else
-          redirect '/admin/posts'
-        end
+      if params['preview']
+        render_preview Post.new(params['post'])
       else
-        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-        render_any :'posts/edit'
+        @post = Post.get(id)
+        if @post.update(params['post'])
+          flash[:notice] = t.post_was_successfully_updated
+          redirect_after_edit(@post)
+        else
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          render_any :'posts/edit'
+        end
       end
     end
 
@@ -172,17 +172,17 @@ module Lokka
 
     post '/admin/pages' do
       @page = Page.new(params['page'])
-      @page.user = current_user
-      if @page.save
-        flash[:notice] = t.page_was_successfully_created
-        if @page.draft
-          redirect '/admin/pages?draft=true'
-        else
-          redirect '/admin/pages'
-        end
+      if params['preview']
+        render_preview @page
       else
-        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-        render_any :'pages/new'
+        @page.user = current_user
+        if @page.save
+          flash[:notice] = t.page_was_successfully_created
+          redirect_after_edit(@page)
+        else
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          render_any :'pages/new'
+        end
       end
     end
     
@@ -194,16 +194,16 @@ module Lokka
     
     put '/admin/pages/:id' do |id|
       @page = Page.get(id)
-      if @page.update(params['page'])
-        flash[:notice] = t.page_was_successfully_updated
-        if @page.draft
-          redirect '/admin/pages?draft=true'
-        else
-          redirect '/admin/pages'
-        end
+      if params['preview']
+        render_preview Post.new(params['post'])
       else
-        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-        render_any :'pages/edit'
+        if @page.update(params['page'])
+          flash[:notice] = t.page_was_successfully_updated
+          redirect_after_edit(@page)
+        else
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          render_any :'pages/edit'
+        end
       end
     end
 
@@ -626,27 +626,10 @@ module Lokka
 
     # entry
     get %r{^/([0-9a-zA-Z-]+)$} do |id_or_slug|
-      @theme_types << :entry
-
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if @entry.blank?
-
-      type = @entry.class.name.downcase.to_sym
-      @theme_types << type
-      eval "@#{type} = @entry"
-
-      @title = @entry.title
-
-      @bread_crumbs = [{:name => t.home, :link => '/'}]
-      if @entry.category
-        @entry.category.ancestors.each do |cat|
-          @bread_crumbs << {:name => cat.name, :link => cat.link}
-        end
-        @bread_crumbs << {:name => @entry.category.title, :link => @entry.category.link}
-      end
-      @bread_crumbs << {:name => @entry.title, :link => @entry.link}
-
-      render_detect type, :entry
+      
+      setup_and_render_entry
     end
 
     # comment

@@ -3,4 +3,5 @@
   %input{:type => 'hidden', :name => '_method', :value => 'put'}
   = partial 'posts/form'
   %p
-    %input{:type => 'submit', :value => t.edit}
+    %input{:type => 'submit', :value => t.preview, :name => 'preview'}
+    %input{:type => 'submit', :value => t.edit,    :name => 'edit'}

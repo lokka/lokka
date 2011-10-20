@@ -62,9 +62,10 @@ class Entry
     alias_method_chain :all, :scope
   end
 
-  def self.get_by_fuzzy_slug(str)
-    ret = first(:slug => str, :draft => false)
-    ret.blank? ? first(:id => str, :draft => false) : ret
+  def self.get_by_fuzzy_slug(str, query = {})
+    query = {:draft => false}.update(query)
+    ret = first({:slug => str}.update(query))
+    ret.blank? ? first({:id => str}.update(query)) : ret
   end
 
   def self.search(str)

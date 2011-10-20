@@ -55,9 +55,13 @@ module Lokka
     end
 
     def render_detect(*names)
+      render_detect_with_options(names)
+    end
+
+    def render_detect_with_options(names, options = {})
       ret = ''
       names.each do |name|
-        out = render_any(name)
+        out = render_any(name, options)
         unless out.blank?
           ret = out
           break
@@ -70,6 +74,7 @@ module Lokka
         ret
       end
     end
+
 
     def partial(name, options = {})
       options[:layout] = false
@@ -93,7 +98,7 @@ module Lokka
     def rendering(ext, name, options = {})
       locals = options[:locals] ? {:locals => options[:locals]} : {}
       dir =
-        if request.path_info =~ %r{^/admin/.*}
+        if request.path_info =~ %r{^/admin/.*} && !options[:theme]
           'admin'
         else
           "theme/#{@theme.name}"
@@ -223,5 +228,41 @@ module Lokka
     end
 
     def locale; r18n.locale.code end
+
+    def redirect_after_edit(entry)
+      name = entry.class.name.downcase.pluralize
+      if entry.draft
+        redirect "/admin/#{name}?draft=true"
+      else
+        redirect "/admin/#{name}"
+      end
+    end
+
+    def render_preview(entry)
+        @entry = entry
+        @entry.title << ' - Preview'
+        setup_and_render_entry
+    end
+
+    def setup_and_render_entry
+      @theme_types << :entry
+
+      type = @entry.class.name.downcase.to_sym
+      @theme_types << type
+      eval "@#{type} = @entry"
+
+      @title = @entry.title
+
+      @bread_crumbs = [{:name => t.home, :link => '/'}]
+      if @entry.category
+        @entry.category.ancestors.each do |cat|
+          @bread_crumbs << {:name => cat.name, :link => cat.link}
+        end
+        @bread_crumbs << {:name => @entry.category.title, :link => @entry.category.link}
+      end
+      @bread_crumbs << {:name => @entry.title, :link => @entry.link}
+
+      render_detect_with_options [type, :entry], :theme => true 
+    end
   end
 end
