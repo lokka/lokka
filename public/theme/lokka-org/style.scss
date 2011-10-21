@@ -502,6 +502,12 @@ a {
        margin: 0px;
        line-height: 1.3;
     }
+
+    h2.title a {
+      color: #ddd;
+      text-decoration: none;
+      text-shadow:1px 1px 0px #444;
+    }
   }
 
 /* main section */
@@ -520,12 +526,6 @@ a {
       margin-bottom: 18px;
     }
     
-    h2.title a {
-      color: #ddd;
-      text-decoration: none;
-      text-shadow:1px 1px 0px #444;
-     }
-
     .body {
       border: none;
       background-image: url(images/index_content.gif);
