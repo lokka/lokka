@@ -1,6 +1,6 @@
 %h2= t.edit_comment
-%form{:action => "/admin/comments/#{@comment.id}", :method => 'post'}
-  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+%form(action="/admin/comments/#{@comment.id}" method="post")
+  %input(type="hidden" name="_method" value="put")
   = partial 'comments/form'
   %p
-    %input{:type => 'submit', :value => t.edit}
+    %input(type="submit" value="#{t.edit}")

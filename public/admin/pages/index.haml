@@ -10,15 +10,15 @@
     %th= t.page.title
     %th= t.page.user
     %th= t.page.created_at
-    %th{:colspan => 2}
+    %th(colspan="2")
   - @pages.each_with_index do |page, i|
-    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+    %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       %td.title
-        %a{:href => page.link}= page.title
+        %a(href="#{page.link}")= page.title
       %td= page.user.nil? ? '' : page.user.name
       %td= l page.created_at.to_time
       %td
-        %a.button{:href => page.edit_link}= t.edit
+        %a.button(href="#{page.edit_link}")= t.edit
       %td
         = link_to t.delete, "/admin/pages/#{page.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager

@@ -5,34 +5,34 @@
       - @post.errors.each do |error|
         %li= error
 .field
-  %label{:for => 'post_title'}= t.post.title
-  %br
-  %input{:type => 'text', :id => 'post_title', :name => 'post[title]', :value => @post.title}
+  %label(for="post_title")= t.post.title
+  %br/
+  %input(type="text" id="post_title" name="post[title]" value="#{@post.title}")
 .field
-  %label{:for => 'post_body'}= t.post.body
-  %br
-  %textarea{:id => 'post_body', :class => 'editor', :name => 'post[body]', :rows => 10, :cols => 50}= h @post.body
+  %label(for="post_body")= t.post.body
+  %br/
+  %textarea(id="post_body" class="editor" name="post[body]" rows="10" cols="50")= h @post.body
 .field
-  %label{:for => 'post_slug'}= t.post.slug
-  %br
-  %input{:type => 'text', :id => 'post_slug', :name => 'post[slug]', :value => @post.slug}
+  %label(for="post_slug")= t.post.slug
+  %br/
+  %input(type="text" id="post_slug" name="post[slug]" value="#{@post.slug}")
 .field
-  %label{:for => 'post_category'}= t.post.category
-  %br
+  %label(for="post_category")= t.post.category
+  %br/
   - if @categories.size > 1
     = select_field @post, :category_id, @categories, :id => 'post_category'
   - else
     = t.no_category
 .field
-  %label{:for => 'post_tag_collection'}= t.post.tags
+  %label(for="post_tag_collection")= t.post.tags
   %br
-  %input{:type => 'text', :id => 'post_tag_collection', :name => 'post[tag_collection]', :value => @post.tag_collection}
+  %input(type="text" id="post_tag_collection" name="post[tag_collection]" value="#{@post.tag_collection}")
 .field
-  %label{:for => 'post_draft'}= t.post.draft
-  %br
-  %input{:type => 'hidden', :name => 'post[draft]', :value => 'false'}
-  %input{:type => 'checkbox', :id => 'post_draft', :name => 'post[draft]', :value => 'true', :checked => @post.draft}
+  %label(for="post_draft")= t.post.draft
+  %br/
+  %input(type="hidden" name="post[draft]" value="false")
+    %input(type="checkbox" id="post_draft" name="post[draft]" value="true" checked="#{@post.draft}")
 .field
-  %label{:for => 'post_created_at'}= t.post.created_at
-  %br
-  %input{:type => 'text', :id => 'post_created_at', :name => 'post[created_at]', :value => @post.created_at}
+  %label(for="post_created_at")= t.post.created_at
+  %br/
+  %input(type="text" id="post_created_at" name="post[created_at]" value="#{@post.created_at}")

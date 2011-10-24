@@ -5,16 +5,16 @@
     %th= t.comment.body
     %th= t.comment.name
     %th= t.comment.created_at
-    %th{:colspan => 2}
+    %th(colspan="2")
   - @comments.each_with_index do |comment, i|
-    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+    %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       - status = case comment.status; when Comment::APPROVED; t.comment_approved; when Comment::MODERATED; t.comment_moderated; when Comment::SPAM; t.comment_spam; end
       %td= status
       %td.body= link_to truncate(strip_tags(comment.body)), comment.link
       %td= comment.name
       %td= l comment.created_at.to_time
       %td
-        %a.button{:href => "/admin/comments/#{comment.id}/edit"}= t.edit
+        %a.button(href="/admin/comments/#{comment.id}/edit")= t.edit
       %td
         = link_to t.delete, "/admin/comments/#{comment.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager

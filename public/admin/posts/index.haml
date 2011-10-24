@@ -10,15 +10,15 @@
     %th= t.post.title
     %th= t.post.user
     %th= t.post.created_at
-    %th{:colspan => 2}
+    %th(colspan="2")
   - @posts.each_with_index do |post, i|
-    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+    %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       %td.title
-        %a{:href => post.link}= post.title
+        %a(href="#{post.link}")= post.title
       %td= post.user.nil? ? '' : post.user.name
       %td= l post.created_at.to_time
       %td
-        %a.button{:href => post.edit_link}= t.edit
+        %a.button(href="#{post.edit_link}")= t.edit
       %td
         = link_to t.delete, "/admin/posts/#{post.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
 .pager

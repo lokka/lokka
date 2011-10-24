@@ -1,102 +1,80 @@
 !!!
 %html
   %head
-    %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
-    %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
-    %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
+    %meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+    %meta(http-equiv="Content-Style-Type" content="text/css")
+    %meta(http-equiv="Content-Script-Type" content="text/javascript")
     %title== #{@site.title} - Lokka
-    %link{:rel => 'shortcut icon', :href => '/admin/favicon.ico'}
-    %link{:rel => 'stylesheet', :href => '/admin/css/style.css', :type => 'text/css'}
-    %link{:rel => 'stylesheet', :href => '/admin/css/jquery.cleditor.css', :type => 'text/css'}
-    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", :type => "text/javascript"}
-    %script{:src => "/admin/js/jquery.cleditor.min.js", :type => "text/javascript"}
-    %script{:src => "/admin/js/editor.js", :type => "text/javascript"}
+    %link(rel="shortcut icon" href="/admin/favicon.ico")
+    %link(rel="stylesheet" href="/admin/css/style.css" type="text/css")
+    %link(rel="stylesheet" href="/admin/css/jquery.cleditor.css" type="text/css")
+    %script(src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript")
+    %script(src="/admin/js/jquery.cleditor.min.js" type="text/javascript")
+    %script(src="/admin/js/editor.js" type="text/javascript")
     - head_last = yield_content :head_last
     - unless head_last.blank?
       = head_last
   %body
     #header
-      %h1
-        %a{:href => '/'}= @site.title
+      %h1= link_to @site.title, '/'
       #nav
         %ul
           - if logged_in?
             %li= link_to current_user.name, "/admin/users/#{current_user.id}/edit"
-            %li
-              %a{:href => '/admin/logout'}= t.logout
+            %li= link_to t.logout, '/admin/logout'
           - else
-            %li
-              %a{:href => '/admin/login'}= t.login
+            %li= link_to t.login, '/admin/login'
     #content
       #aside
         %ul
           %li.dashboard.parent
-            %h3
-              %a{:href => '/admin/'}= t.dashboard
+            %h3= link_to t.dashboard, '/admin/'
           %li.post.parent
             %h3.title= t.posts
             %ul
-              %li.list
-                %a{:href => '/admin/posts'}= t.list
-              %li.new
-                %a{:href => '/admin/posts/new'}= t.new
+              %li.list= link_to t.list, '/admin/posts'
+              %li.new= link_to t.new, '/admin/posts/new'
           %li.page.parent
             %h3.title= t.pages
             %ul
-              %li.list
-                %a{:href => '/admin/pages'}= t.list
-              %li.new
-                %a{:href => '/admin/pages/new'}= t.new
+              %li.list= link_to t.list, '/admin/pages'
+              %li.new= link_to t.new, '/admin/pages/new'
           %li.comment.parent
             %h3.title= t.comments
             %ul
-              %li.list
-                %a{:href => '/admin/comments'}= t.list
-              %li.new
-                %a{:href => '/admin/comments/new'}= t.new
+              %li.list= link_to t.list, '/admin/comments'
+              %li.new= link_to t.new, '/admin/comments/new'
           %li.category.parent
             %h3.title= t.categories
             %ul
-              %li.list
-                %a{:href => '/admin/categories'}= t.list
-              %li.new
-                %a{:href => '/admin/categories/new'}= t.new
+              %li.list= link_to t.list, '/admin/categories'
+              %li.new= link_to t.new, '/admin/categories/new'
           %li.tag.parent
             %h3.title= t.tags
             %ul
-              %li.list
-                %a{:href => '/admin/tags'}= t.list
+              %li.list= link_to t.list, '/admin/tags'
           %li.user.parent
             %h3.title= t.users
             %ul
-              %li.list
-                %a{:href => '/admin/users'}= t.list
-              %li.new
-                %a{:href => '/admin/users/new'}= t.new
+              %li.list= link_to t.list, '/admin/users'
+              %li.new= link_to t.new, '/admin/users/new'
           %li.snippet.parent
             %h3.title= t.snippets
             %ul
-              %li.list
-                %a{:href => '/admin/snippets'}= t.list
-              %li.new
-                %a{:href => '/admin/snippets/new'}= t.new
+              %li.list= link_to t.list, '/admin/snippets'
+              %li.new= link_to t.new, '/admin/snippets/new'
           %li.theme.parent
             %h3.title= t.themes
             %ul
-              %li.list
-                %a{:href => '/admin/themes'}= t.default_themes
-              %li.list
-                %a{:href => '/admin/mobile_themes'}= t.mobile_themes
+              %li.list= link_to t.default_themes, '/admin/themes'
+              %li.list= link_to t.mobile_themes, '/admin/mobile_themes'
           %li.plugin.parent
-            %h3
-              %a{:href => '/admin/plugins'}= t.plugins
+            %h3= link_to t.plugins, '/admin/plugins'
           %li.setting.parent
             %h3.title= t.settings
             %ul
-              %li.list
-                %a(href="/admin/site/edit")= t.sites
-              %li.list
-                %a(href="/admin/import")= t.import
+              %li.list= link_to t.sites, '/admin/site/edit'
+              %li.list= link_to t.import, '/admin/import'
           - admin_aside = yield_content :admin_aside
           - unless admin_aside.blank?
             = admin_aside
@@ -105,5 +83,4 @@
           #notice
             %p= flash[:notice]
         = yield
-    #footer
-      %a{:href => 'http://lokka.org/'} Lokka
+    #footer= link_to 'Lokka', 'http://lokka.org'

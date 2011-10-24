@@ -4,15 +4,15 @@
     %th= t.user.name
     %th= t.user.email
     %th= t.user.created_at
-    %th{:colspan => 2}
+    %th(colspan="2")
   - @users.each_with_index do |user, i|
-    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+    %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       %td.name
-        %a{:href => "/admin/users/#{user.id}/edit"}= user.name
+        %a(href="/admin/users/#{user.id}/edit")= user.name
       %td= user.email
       %td= l user.created_at.to_time
       %td
-        %a.button{:href => "/admin/users/#{user.id}/edit"}= t.edit
+        %a.button(href="/admin/users/#{user.id}/edit")= t.edit
       %td
         - unless user == current_user
           = link_to t.delete, "/admin/users/#{user.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete

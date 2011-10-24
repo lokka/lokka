@@ -5,34 +5,34 @@
       - @page.errors.each do |error|
         %li= error
 .field
-  %label{:for => 'page_title'}= t.page.title
+  %label(for="page_title")= t.page.title
   %br
-  %input{:type => 'text', :id => 'page_title', :name => 'page[title]', :value => @page.title}
+  %input(type="text" id="page_title" name="page[title]" value="#{@page.title}")
 .field
-  %label{:for => 'page_body'}= t.page.body
+  %label(for="page_body")= t.page.body
   %br
-  %textarea{:id => 'page_body', :class => 'editor', :name => 'page[body]', :rows => 10, :cols => 50}= h @page.body
+  %textarea(id="page_body" class="editor" name="page[body]" rows="10" cols="50")= h @page.body
 .field
-  %label{:for => 'page_slug'}= t.page.slug
+  %label(for="page_slug")= t.page.slug
   %br
-  %input{:type => 'text', :id => 'page_slug', :name => 'page[slug]', :value => @page.slug}
+  %input(type="text" id="page_slug" name="page[slug]" value="#{@page.slug}")
 .field
-  %label{:for => 'page_category'}= t.page.category
+  %label(for="page_category")= t.page.category
   %br
   - if @categories.size > 1
     = select_field @page, :category_id, @categories, :id => 'page_category'
   - else
     = t.no_category
 .field
-  %label{:for => 'page_tag_collection'}= t.page.tags
+  %label(for="page_tag_collection")= t.page.tags
   %br
-  %input{:type => 'text', :id => 'page_tag_collection', :name => 'page[tag_collection]', :value => @page.tag_collection}
+  %input(type="text" id="page_tag_collection" name="page[tag_collection]" value="#{@page.tag_collection}")
 .field
-  %label{:for => 'page_draft'}= t.page.draft
+  %label(for="page_draft")= t.page.draft
   %br
-  %input{:type => 'hidden', :name => 'page[draft]', :value => 'false'}
-  %input{:type => 'checkbox', :id => 'page_draft', :name => 'page[draft]', :value => 'true', :checked => @page.draft}
+  %input(type="hidden" name="page[draft]" value="false")
+  %input(type="checkbox" id="page_draft" name="page[draft]" value="true" checked="#{@page.draft}")
 .field
-  %label{:for => 'page_created_at'}= t.page.created_at
+  %label(for="page_created_at")= t.page.created_at
   %br
-  %input{:type => 'text', :id => 'page_created_at', :name => 'page[created_at]', :value => @page.created_at}
+  %input(type="text" id="page_created_at" name="page[created_at]" value="#{@page.created_at}")

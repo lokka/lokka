@@ -1,7 +1,0 @@
-#sinatra_authentication
-  %h1.page_title
-    - if @user.email
-      = @user.email
-  - if current_user.admin?
-    %h2 permission level
-    = @user.permission_level
