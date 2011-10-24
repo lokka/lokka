@@ -1,39 +1,6 @@
 # encoding: utf-8
 module Lokka
   class App < Sinatra::Base
-    def self.load_plugin
-      names = []
-      Dir["public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
-        paths = path.split(File::SEPARATOR)
-        $:.push File.join(paths[0], paths[1], paths[2], paths[3])
-
-        i18n = File.join(paths[0], paths[1], paths[2], 'i18n')
-        R18n.extension_places << R18n::Loader::YAML.new(i18n) if File.exist? i18n
-
-        name, ext = paths[5].split('.')
-        require "lokka/#{name}"
-        begin
-          plugee = ::Lokka.const_get(name.camelize)
-          register plugee
-          names << name
-        rescue => e
-          puts "plugin #{paths[2]} is identified as a suspect."
-          puts e
-        end
-      end
-
-      plugins = []
-      unless @routes['GET'].blank?
-        matchers = @routes['GET'].map(&:first)
-        names.map do |name|
-          plugins << OpenStruct.new(
-            :name => name,
-            :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
-        end
-      end
-      set :plugins, plugins
-    end
-
     configure :development do
       register Sinatra::Reloader
     end
@@ -61,7 +28,7 @@ module Lokka
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12
       use Rack::Flash
-      load_plugin
+      register Lokka::Plugin::Loader
       Lokka::Database.new.connect
     end
 

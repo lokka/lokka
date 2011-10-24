@@ -40,6 +40,7 @@ require 'lokka/category'
 require 'lokka/comment'
 require 'lokka/snippet'
 require 'lokka/tag'
+require 'lokka/plugin/loader'
 
 module Lokka
   autoload :Before, 'lokka/before'
