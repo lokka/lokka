@@ -1,5 +1,7 @@
 module Lokka
   class Database
+    MODELS = %w(site option user entry category comment snippet tag tagging)
+
     def connect
       DataMapper.finalize
       DataMapper.setup(:default, Lokka.dsn)
@@ -13,12 +15,16 @@ module Lokka
     end
 
     def migrate
-      Lokka::MODELS.map(&:auto_upgrade!)
+      MODELS.each do |model|
+        model.camelize.constantize.auto_upgrade!
+      end
       self
     end
 
     def migrate!
-      Lokka::MODELS.map(&:auto_migrate!)
+      MODELS.each do |model|
+        model.camelize.constantize.auto_migrate!
+      end
       self
     end
 

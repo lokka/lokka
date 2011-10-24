@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'lokka'
+require 'lokka/plugin/loader'
 
 module Lokka
   class App < Sinatra::Base
