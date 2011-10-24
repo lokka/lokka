@@ -1,4 +1,6 @@
 # encoding: utf-8
+require 'lokka'
+
 module Lokka
   class App < Sinatra::Base
     configure :development do
@@ -10,6 +12,7 @@ module Lokka
       disable :logging
       register Sinatra::R18n
       register Lokka::Before
+      set :app_file, __FILE__
       set :root, File.expand_path('../../..', __FILE__)
       set :public_folder => Proc.new { File.join(root, 'public') }
       set :views => Proc.new { public_folder }
@@ -588,5 +591,7 @@ module Lokka
       content_type 'text/css', :charset => 'utf-8'
       render_any path.to_sym
     end
+
+    run! if app_file == $0
   end
 end
