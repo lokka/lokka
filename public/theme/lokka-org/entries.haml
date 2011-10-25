@@ -1,9 +1,0 @@
-.articles.section
-  - @posts.each do |post|
-    = partial :article, :locals => {:post => post}
-  .pager
-    %ul
-      - if @posts.pager.previous_page
-        %li.previous= link_to t.newer, "?page=#{@posts.pager.previous_page}"
-      - if @posts.pager.next_page
-        %li.next= link_to t.older, "?page=#{@posts.pager.next_page}"

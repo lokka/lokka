@@ -1,9 +1,0 @@
-.header
-  %h2.title= link_to post.title, post.link
-.article.section
-  .body
-    ~ post.body
-  .footer
-    .created_at= l post.created_at.to_time
-    - if logged_in?
-      %p= link_to t.edit, post.edit_link

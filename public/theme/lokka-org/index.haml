@@ -1,8 +1,0 @@
-- if locale == settings.default_locale
-  - page = Page('home') || Page.new
-- else
-  - page = Page("home-#{locale}") || Page.new
-.section
-  .header
-    %h2= page.title
-  .body= page.body
