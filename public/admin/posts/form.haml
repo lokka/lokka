@@ -30,8 +30,7 @@
 .field
   %label(for="post_draft")= t.post.draft
   %br/
-  %input(type="hidden" name="post[draft]" value="false")
-    %input(type="checkbox" id="post_draft" name="post[draft]" value="true" checked="#{@post.draft}")
+  = checkbox @post, :draft
 .field
   %label(for="post_created_at")= t.post.created_at
   %br/

@@ -180,6 +180,17 @@ module Lokka
       html + '</select>'
     end
 
+    def checkbox(object, method, options = {})
+      name = "#{object.class.name.downcase}[#{method}]"
+      id = "#{object.class.name.downcase}_#{method}"
+      checked = object.send(method) ? ' checked="checked"' : ''
+      attrs = ''
+      options.each do |key, value|
+        attrs += %Q( #{key}="#{value}")
+      end
+      %Q(<input type="hidden" name="#{name}" value="false" /><input type="checkbox" id="#{id}" name="#{name}" value="true"#{attrs}#{checked} />)
+    end
+
     def truncate(text, options = {})
       options = {:length => 30, :omission => '...'}.merge(options)
       mb_text = text.mb_chars
@@ -302,7 +313,7 @@ module Lokka
           redirect_after_edit(entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-          render_any :'#{name.pluralize}/edit'
+          render_any :"#{name.pluralize}/edit"
         end
       end
     end
