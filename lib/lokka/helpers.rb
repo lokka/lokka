@@ -260,7 +260,7 @@ module Lokka
 
       type = @entry.class.name.downcase.to_sym
       @theme_types << type
-      eval "@#{type} = @entry"
+      instance_variable_set("@#{type}", @entry)
 
       @title = @entry.title
 
@@ -273,26 +273,26 @@ module Lokka
       end
       @bread_crumbs << {:name => @entry.title, :link => @entry.link}
 
-      render_detect_with_options [type, :entry], :theme => true 
+      render_detect_with_options [type, :entry], :theme => true
     end
 
     def get_admin_entries(entry_class)
       name = entry_class.name.downcase
       entry = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
-      eval "@#{name.pluralize} = entry.page(params[:page], :per_page => settings.admin_per_page)"
+      instance_variable_set("@#{name.pluralize}", entry.page(params[:page], :per_page => settings.admin_per_page))
       render_any :"#{name.pluralize}/index"
     end
 
     def post_admin_entry(entry_class)
       name = entry_class.name.downcase
       entry = entry_class.new(params[name])
-      eval "@#{name} = entry"
+      instance_variable_set("@#{name}", entry)
       if params['preview']
         render_preview entry
       else
         entry.user = current_user
         if entry.save
-          flash[:notice] = eval "t.#{name}_was_successfully_created"
+          flash[:notice] = t["#{name}_was_successfully_created"]
           redirect_after_edit(entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
@@ -304,12 +304,12 @@ module Lokka
     def put_admin_entry(entry_class, id)
       name = entry_class.name.downcase
       entry = entry_class.get(id)
-      eval "@#{name} = entry"
+      instance_variable_set("@#{name}", entry)
       if params['preview']
         render_preview entry_class.new(params[name])
       else
         if entry.update(params[name])
-          flash[:notice] = eval "t.#{name}_was_successfully_updated"
+          flash[:notice] = t["#{name}_was_successfully_updated"]
           redirect_after_edit(entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
