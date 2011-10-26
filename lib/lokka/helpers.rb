@@ -304,7 +304,7 @@ module Lokka
         render_preview @entry
       else
         @entry.user = current_user
-        if entry.save
+        if @entry.save
           flash[:notice] = t["#{@name}_was_successfully_created"]
           redirect_after_edit(@entry)
         else
