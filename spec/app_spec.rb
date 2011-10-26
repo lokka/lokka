@@ -105,6 +105,21 @@ end
       end
     end
 
+    context '/admin/posts/new' do
+      it 'show edit page' do
+        get '/admin/posts/new'
+        last_response.body.should match('<form')
+      end
+    end
+
+    context '/admin/posts/:id/edit' do
+      it 'show edit page' do
+        get '/admin/posts/1/edit'
+        last_response.body.should match('<form')
+        last_response.body.should match('Test Post')
+      end
+    end
+
     context '/admin/pages' do
       context 'when no option' do
         it 'show all pages' do
@@ -120,6 +135,21 @@ end
           last_response.body.should_not match('Test Page')
           last_response.body.should match('Draft Page')
         end
+      end
+    end
+
+    context '/admin/pages/new' do
+      it 'show edit page' do
+        get '/admin/pages/new'
+        last_response.body.should match('<form')
+      end
+    end
+
+    context '/admin/pages/:id/edit' do
+      it 'show edit page' do
+        get '/admin/pages/4/edit'
+        last_response.body.should match('<form')
+        last_response.body.should match('Test Page')
       end
     end
 

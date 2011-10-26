@@ -71,9 +71,7 @@ module Lokka
     end
 
     get '/admin/posts/new' do
-      @post = Post.new(:created_at => DateTime.now)
-      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-      render_any :'posts/new'
+      get_admin_entry_new(Post)
     end
 
     post '/admin/posts' do
@@ -81,9 +79,7 @@ module Lokka
     end
 
     get '/admin/posts/:id/edit' do |id|
-      @post = Post.get(id)
-      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-      render_any :'posts/edit'
+      get_admin_entry_edit(Post, id)
     end
 
     put '/admin/posts/:id' do |id|
@@ -107,9 +103,7 @@ module Lokka
     end
 
     get '/admin/pages/new' do
-      @page = Page.new(:created_at => DateTime.now)
-      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-      render_any :'pages/new'
+      get_admin_entry_new(Page)
     end
 
     post '/admin/pages' do
@@ -117,9 +111,7 @@ module Lokka
     end
 
     get '/admin/pages/:id/edit' do |id|
-      @page = Page.get(id)
-      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-      render_any :'pages/edit'
+      get_admin_entry_edit(Page, id)
     end
 
     put '/admin/pages/:id' do |id|

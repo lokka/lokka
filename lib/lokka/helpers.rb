@@ -277,43 +277,55 @@ module Lokka
     end
 
     def get_admin_entries(entry_class)
-      name = entry_class.name.downcase
-      entry = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
-      instance_variable_set("@#{name.pluralize}", entry.page(params[:page], :per_page => settings.admin_per_page))
-      render_any :"#{name.pluralize}/index"
+      @name = entry_class.name.downcase
+      @entries = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
+      @entries = @entries.page(params[:page], :per_page => settings.admin_per_page)
+      render_any :'entries/index'
+    end
+
+    def get_admin_entry_new(entry_class)
+      @name = entry_class.name.downcase
+      @entry = entry_class.new(:created_at => DateTime.now)
+      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+      render_any :'entries/new'
+    end
+
+    def get_admin_entry_edit(entry_class, id)
+      @name = entry_class.name.downcase
+      @entry = entry_class.get(id)
+      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+      render_any :'entries/edit'
     end
 
     def post_admin_entry(entry_class)
-      name = entry_class.name.downcase
-      entry = entry_class.new(params[name])
-      instance_variable_set("@#{name}", entry)
+      @name = entry_class.name.downcase
+      @entry = entry_class.new(params[@name])
       if params['preview']
-        render_preview entry
+        render_preview @entry
       else
-        entry.user = current_user
+        @entry.user = current_user
         if entry.save
-          flash[:notice] = t["#{name}_was_successfully_created"]
-          redirect_after_edit(entry)
+          flash[:notice] = t["#{@name}_was_successfully_created"]
+          redirect_after_edit(@entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-          render_any :"#{name.pluralize}/new"
+          render_any :'entries/new'
         end
       end
     end
 
     def put_admin_entry(entry_class, id)
-      name = entry_class.name.downcase
-      entry = entry_class.get(id)
-      instance_variable_set("@#{name}", entry)
+      @name = entry_class.name.downcase
+      @entry = entry_class.get(id)
       if params['preview']
-        render_preview entry_class.new(params[name])
+        render_preview entry_class.new(params[@name])
       else
-        if entry.update(params[name])
-          flash[:notice] = t["#{name}_was_successfully_updated"]
-          redirect_after_edit(entry)
+        if @entry.update(params[@name])
+          flash[:notice] = t["#{@name}_was_successfully_updated"]
+          redirect_after_edit(@entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
-          render_any :"#{name.pluralize}/edit"
+          render_any :'entries/edit'
         end
       end
     end
