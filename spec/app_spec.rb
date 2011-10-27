@@ -181,6 +181,13 @@ end
       end
     end
 
+    context '/admin/categories/:id/edit' do
+      it 'should show form for edit categories' do
+        get '/admin/categories/1/edit'
+        last_response.should be_ok
+      end
+    end
+
     context '/admin/tags' do
       it 'should show index' do
         get '/admin/tags'
@@ -202,6 +209,13 @@ end
       end
     end
 
+    context '/admin/users/:id/edit' do
+      it 'should show form for edit users' do
+        get '/admin/users/1/edit'
+        last_response.should be_ok
+      end
+    end
+
     context '/admin/snippets' do
       it 'should show index' do
         get '/admin/snippets'
@@ -212,6 +226,13 @@ end
     context '/admin/snippets/new' do
       it 'should show form for new snippets' do
         get '/admin/snippets/new'
+        last_response.should be_ok
+      end
+    end
+
+    context '/admin/snippets/:id/edit' do
+      it 'should show form for edit snippets' do
+        get '/admin/snippets/1/edit'
         last_response.should be_ok
       end
     end
