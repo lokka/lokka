@@ -16,7 +16,7 @@
       %td.title
         %a(href="#{entry.link}")= entry.title
       %td= entry.user.nil? ? '' : entry.user.name
-      %td= l entry.created_at.to_time
+      %td= rl entry.created_at.to_time
       %td
         %a.button(href="#{entry.edit_link}")= rt.edit
       %td

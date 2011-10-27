@@ -10,8 +10,8 @@
     %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       %td.title= snippet.name
       %td= truncate(strip_tags(snippet.body))
-      %td= l snippet.created_at.to_time
-      %td= l snippet.updated_at.to_time
+      %td= rl snippet.created_at.to_time
+      %td= rl snippet.updated_at.to_time
       %td
         %a.button(href="#{snippet.edit_link}")= rt.edit
       %td

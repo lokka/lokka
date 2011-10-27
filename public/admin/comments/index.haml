@@ -12,7 +12,7 @@
       %td= status
       %td.body= link_to truncate(strip_tags(comment.body)), comment.link
       %td= comment.name
-      %td= l comment.created_at.to_time
+      %td= rl comment.created_at.to_time
       %td
         %a.button(href="/admin/comments/#{comment.id}/edit")= rt.edit
       %td

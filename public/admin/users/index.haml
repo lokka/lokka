@@ -10,7 +10,7 @@
       %td.name
         %a(href="/admin/users/#{user.id}/edit")= user.name
       %td= user.email
-      %td= l user.created_at.to_time
+      %td= rl user.created_at.to_time
       %td
         %a.button(href="/admin/users/#{user.id}/edit")= rt.edit
       %td

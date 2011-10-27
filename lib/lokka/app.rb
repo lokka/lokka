@@ -12,6 +12,7 @@ module Lokka
       
       register Sinatra::R18n
       alias_method :rt, :t
+      alias_method :rl, :l
 
       register Lokka::Before
       set :app_file, __FILE__

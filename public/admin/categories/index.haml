@@ -8,7 +8,7 @@
     %tr
       %td
         %a(href="/admin/categories/#{category.id}/edit")= category.title
-      %td= l category.created_at.to_time
+      %td= rl category.created_at.to_time
       %td
         %a.button(href="/admin/categories/#{category.id}/edit")= rt.edit
       %td
