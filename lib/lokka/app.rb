@@ -8,7 +8,8 @@ module Lokka
     end
 
     configure do
-      enable :method_override, :raise_errors, :static, :sessions, :logging
+      enable :method_override, :raise_errors, :static, :sessions
+      disable :logging
       register Sinatra::R18n
       register Lokka::Before
       set :app_file, __FILE__
