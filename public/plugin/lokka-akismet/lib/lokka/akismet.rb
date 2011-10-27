@@ -28,10 +28,10 @@ module Lokka
 				login_required
 				posted_key = params[:akismet][:akismet_key].to_s
 				if valid_akismet_key?(posted_key) && Option.akismet_key = params[:akismet][:akismet_key]
-					flash[:notice] = t.akismet.api_key_updated
+					flash[:notice] = rt.akismet.api_key_updated
 					redirect '/admin/plugins/akismet'
 				else
-					flash[:notice] = t.akismet.api_key_db_error
+					flash[:notice] = rt.akismet.api_key_db_error
 				end
         haml :"#{akismet_view}index", :layout => :"admin/layout"
 			end

@@ -1,18 +1,18 @@
 - unless @category.errors.empty?
   #error
-    .title= t.error
+    .title= rt.error
     %ul
       - @category.errors.each do |error|
         %li= error
 .field
-  %label(for="category_title")= t.category.title
+  %label(for="category_title")= rt.category.title
   %br
   %input(type="text" id="category_title" name="category[title]" value="#{@category.title}")
 .field
-  %label(for="category_description")= t.category.description
+  %label(for="category_description")= rt.category.description
   %br
   %textarea(id="category_description" class="editor" name="category[description]")= h @category.description
 .field
-  %label(for="category_slug")= t.category.slug
+  %label(for="category_slug")= rt.category.slug
   %br/
   %input(type="text" id="category_slug" name="category[slug]" value="#{@category.slug}")
