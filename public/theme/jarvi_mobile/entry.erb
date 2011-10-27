@@ -29,7 +29,7 @@
 				</div>
 				<div class="commenter">
 					<span class="name"><%= link_to_unless comment.homepage.blank?, comment.name, comment.homepage %></span>
-					<span class="date"><%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %></span>
+					<span class="date"><%= rl comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %></span>
 				</div>
 			</li>
 		<% end %>

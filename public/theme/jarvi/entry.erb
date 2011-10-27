@@ -6,7 +6,7 @@
     <%= @entry.body %>
   </div>
   <div class="footer">
-    <div class="created_at"><%= l @entry.created_at.to_time %></div>
+    <div class="created_at"><%= rl @entry.created_at.to_time %></div>
 <% if logged_in? %>
     <p><a href="<%= @entry.edit_link %>"><%= rt.edit %></a></p>
 <% end %>    

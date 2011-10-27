@@ -14,6 +14,8 @@ module Lokka
       alias_method :rt, :t
       alias_method :rl, :l
 
+      register Padrino::Helpers
+
       register Lokka::Before
       set :app_file, __FILE__
       set :root, File.expand_path('../../..', __FILE__)
@@ -29,7 +31,6 @@ module Lokka
       supported_stylesheet_templates.each do |style|
         set style, :style => :expanded
       end
-      helpers Sinatra::ContentFor
       helpers Lokka::Helpers
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12

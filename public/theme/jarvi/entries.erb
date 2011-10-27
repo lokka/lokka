@@ -7,7 +7,7 @@
     <%= post.body %>
   </div>
   <div class="footer">
-    <div class="created_at"><%= l post.created_at.to_time %></div>
+    <div class="created_at"><%= rl post.created_at.to_time %></div>
 <% if logged_in? %>
     <p><a href="<%= post.edit_link %>"><%= rt.edit %></a></p>
 <% end %>
