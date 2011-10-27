@@ -1,7 +1,7 @@
 <% if about = Snippet("about") %>
 <div id="profile" class="side_cont_wrapper first_side_cont_wrapper">
 	<h3 class="side_cont_title">
-	  <%= t.profile %>
+	  <%= rt.profile %>
 	</h3>
 	<div class="side_cont_body">
 		<%= about.body %>
@@ -11,7 +11,7 @@
 
 <div id="recent_entry" class="side_cont_wrapper">
 	<h3 class="side_cont_title">
-	  <%= t.recent_entries %>
+	  <%= rt.recent_entries %>
 	</h3>
 	<div class="side_cont_body">
 		<ul id="side_list">
@@ -27,7 +27,7 @@
 
 <div id="recent_comment" class="side_cont_wrapper">
 	<h3 class="side_cont_title">
-	  <%= t.recent_comments %>
+	  <%= rt.recent_comments %>
 	</h3>
 	<div class="side_cont_body">
 		<ul id="side_list">
@@ -43,7 +43,7 @@
 
 <div id="recent_tag" class="side_cont_wrapper">
 	<h3 class="side_cont_title">
-	  <%= t.tags %>
+	  <%= rt.tags %>
 	</h3>
 	<div class="side_cont_body">
 		<ul id="side_list">
@@ -59,7 +59,7 @@
 
 <div id="archives" class="side_cont_wrapper">
 	<h3 class="side_cont_title">
-	  <%= t.archives %>
+	  <%= rt.archives %>
 	</h3>
 	<div class="side_cont_body">
 		<ul id="side_list">
@@ -75,7 +75,7 @@
 
 <div id="search" class="side_cont_wrapper last_side_cont_wrapper">
 	<h3 class="side_cont_title">
-	  <%= t.search %>
+	  <%= rt.search %>
 	</h3>
 	<div class="side_cont_body">
 		<form action="/search/" method="get" id="">

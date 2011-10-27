@@ -1,12 +1,12 @@
-%h2= t.akismet.title
-%p= t.akismet.banner
+%h2= rt.akismet.title
+%p= rt.akismet.banner
 %form{:action => "/admin/plugins/akismet", :method => 'post'}
   %input{:type => 'hidden', :name => '_method', :value => 'put'}
   .field
-    %label{:for => 'akismet_key'}= t.akismet.akismet_key_entry
+    %label{:for => 'akismet_key'}= rt.akismet.akismet_key_entry
     %br
     %input{:type => 'text', :id => 'akismet_key', :name => 'akismet[akismet_key]', :value => @akismet}
   %br
   .field
     %p
-    %input{:type => 'submit', :value => t.save}
+    %input{:type => 'submit', :value => rt.save}

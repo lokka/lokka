@@ -1,19 +1,19 @@
-%h2= t.listing_tags
+%h2= rt.listing_tags
 %table.tags
   %tr
-    %th= t.tag.name
+    %th= rt.tag.name
     %th(colspan="2")
   - @tags.each_with_index do |tag, i|
     %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       %td.title
         %a(href="#{tag.link}")= "#{tag.name}(#{tag.taggings.count})"
       %td
-        %a.button(href="/admin/tags/#{tag.id}/edit")= t.edit
+        %a.button(href="/admin/tags/#{tag.id}/edit")= rt.edit
       %td
-        = link_to t.delete, "/admin/tags/#{tag.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
+        = link_to rt.delete, "/admin/tags/#{tag.id}", :class => 'button', :confirm => rt.are_you_sure, :method => :delete
 .pager
   %ul
     - if @tags.pager.previous_page
-      %li.previous= link_to t.previous, "?page=#{@tags.pager.previous_page}"
+      %li.previous= link_to rt.previous, "?page=#{@tags.pager.previous_page}"
     - if @tags.pager.next_page
-      %li.next= link_to t.next, "?page=#{@tags.pager.next_page}"
+      %li.next= link_to rt.next, "?page=#{@tags.pager.next_page}"

@@ -27,6 +27,7 @@ gem 'erubis', '2.6.6'
 gem 'activesupport', '3.1.1'
 gem 'nokogiri'
 gem 'tux'
+gem 'padrino'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 

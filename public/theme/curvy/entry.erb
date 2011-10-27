@@ -6,7 +6,7 @@
 
 	<% if @entry.comments.size > 0 %>
 	<h3>
-		<%= t.comments %>
+		<%= rt.comments %>
 	</h3>
 	<ul id="comments">
 		<% @entry.comments.reverse.each do |comment| %>
@@ -19,7 +19,7 @@
 						<%= link_to_unless comment.homepage.blank?, comment.name, comment.homepage %>
 					</span>
 					<span class="date">
-						<%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %>
+						<%= rl comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %>
 					</span>
 				</div>
 			</li>

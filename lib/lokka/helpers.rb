@@ -264,7 +264,7 @@ module Lokka
 
       @title = @entry.title
 
-      @bread_crumbs = [{:name => t.home, :link => '/'}]
+      @bread_crumbs = [{:name => rt.home, :link => '/'}]
       if @entry.category
         @entry.category.ancestors.each do |cat|
           @bread_crumbs << {:name => cat.name, :link => cat.link}
@@ -286,14 +286,14 @@ module Lokka
     def get_admin_entry_new(entry_class)
       @name = entry_class.name.downcase
       @entry = entry_class.new(:created_at => DateTime.now)
-      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, rt.not_select])
       render_any :'entries/new'
     end
 
     def get_admin_entry_edit(entry_class, id)
       @name = entry_class.name.downcase
       @entry = entry_class.get(id)
-      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+      @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, rt.not_select])
       render_any :'entries/edit'
     end
 
@@ -305,10 +305,10 @@ module Lokka
       else
         @entry.user = current_user
         if @entry.save
-          flash[:notice] = t["#{@name}_was_successfully_created"]
+          flash[:notice] = rt["#{@name}_was_successfully_created"]
           redirect_after_edit(@entry)
         else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, rt.not_select])
           render_any :'entries/new'
         end
       end
@@ -321,10 +321,10 @@ module Lokka
         render_preview entry_class.new(params[@name])
       else
         if @entry.update(params[@name])
-          flash[:notice] = t["#{@name}_was_successfully_updated"]
+          flash[:notice] = rt["#{@name}_was_successfully_updated"]
           redirect_after_edit(@entry)
         else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t.not_select])
+          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, rt.not_select])
           render_any :'entries/edit'
         end
       end
