@@ -20,7 +20,7 @@
   %label(for="#{@name}_category")= t("#{@name}.category")
   %br/
   - if @categories.size > 1
-    = select_field @entry, :category_id, @categories, :id => '#{@name}_category'
+    = select_field @entry, :category_id, @categories, :id => "#{@name}_category"
   - else
     = t('no_category')
 .field
