@@ -305,7 +305,7 @@ module Lokka
       else
         @entry.user = current_user
         if @entry.save
-          flash[:notice] = rt["#{@name}_was_successfully_created"]
+          flash[:notice] = t("#{@name}_was_successfully_created")
           redirect_after_edit(@entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
@@ -321,7 +321,7 @@ module Lokka
         render_preview entry_class.new(params[@name])
       else
         if @entry.update(params[@name])
-          flash[:notice] = rt["#{@name}_was_successfully_updated"]
+          flash[:notice] = t("#{@name}_was_successfully_updated")
           redirect_after_edit(@entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])

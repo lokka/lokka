@@ -9,9 +9,13 @@
   %br/
   %input(type="text" id="#{@name}_title" name="#{@name}[title]" value="#{@entry.title}")
 .field
+  %label(for="#{@name}_markup")= Markup
+  %br/
+  = select_field @entry, :markup, Markup.name_description_pair_list 
+.field
   %label(for="#{@name}_body")= t("#{@name}.body")
   %br/
-  %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.body
+  %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.raw_body
 .field
   %label(for="#{@name}_slug")= t("#{@name}.slug")
   %br/
