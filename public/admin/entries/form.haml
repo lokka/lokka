@@ -15,7 +15,8 @@
 .field
   %label(for="#{@name}_body")= t("#{@name}.body")
   %br/
-  %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.raw_body
+  %div#editor
+    %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.raw_body
 .field
   %label(for="#{@name}_slug")= t("#{@name}.slug")
   %br/
