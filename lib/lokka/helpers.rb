@@ -124,29 +124,6 @@ module Lokka
       haml :'system/comments/form', :layout => false
     end
 
-    def image_tag(src, options = {})
-      %Q(<img src="#{src}" />)
-    end
-
-    def link_to(name, url, options = {})
-      attrs = {:href => url}
-      if options[:confirm] and options[:method]
-        attrs[:onclick] = "if(confirm('#{options[:confirm]}')){var f = document.createElement('form');f.style.display = 'none';this.parentNode.appendChild(f);f.method = 'POST';f.action = this.href;var m = document.createElement('input');m.setAttribute('type', 'hidden');m.setAttribute('name', '_method');m.setAttribute('value', '#{options[:method]}');f.appendChild(m);f.submit();};return false"
-      end
-
-      options.delete :confirm
-      options.delete :method
-
-      attrs.update(options)
-
-      str = ''
-      attrs.each do |key, value|
-        str += %Q( #{key.to_s}="#{value}")
-      end
-
-      %Q(<a#{str}>#{name}</a>)
-    end
-
     def link_to_if(cond, name, url, options = {})
       cond ? link_to(name, url, options) : name
     end
@@ -191,17 +168,6 @@ module Lokka
       %Q(<input type="hidden" name="#{name}" value="false" /><input type="checkbox" id="#{id}" name="#{name}" value="true"#{attrs}#{checked} />)
     end
 
-    def truncate(text, options = {})
-      options = {:length => 30, :omission => '...'}.merge(options)
-      mb_text = text.mb_chars
-      max_length = options[:length]
-      mb_text.size > max_length ? mb_text[0, max_length].to_s + options[:omission] : text
-    end
-
-    def strip_tags(text)
-      text.gsub(/<.+?>/, '')
-    end
-
     def months
       ms = {}
       Post.all.each do |post|
@@ -238,7 +204,7 @@ module Lokka
       path
     end
 
-    def locale; r18n.locale.code end
+    def locale; I18n.locale end
 
     def redirect_after_edit(entry)
       name = entry.class.name.downcase.pluralize
