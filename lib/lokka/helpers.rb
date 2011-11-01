@@ -195,7 +195,7 @@ module Lokka
       options = {:length => 30, :omission => '...'}.merge(options)
       mb_text = text.mb_chars
       max_length = options[:length]
-      mb_text.size > max_length ? mb_text.to_s.first(max_length) + options[:omission] : text
+      mb_text.size > max_length ? mb_text[0, max_length].to_s + options[:omission] : text
     end
 
     def strip_tags(text)

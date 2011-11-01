@@ -1,3 +1,5 @@
+$KCODE = 'UTF8'
+
 unless String.public_method_defined?(:force_encoding)
   class String
     def force_encoding(encoding)
