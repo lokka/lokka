@@ -9,7 +9,7 @@ module Lokka
           root = lib.parent
           $:.push lib
           i18n = File.join(root, 'i18n')
-          R18n.extension_places << R18n::Loader::YAML.new(i18n) if File.exist? i18n
+          I18n.load_path += Dir["#{i18n}/*.yml"] if File.exist? i18n
           name = path.basename.to_s.split('.').first
           require "lokka/#{name}"
           begin

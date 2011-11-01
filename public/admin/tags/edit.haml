@@ -1,6 +1,6 @@
-%h2= rt.edit_tag
+%h2= t('edit_tag')
 %form(action="/admin/tags/#{@tag.id}" method="post")
   %input(type="hidden" name="_method" value="put")
   = partial 'tags/form'
   %p
-    %input(type="submit" value="#{rt.edit}")
+    %input(type="submit" value="#{t('edit')}")

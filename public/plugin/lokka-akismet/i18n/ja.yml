@@ -1,9 +1,10 @@
-akismet:
-  title: Akismet
-  banner: Akismetはコメントやトラックバックからスパムを取り除いてくれます。これで余計なことに気を煩わせる必要はもうなくなります。
-  apikey: Akismet API キー 
-  akismet_key_entry: Akismet API キーを登録
-  install_message: Akismetを利用するためにはAPIキーが必要です。<a href="">Akismet</a>から取得することができます。
-  api_key_created: APIキーを登録しました
-  api_key_updated: APIキーを更新しました
-  api_key_db_error: データベースエラーです
+ja:
+  akismet:
+    title: Akismet
+    banner: Akismetはコメントやトラックバックからスパムを取り除いてくれます。これで余計なことに気を煩わせる必要はもうなくなります。
+    apikey: Akismet API キー 
+    akismet_key_entry: Akismet API キーを登録
+    install_message: Akismetを利用するためにはAPIキーが必要です。<a href="">Akismet</a>から取得することができます。
+    api_key_created: APIキーを登録しました
+    api_key_updated: APIキーを更新しました
+    api_key_db_error: データベースエラーです

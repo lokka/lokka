@@ -1,6 +1,6 @@
-%h2= rt["new_#@name"]
+%h2= t("new_#{@name}")
 %form(action="/admin/#{@name.pluralize}" method="post")
   = partial 'entries/form'
   %p
-    %input(type="submit" value="#{rt.preview}" name="preview")
-    %input(type="submit" value="#{rt.new}" name="edit")
+    %input(type="submit" value="#{t('preview')}" name="preview")
+    %input(type="submit" value="#{t('new')}" name="edit")

@@ -1,13 +1,13 @@
-%h2= rt.listing_themes
+%h2= t('listing_themes')
 %ul.themes
   - @themes.each do |theme|
     - class_for_theme = theme.title == Site.first.theme ? 'theme selected' : 'theme'
     %li{:class => class_for_theme}
       .title
-        = link_to theme.title, "/admin/themes?title=#{theme.title}", :confirm => rt.are_you_sure, :method => 'put'
+        = link_to theme.title, "/admin/themes?title=#{theme.title}", :confirm => t('are_you_sure'), :method => 'put'
       - if theme.screenshot
         .screenshot
-          = link_to "<img src=\"#{theme.screenshot}\" />", "/admin/themes?title=#{theme.title}", :confirm => rt.may_i_change_the_theme, :method => 'put'
+          = link_to "<img src=\"#{theme.screenshot}\" />", "/admin/themes?title=#{theme.title}", :confirm => t('may_i_change_the_theme'), :method => 'put'
       - else
         .screenshot
           %span no screenshot

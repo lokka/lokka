@@ -1,5 +1,5 @@
-%h2= rt.new_snippet
+%h2= t('new_snippet')
 %form(action="/admin/snippets" method="post")
   = partial 'snippets/form'
   %p
-    %input(type="submit" value="#{rt.new}")
+    %input(type="submit" value="#{t('new')}")

@@ -1,5 +1,5 @@
-%h2= rt.new_user
+%h2= t('new_user')
 %form(action="/admin/users" method="post")
   = partial 'users/form'
   %p
-    %input(type="submit" value="#{rt.new}")
+    %input(type="submit" value="#{t('new')}")

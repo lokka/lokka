@@ -3,6 +3,8 @@ require 'lokka'
 
 module Lokka
   class App < Sinatra::Base
+    include Padrino::Helpers::TranslationHelpers
+
     configure :development do
       register Sinatra::Reloader
     end
@@ -10,13 +12,8 @@ module Lokka
     configure do
       enable :method_override, :raise_errors, :static, :sessions
       disable :logging
-      
-      register Sinatra::R18n
-      alias_method :rt, :t
-      alias_method :rl, :l
-
+      YAML::ENGINE.yamler = 'syck'
       register Padrino::Helpers
-
       register Lokka::Before
       set :app_file, __FILE__
       set :root, File.expand_path('../../..', __FILE__)
@@ -32,6 +29,7 @@ module Lokka
       supported_stylesheet_templates.each do |style|
         set style, :style => :expanded
       end
+      ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12
@@ -52,7 +50,7 @@ module Lokka
       @user = User.authenticate(params[:name], params[:password])
       if @user
         session[:user] = @user.id
-        flash[:notice] = rt.logged_in_successfully
+        flash[:notice] = t('logged_in_successfully')
         if session[:return_to]
           redirect_url = session[:return_to]
           session[:return_to] = false
@@ -95,7 +93,7 @@ module Lokka
     delete '/admin/posts/:id' do |id|
       post = Post.get(id)
       post.destroy
-      flash[:notice] = rt.post_was_successfully_deleted
+      flash[:notice] = t('post_was_successfully_deleted')
       if post.draft
         redirect '/admin/posts?draft=true'
       else
@@ -127,7 +125,7 @@ module Lokka
     delete '/admin/pages/:id' do |id|
       page = Page.get(id)
       page.destroy
-      flash[:notice] = rt.page_was_successfully_deleted
+      flash[:notice] = t('page_was_successfully_deleted')
       if page.draft
         redirect '/admin/pages?draft=true'
       else
@@ -144,41 +142,41 @@ module Lokka
 
     get '/admin/comments/new' do
       @comment = Comment.new(:created_at => DateTime.now)
-      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, rt.not_select])
+      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
       render_any :'comments/new'
     end
 
     post '/admin/comments' do
       @comment = Comment.new(params['comment'])
       if @comment.save
-        flash[:notice] = rt.comment_was_successfully_created
+        flash[:notice] = t('comment_was_successfully_created')
         redirect '/admin/comments'
       else
-        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, rt.not_select])
+        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
         render_any :'comments/new'
       end
     end
 
     get '/admin/comments/:id/edit' do |id|
       @comment = Comment.get(id)
-      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, rt.not_select])
+      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
       render_any :'comments/edit'
     end
 
     put '/admin/comments/:id' do |id|
       @comment = Comment.get(id)
       if @comment.update(params['comment'])
-        flash[:notice] = rt.comment_was_successfully_updated
+        flash[:notice] = t('comment_was_successfully_updated')
         redirect '/admin/comments'
       else
-        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, rt.not_select])
+        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
         render_any :'comments/edit'
       end
     end
 
     delete '/admin/comments/:id' do |id|
       Comment.get(id).destroy
-      flash[:notice] = rt.comment_was_successfully_deleted
+      flash[:notice] = t('comment_was_successfully_deleted')
       redirect '/admin/comments'
     end
 
@@ -191,7 +189,7 @@ module Lokka
 
     get '/admin/categories/new' do
       @category = Category.new
-      @categories = [nil, rt.not_select] + Category.all.map {|c| [c.id, c.title] }
+      @categories = [nil, t('not_select')] + Category.all.map {|c| [c.id, c.title] }
       render_any :'categories/new'
     end
 
@@ -199,7 +197,7 @@ module Lokka
       @category = Category.new(params['category'])
       #@category.user = current_user
       if @category.save
-        flash[:notice] = rt.category_was_successfully_created
+        flash[:notice] = t('category_was_successfully_created')
         redirect '/admin/categories'
       else
         render_any :'categories/new'
@@ -214,7 +212,7 @@ module Lokka
     put '/admin/categories/:id' do |id|
       @category = Category.get(id)
       if @category.update(params['category'])
-        flash[:notice] = rt.category_was_successfully_updated
+        flash[:notice] = t('category_was_successfully_updated')
         redirect '/admin/categories'
       else
         render_any :'categories/edit'
@@ -223,7 +221,7 @@ module Lokka
 
     delete '/admin/categories/:id' do |id|
       Category.get(id).destroy
-      flash[:notice] = rt.category_was_successfully_deleted
+      flash[:notice] = t('category_was_successfully_deleted')
       redirect '/admin/categories'
     end
 
@@ -242,7 +240,7 @@ module Lokka
     put '/admin/tags/:id' do |id|
       @tag = Tag.get(id)
       if @tag.update(params['tag'])
-        flash[:notice] = rt.tag_was_successfully_updated
+        flash[:notice] = t('tag_was_successfully_updated')
         redirect '/admin/tags'
       else
         render_any :'tags/edit'
@@ -251,7 +249,7 @@ module Lokka
 
     delete '/admin/tags/:id' do |id|
       Tag.get(id).destroy
-      flash[:notice] = rt.tag_was_successfully_deleted
+      flash[:notice] = t('tag_was_successfully_deleted')
       redirect '/admin/tags'
     end
 
@@ -270,7 +268,7 @@ module Lokka
     post '/admin/users' do
       @user = User.new(params['user'])
       if @user.save
-        flash[:notice] = rt.user_was_successfully_created
+        flash[:notice] = t('user_was_successfully_created')
         redirect '/admin/users'
       else
         render_any :'users/new'
@@ -285,7 +283,7 @@ module Lokka
     put '/admin/users/:id' do |id|
       @user = User.get(id)
       if @user.update(params['user'])
-        flash[:notice] = rt.user_was_successfully_updated
+        flash[:notice] = t('user_was_successfully_updated')
         redirect '/admin/users'
       else
         render_any :'users/edit'
@@ -299,7 +297,7 @@ module Lokka
       else
         target_user.destroy
       end
-      flash[:notice] = rt.user_was_successfully_deleted
+      flash[:notice] = t('user_was_successfully_deleted')
       redirect '/admin/users'
     end
 
@@ -320,7 +318,7 @@ module Lokka
     post '/admin/snippets' do
       @snippet = Snippet.new(params['snippet'])
       if @snippet.save
-        flash[:notice] = rt.snippet_was_successfully_created
+        flash[:notice] = t('snippet_was_successfully_created')
         redirect '/admin/snippets'
       else
         render_any :'snippets/new'
@@ -335,7 +333,7 @@ module Lokka
     put '/admin/snippets/:id' do |id|
       @snippet = Snippet.get(id)
       if @snippet.update(params['snippet'])
-        flash[:notice] = rt.snippet_was_successfully_updated
+        flash[:notice] = t('snippet_was_successfully_updated')
         redirect '/admin/snippets'
       else
         render_any :'snippets/edit'
@@ -344,7 +342,7 @@ module Lokka
 
     delete '/admin/snippets/:id' do |id|
       Snippet.get(id).destroy
-      flash[:notice] = rt.snippet_was_successfully_deleted
+      flash[:notice] = t('snippet_was_successfully_deleted')
       redirect '/admin/snippets'
     end
  
@@ -363,7 +361,7 @@ module Lokka
     put '/admin/themes' do
       site = Site.first
       site.update(:theme => params[:title])
-      flash[:notice] = rt.theme_was_successfully_updated
+      flash[:notice] = t('theme_was_successfully_updated')
       redirect '/admin/themes'
     end
 
@@ -382,7 +380,7 @@ module Lokka
     put '/admin/mobile_themes' do
       site = Site.first
       site.update(:mobile_theme => params[:title])
-      flash[:notice] = rt.theme_was_successfully_updated
+      flash[:notice] = t('theme_was_successfully_updated')
       redirect '/admin/mobile_themes'
     end
 
@@ -399,7 +397,7 @@ module Lokka
 
     put '/admin/site' do
       if Site.first.update(params['site'])
-        flash[:notice] = rt.site_was_successfully_updated
+        flash[:notice] = t('site_was_successfully_updated')
         redirect '/admin/site/edit'
       else
         render_any :'site/edit'
@@ -416,7 +414,7 @@ module Lokka
 
       if file
         Lokka::Importer::WordPress.new(file).import
-        flash[:notice] = rt.data_was_successfully_imported
+        flash[:notice] = t('data_was_successfully_imported')
         redirect '/admin/import'
       else
         render_any :import
@@ -433,7 +431,7 @@ module Lokka
 
       @title = @site.title
 
-      @bread_crumbs = [{:name => rt.home, :link => '/'}]
+      @bread_crumbs = [{:name => t('home'), :link => '/'}]
 
       render_detect :index, :entries
     end
@@ -456,7 +454,7 @@ module Lokka
 
       @title = "Search by #{@query}"
 
-      @bread_crumbs = [{:name => rt.home, :link => '/'},
+      @bread_crumbs = [{:name => t('home'), :link => '/'},
                        {:name => @query }]
 
       render_detect :search, :entries
@@ -475,7 +473,7 @@ module Lokka
 
       @title = @category.title
 
-      @bread_crumbs = [{:name => rt.home, :link => '/'}]
+      @bread_crumbs = [{:name => t('home'), :link => '/'}]
       @category.ancestors.each do |cat|
         @bread_crumbs << {:name => cat.name, :link => cat.link}
       end
@@ -496,7 +494,7 @@ module Lokka
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
       @title = @tag.name
 
-      @bread_crumbs = [{:name => rt.home, :link => '/'},
+      @bread_crumbs = [{:name => t('home'), :link => '/'},
                        {:name => @tag.name, :link => @tag.link}]
 
       render_detect :tag, :entries
@@ -515,7 +513,7 @@ module Lokka
 
       @title = "#{year}/#{month}"
 
-      @bread_crumbs = [{:name => rt.home, :link => '/'},
+      @bread_crumbs = [{:name => t('home'), :link => '/'},
                        {:name => "#{year}", :link => "/#{year}/"},
                        {:name => "#{year}/#{month}", :link => "/#{year}/#{month}/"}]
 
@@ -535,7 +533,7 @@ module Lokka
 
       @title = year
 
-      @bread_crumbs = [{:name => rt.home, :link => '/'},
+      @bread_crumbs = [{:name => t('home'), :link => '/'},
                        {:name => "#{year}", :link => "/#{year}/"}]
 
       render_detect :yearly, :entries

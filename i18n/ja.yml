@@ -1,188 +1,189 @@
-all: 全て
-option: オプション
-demo: デモ
-contributor: 開発参加
-english: English
-japanese: 日本語
-option: オプション
-error: エラー
-profile: プロフィール
-next: 次
-previous: 前
-older_post: 古い記事
-newer_post: 新しい記事
-older: もっと古いもの
-newer: もっと新しいもの
-admin: 管理者
-admin_page: 管理画面
-dashboard: ダッシュボード
-login: ログイン
-logout: ログアウト
-signup: 登録
-users: ユーザー
-categories: カテゴリー
-posts: 投稿
-pages: ページ
-comments: コメント
-snippets: スニペット
-themes: テーマ
-default_themes: デフォルト
-mobile_themes: スマートフォン用
-plugins: プラグイン
-settings: 設定
-sites: サイト
-list: 一覧
-draft: 下書き
-new: 登録
-edit: 編集
-preview: プレビュー
-delete: 削除
-about: このサイトについて
-recent_entries: 最近のエントリー
-recent_comments: 最近のコメント
-tags: タグ
-archives: アーカイブ
-search: 検索
-others: その他
-feed: フィード
-listing_posts: 投稿一覧
-listing_draft_posts: 投稿下書き一覧
-listing_pages: ページ一覧
-listing_draft_pages: ページ下書き一覧
-listing_categories: カテゴリー一覧
-listing_tags: タグ一覧
-listing_comments: コメント一覧
-listing_snippets: スニペット一覧
-listing_users: ユーザー一覧
-listing_themes: テーマ一覧
-listing_mobile_themes: スマートフォン用テーマ一覧
-listing_plugins: プラグイン一覧
-new_post: 投稿登録
-new_page: ページ登録
-new_category: カテゴリー登録
-new_user: ユーザー登録
-new_comment: コメント登録
-new_snippet: スニペット登録
-edit_post: 投稿編集
-edit_page: ページ編集
-edit_category: カテゴリー編集
-edit_comment: コメント編集
-edit_snippet: スニペット編集
-edit_tag: タグ編集
-edit_user: ユーザー編集
-edit_site: サイト編集
-post_was_successfully_created: 投稿を作成しました。
-post_was_successfully_updated: 投稿を更新しました。
-post_was_successfully_deleted: 投稿を削除しました。
-page_was_successfully_created: ページを作成しました。
-page_was_successfully_updated: ページを更新しました。
-page_was_successfully_deleted: ページを削除しました。
-comment_was_successfully_created: コメントを作成しました。
-comment_was_successfully_updated: コメントを更新しました。
-comment_was_successfully_deleted: コメントを削除しました。
-snippet_was_successfully_created: スニペットを作成しました。
-snippet_was_successfully_updated: スニペットを更新しました。
-snippet_was_successfully_deleted: スニペットを削除しました。
-category_was_successfully_created: カテゴリーを作成しました。
-category_was_successfully_updated: カテゴリーを更新しました。
-category_was_successfully_deleted: カテゴリーを削除しました。
-tag_was_successfully_updated: タグを更新しました。
-tag_was_successfully_deleted: タグを削除しました。
-user_was_successfully_created: ユーザーを作成しました。
-user_was_successfully_updated: ユーザーを更新しました。
-user_was_successfully_deleted: ユーザーを削除しました。
-site_was_successfully_updated: サイトを更新しました。
-theme_was_successfully_updated: テーマを更新しました。
-may_i_change_the_theme: テーマを変更してよろしいですか？
-are_you_sure: 本当によろしいですか？
-not_select: 未選択
-no_category: カテゴリーがありません
-no_tag: タグがありません
-no_post: 投稿がありません
-no_page: ページがありません
-no_user: ユーザーがいません
-no_comment: コメントがありません
-no_snippet: スニペットがありません
-no_plugin: プラグインがありません
-your_name_or_password_is_incorrect: 名前かパスワードが違います。
-logged_in_successfully: ログインしました。
-page:
-  id: ID
-  slug: スラッグ
-  title: タイトル
-  body: 本文
-  user: 作成者
-  category: カテゴリー
-  tags: タグ
-  draft: 下書き
-  created_at: 作成日時
-  updated_at: 更新日時
-post:
-  id: ID
-  slug: スラッグ
-  title: タイトル
-  body: 本文
-  user: 作成者
-  category: カテゴリー
-  tags: タグ
-  draft: 下書き
-  created_at: 作成日時
-  updated_at: 更新日時
-category:
-  id: ID
-  slug: スラッグ
-  title: タイトル
-  description: 本文
-  created_at: 作成日時
-  updated_at: 更新日時
-tag:
-  name: タグ名
-user:
-  id: ID
-  name: 名前
-  email: Email
-  password: パスワード
-  password_confirmation: パスワード（確認）
-  created_at: 登録日時
-  updated_at: 更新日時
-site:
-  id: ID
-  title: タイトル
-  description: 詳細
+ja:
+  all: 全て
+  option: オプション
+  demo: デモ
+  contributor: 開発参加
+  english: English
+  japanese: 日本語
+  option: オプション
+  error: エラー
+  profile: プロフィール
+  next: 次
+  previous: 前
+  older_post: 古い記事
+  newer_post: 新しい記事
+  older: もっと古いもの
+  newer: もっと新しいもの
+  admin: 管理者
+  admin_page: 管理画面
   dashboard: ダッシュボード
-  theme: テーマ
-  meta_description: メタディスクリプション
-  meta_keywords: メタキーワード
-  created_at: 作成日時
-  updated_at: 更新日時
-comment:
-  id: ID
-  name: 名前
-  body: 本文
-  homepage: ホームページ
-  entry: エントリー
-  created_at: 作成日時
-  updated_at: 更新日時
-snippet:
-  id: ID
-  name: 名前
-  body: 本文
-  created_at: 作成日時
-  updated_at: 更新日時
-import: インポート
-import_from_wordpress: WordPressからのインポート
-import_file: インポートファイル
-data_was_successfully_imported: データをインポートしました
-what_about_lokka: <p>Lokka(ロッカ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにも簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>
-home: ホーム
-getting_started: はじめよう
-download: ダウンロード
-source_code: ソースコード
-post_comment: コメントする
-comment_status: ステータス
-comment_moderated: 承認待ち
-comment_spam: SPAM
-comment_approved: 承認済み
-comment_approved_successfuly: コメントが承認されました
-comment_moderated_successfuly: コメントが未承認になりました
-comment_spam_successfuly: コメントはSPAM判定されました
+  login: ログイン
+  logout: ログアウト
+  signup: 登録
+  users: ユーザー
+  categories: カテゴリー
+  posts: 投稿
+  pages: ページ
+  comments: コメント
+  snippets: スニペット
+  themes: テーマ
+  default_themes: デフォルト
+  mobile_themes: スマートフォン用
+  plugins: プラグイン
+  settings: 設定
+  sites: サイト
+  list: 一覧
+  draft: 下書き
+  new: 登録
+  edit: 編集
+  preview: プレビュー
+  delete: 削除
+  about: このサイトについて
+  recent_entries: 最近のエントリー
+  recent_comments: 最近のコメント
+  tags: タグ
+  archives: アーカイブ
+  search: 検索
+  others: その他
+  feed: フィード
+  listing_posts: 投稿一覧
+  listing_draft_posts: 投稿下書き一覧
+  listing_pages: ページ一覧
+  listing_draft_pages: ページ下書き一覧
+  listing_categories: カテゴリー一覧
+  listing_tags: タグ一覧
+  listing_comments: コメント一覧
+  listing_snippets: スニペット一覧
+  listing_users: ユーザー一覧
+  listing_themes: テーマ一覧
+  listing_mobile_themes: スマートフォン用テーマ一覧
+  listing_plugins: プラグイン一覧
+  new_post: 投稿登録
+  new_page: ページ登録
+  new_category: カテゴリー登録
+  new_user: ユーザー登録
+  new_comment: コメント登録
+  new_snippet: スニペット登録
+  edit_post: 投稿編集
+  edit_page: ページ編集
+  edit_category: カテゴリー編集
+  edit_comment: コメント編集
+  edit_snippet: スニペット編集
+  edit_tag: タグ編集
+  edit_user: ユーザー編集
+  edit_site: サイト編集
+  post_was_successfully_created: 投稿を作成しました。
+  post_was_successfully_updated: 投稿を更新しました。
+  post_was_successfully_deleted: 投稿を削除しました。
+  page_was_successfully_created: ページを作成しました。
+  page_was_successfully_updated: ページを更新しました。
+  page_was_successfully_deleted: ページを削除しました。
+  comment_was_successfully_created: コメントを作成しました。
+  comment_was_successfully_updated: コメントを更新しました。
+  comment_was_successfully_deleted: コメントを削除しました。
+  snippet_was_successfully_created: スニペットを作成しました。
+  snippet_was_successfully_updated: スニペットを更新しました。
+  snippet_was_successfully_deleted: スニペットを削除しました。
+  category_was_successfully_created: カテゴリーを作成しました。
+  category_was_successfully_updated: カテゴリーを更新しました。
+  category_was_successfully_deleted: カテゴリーを削除しました。
+  tag_was_successfully_updated: タグを更新しました。
+  tag_was_successfully_deleted: タグを削除しました。
+  user_was_successfully_created: ユーザーを作成しました。
+  user_was_successfully_updated: ユーザーを更新しました。
+  user_was_successfully_deleted: ユーザーを削除しました。
+  site_was_successfully_updated: サイトを更新しました。
+  theme_was_successfully_updated: テーマを更新しました。
+  may_i_change_the_theme: テーマを変更してよろしいですか？
+  are_you_sure: 本当によろしいですか？
+  not_select: 未選択
+  no_category: カテゴリーがありません
+  no_tag: タグがありません
+  no_post: 投稿がありません
+  no_page: ページがありません
+  no_user: ユーザーがいません
+  no_comment: コメントがありません
+  no_snippet: スニペットがありません
+  no_plugin: プラグインがありません
+  your_name_or_password_is_incorrect: 名前かパスワードが違います。
+  logged_in_successfully: ログインしました。
+  page:
+    id: ID
+    slug: スラッグ
+    title: タイトル
+    body: 本文
+    user: 作成者
+    category: カテゴリー
+    tags: タグ
+    draft: 下書き
+    created_at: 作成日時
+    updated_at: 更新日時
+  post:
+    id: ID
+    slug: スラッグ
+    title: タイトル
+    body: 本文
+    user: 作成者
+    category: カテゴリー
+    tags: タグ
+    draft: 下書き
+    created_at: 作成日時
+    updated_at: 更新日時
+  category:
+    id: ID
+    slug: スラッグ
+    title: タイトル
+    description: 本文
+    created_at: 作成日時
+    updated_at: 更新日時
+  tag:
+    name: タグ名
+  user:
+    id: ID
+    name: 名前
+    email: Email
+    password: パスワード
+    password_confirmation: パスワード（確認）
+    created_at: 登録日時
+    updated_at: 更新日時
+  site:
+    id: ID
+    title: タイトル
+    description: 詳細
+    dashboard: ダッシュボード
+    theme: テーマ
+    meta_description: メタディスクリプション
+    meta_keywords: メタキーワード
+    created_at: 作成日時
+    updated_at: 更新日時
+  comment:
+    id: ID
+    name: 名前
+    body: 本文
+    homepage: ホームページ
+    entry: エントリー
+    created_at: 作成日時
+    updated_at: 更新日時
+  snippet:
+    id: ID
+    name: 名前
+    body: 本文
+    created_at: 作成日時
+    updated_at: 更新日時
+  import: インポート
+  import_from_wordpress: WordPressからのインポート
+  import_file: インポートファイル
+  data_was_successfully_imported: データをインポートしました
+  what_about_lokka: "<p>Lokka(ロッカ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにも簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>"
+  home: ホーム
+  getting_started: はじめよう
+  download: ダウンロード
+  source_code: ソースコード
+  post_comment: コメントする
+  comment_status: ステータス
+  comment_moderated: 承認待ち
+  comment_spam: SPAM
+  comment_approved: 承認済み
+  comment_approved_successfuly: コメントが承認されました
+  comment_moderated_successfuly: コメントが未承認になりました
+  comment_spam_successfuly: コメントはSPAM判定されました

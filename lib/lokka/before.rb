@@ -6,6 +6,21 @@ module Lokka
         @site = Site.first
         @title = @site.title
 
+        locales = Lokka.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
+        locales.map! do |locale|
+          locale =~ /-/ ? locale.split('-').first : locale
+        end
+
+        if params[:locale]
+          I18n.locale = params[:locale]
+          session[:locale] = params[:locale]
+          redirect request.referrer
+        elsif session[:locale]
+          I18n.locale = session[:locale]
+        elsif locales
+          I18n.locale = locales.first
+        end
+
         theme = request.cookies['theme']
         if params[:theme]
           theme = params[:theme]
@@ -18,16 +33,9 @@ module Lokka
           theme != 'pc' && request.user_agent =~ /iPhone|Android/
         )
 
-        @theme_types = []
+        @theme_types ||= []
         if @theme.exist_i18n?
-          R18n.extension_places.reject! do |i18n|
-            i18n.dir.match(@theme.root_dir)
-          end
-          R18n.extension_places << R18n::Loader::YAML.new(@theme.i18n_dir) if @theme.exist_i18n?
-        end
-        if params[:locale]
-          session[:locale] = params[:locale]
-          redirect request.referrer
+          I18n.load_path += "#{@theme.i18n_dir}/*.yml"
         end
       end
 

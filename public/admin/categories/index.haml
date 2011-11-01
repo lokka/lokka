@@ -1,15 +1,15 @@
-%h2= rt.listing_categories
+%h2= t('listing_categories')
 %table
   %tr
-    %th= rt.category.title
-    %th= rt.category.created_at
+    %th= t('category.title')
+    %th= t('category.created_at')
     %th(colspan="2")
   - @categories.each do |category|
     %tr
       %td
         %a(href="/admin/categories/#{category.id}/edit")= category.title
-      %td= rl category.created_at.to_time
+      %td= l(category.created_at.to_time)
       %td
-        %a.button(href="/admin/categories/#{category.id}/edit")= rt.edit
+        %a.button(href="/admin/categories/#{category.id}/edit")= t('edit')
       %td
-        = link_to rt.delete, "/admin/categories/#{category.id}", :class => 'button', :confirm => rt.are_you_sure, :method => :delete
+        = link_to t('delete'), "/admin/categories/#{category.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete

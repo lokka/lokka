@@ -1,6 +1,6 @@
-%h2= rt.edit_snippet
+%h2= t('edit_snippet')
 %form(action="/admin/snippets/#{@snippet.id}" method="post")
   %input(type="hidden" name="_method" value="put")
   = partial 'snippets/form'
   %p
-    %input(type="submit" value="#{rt.edit}")
+    %input(type="submit" value="#{t('edit')}")

@@ -1,9 +1,10 @@
-akismet:
-  title: Akismet
-  banner: Akismet filters out your comment and track-back spam for you, so you can focus on more important things.
-  apikey: Akismet API Key
-  akismet_key_entry: Register Akismet API key
-  install_message: To activate spam filter, you need to obtain Akismet API Key. You can create your account at <a href="">Akismet</a> for free to get one.
-  api_key_created: API KEY was registered successfully.
-  api_key_updated: API KEY was updated successfully.
-  api_key_db_error: DB error.
+en:
+  akismet:
+    title: Akismet
+    banner: Akismet filters out your comment and track-back spam for you, so you can focus on more important things.
+    apikey: Akismet API Key
+    akismet_key_entry: Register Akismet API key
+    install_message: To activate spam filter, you need to obtain Akismet API Key. You can create your account at <a href="">Akismet</a> for free to get one.
+    api_key_created: API KEY was registered successfully.
+    api_key_updated: API KEY was updated successfully.
+    api_key_db_error: DB error.

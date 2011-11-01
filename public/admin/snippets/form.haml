@@ -1,22 +1,22 @@
 - unless @snippet.errors.empty?
   #error
-    .title= rt.error
+    .title= t('error')
     %ul
       - @snippet.errors.each do |error|
         %li= error
 .field
-  %label(for="snippet_name")= rt.snippet.name
+  %label(for="snippet_name")= t('snippet.name')
   %br/
   %input(type="text" id="snippet_name" name="snippet[name]" value="#{@snippet.name}")
 .field
-  %label(for="snippet_body")= rt.snippet.body
+  %label(for="snippet_body")= t('snippet.body')
   %br/
   %textarea(id="snippet_body" class="editor" name="snippet[body]" rows="10" cols="50")= h @snippet.body
 .field
-  %label(for="snippet_created_at")= rt.snippet.created_at
+  %label(for="snippet_created_at")= t('snippet.created_at')
   %br/
   %input(type="text" id="snippet_created_at" name="snippet[created_at]" value="#{@snippet.created_at}")
 .field
-  %label(for="snippet_updated_at")= rt.snippet.updated_at
+  %label(for="snippet_updated_at")= t('snippet.updated_at')
   %br/
   %input(type="text" id="snippet_updated_at" name="snippet[updated_at]" value="#{@snippet.updated_at}")

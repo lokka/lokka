@@ -21,60 +21,60 @@
         %ul
           - if logged_in?
             %li= link_to current_user.name, "/admin/users/#{current_user.id}/edit"
-            %li= link_to rt.logout, '/admin/logout'
+            %li= link_to t('logout'), '/admin/logout'
           - else
-            %li= link_to rt.login, '/admin/login'
+            %li= link_to t('login'), '/admin/login'
     #content
       #aside
         %ul
           %li.dashboard.parent
-            %h3= link_to rt.dashboard, '/admin/'
+            %h3= link_to t('dashboard'), '/admin/'
           %li.post.parent
-            %h3.title= rt.posts
+            %h3.title= t('posts')
             %ul
-              %li.list= link_to rt.list, '/admin/posts'
-              %li.new= link_to rt.new, '/admin/posts/new'
+              %li.list= link_to t('list'), '/admin/posts'
+              %li.new= link_to t('new'), '/admin/posts/new'
           %li.page.parent
-            %h3.title= rt.pages
+            %h3.title= t('pages')
             %ul
-              %li.list= link_to rt.list, '/admin/pages'
-              %li.new= link_to rt.new, '/admin/pages/new'
+              %li.list= link_to t('list'), '/admin/pages'
+              %li.new= link_to t('new'), '/admin/pages/new'
           %li.comment.parent
-            %h3.title= rt.comments
+            %h3.title= t('comments')
             %ul
-              %li.list= link_to rt.list, '/admin/comments'
-              %li.new= link_to rt.new, '/admin/comments/new'
+              %li.list= link_to t('list'), '/admin/comments'
+              %li.new= link_to t('new'), '/admin/comments/new'
           %li.category.parent
-            %h3.title= rt.categories
+            %h3.title= t('categories')
             %ul
-              %li.list= link_to rt.list, '/admin/categories'
-              %li.new= link_to rt.new, '/admin/categories/new'
+              %li.list= link_to t('list'), '/admin/categories'
+              %li.new= link_to t('new'), '/admin/categories/new'
           %li.tag.parent
-            %h3.title= rt.tags
+            %h3.title= t('tags')
             %ul
-              %li.list= link_to rt.list, '/admin/tags'
+              %li.list= link_to t('list'), '/admin/tags'
           %li.user.parent
-            %h3.title= rt.users
+            %h3.title= t('users')
             %ul
-              %li.list= link_to rt.list, '/admin/users'
-              %li.new= link_to rt.new, '/admin/users/new'
+              %li.list= link_to t('list'), '/admin/users'
+              %li.new= link_to t('new'), '/admin/users/new'
           %li.snippet.parent
-            %h3.title= rt.snippets
+            %h3.title= t('snippets')
             %ul
-              %li.list= link_to rt.list, '/admin/snippets'
-              %li.new= link_to rt.new, '/admin/snippets/new'
+              %li.list= link_to t('list'), '/admin/snippets'
+              %li.new= link_to t('new'), '/admin/snippets/new'
           %li.theme.parent
-            %h3.title= rt.themes
+            %h3.title= t('themes')
             %ul
-              %li.list= link_to rt.default_themes, '/admin/themes'
-              %li.list= link_to rt.mobile_themes, '/admin/mobile_themes'
+              %li.list= link_to t('default_themes'), '/admin/themes'
+              %li.list= link_to t('mobile_themes'), '/admin/mobile_themes'
           %li.plugin.parent
-            %h3= link_to rt.plugins, '/admin/plugins'
+            %h3= link_to t('plugins'), '/admin/plugins'
           %li.setting.parent
-            %h3.title= rt.settings
+            %h3.title= t('settings')
             %ul
-              %li.list= link_to rt.sites, '/admin/site/edit'
-              %li.list= link_to rt.import, '/admin/import'
+              %li.list= link_to t('sites'), '/admin/site/edit'
+              %li.list= link_to t('import'), '/admin/import'
           - admin_aside = yield_content :admin_aside
           - unless admin_aside.blank?
             = admin_aside

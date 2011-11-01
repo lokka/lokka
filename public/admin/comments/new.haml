@@ -1,5 +1,5 @@
-%h2= rt.new_comment
+%h2= t('new_comment')
 %form(action="/admin/comments" method="post")
   = partial 'comments/form'
   %p
-    %input(type="submit" value="#{rt.new}")
+    %input(type="submit" value="#{t('new')}")

@@ -1,37 +1,37 @@
 - unless @entry.errors.empty?
   #error
-    .title= rt.error
+    .title= t('error')
     %ul
       - @entry.errors.each do |error|
         %li= error
 .field
-  %label(for="#{@name}_title")= rt[@name].title
+  %label(for="#{@name}_title")= t("#{@name}.title")
   %br/
   %input(type="text" id="#{@name}_title" name="#{@name}[title]" value="#{@entry.title}")
 .field
-  %label(for="#{@name}_body")= rt[@name].body
+  %label(for="#{@name}_body")= t("#{@name}.body")
   %br/
   %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.body
 .field
-  %label(for="#{@name}_slug")= rt[@name].slug
+  %label(for="#{@name}_slug")= t("#{@name}.slug")
   %br/
   %input(type="text" id="#{@name}_slug" name="#{@name}[slug]" value="#{@entry.slug}")
 .field
-  %label(for="#{@name}_category")= rt[@name].category
+  %label(for="#{@name}_category")= t("#{@name}.category")
   %br/
   - if @categories.size > 1
     = select_field @entry, :category_id, @categories, :id => '#{@name}_category'
   - else
-    = rt.no_category
+    = t('no_category')
 .field
-  %label(for="#{@name}_tag_collection")= rt[@name].tags
+  %label(for="#{@name}_tag_collection")= t("#{@name}.tags")
   %br
   %input(type="text" id="#{@name}_tag_collection" name="#{@name}[tag_collection]" value="#{@entry.tag_collection}")
 .field
-  %label(for="#{@name}_draft")= rt[@name].draft
+  %label(for="#{@name}_draft")= t("#{@name}.draft")
   %br/
   = checkbox @entry, :draft
 .field
-  %label(for="#{@name}_created_at")= rt[@name].created_at
+  %label(for="#{@name}_created_at")= t("#{@name}.created_at")
   %br/
   %input(type="text" id="#{@name}_created_at" name="#{@name}[created_at]" value="#{@entry.created_at}")

@@ -1,5 +1,5 @@
-%h2= rt.new_category
+%h2= t('new_category')
 %form(action="/admin/categories" method="post")
   = partial 'categories/form'
   %p
-    %input(type="submit" value="#{rt.new}")
+    %input(type="submit" value="#{t('new')}")

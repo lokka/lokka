@@ -1,29 +1,29 @@
 - if params[:draft] == 'true'
-  %h2= rt["listing_draft_#{@name.pluralize}"]
+  %h2= t("listing_draft_#{@name.pluralize}")
 - else
-  %h2= rt["listing_#{@name.pluralize}"]
+  %h2= t("listing_#{@name.pluralize}")
 %ul.conditions
-  %li= link_to rt.all, "/admin/#{@name.pluralize}"
-  %li= link_to rt.draft, "/admin/#{@name.pluralize}?draft=true"
+  %li= link_to t('all'), "/admin/#{@name.pluralize}"
+  %li= link_to t('draft'), "/admin/#{@name.pluralize}?draft=true"
 %table{:class => @name.pluralize}
   %tr
-    %th= rt[@name].title
-    %th= rt[@name].user
-    %th= rt[@name].created_at
+    %th= t("#{@name}.title")
+    %th= t("#{@name}.user")
+    %th= t("#{@name}.created_at")
     %th(colspan="2")
   - @entries.each_with_index do |entry, i|
     %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       %td.title
         %a(href="#{entry.link}")= entry.title
       %td= entry.user.nil? ? '' : entry.user.name
-      %td= rl entry.created_at.to_time
+      %td= l(entry.created_at.to_time)
       %td
-        %a.button(href="#{entry.edit_link}")= rt.edit
+        %a.button(href="#{entry.edit_link}")= t('edit')
       %td
-        = link_to rt.delete, "/admin/#{@name.pluralize}/#{entry.id}", :class => 'button', :confirm => rt.are_you_sure, :method => :delete
+        = link_to t('delete'), "/admin/#{@name.pluralize}/#{entry.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
   %ul
     - if @entries.pager.previous_page
-      %li.previous= link_to rt.previous, "?page=#{@entries.pager.previous_page}"
+      %li.previous= link_to t('previous'), "?page=#{@entries.pager.previous_page}"
     - if @entries.pager.next_page
-      %li.next= link_to rt.next, "?page=#{@entries.pager.next_page}"
+      %li.next= link_to t('next'), "?page=#{@entries.pager.next_page}"

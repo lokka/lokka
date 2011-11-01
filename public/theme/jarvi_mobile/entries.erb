@@ -15,7 +15,7 @@
   <div class="footer">
 
 <% if logged_in? %>
-    <p><a href="<%= post.edit_link %>"><%= rt.edit %></a></p>
+    <p><a href="<%= post.edit_link %>"><%= t('edit') %></a></p>
 <% end %>
   </div>
 </div>
@@ -23,10 +23,10 @@
 <div class="pager">
   <ul>
 <% if @posts.pager.previous_page %>
-    <li class="previous"><a href="?page=<%= @posts.pager.previous_page %>"><%= rt.newer %></a></li>
+    <li class="previous"><a href="?page=<%= @posts.pager.previous_page %>"><%= t('newer') %></a></li>
 <% end %>
 <% if @posts.pager.next_page %>
-    <li class="next"><a href="?page=<%= @posts.pager.next_page %>"><%= rt.older %></a></li>
+    <li class="next"><a href="?page=<%= @posts.pager.next_page %>"><%= t('older') %></a></li>
 <% end %>
   </ul>
 </div>

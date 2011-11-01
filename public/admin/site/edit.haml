@@ -1,26 +1,26 @@
-%h2= rt.edit_site
+%h2= t('edit_site')
 %form(action="/admin/site" method="post")
   %input(type="hidden" name="_method" value="put")
   %p
-    %label(for="site_title")= rt.site.title
+    %label(for="site_title")= t('site.title')
     %br
     %input(type="text" id="site_title" name="site[title]" value="#{@site.title}")
   %p
-    %label(for="site_description")= rt.site.description
+    %label(for="site_description")= t('site.description')
     %br
     %textarea(id="site_description" name="site[description]" rows="10" cols="50")= h @site.description
   %p
-    %label(for="site_dashboard")= rt.site.dashboard
+    %label(for="site_dashboard")= t('site.dashboard')
     %br
     %textarea(id="site_dashboard" name="site[dashboard]" class="editor" rows="10" cols="50")= h @site.dashboard
-  #toggle-button-options.toggle-button(onclick="$('.option').toggle()")= rt.option
+  #toggle-button-options.toggle-button(onclick="$('.option').toggle()")= t('option')
   %p.option(style="display:none")
-    %label(for="site_meta_description")= rt.site.meta_description
+    %label(for="site_meta_description")= t('site.meta_description')
     %br
     %textarea(id="site_meta_description" name="site[meta_description]" rows="10" cols="50")= h @site.meta_description
   %p.option(style="display:none")
-    %label(for="site_meta_keywords")= rt.site.meta_keywords
+    %label(for="site_meta_keywords")= t('site.meta_keywords')
     %br
     %input(type="text" id="site_meta_keywords" name="site[meta_keywords]" value="#{@site.meta_keywords}")
   %p
-    %input(type="submit" value="#{rt.edit}")
+    %input(type="submit" value="#{t('edit')}")

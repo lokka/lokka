@@ -34,14 +34,28 @@ module Lokka
         env == name
       end
     end
+
+    def parse_http(str)
+      return [] if str.nil?
+      locales = str.split(',')
+      locales.map! do |locale|
+        locale = locale.split ';q='
+        if 1 == locale.size
+          [locale[0], 1.0]
+        else
+          [locale[0], locale[1].to_f]
+        end
+      end
+      locales.sort! { |a, b| b[1] <=> a[1] }
+      locales.map! { |i| i[0] }
+    end
   end
 end
 
 require 'active_support/all'
 require 'sinatra/base'
-require 'sinatra/r18n'
 require 'sinatra/reloader'
-require 'padrino'
+require 'padrino-helpers'
 require 'rack/flash'
 require 'dm-core'
 require 'dm-timestamps'

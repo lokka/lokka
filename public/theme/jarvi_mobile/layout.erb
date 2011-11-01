@@ -33,7 +33,7 @@
       </div>
       <div id="aside">
         <dl>
-          <dt><%= rt.recent_entries %></dt>
+          <dt><%= t('recent_entries') %></dt>
           <dd>
             <ul>
               <% Post.recent(5).each do |post| %>
@@ -42,7 +42,7 @@
             </ul>
           </dd>
           <% if Page.count > 0 %>
-            <dt><%= rt.pages %></dt>
+            <dt><%= t('pages') %></dt>
             <dd>
               <ul>
                 <% Page.all.each do |page| %>
@@ -52,7 +52,7 @@
             </dd>
           <% end %>
           <% if Tag.count > 0 %>
-      	  <dt><%= rt.tags %></dt>
+      	  <dt><%= t('tags') %></dt>
           <dd>
       		  <ul>
 			        <% Tag.all.each do |tag| %>
@@ -62,7 +62,7 @@
           </dd>
           <% end %>
           <% if Comment.count > 0 %>
-    	    <dt><%= rt.recent_comments %></dt>
+    	    <dt><%= t('recent_comments') %></dt>
           <dd>
     		    <ul>
 		          <% Comment.recent.each do |comment| %>

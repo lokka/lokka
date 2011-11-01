@@ -1,6 +1,6 @@
-%h2= rt.edit_user
+%h2= t('edit_user')
 %form(action="/admin/users/#{@user.id}" method="post")
   %input(type="hidden" name="_method" value="put")
   = partial 'users/form'
   %p
-    %input(type="submit" value="#{rt.edit}")
+    %input(type="submit" value="#{t('edit')}")

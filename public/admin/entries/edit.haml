@@ -1,7 +1,7 @@
-%h2= rt["edit_#@name"]
+%h2= t("edit_#{@name}")
 %form(action="/admin/#{@name.pluralize}/#{@entry.id}" method="post")
   %input(type="hidden" name="_method" value="put")
   = partial 'entries/form'
   %p
-    %input(type="submit" value="#{rt.preview}" name="preview")
-    %input(type="submit" value="#{rt.edit}" name="edit")
+    %input(type="submit" value="#{t('preview')}" name="preview")
+    %input(type="submit" value="#{t('edit')}" name="edit")

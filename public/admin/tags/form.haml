@@ -1,10 +1,10 @@
 - unless @tag.errors.empty?
   #error
-    .title= rt.error
+    .title= t('error')
     %ul
       - @tag.errors.each do |error|
         %li= error
 .field
-  %label(for="tag_name")= rt.tag.name
+  %label(for="tag_name")= t('tag.name')
   %br
   %input(type="text" id="tag_name" name="tag[name]" value="#{@tag.name}")

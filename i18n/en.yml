@@ -1,188 +1,189 @@
-all: All
-option: Option
-demo: Demo
-contributor: Contributor
-english: English
-japanese: 日本語
-option: Option
-error: Error
-profile: Profile
-next: Next
-previous: Previous
-older_post: Older Post
-newer_post: Newer Post
-older: Older
-newer: Newer
-admin: Admin
-admin_page: Admin page
-dashboard: Dashboard
-login: Login
-logout: Logout
-signup: Signup
-users: Users
-categories: Categories
-posts: Posts
-pages: Pages
-comments: Comments
-snippets: Snippets
-themes: Themes
-default_themes: Default Themes
-mobile_themes: Mobile Themes
-plugins: Plugins
-settings: Settings
-sites: Site
-list: List
-draft: Draft
-new: New
-edit: Edit
-preview: Preview
-delete: Delete
-about: About this site
-recent_entries: Recent Entries
-recent_comments: Recent Comments
-tags: Tags
-archives: Archives
-search: Search
-others: Others
-feed: Feed
-listing_posts: Listing Posts
-listing_draft_posts: Listing Draft Posts
-listing_pages: Listing Pages
-listing_draft_pages: Listing Draft Pages
-listing_categories: Listing Categories
-listing_tags: Listing Tags
-listing_comments: Listing Comments
-listing_snippets: Listing Snippets
-listing_users: Listing Users
-listing_themes: Listing Themes
-listing_mobile_themes: Listing Mobile Themes
-listing_plugins: Listing Plugins
-new_post: New Post
-new_page: New Page
-new_category: New Category
-new_user: New User
-new_comment: New Comment
-new_snippet: New Snippet
-edit_post: Edit Post
-edit_page: Edit Page
-edit_category: Edit Category
-edit_comment: Edit Comment
-edit_snippet: Edit Snippet
-edit_tag: Edit Tag
-edit_user:  Edit User
-edit_site: Edit Site
-post_was_successfully_created: Post was successfully created.
-post_was_successfully_updated: Post was successfully updated.
-post_was_successfully_deleted: Post was successfully deleted.
-page_was_successfully_created: Page was successfully created.
-page_was_successfully_updated: Page was successfully updated.
-page_was_successfully_deleted: Page was successfully deleted.
-comment_was_successfully_created: Comment was successfully created.
-comment_was_successfully_updated: Comment was successfully updated.
-comment_was_successfully_deleted: Comment was successfully deleted.
-snippet_was_successfully_created: Snippet was successfully created.
-snippet_was_successfully_updated: Snippet was successfully updated.
-snippet_was_successfully_deleted: Snippet was successfully deleted.
-category_was_successfully_created: Category was successfully created.
-category_was_successfully_updated: Category was successfully updated.
-category_was_successfully_deleted: Category was successfully deleted.
-tag_was_successfully_updated: Tag was successfully updated.
-tag_was_successfully_deleted: Tag was successfully deleted.
-user_was_successfully_created: User was successfully created.
-user_was_successfully_updated: User was successfully updated.
-user_was_successfully_deleted: User was successfully deleted.
-site_was_successfully_updated: Site was successfully updated.
-theme_was_successfully_updated: Theme was successfully updated.
-may_i_change_the_theme: May I change the theme?
-are_you_sure: Are you sure?
-not_select: Not Select
-no_category: No Cateogry
-no_tag: No Tag
-no_post: No Post
-no_page: No Page
-no_user: No User
-no_comment: No Comment
-no_snippet: No Snippet
-no_plugin: No Plugin
-your_name_or_password_is_incorrect: Your username or password is incorrect.
-logged_in_successfully: Logged in successfully.
-page:
-  id: ID
-  slug: Slug
-  title: Title
-  body: Body
-  user: Author
-  category: Category
-  tags: Tags
-  draft: Draft
-  created_at: Created at
-  updated_at: Updated at
-post:
-  id: ID
-  slug: Slug
-  title: Title
-  body: Body
-  user: Author
-  category: Category
-  tags: Tags
-  draft: Draft
-  created_at: Created at
-  updated_at: Updated at
-category:
-  id: ID
-  slug: Slug
-  title: Title
-  description: Description
-  created_at: Created at
-  updated_at: Updated at
-tag:
-  name: Name
-user:
-  id: ID
-  name: Name
-  email: Email
-  password: Password
-  password_confirmation: Password Confirmation
-  created_at: Created at
-  updated_at: Updated at
-site:
-  id: ID
-  title: Title
-  description: Description
+en:
+  all: All
+  option: Option
+  demo: Demo
+  contributor: Contributor
+  english: English
+  japanese: 日本語
+  option: Option
+  error: Error
+  profile: Profile
+  next: Next
+  previous: Previous
+  older_post: Older Post
+  newer_post: Newer Post
+  older: Older
+  newer: Newer
+  admin: Admin
+  admin_page: Admin page
   dashboard: Dashboard
-  theme: Theme
-  meta_description: Meta description
-  meta_keywords: Meta keywords
-  created_at: Created at
-  updated_at: Updated at
-comment:
-  id: ID
-  name: Name
-  body: Body
-  entry: Entry
-  homepage: Homepage
-  created_at: Created at
-  updated_at: Updated at
-snippet:
-  id: ID
-  name: Name
-  body: Body
-  created_at: Created at
-  updated_at: Updated at
-import: Import
-import_from_wordpress: Import from WordPress
-import_file: Import File
-data_was_successfully_imported: Data was successfully imported
-what_about_lokka: <p>Lokka is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>
-home: Home
-getting_started: Getting Started
-download: Download
-source_code: Source Code
-post_comment: Comment
-comment_status: Status
-comment_moderated: moderated
-comment_approved: approved
-comment_spam: SPAM
-comment_approved_successfuly: comment approved successfuly
-comment_moderated_successfuly: comment moderated successfuly
-comment_spam_successfuly: comment marked as spam successfuly
+  login: Login
+  logout: Logout
+  signup: Signup
+  users: Users
+  categories: Categories
+  posts: Posts
+  pages: Pages
+  comments: Comments
+  snippets: Snippets
+  themes: Themes
+  default_themes: Default Themes
+  mobile_themes: Mobile Themes
+  plugins: Plugins
+  settings: Settings
+  sites: Site
+  list: List
+  draft: Draft
+  new: New
+  edit: Edit
+  preview: Preview
+  delete: Delete
+  about: About this site
+  recent_entries: Recent Entries
+  recent_comments: Recent Comments
+  tags: Tags
+  archives: Archives
+  search: Search
+  others: Others
+  feed: Feed
+  listing_posts: Listing Posts
+  listing_draft_posts: Listing Draft Posts
+  listing_pages: Listing Pages
+  listing_draft_pages: Listing Draft Pages
+  listing_categories: Listing Categories
+  listing_tags: Listing Tags
+  listing_comments: Listing Comments
+  listing_snippets: Listing Snippets
+  listing_users: Listing Users
+  listing_themes: Listing Themes
+  listing_mobile_themes: Listing Mobile Themes
+  listing_plugins: Listing Plugins
+  new_post: New Post
+  new_page: New Page
+  new_category: New Category
+  new_user: New User
+  new_comment: New Comment
+  new_snippet: New Snippet
+  edit_post: Edit Post
+  edit_page: Edit Page
+  edit_category: Edit Category
+  edit_comment: Edit Comment
+  edit_snippet: Edit Snippet
+  edit_tag: Edit Tag
+  edit_user:  Edit User
+  edit_site: Edit Site
+  post_was_successfully_created: Post was successfully created.
+  post_was_successfully_updated: Post was successfully updated.
+  post_was_successfully_deleted: Post was successfully deleted.
+  page_was_successfully_created: Page was successfully created.
+  page_was_successfully_updated: Page was successfully updated.
+  page_was_successfully_deleted: Page was successfully deleted.
+  comment_was_successfully_created: Comment was successfully created.
+  comment_was_successfully_updated: Comment was successfully updated.
+  comment_was_successfully_deleted: Comment was successfully deleted.
+  snippet_was_successfully_created: Snippet was successfully created.
+  snippet_was_successfully_updated: Snippet was successfully updated.
+  snippet_was_successfully_deleted: Snippet was successfully deleted.
+  category_was_successfully_created: Category was successfully created.
+  category_was_successfully_updated: Category was successfully updated.
+  category_was_successfully_deleted: Category was successfully deleted.
+  tag_was_successfully_updated: Tag was successfully updated.
+  tag_was_successfully_deleted: Tag was successfully deleted.
+  user_was_successfully_created: User was successfully created.
+  user_was_successfully_updated: User was successfully updated.
+  user_was_successfully_deleted: User was successfully deleted.
+  site_was_successfully_updated: Site was successfully updated.
+  theme_was_successfully_updated: Theme was successfully updated.
+  may_i_change_the_theme: May I change the theme?
+  are_you_sure: Are you sure?
+  not_select: Not Select
+  no_category: No Cateogry
+  no_tag: No Tag
+  no_post: No Post
+  no_page: No Page
+  no_user: No User
+  no_comment: No Comment
+  no_snippet: No Snippet
+  no_plugin: No Plugin
+  your_name_or_password_is_incorrect: Your username or password is incorrect.
+  logged_in_successfully: Logged in successfully.
+  page:
+    id: ID
+    slug: Slug
+    title: Title
+    body: Body
+    user: Author
+    category: Category
+    tags: Tags
+    draft: Draft
+    created_at: Created at
+    updated_at: Updated at
+  post:
+    id: ID
+    slug: Slug
+    title: Title
+    body: Body
+    user: Author
+    category: Category
+    tags: Tags
+    draft: Draft
+    created_at: Created at
+    updated_at: Updated at
+  category:
+    id: ID
+    slug: Slug
+    title: Title
+    description: Description
+    created_at: Created at
+    updated_at: Updated at
+  tag:
+    name: Name
+  user:
+    id: ID
+    name: Name
+    email: Email
+    password: Password
+    password_confirmation: Password Confirmation
+    created_at: Created at
+    updated_at: Updated at
+  site:
+    id: ID
+    title: Title
+    description: Description
+    dashboard: Dashboard
+    theme: Theme
+    meta_description: Meta description
+    meta_keywords: Meta keywords
+    created_at: Created at
+    updated_at: Updated at
+  comment:
+    id: ID
+    name: Name
+    body: Body
+    entry: Entry
+    homepage: Homepage
+    created_at: Created at
+    updated_at: Updated at
+  snippet:
+    id: ID
+    name: Name
+    body: Body
+    created_at: Created at
+    updated_at: Updated at
+  import: Import
+  import_from_wordpress: Import from WordPress
+  import_file: Import File
+  data_was_successfully_imported: Data was successfully imported
+  what_about_lokka: "<p>Lokka is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>"
+  home: Home
+  getting_started: Getting Started
+  download: Download
+  source_code: Source Code
+  post_comment: Comment
+  comment_status: Status
+  comment_moderated: moderated
+  comment_approved: approved
+  comment_spam: SPAM
+  comment_approved_successfuly: comment approved successfuly
+  comment_moderated_successfuly: comment moderated successfuly
+  comment_spam_successfuly: comment marked as spam successfuly

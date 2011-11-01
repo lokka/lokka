@@ -1,7 +1,7 @@
-%h4.comment= rt.comments
+%h4.comment= t('comments')
 - if @comment and !@comment.errors.empty?
   #error
-    .title= rt.error
+    .title= t('error')
     %ul
       - @comment.errors.each do |error|
         %li= error
@@ -9,16 +9,16 @@
   :javascript
     document.write('<input type="hidden" name="check" value="check" />');
   %p
-    %label{:for => 'comment_name'}= rt.comment.name
+    %label{:for => 'comment_name'}= t('comment.name')
     %br
     %input{:type => 'text', :name => 'comment[name]', :id => 'comment_name'}
   %p
-    %label{:for => 'comment_homepage'}= rt.comment.homepage
-    == (#{rt.option})
+    %label{:for => 'comment_homepage'}= t('comment.homepage')
+    == (#{t('option')})
     %br
     %input{:type => 'text', :name => 'comment[homepage]', :id => 'comment_homepage'}
   %p
-    %label{:for => 'comment_body'}= rt.comment.body
+    %label{:for => 'comment_body'}= t('comment.body')
     %br
     %textarea{:name => 'comment[body]', :id => 'comment_body', :cols => 40, :rows => 10}
-  %input.button{:type => 'submit', :value => rt.post_comment}
+  %input.button{:type => 'submit', :value => t('post_comment')}
