@@ -24,7 +24,7 @@
   <div class="body">
     <%= @entry.body %>
     <% if logged_in? %>
-      <p><a href="<%= @entry.edit_link %>"><%= t.edit %></a></p>
+      <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
     <% end %>
   </div> 
 </div>
@@ -32,7 +32,7 @@
 <div id="comment_wrapper">  
 	<% if @entry.comments.size > 0 %>
 	<h3>
-		<%= t.comments %>
+		<%= t('comments') %>
 	</h3>
 	<ul id="comments">
 		<% @entry.comments.reverse.each do |comment| %>

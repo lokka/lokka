@@ -35,7 +35,7 @@
     <div class="body">
       <%= post.body %>
       <% if logged_in? %>
-      <p class="edit"><a href="<%= post.edit_link %>"><%= t.edit %></a></p>
+      <p class="edit"><a href="<%= post.edit_link %>"><%= t('edit') %></a></p>
       <% end %>
     </div>
   </div>
