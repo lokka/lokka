@@ -29,6 +29,7 @@ gem 'tux'
 gem 'padrino-helpers'
 gem 'kramdown'
 gem 'RedCloth'
+gem 'yard-sinatra'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 

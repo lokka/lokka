@@ -1,4 +1,5 @@
 require './init'
+require 'yard'
 include Rake::DSL if defined? Rake::DSL
 
 task :default => ['spec:setup', 'db:delete', 'db:spec_seed', :spec]
@@ -36,6 +37,11 @@ end
 
 desc 'Install'
 task :install => %w(bundle db:setup)
+
+desc 'Generate documentation for Lokka'
+task :doc do
+  YARD::CLI::Yardoc.new.run
+end
 
 desc 'set ENV'
 task 'spec:setup' do

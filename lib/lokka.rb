@@ -10,15 +10,27 @@ module Lokka
   class NoTemplateError < StandardError; end
 
   class << self
+    ##
+    # Root directory.
+    #
+    # @return [String] path for lokka application root directory.
     def root
       File.expand_path('..', File.dirname(__FILE__))
     end
 
+    ##
+    # Data Source Name
+    #
+    # @return [String] DSN (Data Source Name) is configuration for database.
     def dsn
       filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
       YAML.load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[self.env]['dsn']
     end
 
+    ##
+    # Current environment.
+    #
+    # @return [String] `production`, `development` or `test`
     def env
       if ENV['LOKKA_ENV'] == 'production' or ENV['RACK_ENV'] == 'production'
         'production'

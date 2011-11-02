@@ -14,3 +14,5 @@ config.yml
 /pkg
 /.rvmrc
 /Lokka.app
+/doc
+/.yardoc
