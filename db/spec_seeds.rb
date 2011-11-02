@@ -14,6 +14,7 @@ User.create!(:name => "test",
              :created_at => created_at,
              :updated_at => updated_at)
 
+# id 1
 Entry.create!(:user_id => 1,
               :title => "Test Post",
               :body => "<p>Welcome to Lokka!</p><p><a href=""/admin/"">Admin login</a> (user / password : test / test)</p>",
@@ -43,6 +44,7 @@ Tagging.create!(:id => 1,
                 :tag_id => 1)
 
 # draft post
+# id 2
 Entry.create!(:user_id => 1,
               :category_id => 1,
               :title => "Draft Post",
@@ -59,6 +61,7 @@ Tagging.create!(:id => 2,
                 :tag_id => 1)
 
 # post after 1 minutes
+# id 3
 Entry.create!(:user_id => 3,
               :title => "Test Post2",
               :body => "Test Post2",
@@ -67,6 +70,7 @@ Entry.create!(:user_id => 3,
               :updated_at => (Time.parse(created_at) + 1.minutes).iso8601)
 
 # page
+# id 4
 Entry.create!(:user_id => 1,
               :title => "Test Page",
               :body => "test Page",
@@ -75,9 +79,30 @@ Entry.create!(:user_id => 1,
               :updated_at => updated_at)
 
 # draft page
+# id 5
 Entry.create!(:user_id => 1,
               :title => "Draft Page",
               :body => "draft Page",
               :type => "Page",
+              :created_at => created_at,
+              :updated_at => updated_at)
+
+# kramdown
+# id 6
+Entry.create!(:user_id => 1,
+              :title => "Markdown",
+              :body => "# hi! \nmarkdown test",
+              :markup => "kramdown",
+              :type => "Post",
+              :created_at => created_at,
+              :updated_at => updated_at)
+
+# redcloth
+# id 7
+Entry.create!(:user_id => 1,
+              :title => "Textile",
+              :body => "h1. hi!  \ntextile test",
+              :markup => "redcloth",
+              :type => "Post",
               :created_at => created_at,
               :updated_at => updated_at)

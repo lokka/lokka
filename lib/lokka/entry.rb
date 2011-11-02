@@ -8,6 +8,7 @@ class Entry
   property :slug, Slug, :length => 255
   property :title, String, :length => 255
   property :body, Text
+  property :markup, String, :length => 255
   property :type, Discriminator
   property :draft, Boolean, :default => false
   property :created_at, DateTime
@@ -25,6 +26,11 @@ class Entry
 
   before :valid? do
     self.category_id = nil if category_id === ''
+  end
+
+  alias_method :raw_body, :body
+  def body
+    Markup.use_engine(markup, raw_body)
   end
 
   def comments
