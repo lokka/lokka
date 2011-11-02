@@ -345,7 +345,7 @@ module Lokka
       flash[:notice] = t('snippet_was_successfully_deleted')
       redirect '/admin/snippets'
     end
- 
+
     # theme
     get '/admin/themes' do
       @themes =

@@ -1,26 +1,25 @@
 %h2= t('edit_site')
-%form(action="/admin/site" method="post")
-  %input(type="hidden" name="_method" value="put")
+- form_for @site, '/admin/site', :method => :put do |f|
   %p
-    %label(for="site_title")= t('site.title')
-    %br
-    %input(type="text" id="site_title" name="site[title]" value="#{@site.title}")
+    = f.label :title, :caption => t('site.title')
+    %br/
+    = f.text_field :title
   %p
-    %label(for="site_description")= t('site.description')
-    %br
-    %textarea(id="site_description" name="site[description]" rows="10" cols="50")= h @site.description
+    = f.label :description, :caption => t('site.description')
+    %br/
+    = f.text_area :description
   %p
-    %label(for="site_dashboard")= t('site.dashboard')
-    %br
-    %textarea(id="site_dashboard" name="site[dashboard]" class="editor" rows="10" cols="50")= h @site.dashboard
+    = f.label :dashboard, :caption => t('site.dashboard')
+    %br/
+    = f.text_area :dashboard
   #toggle-button-options.toggle-button(onclick="$('.option').toggle()")= t('option')
   %p.option(style="display:none")
-    %label(for="site_meta_description")= t('site.meta_description')
-    %br
-    %textarea(id="site_meta_description" name="site[meta_description]" rows="10" cols="50")= h @site.meta_description
+    = f.label :meta_description
+    %br/
+    = f.text_area :meta_description
   %p.option(style="display:none")
-    %label(for="site_meta_keywords")= t('site.meta_keywords')
-    %br
-    %input(type="text" id="site_meta_keywords" name="site[meta_keywords]" value="#{@site.meta_keywords}")
+    = f.label :meta_keywords
+    %br/
+    = f.text_field :meta_keywords
   %p
-    %input(type="submit" value="#{t('edit')}")
+    = f.submit t('edit')
