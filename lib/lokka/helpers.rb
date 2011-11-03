@@ -217,6 +217,7 @@ module Lokka
 
     def render_preview(entry)
         @entry = entry
+        @entry.user = current_user
         @entry.title << ' - Preview'
         setup_and_render_entry
     end
