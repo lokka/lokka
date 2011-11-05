@@ -30,6 +30,7 @@ gem 'padrino-helpers'
 gem 'coderay'
 gem 'kramdown'
 gem 'RedCloth'
+gem 'wikicloth'
 gem 'yard-sinatra'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }

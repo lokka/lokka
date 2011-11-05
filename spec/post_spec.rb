@@ -28,6 +28,12 @@ describe "Posts" do
       post.body.should_not == post.raw_body
       post.body.should match('<h1')
     end
+    
+    it 'wikicloth' do
+      post = Post.get(8)
+      post.body.should_not == post.raw_body
+      post.body.should match('<h1')
+    end
 
     it 'default' do
       post = Post.get(1)

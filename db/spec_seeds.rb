@@ -106,3 +106,13 @@ Entry.create!(:user_id => 1,
               :type => "Post",
               :created_at => created_at,
               :updated_at => updated_at)
+
+# wikicloth
+# id 8
+Entry.create!(:user_id => 1,
+              :title => "MediaWiki",
+              :body => "= hi! = \nmediawiki test",
+              :markup => "wikicloth",
+              :type => "Post",
+              :created_at => created_at,
+              :updated_at => updated_at)

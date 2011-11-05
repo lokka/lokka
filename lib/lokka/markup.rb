@@ -18,6 +18,8 @@ module Markup
       ['kramdown', 'Markdown (Kramdown)',
         lambda{ |text| Kramdown::Document.new(text).to_html }],
       ['redcloth', 'Textile (Redcloth)',
-        lambda{ |text| RedCloth.new(text).to_html }]
+        lambda{ |text| RedCloth.new(text).to_html }],
+      ['wikicloth', 'MediaWiki (WikiCloth)',
+        lambda{ |text| WikiCloth::Parser.new(:data => text).to_html(:noedit => true) }]
   ]
 end
