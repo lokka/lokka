@@ -70,68 +70,20 @@ module Lokka
     end
 
     # posts
-    get '/admin/posts' do
-      get_admin_entries(Post)
-    end
-
-    get '/admin/posts/new' do
-      get_admin_entry_new(Post)
-    end
-
-    post '/admin/posts' do
-      post_admin_entry(Post)
-    end
-
-    get '/admin/posts/:id/edit' do |id|
-      get_admin_entry_edit(Post, id)
-    end
-
-    put '/admin/posts/:id' do |id|
-      put_admin_entry(Post, id)
-    end
-
-    delete '/admin/posts/:id' do |id|
-      post = Post.get(id)
-      post.destroy
-      flash[:notice] = t('post_was_successfully_deleted')
-      if post.draft
-        redirect '/admin/posts?draft=true'
-      else
-        redirect '/admin/posts'
-      end
-    end
+    get   ('/admin/posts')          { get_admin_entries(Post) }
+    get   ('/admin/posts/new')      { get_admin_entry_new(Post) }
+    post  ('/admin/posts')          { post_admin_entry(Post) }
+    get   ('/admin/posts/:id/edit') { |id| get_admin_entry_edit(Post, id) }
+    put   ('/admin/posts/:id')      { |id| put_admin_entry(Post, id) }
+    delete('/admin/posts/:id')      { |id| delete_admin_entry(Post, id) }
 
     # pages
-    get '/admin/pages' do
-      get_admin_entries(Page)
-    end
-
-    get '/admin/pages/new' do
-      get_admin_entry_new(Page)
-    end
-
-    post '/admin/pages' do
-      post_admin_entry(Page)
-    end
-
-    get '/admin/pages/:id/edit' do |id|
-      get_admin_entry_edit(Page, id)
-    end
-
-    put '/admin/pages/:id' do |id|
-      put_admin_entry(Page, id)
-    end
-
-    delete '/admin/pages/:id' do |id|
-      page = Page.get(id)
-      page.destroy
-      flash[:notice] = t('page_was_successfully_deleted')
-      if page.draft
-        redirect '/admin/pages?draft=true'
-      else
-        redirect '/admin/pages'
-      end
-    end
+    get   ('/admin/pages')          { get_admin_entries(Page) }
+    get   ('/admin/pages/new')      { get_admin_entry_new(Page) }
+    post  ('/admin/pages')          { post_admin_entry(Page) }
+    get   ('/admin/pages/:id/edit') { |id| get_admin_entry_edit(Page, id) }
+    put   ('/admin/pages/:id')      { |id| put_admin_entry(Page, id) }
+    delete('/admin/pages/:id')      { |id| delete_admin_entry(Page, id) }
 
     # comment
     get '/admin/comments' do

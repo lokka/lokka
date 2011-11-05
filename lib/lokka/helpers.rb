@@ -296,5 +296,17 @@ module Lokka
         end
       end
     end
+
+    def delete_admin_entry(entry_class, id)
+      name = entry_class.name.downcase
+      entry = entry_class.get(id)
+      entry.destroy
+      flash[:notice] = t("#{name}_was_successfully_deleted")
+      if entry.draft
+        redirect "/admin/#{name.pluralize}?draft=true"
+      else
+        redirect "/admin/#{name.pluralize}"
+      end
+    end
   end
 end
