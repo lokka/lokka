@@ -1,20 +1,23 @@
 module Markup
-  def self.name_description_pair_list
-    [
-      ['', 'default HTML'],
-      ['kramdown', 'Markdown (Kramdown)'],
-      ['redcloth', 'Textile (Redcloth)']
-    ]
-  end
+  class << self
+    attr_accessor :engine_list
 
-  def self.use_engine(name, text)
-    case name
-    when 'kramdown'
-      Kramdown::Document.new(text).to_html
-    when 'redcloth'
-      RedCloth.new(text).to_html
-    else
+    def name_description_pair_list
+      @engine_list.unshift ['', 'default HTML']
+    end
+
+    def use_engine(name, text)
+      @engine_list.each do |engine|
+        return engine[2].call(text) if engine[0] == name
+      end
       text
     end
   end
+
+  @engine_list = [
+      ['kramdown', 'Markdown (Kramdown)',
+        lambda{ |text| Kramdown::Document.new(text).to_html }],
+      ['redcloth', 'Textile (Redcloth)',
+        lambda{ |text| RedCloth.new(text).to_html }]
+  ]
 end
