@@ -219,6 +219,7 @@ module Lokka
         @entry = entry
         @entry.user = current_user
         @entry.title << ' - Preview'
+        @entry.updated_at = DateTime.now
         setup_and_render_entry
     end
 
