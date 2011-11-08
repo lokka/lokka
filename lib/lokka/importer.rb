@@ -26,7 +26,7 @@ module Lokka
               user = User.new(
                 :name                  => name,
                 :password              => DEFAULT_PASSWORD,
-                :password_confirmation => DEFAULT_PASSWORD,
+                :password_confirmation => DEFAULT_PASSWORD
               )
             end
 
