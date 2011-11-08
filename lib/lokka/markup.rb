@@ -3,7 +3,7 @@ module Markup
     attr_accessor :engine_list
 
     def name_description_pair_list
-      @engine_list.unshift ['', 'default HTML']
+      @engine_list.dup.unshift ['', 'default HTML']
     end
 
     def use_engine(name, text)
