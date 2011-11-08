@@ -7,16 +7,16 @@
   %p
     = f.label :description, :caption => t('site.description')
     %br/
-    = f.text_area :description
+    ~ f.text_area :description
   %p
     = f.label :dashboard, :caption => t('site.dashboard')
     %br/
-    = f.text_area :dashboard
+    ~ f.text_area :dashboard
   #toggle-button-options.toggle-button(onclick="$('.option').toggle()")= t('option')
   %p.option(style="display:none")
     = f.label :meta_description
     %br/
-    = f.text_area :meta_description
+    ~ f.text_area :meta_description
   %p.option(style="display:none")
     = f.label :meta_keywords
     %br/
