@@ -124,22 +124,6 @@ module Lokka
       haml :'system/comments/form', :layout => false
     end
 
-    def link_to_if(cond, name, url, options = {})
-      cond ? link_to(name, url, options) : name
-    end
-
-    def link_to_unless(cond, name, url, options = {})
-      link_to_if !cond, name, url, options
-    end
-
-    def link_to_current(name, url, options = {})
-      request_path == url ? link_to(name, url, options) : name
-    end
-
-    def link_to_unless_current(name, url, options = {})
-      request_path != url ? link_to(name, url, options) : name
-    end
-
     def select_field(object, method, values = [], options = {})
       name = "#{object.class.name.downcase}[#{method}]"
       v = object.send(method)

@@ -16,7 +16,7 @@
       <p class="author">Posted by <%= @entry.user.name %></p>
     </div>
     <div class="date">
-      <p class="month"><%= @entry.created_at.strftime("%b")  %></p>     
+      <p class="month"><%= @entry.created_at.strftime("%b") %></p>
       <p class="day"><%= @entry.created_at.day %></p>
       <p class="year"><%= @entry.created_at.year %></p>
     </div>
@@ -26,54 +26,54 @@
     <% if logged_in? %>
       <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
     <% end %>
-  </div> 
+  </div>
 </div>
 
-<div id="comment_wrapper">  
-	<% if @entry.comments.size > 0 %>
-	<h3>
-		<%= t('comments') %>
-	</h3>
-	<ul id="comments">
-		<% @entry.comments.reverse.each do |comment| %>
-			<li id="comment-<%= comment.id %>" class="comment clearfix">
-				<p>
-					<%= hbr comment.body %>					
-				</p>
-				<div class="commenter">
-					<div class="name">
-						<%= link_to_unless comment.homepage.blank?, comment.name, comment.homepage %>
-					</div>
-					<div class="date">
-						<%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %>
-					</div>
-				</div>
-			</li>
-		<% end %>
-	</ul>
-	<% end %>
-	
-	<div id="comment_form">
-	  <form action="/2" id="comment_form" method="post">
-	    <script type="text/javascript">
-	      //<![CDATA[
-	        document.write('<input type="hidden" name="check" value="check" />');
-	      //]]>
-	    </script><input type="hidden" name="check" value="check">
-	    <p class="name">
-	      <label for="comment_name">Name</label>
-	      <input id="comment_name" name="comment[name]" type="text">
-	    </p>
-	    <p class="url">
-	      <label for="comment_homepage">URL</label><span> (option)</span>
-	      <input id="comment_homepage" name="comment[homepage]" type="text">
-	    </p>
-	    <p>
-	      <textarea cols="40" id="comment_body" name="comment[body]" rows="10"></textarea>
-	    </p>
-	    <p class="submit">
-	      <input class="button" type="submit" value="Commment">
-	    </p>	  
-	  </form>
-	</div>  	
+<div id="comment_wrapper">
+  <% if @entry.comments.size > 0 %>
+  <h3>
+    <%= t('comments') %>
+  </h3>
+  <ul id="comments">
+    <% @entry.comments.reverse.each do |comment| %>
+      <li id="comment-<%= comment.id %>" class="comment clearfix">
+        <p>
+          <%= hbr comment.body %>
+        </p>
+        <div class="commenter">
+          <div class="name">
+            <%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %>
+          </div>
+          <div class="date">
+            <%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <% end %>
+
+  <div id="comment_form">
+    <form action="/2" id="comment_form" method="post">
+      <script type="text/javascript">
+        //<![CDATA[
+          document.write('<input type="hidden" name="check" value="check" />');
+        //]]>
+      </script><input type="hidden" name="check" value="check">
+      <p class="name">
+        <label for="comment_name">Name</label>
+        <input id="comment_name" name="comment[name]" type="text">
+      </p>
+      <p class="url">
+        <label for="comment_homepage">URL</label><span> (option)</span>
+        <input id="comment_homepage" name="comment[homepage]" type="text">
+      </p>
+      <p>
+        <textarea cols="40" id="comment_body" name="comment[body]" rows="10"></textarea>
+      </p>
+      <p class="submit">
+        <input class="button" type="submit" value="Commment">
+      </p>
+    </form>
+  </div>
 </div>
