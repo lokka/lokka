@@ -105,7 +105,7 @@ module Lokka
         end
 
       layout = "#{dir}/layout"
-      path = 
+      path =
         if settings.supported_stylesheet_templates.include?(ext)
           "#{name}"
         else
@@ -216,11 +216,11 @@ module Lokka
     end
 
     def render_preview(entry)
-        @entry = entry
-        @entry.user = current_user
-        @entry.title << ' - Preview'
-        @entry.updated_at = DateTime.now
-        setup_and_render_entry
+      @entry = entry
+      @entry.user = current_user
+      @entry.title << ' - Preview'
+      @entry.updated_at = DateTime.now
+      setup_and_render_entry
     end
 
     def setup_and_render_entry

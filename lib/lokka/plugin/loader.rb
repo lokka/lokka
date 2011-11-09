@@ -21,7 +21,7 @@ module Lokka
             puts e
           end
         end
-  
+
         plugins = []
         unless app.routes['GET'].blank?
           matchers = app.routes['GET'].map(&:first)
