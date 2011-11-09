@@ -1,7 +1,4 @@
 ja:
-  time:
-    formats:
-      default: "%Y年%m月%d日"
   all: 全て
   option: オプション
   demo: デモ
