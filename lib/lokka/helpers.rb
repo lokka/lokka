@@ -326,5 +326,25 @@ module Lokka
       end
       size ? "#{url}?size=#{size}" : url
     end
+
+    class TranslateProxy
+      def initialize(logger)
+        @logger = logger
+      end
+      def method_missing(name, *args)
+        name = name.to_s
+        @logger.warn %|"t.#{name}" translate style is obsolete. use "t('#{name}')".| # FIXME
+        I18n.translate(name)
+      end
+    end
+
+    def translate_compatibly(*args)
+      if args.length == 0
+        TranslateProxy.new(logger)
+      else
+        I18n.translate(*args)
+      end
+    end
+    alias_method :t, :translate_compatibly
   end
 end
