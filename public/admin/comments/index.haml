@@ -13,7 +13,7 @@
       %td.body= link_to truncate(strip_tags(comment.body)), comment.link
       %td= comment.name
       %td= l(comment.created_at, :format => :long)
-      %td= link_to t('edit'), "/admin/comments/#{comment.id}/edit"
+      %td= link_to t('edit'), "/admin/comments/#{comment.id}/edit", :class => 'button'
       %td= link_to t('delete'), "/admin/comments/#{comment.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
   %ul

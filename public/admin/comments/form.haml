@@ -1,34 +1,33 @@
-- unless @comment.errors.empty?
-  #error
-    .title= t('error')
-    %ul
-      - @comment.errors.each do |error|
-        %li= error
-.field
-  %label(for="comment_entry")= t('comment.entry')
-  %br
-  - if @entries.size > 1
-    = select_field @comment, :entry_id, @entries, :id => 'comment_entry'
-  - else
-    = t('no_entry')
-.field
-  %label(for="comment_name")= t('comment.name')
-  %br
-  %input(type="text" id="comment_name" name="comment[name]" value="#{@comment.name}")
-.field
-  %label(for="comment_body")= t('comment.body')
-  %br
-  %textarea(id="comment_body" name="comment[body]" rows="10" cols="50")= h @comment.body
-.field
-  %label(for="comment_homepage")= t('comment.homepage')
-  %br
-  %input(type="text" id="comment_homepage" name="comment[homepage]" value="#{@comment.homepage}")
-.field
-  %label(for="comment_created_at")= t('comment.created_at')
-  %br
-  %input(type="text" id="comment_created_at" name="comment[created_at]" value="#{@comment.created_at}")
-.field
-  %label(for="comment_status")= t('comment_status')
-  %br/
-  - ops = [[Comment::APPROVED, t('comment_approved')], [Comment::MODERATED, t('comment_moderated')], [Comment::SPAM, t('comment_spam')]]
-  = select_field @comment, :status, ops, :id => 'comment_status'
+- form_for @comment, action, :method => method do |f|
+  - unless @comment.errors.empty?
+    #error
+      .title= t('error')
+      %ul
+        - @comment.errors.each do |error|
+          %li= error
+  .field
+    = f.label :entry, :caption => t('comment.entry')
+    %br/
+    = f.select :entry_id, :collection => Entry.all, :fields => [:title, :id], :include_blank => t('not_select')
+  .field
+    = f.label :name, :caption => t('comment.name')
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :body, :caption => t('comment.body')
+    %br/
+    = f.text_area :body, :rows => 10, :cols => 50
+  .field
+    = f.label :homepage, :caption => t('comment.homepage')
+    %br/
+    = f.text_field :homepage
+  .field
+    = f.label :created_at, :caption => t('comment.created_at')
+    %br/
+    = f.text_field :created_at
+  .field
+    = f.label :status, :caption => t('comment_status')
+    %br/
+    - opts = [[t('comment_approved'), Comment::APPROVED], [t('comment_moderated'), Comment::MODERATED], [t('comment_spam'), Comment::SPAM]]
+    = f.select :status, :options => opts
+  %p= f.submit label

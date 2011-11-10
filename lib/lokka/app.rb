@@ -95,7 +95,6 @@ module Lokka
 
     get '/admin/comments/new' do
       @comment = Comment.new(:created_at => DateTime.now)
-      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
       render_any :'comments/new'
     end
 
@@ -105,14 +104,12 @@ module Lokka
         flash[:notice] = t('comment_was_successfully_created')
         redirect '/admin/comments'
       else
-        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
         render_any :'comments/new'
       end
     end
 
     get '/admin/comments/:id/edit' do |id|
       @comment = Comment.get(id)
-      @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
       render_any :'comments/edit'
     end
 
@@ -122,7 +119,6 @@ module Lokka
         flash[:notice] = t('comment_was_successfully_updated')
         redirect '/admin/comments'
       else
-        @entries = Entry.all.map {|e| [e.id, e.title] }.unshift([nil, t('not_select')])
         render_any :'comments/edit'
       end
     end

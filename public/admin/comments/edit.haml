@@ -1,6 +1,2 @@
 %h2= t('edit_comment')
-%form(action="/admin/comments/#{@comment.id}" method="post")
-  %input(type="hidden" name="_method" value="put")
-  = partial 'comments/form'
-  %p
-    %input(type="submit" value="#{t('edit')}")
+= partial 'comments/form', :locals => {:action => "/admin/comments/#{@comment.id}", :method => 'put', :label => t('edit')}
