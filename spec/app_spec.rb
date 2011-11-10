@@ -41,7 +41,24 @@ describe "App" do
         last_response.body.should_not match('Draft post')
       end
     end
-end
+
+    context "with continue reading" do
+      describe 'in entries page' do
+        it "hide texts after <!--more-->" do
+          get '/'
+          last_response.body.should match(/<p>a<\/p>\n\n<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
+        end
+      end
+
+      describe 'in entry page' do
+        it "don't hide after <!--more-->" do
+          get '/9'
+          last_response.body.should_not match(/<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
+        end
+      end
+    end
+
+  end
 
   context "access tag archive page" do
     before do

@@ -28,7 +28,7 @@ describe "Posts" do
       post.body.should_not == post.raw_body
       post.body.should match('<h1')
     end
-    
+
     it 'wikicloth' do
       post = Post.get(8)
       post.body.should_not == post.raw_body
@@ -38,6 +38,21 @@ describe "Posts" do
     it 'default' do
       post = Post.get(1)
       post.body.should == post.raw_body
+    end
+  end
+
+  context "continue reading" do
+    describe 'in entries page' do
+      it "hide texts after <!--more-->" do
+      end
+
+      it "hide texts after first <!--more-->" do
+      end
+    end
+
+    describe 'in entry page' do
+      it "don't hide after <!--more-->" do
+      end
     end
   end
 end

@@ -116,3 +116,13 @@ Entry.create!(:user_id => 1,
               :type => "Post",
               :created_at => created_at,
               :updated_at => updated_at)
+
+# continue reading
+# id 9
+Entry.create!(:user_id => 1,
+              :title => "Continue Reading",
+              :body => "a\n\n<!--more-->\n\nb\n\n<!--more-->\n\nc\n",
+              :markup => "kramdown",
+              :type => "Post",
+              :created_at => created_at,
+              :updated_at => updated_at)
