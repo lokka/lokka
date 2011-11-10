@@ -45,7 +45,7 @@
             <%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %>
           </div>
           <div class="date">
-            <%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %>
+            <%= l comment.created_at, :format => :long %>
           </div>
         </div>
       </li>
