@@ -34,7 +34,7 @@
           <dt>Recent Entries</dt>
           <dd>
             <ul>
-              <% Post.recent(5).each do |post| %>
+              <% Post.published.recent(5).each do |post| %>
               <li><a href="<%= post.link %>"><%= post.title %></a></li>
               <% end %>
             </ul>

@@ -15,7 +15,7 @@
 	</h3>
 	<div class="side_cont_body">
 		<ul id="side_list">
-			<% Post.recent.each do |post| %>
+			<% Post.published.recent.each do |post| %>
 				<li>
 					<span>&middot;</span><%= link_to post.title, post.link %>
 				</li>				
