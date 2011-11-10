@@ -124,17 +124,6 @@ module Lokka
       haml :'system/comments/form', :layout => false
     end
 
-    def checkbox(object, method, options = {})
-      name = "#{object.class.name.downcase}[#{method}]"
-      id = "#{object.class.name.downcase}_#{method}"
-      checked = object.send(method) ? ' checked="checked"' : ''
-      attrs = ''
-      options.each do |key, value|
-        attrs += %Q( #{key}="#{value}")
-      end
-      %Q(<input type="hidden" name="#{name}" value="false" /><input type="checkbox" id="#{id}" name="#{name}" value="true"#{attrs}#{checked} />)
-    end
-
     def months
       ms = {}
       Post.all.each do |post|
