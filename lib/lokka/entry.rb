@@ -105,7 +105,7 @@ class Entry
     end
   
     def recent(count = 5)
-      all(:limit => count)
+      all(:draft => false, :limit => count)
     end
   
     def published
