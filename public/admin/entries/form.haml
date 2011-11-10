@@ -1,42 +1,47 @@
-- unless @entry.errors.empty?
-  #error
-    .title= t('error')
-    %ul
-      - @entry.errors.each do |error|
-        %li= error
-.field
-  %label(for="#{@name}_title")= t("#{@name}.title")
-  %br/
-  %input(type="text" id="#{@name}_title" name="#{@name}[title]" value="#{@entry.title}")
-.field
-  %label(for="#{@name}_markup")= Markup
-  %br/
-  = select_field @entry, :markup, Markup.name_description_pair_list 
-.field
-  %label(for="#{@name}_body")= t("#{@name}.body")
-  %br/
-  %div#editor
-    %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.raw_body
-.field
-  %label(for="#{@name}_slug")= t("#{@name}.slug")
-  %br/
-  %input(type="text" id="#{@name}_slug" name="#{@name}[slug]" value="#{@entry.slug}")
-.field
-  %label(for="#{@name}_category")= t("#{@name}.category")
-  %br/
-  - if @categories.size > 1
-    = select_field @entry, :category_id, @categories, :id => "#{@name}_category"
-  - else
-    = t('no_category')
-.field
-  %label(for="#{@name}_tag_collection")= t("#{@name}.tags")
-  %br
-  %input(type="text" id="#{@name}_tag_collection" name="#{@name}[tag_collection]" value="#{@entry.tag_collection}")
-.field
-  %label(for="#{@name}_draft")= t("#{@name}.draft")
-  %br/
-  = checkbox @entry, :draft
-.field
-  %label(for="#{@name}_created_at")= t("#{@name}.created_at")
-  %br/
-  %input(type="text" id="#{@name}_created_at" name="#{@name}[created_at]" value="#{@entry.created_at}")
+- form_for @entry, action, :method => method do |f|
+  - unless @entry.errors.empty?
+    #error
+      .title= t('error')
+      %ul
+        - @entry.errors.each do |error|
+          %li= error
+  .field
+    = f.label :title, :caption => t("#{@name}.title")
+    %br/
+    = f.text_field :title
+  .field
+    = f.label :markup, :caption => 'Markup'
+    %br/
+    = f.select :markup, :options => Markup.engine_list.map {|e| [e[1], e[0]] }
+  .field
+    = f.label :body, :caption => t("#{@name}.body")
+    %br/
+    #editor
+      - @entry.body = @entry.raw_body
+      = f.text_area :body, :rows => 10, :cols => 50, :class => 'editor'
+  .field
+    = f.label :slug, :caption => t("#{@name}.slug")
+    %br/
+    = f.text_field :slug
+  .field
+    = f.label :category, :caption => t("#{@name}.category")
+    %br/
+    - if Category.count > 1
+      = f.select :category_id, :collection => Category.all, :fields => [:title, :id], :include_blank => t('not_select')
+    - else
+      = t('no_category')
+  .field
+    = f.label :tag_collection, :caption => t("#{@name}.tags")
+    %br/
+    = f.text_field :tag_collection
+  .field
+    = f.label :draft, :caption => t("#{@name}.draft")
+    %br/
+    = f.check_box :draft
+  .field
+    = f.label :created_at, :caption => t("#{@name}.created_at")
+    %br/
+    = f.text_field :created_at
+  %p
+    %input(type="submit" value="#{t('preview')}" name="preview")
+    %input(type="submit" value="#{label}" name="edit")

@@ -2,10 +2,6 @@ module Markup
   class << self
     attr_accessor :engine_list
 
-    def name_description_pair_list
-      @engine_list.dup.unshift ['', 'default HTML']
-    end
-
     def use_engine(name, text)
       @engine_list.each do |engine|
         return engine[2].call(text) if engine[0] == name
@@ -15,6 +11,7 @@ module Markup
   end
 
   @engine_list = [
+      ['html', 'HTML', lambda{ |text| text }],
       ['kramdown', 'Markdown (Kramdown)',
         lambda{ |text| Kramdown::Document.new(text).to_html }],
       ['redcloth', 'Textile (Redcloth)',

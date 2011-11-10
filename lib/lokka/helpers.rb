@@ -124,23 +124,6 @@ module Lokka
       haml :'system/comments/form', :layout => false
     end
 
-    def select_field(object, method, values = [], options = {})
-      name = "#{object.class.name.downcase}[#{method}]"
-      v = object.send(method)
-
-      attrs = ''
-      options.each do |key, value|
-        attrs += %Q( #{key}="#{value}")
-      end
-
-      html = %Q(<select name="#{name}"#{attrs}>)
-      values.each do |value|
-        padding = value[0] == v ? ' selected="selected"' : ''
-        html += %Q(<option value="#{value[0]}"#{padding}>#{value[1]}</option>)
-      end
-      html + '</select>'
-    end
-
     def checkbox(object, method, options = {})
       name = "#{object.class.name.downcase}[#{method}]"
       id = "#{object.class.name.downcase}_#{method}"

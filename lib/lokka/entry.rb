@@ -30,7 +30,7 @@ class Entry
 
   alias_method :raw_body, :body
   def body
-    Markup.use_engine(markup, raw_body)
+    Markup.use_engine(markup || 'html', super)
   end
 
   def comments

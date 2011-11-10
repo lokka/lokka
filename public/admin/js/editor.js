@@ -5,8 +5,9 @@ $(function() {
 
   var switchTextareaAndCleditor = (function() {
     var name = $('select[name$="[markup]"] option:selected').val();
+    name = name == '' ? 'html' : name
     var html;
-    if (name == '') {
+    if (name == 'html') {
       // enable cleditor
       if (plainTextareaMode) {
         textarea = $('textarea.editor').clone();

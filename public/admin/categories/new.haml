@@ -1,5 +1,2 @@
 %h2= t('new_category')
-%form(action="/admin/categories" method="post")
-  = partial 'categories/form'
-  %p
-    %input(type="submit" value="#{t('new')}")
+= partial 'categories/form', :locals => {:action => '/admin/categories', :method => 'post', :label => t('new')}

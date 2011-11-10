@@ -11,6 +11,8 @@ class Category
   property :updated_at, DateTime
   property :parent_id, Integer
 
+  validates_presence_of :title
+
   is :tree, :order => :title
 
   has n, :entries

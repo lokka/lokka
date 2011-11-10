@@ -138,7 +138,6 @@ module Lokka
 
     get '/admin/categories/new' do
       @category = Category.new
-      @categories = [nil, t('not_select')] + Category.all.map {|c| [c.id, c.title] }
       render_any :'categories/new'
     end
 
