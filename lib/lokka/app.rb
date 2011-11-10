@@ -376,6 +376,7 @@ module Lokka
 
       @posts = Post.published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
+      @posts = apply_continue_reading(@posts)
 
       @title = @site.title
 
@@ -387,6 +388,7 @@ module Lokka
     get '/index.atom' do
       @posts = Post.published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
+      @posts = apply_continue_reading(@posts)
       content_type 'application/atom+xml', :charset => 'utf-8'
       builder :'system/index'
     end
@@ -399,6 +401,7 @@ module Lokka
       @query = params[:query]
       @posts = Post.published.search(@query).
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
+      @posts = apply_continue_reading(@posts)
 
       @title = "Search by #{@query}"
 
@@ -418,6 +421,7 @@ module Lokka
       return 404 if @category.nil?
       @posts = Post.all(:category => @category).published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
+      @posts = apply_continue_reading(@posts)
 
       @title = @category.title
 
@@ -440,6 +444,8 @@ module Lokka
       @posts = Post.all(:id => @tag.taggings.map {|o| o.taggable_id }).
                     published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
+      @posts = apply_continue_reading(@posts)
+
       @title = @tag.name
 
       @bread_crumbs = [{:name => t('home'), :link => '/'},
@@ -458,6 +464,7 @@ module Lokka
                     all(:created_at.lt => DateTime.new(year, month) >> 1).
                     published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
+      @posts = apply_continue_reading(@posts)
 
       @title = "#{year}/#{month}"
 
@@ -478,6 +485,7 @@ module Lokka
                     all(:created_at.lt => DateTime.new(year + 1)).
                     published.
                     page(params[:page], :per_page => settings.per_page, :order => :created_at.desc)
+      @posts = apply_continue_reading(@posts)
 
       @title = year
 

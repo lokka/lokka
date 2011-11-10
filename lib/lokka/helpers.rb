@@ -302,5 +302,14 @@ module Lokka
       end
     end
     alias_method :t, :translate_compatibly
+
+    def apply_continue_reading(posts)
+      posts.each do |post|
+        class << post
+          alias body short_body
+        end
+      end
+      posts
+    end
   end
 end
