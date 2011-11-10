@@ -326,5 +326,15 @@ module Lokka
       end
       size ? "#{url}?size=#{size}" : url
     end
+
+
+    def apply_continue_reading(posts)
+      posts.each do |post|
+        class << post
+          alias body short_body
+        end
+      end
+      posts
+    end
   end
 end

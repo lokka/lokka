@@ -29,8 +29,14 @@ class Entry
   end
 
   alias_method :raw_body, :body
-  def body
+  def long_body
     Markup.use_engine(markup, raw_body)
+  end
+  alias_method :body, :long_body
+
+  def short_body
+    @short_body ||= self.long_body \
+      .sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>")
   end
 
   def comments
