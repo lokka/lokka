@@ -16,3 +16,38 @@
     %input#permalink_format{'name' => 'format', 'type' => 'text', 'value' => flash[:permalink_format] || @format}
   %p
     %input{'type' => 'submit', 'value' => t('edit')}
+%h3= t('permalink.tags')
+%ul
+  %li
+    %code %year%
+    = " - "
+    = t('permalink.tag.year')
+  %li
+    %code %month%
+    = " - "
+    = t('permalink.tag.month')
+  %li
+    %code %day%
+    = " - "
+    = t('permalink.tag.day')
+  %li
+    %code %hour%
+    = " - "
+    = t('permalink.tag.hour')
+  %li
+    %code %minute%
+    = " - "
+    = t('permalink.tag.minute')
+  %li
+    %code %second%
+    = " - "
+    = t('permalink.tag.second')
+  %li
+    %code %id%
+    = " - "
+    = t('permalink.tag.id')
+  %li
+    %code %slug%
+    = " - "
+    = t('permalink.tag.slug')
+

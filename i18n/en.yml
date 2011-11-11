@@ -177,6 +177,17 @@ en:
     error:
       no_tags: Format should include more than one tags.
       tag_unclosed: Some tags is not closed. (Forgetting %?)
+    description: By enabling custom permalink, you can use custom url format as permalink of post. The custom permalink format has some compatibility with Wordpress.
+    tags: Format Tags - These magic characters will be replaced to some.
+    tag:
+      year: The year of post created, 4 digits.
+      month: The month of post created, 2 digits. Also available as %monthnum%, for compatibility with WordPress.
+      day: Day of the month when post created, 2 digits.
+      hour: Hour of the day when post created. 2 digits.
+      minute: Minute of the hour when post created. 2 digits.
+      second: Second of the minute when post created. 2 digits.
+      id: The unique id of the post. Also available as %post_id% for compatibility with WordPress.
+      slug: Slug as you specified to post. Also available as %postname% for compatibility with WordPress.
   import: Import
   import_from_wordpress: Import from WordPress
   import_file: Import File

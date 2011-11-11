@@ -177,6 +177,17 @@ ja:
     error:
       no_tags: Permalink のフォーマットには1つ以上のタグが必要です
       tag_unclosed: フォーマットに書かれているタグが閉じられていません (% を忘れている?)
+    description: カスタム permalink を有効化することで投稿のURLをカスタマイズすることができます。ここでカスタム permalink 指定に使われているフォーマットは WordPress とほぼ互換性があります。
+    tags: フォーマット用タグ - %...% のような文字列は意味を持っています
+    tag:
+      year: 投稿が作成された年の4桁の数値
+      month: 投稿を作成した月の2桁の数値, WordPress との互換性のために %monthnum% でも利用することができます
+      day: 投稿を作成した日にち, 2桁の数値
+      hour: 投稿を作成した時間, 2桁の数値
+      minute: 投稿を作成した分, 2桁の数値
+      second: 投稿を作成した秒, 2桁の数値
+      id: 投稿に対するユニークなid (数値). これは WordPress との互換性のために %post_id% でも利用することができます
+      slug: 投稿の編集画面で指定した slug, これは WordPress との互換性のために %postname% でも利用することができます
   import: インポート
   import_from_wordpress: WordPressからのインポート
   import_file: インポートファイル
