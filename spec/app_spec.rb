@@ -66,6 +66,9 @@ describe "App" do
         last_response.should be_redirect
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
+
+        get '/4'
+        last_response.should_not be_redirect
       end
 
       it "redirects 0 filled url twhen accessed to non-0 prepended url in day/month" do
