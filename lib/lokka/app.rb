@@ -371,7 +371,7 @@ module Lokka
 
     # permalink
     get '/admin/permalink' do
-      @enabled = Option.permalink_enabled
+      @enabled = (Option.permalink_enabled == "true")
       @format = Option.permalink_format || ""
       render_any :permalink
     end
@@ -383,7 +383,7 @@ module Lokka
       format = "/#{format}" unless /^\// =~ format
 
       errors << t('permalink.error.no_tags') unless /%.+%/ =~ format
-      errors << t('permalink.error.tags_unclosed') unless format.chars.select{|c| c == '%' }.size.even?
+      errors << t('permalink.error.tag_unclosed') unless format.chars.select{|c| c == '%' }.size.even?
 
       if errors.empty?
         Option.permalink_enabled = (params[:enable] == "1")
@@ -554,16 +554,14 @@ module Lokka
     end
 
     not_found do
-      if Option.permalink_enabled
+      if Option.permalink_enabled == "true"
         patterns = Option.permalink_format.scan(/(%.+?%[^%]?|.)/).flatten
         chars = request.path.chars.to_a
 
-        p patterns, chars, request.path
         r = patterns.inject({}) do |result, pattern|
           if pattern.start_with?("%")
             next_char = pattern[-1]
             next_char = nil if next_char == '%'
-            p pattern
             name = pattern.match(/^%(.+)%.?$/)[1].to_sym
             c = nil; (result[name] ||= "") << c until (c = chars.shift) == next_char || c.nil?
           elsif chars.shift != pattern
