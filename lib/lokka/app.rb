@@ -369,6 +369,33 @@ module Lokka
       end
     end
 
+    # permalink
+    get '/admin/permalink' do
+      @enabled = Option.permalink_enabled
+      @format = Option.permalink_format || ""
+      render_any :permalink
+    end
+
+    put '/admin/permalink' do
+      errors = []
+
+      format = params[:format]
+      format = "/#{format}" unless /^\// =~ format
+
+      errors << t('permalink.error.no_tags') unless /%.+%/ =~ format
+      errors << t('permalink.error.tags_unclosed') unless format.chars.select{|c| c == '%' }.size.even?
+
+      if errors.empty?
+        Option.permalink_enabled = (params[:enable] == "1")
+        Option.permalink_format  = params[:format]
+      else
+        flash[:error] = (["<ul>"] + errors.map{|e| "<li>#{e}</li>" } + ["</ul>"]).join("\n")
+        flash[:permalink_format] = format
+      end
+
+      redirect '/admin/permalink'
+    end
+
     # index
     get '/' do
       @theme_types << :index
@@ -527,6 +554,71 @@ module Lokka
     end
 
     not_found do
+      if Option.permalink_enabled
+        patterns = Option.permalink_format.scan(/(%.+?%[^%]?|.)/).flatten
+        chars = request.path.chars.to_a
+
+        p patterns, chars, request.path
+        r = patterns.inject({}) do |result, pattern|
+          if pattern.start_with?("%")
+            next_char = pattern[-1]
+            next_char = nil if next_char == '%'
+            p pattern
+            name = pattern.match(/^%(.+)%.?$/)[1].to_sym
+            c = nil; (result[name] ||= "") << c until (c = chars.shift) == next_char || c.nil?
+          elsif chars.shift != pattern
+            break nil
+          end
+          result
+        end
+
+        conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
+          case tag
+          when :year
+            conds[:created_at.gte] = Time.local(value.to_i, 1, 1, 0, 0, 0)
+            conds[:created_at.lt] = Time.local(value.to_i.succ, 1, 1, 0, 0, 0)
+            flags[:year] = value.to_i
+          when :monthnum, :month
+            flags[:month] = value.to_i
+          when :day
+            flags[:day] = value.to_i
+          when :hour
+            flags[:hour] = value.to_i
+          when :minute
+            flags[:minute] = value.to_i
+          when :second
+            flags[:second] = value.to_i
+          when :post_id, :id
+            conds[:id] = value.to_i
+          when :postname, :slug
+            conds[:slug] = value
+          when :category
+            conds[:category_id] = Category(value).id
+          end
+          [conds, flags]
+        }
+        check = lambda {|entry|
+          return false unless entry
+          time = entry.created_at
+          conds = [true]
+          #conds.push(flags[:year]   == time.month) if flags[:year]
+          conds.push(flags[:month]  == time.month) if flags[:month]
+          conds.push(flags[:day]    == time.month) if flags[:day]
+          conds.push(flags[:hour]   == time.month) if flags[:hour]
+          conds.push(flags[:minute] == time.month) if flags[:minute]
+          conds.push(flags[:second] == time.month) if flags[:second]
+          conds.all?{|x|x}
+        }
+
+        if conditions.empty?
+          @entry = Entry.all.find(&check)
+        else
+          @entry = Entry.first(conditions)
+          @entry = nil if check[@entry]
+        end
+        return setup_and_render_entry if @entry
+      end
+
       if output = render_any(:'404', :layout => false)
         output
       else

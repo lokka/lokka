@@ -75,6 +75,7 @@
             %h3.title= t('settings')
             %ul
               %li.list= link_to t('sites'), '/admin/site/edit'
+              %li.list= link_to t('permalink.title'), '/admin/permalink'
               %li.list= link_to t('import'), '/admin/import'
           - admin_aside = yield_content :admin_aside
           - unless admin_aside.blank?
