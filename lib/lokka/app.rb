@@ -570,6 +570,20 @@ module Lokka
           result
         end
 
+        url_changed = false
+        [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
+          i = (k == :year ? 4 : 2)
+          (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
+        end
+
+        if url_changed
+          path = Option.permalink_format
+          r.each do |tag, value|
+            path.gsub!(/%#{Regexp.escape(tag)}%/,value)
+          end
+          return redirect(path)
+        end
+
         conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
           case tag
           when :year
