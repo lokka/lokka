@@ -170,6 +170,13 @@ en:
     body: Body
     created_at: Created at
     updated_at: Updated at
+  permalink:
+    title: Permalink
+    enable: Enable custom permalink
+    format: Custom permalink format
+    error:
+      no_tags: Format should include more than one tags.
+      tag_unclosed: Some tags is not closed. (Forgetting %?)
   import: Import
   import_from_wordpress: Import from WordPress
   import_file: Import File

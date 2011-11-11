@@ -170,6 +170,13 @@ ja:
     body: 本文
     created_at: 作成日時
     updated_at: 更新日時
+  permalink:
+    title: Permalink
+    enable: カスタム Permalink を有効にする
+    format: カスタム Permalink フォーマット
+    error:
+      no_tags: Permalink のフォーマットには1つ以上のタグが必要です
+      tag_unclosed: フォーマットに書かれているタグが閉じられていません (% を忘れている?)
   import: インポート
   import_from_wordpress: WordPressからのインポート
   import_file: インポートファイル
