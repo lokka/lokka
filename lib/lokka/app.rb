@@ -575,19 +575,23 @@ module Lokka
         conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
           case tag
           when :year
-            conds[:created_at.gte] = Time.local(value.to_i, 1, 1, 0, 0, 0)
-            conds[:created_at.lt] = Time.local(value.to_i.succ, 1, 1, 0, 0, 0)
             flags[:year] = value.to_i
+            flags[:time] = true
           when :monthnum, :month
             flags[:month] = value.to_i
+            flags[:time] = true
           when :day
             flags[:day] = value.to_i
+            flags[:time] = true
           when :hour
             flags[:hour] = value.to_i
+            flags[:time] = true
           when :minute
             flags[:minute] = value.to_i
+            flags[:time] = true
           when :second
             flags[:second] = value.to_i
+            flags[:time] = true
           when :post_id, :id
             conds[:id] = value.to_i
           when :postname, :slug
@@ -597,25 +601,20 @@ module Lokka
           end
           [conds, flags]
         }
-        check = lambda {|entry|
-          return false unless entry
-          time = entry.created_at
-          conds = [true]
-          #conds.push(flags[:year]   == time.month) if flags[:year]
-          conds.push(flags[:month]  == time.month) if flags[:month]
-          conds.push(flags[:day]    == time.month) if flags[:day]
-          conds.push(flags[:hour]   == time.month) if flags[:hour]
-          conds.push(flags[:minute] == time.month) if flags[:minute]
-          conds.push(flags[:second] == time.month) if flags[:second]
-          conds.all?{|x|x}
-        }
 
-        if conditions.empty?
-          @entry = Entry.all.find(&check)
-        else
-          @entry = Entry.first(conditions)
-          @entry = nil if check[@entry]
+        if flags[:time]
+          time_order = [:year, :month, :day, :hour, :minute, :second]
+          args, last = time_order.inject([[],nil]) do |(result,last), key|
+            break [result, key] unless flags[key]
+            [result << flags[key], nil]
+          end
+          args = [0,1,1,0,0,0].each_with_index.map{|default,i| args[i] || default }
+          conditions[:created_at.gte] = Time.local(*args)
+          args[time_order.index(last)-1] += 1
+          conditions[:created_at.lt] = Time.local(*args)
         end
+
+        @entry = Entry.first(conditions)
         return setup_and_render_entry if @entry
       end
 
