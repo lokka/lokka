@@ -5,7 +5,7 @@ describe "Posts" do
   context "link" do
     it "should return correct link path" do
       post = Post.get(1)
-      post.link.should eq('/1')
+      post.link.should eq('/welcome-lokka')
     end
   end
 
