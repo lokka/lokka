@@ -69,6 +69,10 @@ describe "App" do
 
         get '/4'
         last_response.should_not be_redirect
+
+        Option.permalink_enabled = false
+        get '/welcome-lokka'
+        last_response.should_not be_redirect
       end
 
       it "redirects 0 filled url twhen accessed to non-0 prepended url in day/month" do
