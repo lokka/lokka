@@ -335,6 +335,14 @@ module Lokka
       end
     end
 
+    def custom_permalink_path(param)
+      path = Option.permalink_format
+      param.each do |tag, value|
+        path.gsub!(/%#{Regexp.escape(tag)}%/,value)
+      end
+      path
+    end
+
     class << self
       include Lokka::Helpers
     end

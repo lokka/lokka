@@ -563,13 +563,7 @@ module Lokka
           (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
         end
 
-        if url_changed
-          path = Option.permalink_format
-          r.each do |tag, value|
-            path.gsub!(/%#{Regexp.escape(tag)}%/,value)
-          end
-          return redirect(path)
-        end
+        return redirect(custom_permalink_path(r)) if url_changed
 
         conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
           case tag
