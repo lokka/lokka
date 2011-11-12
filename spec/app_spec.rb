@@ -81,6 +81,13 @@ describe "App" do
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
       end
+
+      it "redirects last / removed url when accessed / ended url" do
+        get '/2011/01/09/welcome-lokka/'
+        last_response.should be_redirect
+        follow_redirect!
+        last_request.url.should match('/2011/01/09/welcome-lokka')
+      end
     end
 
     context "with continue reading" do

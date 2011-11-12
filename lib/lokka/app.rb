@@ -387,7 +387,7 @@ module Lokka
 
       if errors.empty?
         Option.permalink_enabled = (params[:enable] == "1")
-        Option.permalink_format  = params[:format]
+        Option.permalink_format  = params[:format].sub(/\/$/,"")
       else
         flash[:error] = (["<ul>"] + errors.map{|e| "<li>#{e}</li>" } + ["</ul>"]).join("\n")
         flash[:permalink_format] = format
@@ -558,6 +558,8 @@ module Lokka
     not_found do
       if custom_permalink?
         r = custom_permalink_parse(request.path)
+
+        return redirect(request.path.sub(/\/$/,"")) if /\/$/ =~ request.path
 
         url_changed = false
         [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
