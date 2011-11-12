@@ -42,6 +42,54 @@ describe "App" do
       end
     end
 
+    context "with custom permalink" do
+      before do
+        Option.permalink_enabled = true
+        Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
+      end
+
+      after do
+        Option.permalink_enabled = false
+      end
+
+      it "can access entry by custom permalink" do
+        get '/2011/01/09/welcome-lokka'
+        last_response.body.should match('Welcome to Lokka!')
+        last_response.body.should_not match('mediawiki test')
+        get '/2011/01/10/a-day-later'
+        last_response.body.should match('1 day passed')
+        last_response.body.should_not match('Welcome to Lokka!')
+      end
+
+      it "redirects to custom permalink when accessed with original permalink" do
+        get '/welcome-lokka'
+        last_response.should be_redirect
+        follow_redirect!
+        last_request.url.should match('/2011/01/09/welcome-lokka')
+
+        get '/4'
+        last_response.should_not be_redirect
+
+        Option.permalink_enabled = false
+        get '/welcome-lokka'
+        last_response.should_not be_redirect
+      end
+
+      it "redirects 0 filled url twhen accessed to non-0 prepended url in day/month" do
+        get '/2011/1/9/welcome-lokka'
+        last_response.should be_redirect
+        follow_redirect!
+        last_request.url.should match('/2011/01/09/welcome-lokka')
+      end
+
+      it "redirects last / removed url when accessed / ended url" do
+        get '/2011/01/09/welcome-lokka/'
+        last_response.should be_redirect
+        follow_redirect!
+        last_request.url.should match('/2011/01/09/welcome-lokka')
+      end
+    end
+
     context "with continue reading" do
       describe 'in entries page' do
         it "hide texts after <!--more-->" do
@@ -286,6 +334,44 @@ describe "App" do
       it 'should show form for import' do
         get '/admin/import'
         last_response.should be_ok
+      end
+    end
+
+    context '/admin/permalink' do
+      before do
+        Option.permalink_enabled = false
+        Option.permalink_format = "/%year%/%id%"
+      end
+
+      after do
+        Option.permalink_enabled = false
+      end
+
+      it 'shows form for custom permalink' do
+        get '/admin/permalink'
+        last_response.should be_ok
+      end
+
+      it 'changes Option' do
+        put '/admin/permalink', :enable => '1', :format => '/%year%/%slug%'
+        Option.permalink_format.should == "/%year%/%slug%"
+        Option.permalink_enabled.should == "true"
+      end
+
+      it 'shows error when format including incomplete tag' do
+        put '/admin/permalink', :enable => '1', :format => '/%year%/%slug'
+        follow_redirect!
+        last_response.body.should match('not closed')
+        Option.permalink_format.should == "/%year%/%id%"
+        Option.permalink_enabled.should == "false"
+      end
+
+      it "shows error when format doesn't include any tags" do
+        put '/admin/permalink', :enable => '1', :format => '/'
+        follow_redirect!
+        last_response.body.should match('should include')
+        Option.permalink_format.should == "/%year%/%id%"
+        Option.permalink_enabled.should == "false"
       end
     end
   end
