@@ -27,7 +27,7 @@ end
 desc 'Reset database'
 task 'db:reset' => %w(db:delete db:seed)
 
-desc 'Set database'
+desc 'Set up database'
 task 'db:setup' => %w(db:migrate db:seed)
 
 desc 'Install gems'
