@@ -388,6 +388,7 @@ module Lokka
       if errors.empty?
         Option.permalink_enabled = (params[:enable] == "1")
         Option.permalink_format  = params[:format].sub(/\/$/,"")
+        flash[:notice] = t('site_was_successfully_updated')
       else
         flash[:error] = (["<ul>"] + errors.map{|e| "<li>#{e}</li>" } + ["</ul>"]).join("\n")
         flash[:permalink_format] = format
