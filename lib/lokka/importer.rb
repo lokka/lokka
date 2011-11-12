@@ -60,6 +60,7 @@ module Lokka
               :title => item.xpath('title').text,
               :body  => item.xpath('content:encoded').text,
               :draft => item.xpath('wp:status').text == 'publish' ? false : true,
+              :slug  => item.xpath('wp:post_name').text,
               :created_at => Time.parse(item.xpath('wp:post_date_gmt').text),
               :updated_at => Time.parse(item.xpath('wp:post_date_gmt').text)
             }
