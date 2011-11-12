@@ -311,5 +311,40 @@ module Lokka
       end
       posts
     end
+
+    def custom_permalink?
+      Option.permalink_enabled == "true"
+    end
+
+    def custom_permalink_format
+      Option.permalink_format.scan(/(%.+?%[^%]?|.)/).flatten
+    end
+
+    def custom_permalink_parse(path)
+      chars = path.chars.to_a
+      custom_permalink_format().inject({}) do |result, pattern|
+        if pattern.start_with?("%")
+          next_char = pattern[-1]
+          next_char = nil if next_char == '%'
+          name = pattern.match(/^%(.+)%.?$/)[1].to_sym
+          c = nil; (result[name] ||= "") << c until (c = chars.shift) == next_char || c.nil?
+        elsif chars.shift != pattern
+          break nil
+        end
+        result
+      end
+    end
+
+    def custom_permalink_path(param)
+      path = Option.permalink_format
+      param.each do |tag, value|
+        path.gsub!(/%#{Regexp.escape(tag)}%/,value)
+      end
+      path
+    end
+
+    class << self
+      include Lokka::Helpers
+    end
   end
 end

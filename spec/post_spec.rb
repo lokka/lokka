@@ -5,7 +5,17 @@ describe "Posts" do
   context "link" do
     it "should return correct link path" do
       post = Post.get(1)
-      post.link.should eq('/1')
+      post.link.should eq('/welcome-lokka')
+    end
+
+    it "returns custom permalink when custom permalink enabled" do
+      Option.permalink_format = "/%year%/%month%/%day%/%slug%"
+      Option.permalink_enabled = true
+      post = Post.get(1)
+      post.link.should eq('/2011/01/09/welcome-lokka')
+      Option.permalink_enabled = false
+      post = Post.get(1)
+      post.link.should eq('/welcome-lokka')
     end
   end
 

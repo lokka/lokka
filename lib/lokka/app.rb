@@ -369,6 +369,34 @@ module Lokka
       end
     end
 
+    # permalink
+    get '/admin/permalink' do
+      @enabled = (Option.permalink_enabled == "true")
+      @format = Option.permalink_format || ""
+      render_any :permalink
+    end
+
+    put '/admin/permalink' do
+      errors = []
+
+      format = params[:format]
+      format = "/#{format}" unless /^\// =~ format
+
+      errors << t('permalink.error.no_tags') unless /%.+%/ =~ format
+      errors << t('permalink.error.tag_unclosed') unless format.chars.select{|c| c == '%' }.size.even?
+
+      if errors.empty?
+        Option.permalink_enabled = (params[:enable] == "1")
+        Option.permalink_format  = params[:format].sub(/\/$/,"")
+        flash[:notice] = t('site_was_successfully_updated')
+      else
+        flash[:error] = (["<ul>"] + errors.map{|e| "<li>#{e}</li>" } + ["</ul>"]).join("\n")
+        flash[:permalink_format] = format
+      end
+
+      redirect '/admin/permalink'
+    end
+
     # index
     get '/' do
       @theme_types << :index
@@ -498,7 +526,9 @@ module Lokka
     # entry
     get %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+
       return 404 if @entry.blank?
+      redirect @entry.link if @entry.type == Post && custom_permalink?
 
       setup_and_render_entry
     end
@@ -527,6 +557,65 @@ module Lokka
     end
 
     not_found do
+      if custom_permalink?
+        r = custom_permalink_parse(request.path)
+
+        return redirect(request.path.sub(/\/$/,"")) if /\/$/ =~ request.path
+
+        url_changed = false
+        [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
+          i = (k == :year ? 4 : 2)
+          (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
+        end
+
+        return redirect(custom_permalink_path(r)) if url_changed
+
+        conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
+          case tag
+          when :year
+            flags[:year] = value.to_i
+            flags[:time] = true
+          when :monthnum, :month
+            flags[:month] = value.to_i
+            flags[:time] = true
+          when :day
+            flags[:day] = value.to_i
+            flags[:time] = true
+          when :hour
+            flags[:hour] = value.to_i
+            flags[:time] = true
+          when :minute
+            flags[:minute] = value.to_i
+            flags[:time] = true
+          when :second
+            flags[:second] = value.to_i
+            flags[:time] = true
+          when :post_id, :id
+            conds[:id] = value.to_i
+          when :postname, :slug
+            conds[:slug] = value
+          when :category
+            conds[:category_id] = Category(value).id
+          end
+          [conds, flags]
+        }
+
+        if flags[:time]
+          time_order = [:year, :month, :day, :hour, :minute, :second]
+          args, last = time_order.inject([[],nil]) do |(result,last), key|
+            break [result, key] unless flags[key]
+            [result << flags[key], nil]
+          end
+          args = [0,1,1,0,0,0].each_with_index.map{|default,i| args[i] || default }
+          conditions[:created_at.gte] = Time.local(*args)
+          args[time_order.index(last)-1] += 1
+          conditions[:created_at.lt] = Time.local(*args)
+        end
+
+        @entry = Entry.first(conditions)
+        return setup_and_render_entry if @entry
+      end
+
       if output = render_any(:'404', :layout => false)
         output
       else

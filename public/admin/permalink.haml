@@ -1,0 +1,53 @@
+%h2= t('permalink.title')
+- if flash[:error]
+  #error
+    %p= flash[:error]
+%form{'action' => '/admin/permalink', 'method' => 'post', 'data-method' => 'put'}
+  %input{'name' => '_method', 'type' => 'hidden', 'value' => 'put'}
+  %p
+    = t('permalink.description')
+  %p
+    %input{'name' => 'enable', 'type' => 'hidden', 'value' => 0}
+    %input#permalink_enable{'name' => 'enable', 'type' => 'checkbox', 'value' => '1', 'checked' => @enabled||nil}
+    %label{'for' => 'permalink_enable'}= t('permalink.enable')
+  %p
+    %label{'for' => 'permalink_format'}= t('permalink.format')
+    %br/
+    %input#permalink_format{'name' => 'format', 'type' => 'text', 'value' => flash[:permalink_format] || @format}
+  %p
+    %input{'type' => 'submit', 'value' => t('edit')}
+%h3= t('permalink.tags')
+%ul
+  %li
+    %code %year%
+    = " - "
+    = t('permalink.tag.year')
+  %li
+    %code %month%
+    = " - "
+    = t('permalink.tag.month')
+  %li
+    %code %day%
+    = " - "
+    = t('permalink.tag.day')
+  %li
+    %code %hour%
+    = " - "
+    = t('permalink.tag.hour')
+  %li
+    %code %minute%
+    = " - "
+    = t('permalink.tag.minute')
+  %li
+    %code %second%
+    = " - "
+    = t('permalink.tag.second')
+  %li
+    %code %id%
+    = " - "
+    = t('permalink.tag.id')
+  %li
+    %code %slug%
+    = " - "
+    = t('permalink.tag.slug')
+
