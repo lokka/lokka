@@ -7,4 +7,9 @@ describe 'Tag' do
       tag.link.should eq('/tags/lokka/')
     end
   end
+
+  it 'should return a tag instance' do
+    tag = Tag.first(:name => 'lokka')
+    Tag('lokka').should eql(tag)
+  end
 end

@@ -19,6 +19,11 @@ describe "App" do
       (body.index(/Test Post2/) < body.index(/Test Post[^\d]/)).should be_true
     end
 
+    it "should tags index" do
+      get '/tags/lokka/'
+      last_response.body.should match('Test Site')
+    end
+
     context 'contain draft post' do
       it "entry page returns 404" do
         get '/test_draft_page'
