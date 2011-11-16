@@ -7,7 +7,7 @@
     <div class="header">
       <h3><a href="<%= post.link %>"><%= post.title %></a></h3>
       <ul class="info">
-        <li class="date"><%= post.created_at %></li>
+        <li class="date"><%= l post.created_at, :format => :long %></li>
         <% unless post.category.nil? %>
         <li class="category"><a href="<%= post.category.link %>"><%= post.category.title %></a></li>
         <% end %>
