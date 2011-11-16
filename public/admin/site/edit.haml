@@ -1,3 +1,6 @@
+:ruby
+  sort_options  = Site::SORT_COLUMNS.map {|c| [t("entry.#{c}"), c] }
+  order_options = Site::ORDERS.map {|o| [t(o), o] }
 %h2= t('edit_site')
 - form_for @site, '/admin/site', :method => :put do |f|
   %p
@@ -13,6 +16,14 @@
     %br/
     ~ f.text_area :dashboard
   #toggle-button-options.toggle-button(onclick="$('.option').toggle()")= t('option')
+  %p.option(style="display:none")
+    = f.label :default_sort, :caption => t('site.default_sort')
+    %br/
+    = f.select :default_sort, :options => sort_options
+  %p.option(style="display:none")
+    = f.label :default_order, :caption => t('site.default_order')
+    %br/
+    = f.select :default_order, :options => order_options
   %p.option(style="display:none")
     = f.label :meta_description
     %br/
