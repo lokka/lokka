@@ -32,6 +32,7 @@ en:
   plugins: Plugins
   settings: Settings
   sites: Site
+  field_names: Field Names
   list: List
   draft: Draft
   new: New
@@ -58,12 +59,14 @@ en:
   listing_themes: Listing Themes
   listing_mobile_themes: Listing Mobile Themes
   listing_plugins: Listing Plugins
+  listing_field_names: Listing Field Names
   new_post: New Post
   new_page: New Page
   new_category: New Category
   new_user: New User
   new_comment: New Comment
   new_snippet: New Snippet
+  new_field_name: New Field Name
   edit_post: Edit Post
   edit_page: Edit Page
   edit_category: Edit Category
@@ -94,6 +97,8 @@ en:
   user_was_successfully_deleted: User was successfully deleted.
   site_was_successfully_updated: Site was successfully updated.
   theme_was_successfully_updated: Theme was successfully updated.
+  field_name_was_successfully_created: Field Name was successfully created.
+  field_name_was_successfully_deleted: Field Name was successfully deleted.
   may_i_change_the_theme: May I change the theme?
   are_you_sure: Are you sure?
   not_select: Not Select
@@ -168,6 +173,11 @@ en:
     id: ID
     name: Name
     body: Body
+    created_at: Created at
+    updated_at: Updated at
+  field_name:
+    id: ID
+    name: Name
     created_at: Created at
     updated_at: Updated at
   import: Import

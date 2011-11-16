@@ -32,6 +32,11 @@
   %label(for="#{@name}_tag_collection")= t("#{@name}.tags")
   %br
   %input(type="text" id="#{@name}_tag_collection" name="#{@name}[tag_collection]" value="#{@entry.tag_collection}")
+- @field_names.each do |field_name|
+  .field
+    %label(for="#{@name}_fields_#{field_name.name}")= field_name.name
+    %br
+    %input(type="text" id="#{@name}_fields_#{field_name.name}" name="#{@name}[fields][#{field_name.name}]" value="#{@entry.new? ? "" : @entry.send(field_name.name)}")
 .field
   %label(for="#{@name}_draft")= t("#{@name}.draft")
   %br/

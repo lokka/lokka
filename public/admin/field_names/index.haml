@@ -1,0 +1,20 @@
+%h2= t('listing_field_names')
+%table.field_names
+  %tr
+    %th= t('field_name.name')
+    %th= t('field_name.created_at')
+    %th= t('field_name.updated_at')
+    %th
+  - @field_names.each_with_index do |field_name, i|
+    %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
+    %td= field_name.name
+    %td= l field_name.created_at.to_time
+    %td= l field_name.updated_at.to_time
+    %td
+      = link_to t('delete'), "/admin/field_names/#{field_name.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+.pager
+  %ul
+    - if @field_names.pager.previous_page
+      %li.previous= link_to t('previous'), "?page=#{@field_names.pager.previous_page}"
+    - if @field_names.pager.next_page
+      %li.next= link_to t('next'), "?page=#{@field_names.pager.next_page}"

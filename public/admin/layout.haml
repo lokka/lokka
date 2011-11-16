@@ -71,6 +71,11 @@
               %li.list= link_to t('mobile_themes'), '/admin/mobile_themes'
           %li.plugin.parent
             %h3= link_to t('plugins'), '/admin/plugins'
+          %li.field_names.parent
+            %h3.title= t('field_names')
+            %ul
+              %li.list= link_to t('list'), '/admin/field_names'
+              %li.list= link_to t('new'), '/admin/field_names/new'
           %li.setting.parent
             %h3.title= t('settings')
             %ul

@@ -255,6 +255,7 @@ module Lokka
       @name = entry_class.name.downcase
       @entry = entry_class.new(:created_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
+      @field_names = FieldName.all(:order => :name.asc)
       render_any :'entries/new'
     end
 
@@ -262,6 +263,7 @@ module Lokka
       @name = entry_class.name.downcase
       @entry = entry_class.get(id)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
+      @field_names = FieldName.all(:order => :name.asc)
       render_any :'entries/edit'
     end
 

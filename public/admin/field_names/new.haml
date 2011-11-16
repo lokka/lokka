@@ -1,0 +1,5 @@
+%h2= t('new_field_name')
+%form(action="/admin/field_names" method="post")
+  = partial 'field_names/form'
+  %p
+    %input(type="submit" value="#{t('new')}")
