@@ -75,7 +75,7 @@ class Entry
       {:order => :created_at.desc}
     end
 
-    def first_with_scope(limit, query = DataMapper::Undefined)
+    def first_with_scope(limit = 1, query = DataMapper::Undefined)
       unless limit.kind_of? Integer
         query = limit
         limit = 1

@@ -1,8 +1,7 @@
-# encoding: utf-8
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe "Posts" do
-  context "link" do
+describe Post do
+  context '#link' do
     it "should return correct link path" do
       post = Post.get(1)
       post.link.should eq('/welcome-lokka')
@@ -64,5 +63,9 @@ describe "Posts" do
       it "don't hide after <!--more-->" do
       end
     end
+  end
+
+  describe '.first' do
+    it { lambda { Post.first }.should_not raise_error }
   end
 end
