@@ -107,6 +107,19 @@ ja:
   no_plugin: プラグインがありません
   your_name_or_password_is_incorrect: 名前かパスワードが違います。
   logged_in_successfully: ログインしました。
+  asc: 昇順
+  desc: 降順
+  entry:
+    id: ID
+    slug: スラッグ
+    title: タイトル
+    body: 本文
+    user: 作成者
+    category: カテゴリー
+    tags: タグ
+    draft: 下書き
+    created_at: 作成日時
+    updated_at: 更新日時
   page:
     id: ID
     slug: スラッグ
@@ -152,6 +165,8 @@ ja:
     description: 詳細
     dashboard: ダッシュボード
     theme: テーマ
+    default_sort: デフォルトのソート対象
+    default_order: デフォルトのソート順
     meta_description: メタディスクリプション
     meta_keywords: メタキーワード
     created_at: 作成日時

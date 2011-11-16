@@ -107,6 +107,19 @@ en:
   no_plugin: No Plugin
   your_name_or_password_is_incorrect: Your username or password is incorrect.
   logged_in_successfully: Logged in successfully.
+  asc: Ascending
+  desc: Descending
+  entry:
+    id: ID
+    slug: Slug
+    title: Title
+    body: Body
+    user: Author
+    category: Category
+    tags: Tags
+    draft: Draft
+    created_at: Created at
+    updated_at: Updated at
   page:
     id: ID
     slug: Slug
@@ -152,6 +165,8 @@ en:
     description: Description
     dashboard: Dashboard
     theme: Theme
+    default_sort: Default sort
+    default_order: Default order
     meta_description: Meta description
     meta_keywords: Meta keywords
     created_at: Created at
