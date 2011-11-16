@@ -656,6 +656,14 @@ ul.themes div.screenshot {
 	border-bottom-color: #999;
 	border-left-color: #999;
 }
+ul.themes li.blank div.screenshot {
+	display:block;
+	height:170px;
+	float: none;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
 ul.themes div.screenshot a img {
 width: 240px;
 height: 170px;
@@ -663,6 +671,25 @@ max-width: 240px;
 max-height: 170px;
 width:auto !important;
 height:auto !important;
+}
+ul.themes li.blank div.screenshot a {
+width: 240px;
+height: 170px;
+background-color: #b3b3b3;
+margin: 0 auto;
+display: block;
+line-height: 170px;
+font-size: 16px;
+color: #fff !important;
+text-decoration: none;
+-webkit-box-shadow: #666 0px 2px 3px;
+-moz-box-shadow: #666 0px 2px 3px;
+box-shadow: #666 0px 2px 3px;
+}
+ul.themes li.blank div.screenshot a:hover,
+ul.themes li.blank div.screenshot a:active {
+margin-top: -2px;
+border: 2px solid #ff00a8;
 }
 
 ul.themes li.selected div.screenshot a img {

@@ -1,10 +1,10 @@
 %h2= t('listing_mobile_themes')
 %ul.themes
-  %li{:class => Site.first.mobile_theme.blank? ? 'theme selected' : 'theme'}
+  %li{:class => Site.first.mobile_theme.blank? ? 'theme selected blank' : 'theme blank'}
     .title
       = link_to t('not_select'), "/admin/mobile_themes?title=", :confirm => t('are_you_sure'), :method => 'put'
-      .screenshot
-        = link_to t('not_select'), "/admin/mobile_themes?title=", :confirm => t('are_you_sure'), :method => 'put'
+    .screenshot
+      = link_to t('not_select'), "/admin/mobile_themes?title=", :confirm => t('are_you_sure'), :method => 'put'
   - @themes.each do |theme|
     - class_for_theme = theme.title == Site.first.mobile_theme ? 'theme selected' : 'theme'
     %li{:class => class_for_theme}
