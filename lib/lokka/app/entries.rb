@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module Lokka
   class App
     # index
