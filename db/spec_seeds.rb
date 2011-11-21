@@ -1,4 +1,5 @@
-created_at = updated_at = Time.parse("2011-01-09T05:39:08+09:00").iso8601
+created_at = updated_at = Time.parse("2011-01-09T05:39:08Z")
+created_at_tokyo = updated_at_tokyo = Time.parse("2011-01-09T05:39:08+09:00")
 
 Site.create!(:title => "Test Site",
              :description => "description...",
@@ -61,14 +62,17 @@ Tagging.create!(:id => 2,
                 :tag_context => "tags",
                 :tag_id => 1)
 
+# lokka can mix timezones
+# lokka see only date and hours, ignore UTC offsets
+
 # post after 1 minutes
 # id 3
 Entry.create!(:user_id => 3,
               :title => "Test Post2",
               :body => "Test Post2",
               :type => "Post",
-              :created_at => (Time.parse(created_at) + 1.minutes).iso8601,
-              :updated_at => (Time.parse(created_at) + 1.minutes).iso8601)
+              :created_at => created_at_tokyo + 1.minutes,
+              :updated_at => created_at_tokyo + 1.minutes)
 
 # page
 # id 4
@@ -136,5 +140,5 @@ Entry.create!(:user_id => 1,
               :markup => "kramdown",
               :slug => "a-day-later",
               :type => "Post",
-              :created_at => (Time.parse(created_at) + 1.days).iso8601,
-              :updated_at => (Time.parse(created_at) + 1.days).iso8601)
+              :created_at => created_at + 1.days,
+              :updated_at => created_at + 1.days)
