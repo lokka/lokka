@@ -3,6 +3,13 @@ rvm:
   - 1.9.2
   - 1.9.3
   - ree-1.8.7-2011.03
+before_script:
+  - "mysql -e 'create database lokka_test;'"
+  - "psql -c 'create database lokka_test;' -U postgres"
+env:
+  - DATABASE_URL="mysql://0.0.0.0/lokka_test"
+  - DATABASE_URL="postgres://postgres@127.0.0.1/lokka_test"
+  - DUMMY=DUMMY # sqlite
 notifications:
   irc: "irc.freenode.org#lokka"
   irc: "irc.freenode.org#lokka-ja"

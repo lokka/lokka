@@ -13,4 +13,4 @@ production:
 development:
   dsn: sqlite3://<%= root %>/db/development.sqlite3
 test:
-  dsn: sqlite3://<%= root %>/db/test.sqlite3
+  dsn: <%= ENV['DATABASE_URL'] || "sqlite3://#{root}/db/test.sqlite3" %>
