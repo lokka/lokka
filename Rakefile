@@ -50,6 +50,7 @@ end
 
 desc 'Execute spec seed script'
 task 'db:spec_seed' do
+  puts Lokka.dsn
   DataMapper::Logger.new(STDOUT, :debug)
   DataMapper.logger.set_log STDERR, :debug, "SQL: ", true
   Lokka::Database.new.connect
