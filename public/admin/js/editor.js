@@ -36,8 +36,7 @@ $(function() {
 
   $('select[name$="[markup]"]').change(switchTextareaAndCleditor);
 
-  translateToCleditor($('textarea.editor'));
-  plainTextareaMode = false;
+  plainTextareaMode = true;
 
   switchTextareaAndCleditor();
 });
