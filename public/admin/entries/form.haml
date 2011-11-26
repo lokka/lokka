@@ -17,8 +17,7 @@
     = f.label :body, :caption => t("#{@name}.body")
     %br/
     #editor
-      - @entry.body = @entry.raw_body
-      ~ f.text_area :body, :rows => 10, :cols => 50, :class => 'editor'
+      %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.raw_body
   .field
     = f.label :slug, :caption => t("#{@name}.slug")
     %br/
