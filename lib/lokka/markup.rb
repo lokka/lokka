@@ -13,7 +13,13 @@ module Markup
   @engine_list = [
       ['html', 'HTML', lambda{ |text| text }],
       ['kramdown', 'Markdown (Kramdown)',
-        lambda{ |text| Kramdown::Document.new(text).to_html }],
+        lambda do |text|
+          Kramdown::Document.new(text,
+                                 :coderay_line_numbers => nil,
+                                 :coderay_css => :class
+                                ).to_html() 
+        end
+      ],
       ['redcloth', 'Textile (Redcloth)',
         lambda{ |text| RedCloth.new(text).to_html }],
       ['wikicloth', 'MediaWiki (WikiCloth)',
