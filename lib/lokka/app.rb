@@ -14,7 +14,6 @@ module Lokka
       disable :logging
       YAML::ENGINE.yamler = 'syck' if YAML.const_defined?(:ENGINE)
       register Padrino::Helpers
-      register Lokka::Before
       set :app_file, __FILE__
       set :root, File.expand_path('../../..', __FILE__)
       set :public_folder => Proc.new { File.join(root, 'public') }
@@ -35,7 +34,7 @@ module Lokka
         :expire_after => 60 * 60 * 24 * 12
       set:session_secret, 'development' if development?
       use Rack::Flash
-      register Lokka::Plugin::Loader
+      Lokka.load_plugin(self)
       Lokka::Database.new.connect
     end
 

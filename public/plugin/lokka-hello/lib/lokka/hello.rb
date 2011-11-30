@@ -6,10 +6,4 @@ module Lokka
       end
     end
   end
-
-  module Helpers
-    def hello
-      'hello'
-    end
-  end
 end
