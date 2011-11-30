@@ -61,6 +61,39 @@ module Lokka
       locales.sort! { |a, b| b[1] <=> a[1] }
       locales.map! { |i| i[0] }
     end
+
+    def load_plugin(app)
+      names = []
+      Dir["#{Lokka.root}/public/plugin/lokka-*/lib/lokka/*.rb"].each do |path|
+        path = Pathname.new(path)
+        lib = path.parent.parent
+        root = lib.parent
+        $:.push lib
+        i18n = File.join(root, 'i18n')
+        I18n.load_path += Dir["#{i18n}/*.yml"] if File.exist? i18n
+        name = path.basename.to_s.split('.').first
+        require "lokka/#{name}"
+      end
+
+      Lokka.constants.each do |name|
+        const = Lokka.const_get(name)
+        if const.respond_to? :registered
+          app.register const
+          names << name.to_s.underscore
+        end
+      end
+
+      plugins = []
+      unless app.routes['GET'].blank?
+        matchers = app.routes['GET'].map(&:first)
+        names.map do |name|
+          plugins << OpenStruct.new(
+            :name => name,
+            :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
+        end
+      end
+      app.set :plugins, plugins
+    end
   end
 end
 
@@ -107,5 +140,4 @@ require 'lokka/markup'
 require 'lokka/importer'
 require 'lokka/before'
 require 'lokka/helpers'
-require 'lokka/plugin/loader'
 require 'lokka/app'
