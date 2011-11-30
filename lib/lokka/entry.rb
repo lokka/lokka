@@ -92,7 +92,7 @@ class Entry
     else
       field_name = FieldName.first(:name => attribute)
       field = Field.first(:entry_id => self.id, :field_name_id => field_name.id)
-      field.value
+      field.try(:value)
     end
   end
 
