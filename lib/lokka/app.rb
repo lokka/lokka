@@ -32,7 +32,7 @@ module Lokka
       helpers Lokka::Helpers
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12
-      set:session_secret, 'development' if development?
+      set :session_secret, 'development' if development?
       use Rack::Flash
       Lokka.load_plugin(self)
       Lokka::Database.new.connect
