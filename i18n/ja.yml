@@ -32,6 +32,7 @@ ja:
   plugins: プラグイン
   settings: 設定
   sites: サイト
+  field_names: カスタムフィールド
   list: 一覧
   draft: 下書き
   new: 登録
@@ -58,12 +59,14 @@ ja:
   listing_themes: テーマ一覧
   listing_mobile_themes: スマートフォン用テーマ一覧
   listing_plugins: プラグイン一覧
+  listing_field_names: カスタムフィールド一覧
   new_post: 投稿登録
   new_page: ページ登録
   new_category: カテゴリー登録
   new_user: ユーザー登録
   new_comment: コメント登録
   new_snippet: スニペット登録
+  new_field_name: カスタムフィールド登録
   edit_post: 投稿編集
   edit_page: ページ編集
   edit_category: カテゴリー編集
@@ -94,6 +97,8 @@ ja:
   user_was_successfully_deleted: ユーザーを削除しました。
   site_was_successfully_updated: サイトを更新しました。
   theme_was_successfully_updated: テーマを更新しました。
+  field_name_was_successfully_created: カスタムフィールドを作成しました。
+  field_name_was_successfully_deleted: カスタムフィールドを削除しました。
   may_i_change_the_theme: テーマを変更してよろしいですか？
   are_you_sure: 本当によろしいですか？
   not_select: 未選択
@@ -203,6 +208,11 @@ ja:
       second: 投稿を作成した秒, 2桁の数値
       id: 投稿に対するユニークなid (数値). これは WordPress との互換性のために %post_id% でも利用することができます
       slug: 投稿の編集画面で指定した slug, これは WordPress との互換性のために %postname% でも利用することができます
+  field_name:
+    id: ID
+    name: 名前
+    created_at: 作成日時
+    updated_at: 更新日時
   import: インポート
   import_from_wordpress: WordPressからのインポート
   import_file: インポートファイル

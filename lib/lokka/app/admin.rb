@@ -357,5 +357,35 @@ module Lokka
 
       redirect '/admin/permalink'
     end
+
+    # field names
+    get '/admin/field_names' do
+      @field_names = FieldName.all.
+                        page(params[:page], :per_page => settings.admin_per_page, :order => :name.asc)
+      render_any :'field_names/index'
+    end
+
+    get '/admin/field_names/new' do
+      @field_name = FieldName.new(
+        :created_at => DateTime.now,
+        :updated_at => DateTime.now)
+      render_any :'field_names/new'
+    end
+
+    post '/admin/field_names' do
+      @field_name = FieldName.new(params['field_name'])
+      if @field_name.save
+        flash[:notice] = t('field_name_was_successfully_created')
+        redirect '/admin/field_names'
+      else
+        render_any :'field_names/new'
+      end
+    end
+
+    delete '/admin/field_names/:id' do |id|
+      FieldName.get(id).destroy
+      flash[:notice] = t('field_name_was_successfully_deleted')
+      redirect '/admin/field_names'
+    end
   end
 end

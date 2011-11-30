@@ -33,6 +33,11 @@
     = f.label :tag_collection, :caption => t("#{@name}.tags")
     %br/
     = f.text_field :tag_collection
+  - @field_names.each do |field_name|
+    .field
+      = label_tag "#{@name}_fields_#{field_name.name}", :caption => field_name.name
+      %br/
+      = text_field_tag "#{@name}[fields][#{field_name.name}]", :id => "#{@name}_fields_#{field_name.name}", :value => "#{@entry.new? ? (params[@name] ? params[@name]['fields'][field_name.name] : '') : @entry.send(field_name.name)}"
   .field
     = f.label :draft, :caption => t("#{@name}.draft")
     %br/

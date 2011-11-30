@@ -28,6 +28,8 @@ class Entry
     self.category_id = nil if category_id === ''
   end
 
+  after :save, :update_fields
+
   alias_method :raw_body, :body
   def long_body
     Markup.use_engine(markup, raw_body)
@@ -68,6 +70,36 @@ class Entry
       html += %Q(<li class="tag"><a href="#{tag.link}">#{tag.name}</a></li>)
     end
     html + '</ul>'
+  end
+
+  # custom fields
+  def fields=(hash)
+    @fields = hash
+  end
+
+  def update_fields
+    @fields.each do |k, v|
+      self.send("#{k}=", v)
+    end
+  end
+
+  def method_missing(method, *args)
+    attribute = method.to_s
+    if attribute =~ /=$/
+      column = attribute[0, attribute.size - 1]
+      field_name = FieldName.first(:name => column)
+      field = Field.first(:entry_id => self.id, :field_name_id => field_name.id)
+      if field
+        field.value = args.first
+      else
+        field = Field.new(:entry_id => self.id, :field_name_id => field_name.id, :value => args.first)
+      end
+      field.save
+    else
+      field_name = FieldName.first(:name => attribute)
+      field = Field.first(:entry_id => self.id, :field_name_id => field_name.id)
+      field.try(:value)
+    end
   end
 
   class << self
