@@ -25,7 +25,7 @@
   .field
     = f.label :category, :caption => t("#{@name}.category")
     %br/
-    - if Category.count > 1
+    - if Category.count > 0
       = f.select :category_id, :collection => Category.all, :fields => [:title, :id], :include_blank => t('not_select')
     - else
       = t('no_category')
