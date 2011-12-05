@@ -15,20 +15,19 @@
     = f.label :dashboard, :caption => t('site.dashboard')
     %br/
     ~ f.text_area :dashboard
-  #toggle-button-options.toggle-button(onclick="$('.option').toggle()")= t('option')
-  %p.option(style="display:none")
+  %p
     = f.label :default_sort, :caption => t('site.default_sort')
     %br/
     = f.select :default_sort, :options => sort_options
-  %p.option(style="display:none")
+  %p
     = f.label :default_order, :caption => t('site.default_order')
     %br/
     = f.select :default_order, :options => order_options
-  %p.option(style="display:none")
+  %p
     = f.label :meta_description
     %br/
     ~ f.text_area :meta_description
-  %p.option(style="display:none")
+  %p
     = f.label :meta_keywords
     %br/
     = f.text_field :meta_keywords
