@@ -19,7 +19,7 @@ class Site
   property :updated_at, DateTime
 
   def default_sort
-    super || 'id'
+    super || 'created_at'
   end
 
   def default_order
