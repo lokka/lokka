@@ -349,5 +349,9 @@ module Lokka
     class << self
       include Lokka::Helpers
     end
+
+    def mobile?
+      request.user_agent =~ /iPhone|Android/
+    end
   end
 end
