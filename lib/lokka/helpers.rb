@@ -96,7 +96,6 @@ module Lokka
     end
 
     def rendering(ext, name, options = {})
-      locals = options[:locals] ? {:locals => options[:locals]} : {}
       dir =
         if request.path_info =~ %r{^/admin/.*} && !options[:theme]
           'admin'
@@ -116,7 +115,7 @@ module Lokka
         options[:layout] = layout.to_sym if options[:layout].nil?
       end
       if File.exist?("#{settings.views}/#{path}.#{ext}")
-        send(ext.to_sym, path.to_sym, options, locals)
+        send(ext.to_sym, path.to_sym, options)
       end
     end
 

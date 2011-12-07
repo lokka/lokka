@@ -1,29 +1,29 @@
 <div class="entry_wrapper">
 	<div class="entry">		
 		<h2 class="entry_title">
-			<a href="<%= post.link %>">
-				<%= post.title %>
+			<a href="<%= entry.link %>">
+				<%= entry.title %>
 			</a>
 		</h2>
 		
 		<div class="entry_body">
-			<%= post.body %>
+			<%= entry.body %>
 		</div>
 
 	</div>
 	<div class="entry_info">
 		<span class="link_to_entry_comment">
-			<%= link_to "#{t('comments')}(#{post.comments.size})", "#{post.link}#comment_wrapper" %>
+			<%= link_to "#{t('comments')}(#{entry.comments.size})", "#{entry.link}#comment_wrapper" %>
 		</span>
 
 		<span class="entry_date">
-			<%= post.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+			<%= entry.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
 		</span>
 
 		<% if logged_in? %>
-		  <span><a href="<%= post.edit_link %>"><%= t('edit') %></a></span>
+		  <span><a href="<%= entry.edit_link %>"><%= t('edit') %></a></span>
 		<% end %>
 
-		<%= post.tags_to_html %>
+		<%= entry.tags_to_html %>
 	</div>
 </div>
