@@ -860,3 +860,7 @@ textarea#category_description
 	background-color: #666;
 	color:#eee;
 }
+
+#editor iframe {
+  font-size: 13px;
+}

@@ -1,42 +1,39 @@
 $(function() {
-  var cleditor;
+  var wysiwyg;
   var textarea = $('textarea.editor').clone();
   var plainTextareaMode;
 
-  var switchTextareaAndCleditor = (function() {
+  var switchTextareaAndWysiwyg = (function() {
     var name = $('select[name$="[markup]"] option:selected').val();
     name = name == '' ? 'html' : name
     var html;
     if (name == 'html') {
-      // enable cleditor
+      // enable wysiwyg
       if (plainTextareaMode) {
         textarea = $('textarea.editor').clone();
-        translateToCleditor($('textarea.editor'));
+        translateToWysiwyg($('textarea.editor'));
         plainTextareaMode = false;
       }
     } else {
       // enable textarea
       if (!plainTextareaMode) {
-        html = cleditor[0].doc.body.innerHTML;
+        html = wysiwyg[0].contentDocument.body.innerHTML;
         textarea[0].innerHTML = html;
-        $('.cleditorMain').remove();
+        $('#editor').empty();
         $('#editor').prepend(textarea);
         plainTextareaMode = true;
       }
     }
   });
 
-  var translateToCleditor = (function(jQueryObj) {
-    cleditor = jQueryObj.cleditor({
-      width: 550,
-      height: 550,
-      controls: 'bold italic underline strikethrough subscript superscript font size style | color highlight removeformat bullets numbering | outdent indent | alignleft center alignright justify | rule image link unlink | pastetext source'
-    });
+  var translateToWysiwyg = (function(jQueryObj) {
+    jQueryObj.wysiwyg(); // TODO: add options
+    wysiwyg = $('.wysiwyg iframe');
   });
 
-  $('select[name$="[markup]"]').change(switchTextareaAndCleditor);
+  $('select[name$="[markup]"]').change(switchTextareaAndWysiwyg);
 
   plainTextareaMode = true;
 
-  switchTextareaAndCleditor();
+  switchTextareaAndWysiwyg();
 });
