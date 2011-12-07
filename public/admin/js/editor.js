@@ -17,10 +17,9 @@ $(function() {
     } else {
       // enable textarea
       if (!plainTextareaMode) {
-        console.log(wysiwyg);
-        html = wysiwyg[0].doc.body.innerHTML;
+        html = wysiwyg[0].contentDocument.body.innerHTML;
         textarea[0].innerHTML = html;
-        $('div.wysiwyg').remove();
+        $('#editor').empty();
         $('#editor').prepend(textarea);
         plainTextareaMode = true;
       }
@@ -28,12 +27,8 @@ $(function() {
   });
 
   var translateToWysiwyg = (function(jQueryObj) {
-    wysiwyg = jQueryObj.wysiwyg();
-//    wysiwyg = jQueryObj.wysiwyg({
-//      width: 550,
-//      height: 550,
-//      controls: 'bold italic underline strikethrough subscript superscript font size style | color highlight removeformat bullets numbering | outdent indent | alignleft center alignright justify | rule image link unlink | pastetext source'
-//    });
+    jQueryObj.wysiwyg(); // TODO: add options
+    wysiwyg = $('.wysiwyg iframe');
   });
 
   $('select[name$="[markup]"]').change(switchTextareaAndWysiwyg);
