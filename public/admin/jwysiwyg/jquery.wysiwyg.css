@@ -70,11 +70,14 @@ div.wysiwyg ul.toolbar li.cssWrap { background-position: -80px -96px; }
 
 div.wysiwyg-dialogRow { float:left; width:100%; font-size: 16px; }
 
-/*div.wysiwyg iframe { border: 1px solid #999; clear: left; */
+div.wysiwyg iframe { border: 1px solid #999;
+/* clear: left; */
 -moz-box-shadow    :inset 0 0 10px rgba(0, 0, 0, 0.4);
 -webkit-box-shadow :inset 0 0 10px rgba(0, 0, 0, 0.4);
 box-shadow         :inset 0 0 10px rgba(0, 0, 0, 0.4);
 background-color:white; padding:0px; margin:0; display:block; width: 100%; }
+
+
 
 /* dialog */
 .wysiwyg-dialog { position:fixed; top:50px; left:50px; width:450px; height:300px; background:transparent; font:14px "Helvetic Neue", Helvetica,Arial,sans-serif; }
