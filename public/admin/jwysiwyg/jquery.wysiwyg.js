@@ -1339,7 +1339,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			self.element.append(self.ui.toolbar)
 				.append($("<div><!-- --></div>")
 					.css({
-						clear: "both"
+						//clear: "both"
 					}))
 				.append(self.editor);
 
