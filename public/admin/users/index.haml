@@ -10,7 +10,7 @@
       %td.name= link_to user.name, "/admin/users/#{user.id}/edit"
       %td= user.email
       %td= l(user.created_at, :format => :long)
-      %td= link_to t('edit'), "/admin/users/#{user.id}/edit"
+      %td= link_to t('edit'), "/admin/users/#{user.id}/edit", :class => 'button'
       %td
         - unless user == current_user
           = link_to t('delete'), "/admin/users/#{user.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete

@@ -12,7 +12,7 @@
       %td= truncate(strip_tags(snippet.body))
       %td= l(snippet.created_at, :format => :long)
       %td= l(snippet.updated_at, :format => :long)
-      %td= link_to t('edit'), snippet.edit_link
+      %td= link_to t('edit'), snippet.edit_link, :class => 'button'
       %td= link_to t('delete'), "/admin/snippets/#{snippet.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
   %ul
