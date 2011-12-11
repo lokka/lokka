@@ -1,5 +1,5 @@
 
-div.wysiwyg { border: 1px solid #999; padding: 5px; background: #fff url("jquery.wysiwyg.bg.png") repeat-x top; }
+div.wysiwyg { border: 1px solid #999; padding: 5px; background: #fff url("jquery.wysiwyg.bg.png") repeat-x top; min-height: 18px; }
 div.wysiwyg * { margin: 0; padding: 0; }
 
 div.wysiwyg ul.toolbar li.jwysiwyg-custom-command { overflow: hidden; }
@@ -78,6 +78,7 @@ box-shadow         :inset 0 0 10px rgba(0, 0, 0, 0.4);
 background-color:white; padding:0px; margin:0; display:block; width: 100%; }
 
 
+.wysiwyg p { 12px; }
 
 /* dialog */
 .wysiwyg-dialog { position:fixed; top:50px; left:50px; width:450px; height:300px; background:transparent; font:14px "Helvetic Neue", Helvetica,Arial,sans-serif; }
