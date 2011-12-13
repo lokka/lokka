@@ -29,7 +29,7 @@ gem 'tux'
 gem 'padrino-helpers', '0.10.5'
 gem 'coderay'
 gem 'kramdown'
-gem 'RedCloth'
+gem 'RedCloth', '4.2.9'
 gem 'wikicloth'
 gem 'yard-sinatra', '1.0.0'
 
