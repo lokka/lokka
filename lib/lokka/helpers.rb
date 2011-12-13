@@ -340,7 +340,7 @@ module Lokka
     def custom_permalink_path(param)
       path = Option.permalink_format
       param.each do |tag, value|
-        path.gsub!(/%#{Regexp.escape(tag)}%/,value)
+        path.gsub!(/%#{Regexp.escape(tag.to_s)}%/,value)
       end
       path
     end
