@@ -38,10 +38,12 @@ Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read })
 group :production do
 end
 
-group :development do
+group :development do 
+  gem 'tapp'
 end
 
 group :test do
+  gem 'tapp'
   gem 'rack-test', '0.6.1', :require => 'rack/test'
   gem 'rspec', '~> 2.5'
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'
