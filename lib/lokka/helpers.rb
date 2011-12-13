@@ -326,10 +326,11 @@ module Lokka
       chars = path.chars.to_a
       custom_permalink_format().inject({}) do |result, pattern|
         if pattern.start_with?("%")
-          next_char = pattern[-1]
+          next_char = pattern[-1..-1]
           next_char = nil if next_char == '%'
           name = pattern.match(/^%(.+)%.?$/)[1].to_sym
-          c = nil; (result[name] ||= "") << c until (c = chars.shift) == next_char || c.nil?
+          c = nil
+          (result[name] ||= "") << c until (c = chars.shift) == next_char || c.nil?
         elsif chars.shift != pattern
           break nil
         end

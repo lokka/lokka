@@ -7,4 +7,19 @@ describe Lokka::Helpers do
       gravatar_image_url().should eql('http://www.gravatar.com/avatar/00000000000000000000000000000000')
     end
   end
+  context 'custom_permalink' do
+    before do
+      Option.permalink_enabled = true
+      Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
+    end
+
+    after do
+      Option.permalink_enabled = false
+    end
+
+    it 'custom_permalink_parse split path valid and return Hash' do
+      custom_permalink_parse('/2011/01/09/welcome').should ==
+        {:year=>"2011", :monthnum=>"01", :day=>"09", :slug=>"welcome"}
+    end
+  end
 end
