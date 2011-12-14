@@ -27,7 +27,22 @@ $(function() {
   });
 
   var translateToWysiwyg = (function(jQueryObj) {
-    jQueryObj.wysiwyg(); // TODO: add options
+    jQueryObj.wysiwyg({
+      controls: {
+        h1:          { visible: false },
+        html:        { visible: true },
+        indent:      { visible: false },
+        outdent:     { visible: false },
+        paragraph:   { visible: true },
+        redo:        { visible: false },
+        subscript:   { visible: false },
+        superscript: { visible: false },
+        underline:   { visible: false },
+        undo:        { visible: false }
+      },
+      css: '/admin/css/editor.css'
+    });
+    $('.toolbar ~ div[style*="clear: both;"]').css({ clear: 'none' }); // style patch
     wysiwyg = $('.wysiwyg iframe');
   });
 

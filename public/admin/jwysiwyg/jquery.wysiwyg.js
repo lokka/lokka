@@ -86,7 +86,7 @@
 
 			h1: {
 				groupIndex: 7,
-				visible: false,
+				visible: true,
 				className: "h1",
 				command: ($.browser.msie || $.browser.safari) ? "FormatBlock" : "heading",
 				"arguments": ($.browser.msie || $.browser.safari) ? "<h1>" : "h1",
@@ -158,7 +158,7 @@
 
 			html: {
 				groupIndex: 10,
-				visible: true,
+				visible: false,
 				exec: function () {
 					var elementHeight;
 
@@ -241,7 +241,7 @@
 
 			indent: {
 				groupIndex: 2,
-				visible: false,
+				visible: true,
 				tooltip: "Indent"
 			},
 
@@ -372,13 +372,13 @@
 
 			outdent: {
 				groupIndex: 2,
-				visible: false,
+				visible: true,
 				tooltip: "Outdent"
 			},
 
 			paragraph: {
 				groupIndex: 7,
-				visible: true,
+				visible: false,
 				className: "paragraph",
 				command: "FormatBlock",
 				"arguments": ($.browser.msie || $.browser.safari) ? "<p>" : "p",
@@ -394,7 +394,7 @@
 
 			redo: {
 				groupIndex: 4,
-				visible: false,
+				visible: true,
 				tooltip: "Redo"
 			},
 
@@ -435,21 +435,21 @@
 
 			subscript: {
 				groupIndex: 3,
-				visible: false,
+				visible: true,
 				tags: ["sub"],
 				tooltip: "Subscript"
 			},
 
 			superscript: {
 				groupIndex: 3,
-				visible: false,
+				visible: true,
 				tags: ["sup"],
 				tooltip: "Superscript"
 			},
 
 			underline: {
 				groupIndex: 0,
-				visible: false,
+				visible: true,
 				tags: ["u"],
 				css: {
 					textDecoration: "underline"
@@ -460,7 +460,7 @@
 
 			undo: {
 				groupIndex: 4,
-				visible: false,
+				visible: true,
 				tooltip: "Undo"
 			},
 
@@ -494,7 +494,7 @@
 		};
 
 		this.defaults = {
-html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="margin:0"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link href="/admin/css/editor.css" rel="stylesheet" type="text/css"></head><body style="margin:0;">INITIAL_CONTENT</body></html>',
+html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" style="margin:0"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body style="margin:0;">INITIAL_CONTENT</body></html>',
 			debug: false,
 			controls: {},
 			css: {},
@@ -1339,7 +1339,7 @@ html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.o
 			self.element.append(self.ui.toolbar)
 				.append($("<div><!-- --></div>")
 					.css({
-						//clear: "both"
+						clear: "both"
 					}))
 				.append(self.editor);
 
