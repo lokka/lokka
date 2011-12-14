@@ -19,68 +19,68 @@
     - unless head_last.blank?
       = head_last
   %body
-    #header
+    %header
       %h1= link_to @site.title, '/'
-      #nav
+      %nav
         %ul
           - if logged_in?
             %li= link_to current_user.name, "/admin/users/#{current_user.id}/edit"
             %li= link_to t('logout'), '/admin/logout'
           - else
             %li= link_to t('login'), '/admin/login'
-    #content
-      #aside
+    #body
+      %nav#sub
         %ul
           %li.dashboard.parent
-            %h3= link_to t('dashboard'), '/admin/'
+            %h2= link_to t('dashboard'), '/admin/'
           %li.post.parent
-            %h3.title= t('posts')
+            %h2= t('posts')
             %ul
               %li.list= link_to t('list'), '/admin/posts'
               %li.new= link_to t('new'), '/admin/posts/new'
           %li.page.parent
-            %h3.title= t('pages')
+            %h2= t('pages')
             %ul
               %li.list= link_to t('list'), '/admin/pages'
               %li.new= link_to t('new'), '/admin/pages/new'
           %li.comment.parent
-            %h3.title= t('comments')
+            %h2= t('comments')
             %ul
               %li.list= link_to t('list'), '/admin/comments'
               %li.new= link_to t('new'), '/admin/comments/new'
           %li.category.parent
-            %h3.title= t('categories')
+            %h2= t('categories')
             %ul
               %li.list= link_to t('list'), '/admin/categories'
               %li.new= link_to t('new'), '/admin/categories/new'
           %li.tag.parent
-            %h3.title= t('tags')
+            %h2= t('tags')
             %ul
               %li.list= link_to t('list'), '/admin/tags'
           %li.user.parent
-            %h3.title= t('users')
+            %h2= t('users')
             %ul
               %li.list= link_to t('list'), '/admin/users'
               %li.new= link_to t('new'), '/admin/users/new'
           %li.snippet.parent
-            %h3.title= t('snippets')
+            %h2= t('snippets')
             %ul
               %li.list= link_to t('list'), '/admin/snippets'
               %li.new= link_to t('new'), '/admin/snippets/new'
           %li.theme.parent
-            %h3.title= t('themes')
+            %h2= t('themes')
             %ul
               %li.list= link_to t('default_themes'), '/admin/themes'
               %li.list= link_to t('mobile_themes'), '/admin/mobile_themes'
           %li.plugin.parent
-            %h3= link_to t('plugins'), '/admin/plugins'
+            %h2= link_to t('plugins'), '/admin/plugins'
           %li.field_names.parent
-            %h3.title= t('field_names')
+            %h2= t('field_names')
             %ul
               %li.list= link_to t('list'), '/admin/field_names'
               %li.list= link_to t('new'), '/admin/field_names/new'
           %li.setting.parent
-            %h3.title= t('settings')
+            %h2= t('settings')
             %ul
               %li.list= link_to t('sites'), '/admin/site/edit'
               %li.list= link_to t('permalink.title'), '/admin/permalink'
@@ -88,9 +88,9 @@
           - admin_aside = yield_content :admin_aside
           - unless admin_aside.blank?
             = admin_aside
-      #main
+      %section#main
         - if flash[:notice]
           #notice
             %p= flash[:notice]
         = yield
-    #footer= link_to 'Lokka', 'http://lokka.org'
+      %footer= link_to 'Lokka', 'http://lokka.org'

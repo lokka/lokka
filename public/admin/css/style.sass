@@ -1,0 +1,562 @@
+// reset
+html, body
+  margin: 0
+  padding: 0
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, cite, code, del, dfn, em, img, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, button, table, caption, tbody, tfoot, thead, tr, th, td
+  margin: 0
+  padding: 0
+  border: 0
+  font-weight: normal
+  font-style: normal
+  font-size: 100%
+  line-height: 1
+  font-family: inherit
+table
+  border-collapse: collapse
+  border-spacing: 0
+ol, ul
+  list-style: none
+q:before, q:after, blockquote:before, blockquote:after
+  content: ""
+html
+  overflow-y: scroll
+  font-size: 100%
+  -webkit-text-size-adjust: 100%
+  -ms-text-size-adjust: 100%
+a:focus
+  outline: thin dotted
+a:hover,
+a:active
+  outline: 0
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section
+  display: block
+audio,
+canvas,
+video
+  display: inline-block
+  *display: inline
+  *zoom: 1  
+audio:not([controls])
+  display: none
+sub,
+sup
+  font-size: 75%
+  line-height: 0
+  position: relative
+  vertical-align: baseline
+sup
+  top: -0.5em
+
+sub
+  bottom: -0.25em
+img
+  border: 0
+  -ms-interpolation-mode: bicubic
+button,
+input,
+select,
+textarea
+  font-size: 100%
+  margin: 0
+  vertical-align: baseline
+  *vertical-align: middle
+button,
+input
+  line-height: normal
+  *overflow: visible
+button::-moz-focus-inner,
+input::-moz-focus-inner
+  border: 0
+  padding: 0
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"]
+  cursor: pointer
+  -webkit-appearance: button
+input[type="search"]
+  -webkit-appearance: textfield
+  -webkit-box-sizing: content-box
+  -moz-box-sizing: content-box
+  box-sizing: content-box
+input[type="search"]::-webkit-search-decoration
+  -webkit-appearance: none
+textarea
+  overflow: auto
+  vertical-align: top
+
+// variables
+$color-white: #fff
+$color-right-gray: #ddd
+$color-gray: #c2c2c2
+$color-pink: #dc2e78
+$color-black: #4d5658
+$header-hight: 60px
+$sub-width: 180px
+$header-button-hight: $header-hight / 3 + 8
+$s-round: 2px
+$m-round: 4px
+$sss-font: 10px
+$ss-font: 12px
+$s-font: 13px
+$m-font: 14px
+$l-font: 18px
+$ll-font: 22px
+$exl-font: 26px
+// mixins
+=clearfix
+  zoom: 1
+  &:before,
+  &:after
+    display: table
+    content: ""
+    zoom: 1
+    *display: inline
+  &:after
+    clear: both
+.clearfix
+  +clearfix
+  
+=border_radius($allRadius: "null", $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0)
+  @if $allRadius != "null"
+    -moz-border-radius: $allRadius
+    -webkit-border-radius: $allRadius
+    border-radius: $allRadius
+  @else
+    $eachCorner: top-left, top-right, bottom-right, bottom-left
+    $MozTBLR: ""
+    $radius: ""
+    @each $corner in $eachCorner
+      @if $corner == top-left
+        $MozTBLR: topleft
+        $radius: $top-left
+      @else if $corner == top-right
+        $MozTBLR: topright
+        $radius: $top-right
+      @else if $corner == bottom-left
+        $MozTBLR: bottomleft
+        $radius: $bottom-left
+      @else if $corner == bottom-right
+        $MozTBLR: bottomright
+        $radius: $bottom-right
+      -moz-border-radius#{-$MozTBLR}: $radius
+      -webkit-border#{-$corner}-radius: $radius
+      border#{-$corner}-radius: $radius
+
+=gradient($gradient-img: "null", $top-color: 0, $bottom-color: 0)
+  @if $gradient-img != "null"
+    background: $top-color
+    background: -moz-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $top-color), color-stop(100%, $bottom-color))
+    background: -webkit-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    background: -o-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    background: -ms-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$top-color', endColorstr='$bottom-color',GradientType=0 )
+    background: linear-gradient(top, $top-color 0%, $bottom-color 100%)
+  @else
+    background: $gradient-img, $top-color
+    background: $gradient-img, -moz-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    background: $gradient-img, -webkit-gradient(linear, left top, left bottom, color-stop(0%, $top-color), color-stop(100%, $bottom-color))
+    background: $gradient-img, -webkit-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    background: $gradient-img, -o-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    background: $gradient-img, -ms-linear-gradient(top, $top-color 0%, $bottom-color 100%)
+    filter: $gradient-img, progid:DXImageTransform.Microsoft.gradient(startColorstr='$top-color', endColorstr='$bottom-color',GradientType=0 )
+    background: $gradient-img, linear-gradient(top, $top-color 0%, $bottom-color 100%)
+
+=box-shadow($box-shadow-value1:"null",$box-shadow-value2:"null",$box-shadow-value3:"null")
+  @if $box-shadow-value2 != "null"
+    box-shadow: $box-shadow-value1, $box-shadow-value2 ,$box-shadow-value3
+    -webkit-box-shadow: $box-shadow-value1, $box-shadow-value2 ,$box-shadow-value3
+    -moz-box-shadow: $box-shadow-value1, $box-shadow-value2 ,$box-shadow-value3
+    -o-box-shadow: $box-shadow-value1, $box-shadow-value2 ,$box-shadow-value3
+  @if $box-shadow-value3 != "null"
+    box-shadow: $box-shadow-value1, $box-shadow-value2
+    -webkit-box-shadow: $box-shadow-value1, $box-shadow-value2
+    -moz-box-shadow: $box-shadow-value1, $box-shadow-value2
+    -o-box-shadow: $box-shadow-value1, $box-shadow-value2
+  @else
+    box-shadow: $box-shadow-value1
+    -webkit-box-shadow: $box-shadow-value1
+    -moz-box-shadow: $box-shadow-value1
+    -o-box-shadow: $box-shadow-value1
+
+=text-link
+  &:link,
+  &:visited
+    text-decoration: none
+  &:hover,
+  &:active
+    text-decoration: underline
+
+=button
+  text-decoration: none
+  display: block
+  +border_radius($m-round)
+=header-button
+  +button
+  font-size: $ss-font
+  line-height: $header-button-hight
+  padding: 0 12px
+  margin: 0 0 0 12px
+  &:link,
+  &:visited
+    background: #2b2e2e
+    text-shadow: #000 0 -1px 0
+    color: #abb4b4
+    box-shadow: #405069 0 1px 0, inset #141616 0 1px 0 
+    img
+      opacity: 0.7
+  &:hover,
+  &:active
+    background: #3e4242
+    box-shadow: #000 0 1px 4px
+    color: $color-white
+    img
+      opacity: 1
+=s-icon
+  height: 18px
+  width: 18px
+  +border_radius($s-round)
+
+=sub-odd-gradient
+  background: #777777
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzc3Nzc3NyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2ZDZkNmQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+  background: -moz-linear-gradient(top, #777777 0%, #6d6d6d 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#777777), color-stop(100%,#6d6d6d))
+  background: -webkit-linear-gradient(top, #777777 0%,#6d6d6d 100%)
+  background: -o-linear-gradient(top, #777777 0%,#6d6d6d 100%)
+  background: -ms-linear-gradient(top, #777777 0%,#6d6d6d 100%)
+  background: linear-gradient(top, #777777 0%,#6d6d6d 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#777777', endColorstr='#6d6d6d',GradientType=0 )
+
+=sub-even-gradient
+  background: #606060
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYwNjA2MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1MjUyNTIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+  background: -moz-linear-gradient(top, #606060 0%, #525252 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#606060), color-stop(100%,#525252))
+  background: -webkit-linear-gradient(top, #606060 0%,#525252 100%)
+  background: -o-linear-gradient(top, #606060 0%,#525252 100%)
+  background: -ms-linear-gradient(top, #606060 0%,#525252 100%)
+  background: linear-gradient(top, #606060 0%,#525252 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606060', endColorstr='#525252',GradientType=0 )
+
+=main-title-gradient
+  background: #ffffff
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZmVmZWYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+  background: -moz-linear-gradient(top, #ffffff 0%, #efefef 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#efefef))
+  background: -webkit-linear-gradient(top, #ffffff 0%,#efefef 100%)
+  background: -o-linear-gradient(top, #ffffff 0%,#efefef 100%)
+  background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%)
+  background: linear-gradient(top, #ffffff 0%,#efefef 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef',GradientType=0 )
+
+=silver-gradient
+  background: #d3d3d3
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2QzZDNkMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjMWMxYzEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+)
+  background: -moz-linear-gradient(top, #d3d3d3 0%, #c1c1c1 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d3d3d3), color-stop(100%,#c1c1c1))
+  background: -webkit-linear-gradient(top, #d3d3d3 0%,#c1c1c1 100%)
+  background: -o-linear-gradient(top, #d3d3d3 0%,#c1c1c1 100%)
+  background: -ms-linear-gradient(top, #d3d3d3 0%,#c1c1c1 100%)
+  background: linear-gradient(top, #d3d3d3 0%,#c1c1c1 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', endColorstr='#c1c1c1',GradientType=0 )
+  box-shadow: inset #fff 0 0 2px, inset #888 0 0 1px
+  
+
+// dsign
+body
+  background: url(../images/body.gif)
+  color: $color-black
+  a
+    color: $color-black
+      
+header
+  height: $header-hight
+  padding: 0 10px
+  +clearfix
+  h1
+    float: left
+    a
+      font-size: $exl-font
+      line-height: $header-hight
+      font-weight: bold
+      color: #6e6e6e
+      text-decoration: none
+  nav
+    ul
+      float: right
+      padding-top: ( $header-hight - $header-button-hight ) / 2
+      li
+        float: left
+        a
+          +header-button
+          img
+            margin: 5px 8px 0 -2px
+            float: left            
+            +s-icon
+#body
+  +clearfix
+  &:before
+    content: " "
+    display: block
+    height: 10px
+    background: #dfdfdf
+    box-shadow: inset #b3b3b3 0 1px 5px
+    border-bottom: $color-white solid 1px
+#sub
+  float: left
+  width: $sub-width
+  border-right: $color-white solid 1px
+  box-shadow: #b8b8b8 1px 0 1px
+  border-top: $color-white solid 1px
+  >ul
+    >li
+      display: block
+      padding: 10px 0 10px 10px
+      +clearfix
+      h2
+        color: $color-gray
+        font-size: $s-font
+        margin: 0 0 10px 0
+        padding: 0 0 0 28px
+        line-height: 20px
+        font-weight: bold
+        background: left top no-repeat
+        text-shadow: #555 0 -1px 0
+      ul
+        li
+          display: inline
+          a
+            float: left
+            font-size: $ss-font
+            +button
+            width: $sub-width / 2 - 13
+            margin: 0 6px 0 0
+            text-align: center
+            line-height: $ss-font + 10
+            &:link,
+            &:visited
+              background: #d1d1c1
+              color: $color-gray
+            &:hover,
+            &:active
+              background: #667174
+              color: $color-white
+              box-shadow: #333 0 1px 2px
+    >li:nth-child(odd)      
+      box-shadow: inset #fff 0 0 0
+      border-bottom: #d1d1c1 solid 1px
+      border-top: #8a8a8a solid 1px
+    >li:first-child  
+      border-top: none
+      ul
+        li
+          a
+            &:link,
+            &:visited
+              background: #5f5f5f
+              color: $color-gray
+              box-shadow: #777 0 1px 0, inset #555 0 1px 0
+            &:hover,
+            &:active
+              background: #00c0f0
+              color: $color-white
+              box-shadow: #333 0 1px 2px
+    >li:nth-child(even)      
+      box-shadow: inset #8c8c8c 0 0 0
+      border-bottom: #4d4d4d solid 1px
+      border-top: #777777 solid 1px
+      ul
+        li
+          a
+            background: #474747
+            &:link,
+            &:visited
+              background: #5f5f5f
+              color: $color-gray
+              box-shadow: #666 0 1px 0, inset #555 0 1px 0
+            &:hover,
+            &:active
+              background: #00c0f0
+              color: $color-white
+              box-shadow: #333 0 1px 2px
+    >li.carrent
+      background: $color-white
+      box-shadow: none
+      border-bottom: #fff solid 1px
+      border-top: #fff solid 1px
+      h2
+        color: $color-pink
+        background: left bottom no-repeat
+        text-shadow: none
+      ul
+        li
+          a
+            &:link,
+            &:visited
+              background: #e6eced
+              color: $color-gray
+              box-shadow: none
+            &:hover,
+            &:active
+              background: #00c0f0
+              color: $color-white
+              box-shadow: #333 0 1px 2px
+        li.carrent
+          a
+            background: #00c0f0
+            color: $color-white
+    li.post
+      h2
+        background-image: url(images/post.png)
+    li.page
+      h2
+        background-image: url(images/page.png)
+    li.snippet
+      h2
+        background-image: url(images/snippet.png)
+    li.tag
+      h2
+        background-image: url(images/tag.png)
+    li.category
+      h2
+        background-image: url(images/category.png)
+    li.comment
+      h2
+        background-image: url(images/comment.png)
+    li.user
+      h2
+        background-image: url(images/user.png)
+    li.plugin
+      h2
+        background-image: url(images/plugin.png)
+    li.theme-pc
+      h2
+        background-image: url(images/theme-pc.png)
+    li.theme-mobile
+      h2
+        background-image: url(images/theme-mobile.png)
+    li.custom-field
+      h2
+        background-image: url(images/custom-field.png)
+
+#main
+  margin: 0 0 0 $sub-width
+  padding: 20px 0 0 20px
+  +clearfix
+  .header   
+    height: $exl-font * 1.2
+    border-bottom: $color-right-gray 1px solid
+    h1
+      font-size: $exl-font
+      font-weight: bold
+      line-height: $exl-font
+      color: $color-black
+      float: left
+    nav
+      float: right
+      padding: 0 25px 0 0
+      ul
+        display: inline
+        li
+          display: inline
+          float: left
+          a
+            +button
+            font-size: $s-font
+            line-height: $ss-font * 2.3
+            background: #ccc
+            padding: 0 20px            
+            font-weight: bold
+            color: $color-white
+  .body
+    margin: 17px 25px 0 0
+    .conditions
+      height: $ss-font * 2 + 10
+      li
+        display: inline
+        a
+          display: block
+          float: left
+          font-size: $ss-font
+          line-height: $ss-font * 2
+          padding: 0 12px
+          text-decoration: none
+          +silver-gradient
+          border-left: #ccc solid 1px
+          border-right: #aaa solid 1px
+        &:first-child
+          a
+            border-radius: $ss-font * 2 / 2 0 0 $s-font * 2 / 2
+            border-left: none
+            padding: 0 12px 0 18px
+        &:last-child
+          a
+            border-radius: 0 $ss-font * 2 / 2 $ss-font * 2 / 2 0
+            border-right: none
+            padding: 0 18px 0 12px
+    p
+      font-size: $s-font
+      line-height: $s-font * 1.7
+      margin: 0 0 $s-font * 1.6 0
+    table
+      font-size: $s-font  
+      width: 100%
+      border-radius: 4px
+      border: #ddd solid 1px
+      thead
+        +silver-gradient
+        border: #c9c9c9 solid 1px
+        th
+          line-height: $ss-font * 2.2
+          font-size: $ss-font
+          font-weight: bold
+          border-bottom: #ccc solid 1px
+      tbody
+        tr
+          td
+            padding: 6px 10px
+            border-bottom: 1px solid #ddd
+            line-height: 1.5
+          td.title
+            width: 40%
+            a
+              display: block
+              padding: 6px
+              +border_radius($m-round)
+              +text-link
+              &:hover,
+              &:active
+                background: #eeeeee
+                color: $color-pink
+          td.author
+            font-size: $ss-font
+            img
+              +s-icon
+              margin: 0 6px 0 0
+              float: left
+              display: block
+          td.created_at
+            font-size: $ss-font
+          td.edit,
+          td.delete
+            width: 8%
+            a
+              +button
+              background: #e6eced
+              text-align: center
+              line-height: $ss-font * 2.2
+              font-size: $ss-font
+          &:nth-child(even)
+            background: #f9f9f9
+    
