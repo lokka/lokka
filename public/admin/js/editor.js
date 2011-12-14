@@ -40,6 +40,7 @@ $(function() {
         underline:   { visible: false },
         undo:        { visible: false }
       },
+      autoGrow: true,
       css: '/admin/css/editor.css'
     });
     $('.toolbar ~ div[style*="clear: both;"]').css({ clear: 'none' }); // style patch
