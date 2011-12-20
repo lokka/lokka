@@ -15,7 +15,7 @@ describe "App" do
 
     it "entries is sort by created_at in descending" do
       get '/'
-      body = last_response.body
+      body = last_response.body 
       (body.index(/Test Post2/) < body.index(/Test Post[^\d]/)).should be_true
     end
 

@@ -62,17 +62,14 @@ Tagging.create!(:id => 2,
                 :tag_context => "tags",
                 :tag_id => 1)
 
-# lokka can mix timezones
-# lokka see only date and hours, ignore UTC offsets
-
 # post after 1 minutes
 # id 3
 Entry.create!(:user_id => 3,
               :title => "Test Post2",
               :body => "Test Post2",
               :type => "Post",
-              :created_at => created_at_tokyo + 1.minutes,
-              :updated_at => created_at_tokyo + 1.minutes)
+              :created_at => created_at + 1.minutes,
+              :updated_at => created_at + 1.minutes)
 
 # page
 # id 4
