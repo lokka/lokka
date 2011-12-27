@@ -1,0 +1,17 @@
+ja:
+  tweet_button: ツイートボタン
+  tweet_button_updated: 更新しました。
+  tweet_button_count: ボタン
+  tweet_button_count_vertical: 垂直方向にカウント数を表示
+  tweet_button_count_horizontal: 水平方向にカウント数を表示
+  tweet_button_count_none: カウント数の表示なし
+  tweet_button_optional: 任意
+  tweet_button_via: フォローするのにおすすめのユーザー
+  tweet_button_related_account: 関連アカウント
+  tweet_button_related_description: 関連アカウントの説明
+  tweet_button_lang: 言語
+  tweet_button_lang_english: 英語
+  tweet_button_lang_french: フランス語
+  tweet_button_lang_german: ドイツ語
+  tweet_button_lang_spanish: スペイン語
+  tweet_button_lang_japanese: 日本語
