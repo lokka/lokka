@@ -1,6 +1,0 @@
-%h2= t.edit_link
-%form{:action => "/admin/plugins/links/#{@link.id}", :method => 'post'}
-  %input{:type => 'hidden', :name => '_method', :value => 'put'}
-  = haml :"plugin/lokka-links/views/form"
-  %p
-    %input{:type => 'submit', :value => t.edit}
