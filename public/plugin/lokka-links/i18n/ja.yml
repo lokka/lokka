@@ -1,0 +1,18 @@
+ja:
+  links: リンク
+  listing_links: リンク一覧
+  new_link: リンク登録
+  edit_link: リンク編集
+  link_was_successfully_created: リンクを作成しました。
+  link_was_successfully_updated: リンクを更新しました。
+  link_was_successfully_deleted: リンクを削除しました。
+  link_sort_up: 上へ
+  link_sort_down: 下へ
+  link:
+    id: ID
+    title: タイトル
+    url: URL
+    target: ターゲット
+    sort: 順番
+    created_at: 作成日時
+    updated_at: 更新日時

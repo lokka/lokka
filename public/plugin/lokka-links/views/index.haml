@@ -1,0 +1,23 @@
+%h2= t.listing_links
+%table
+  %tr
+    %th= t.link.sort
+    %th= t.link.title
+    %th= t.link.url
+    %th{:colspan => 4}
+  - @links.each_with_index do |link, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td=h link.sort
+      %td=h link.title
+      %td
+        %a{:href => "#{link.url}", :target => "#{link.target}"}=h link.url
+      %td
+        - if link.sort > 1
+          %a.button{:href => "/admin/plugins/links/#{link.id}/up"}= t.link_sort_up
+      %td
+        - if link.sort < @links.size
+          %a.button{:href => "/admin/plugins/links/#{link.id}/down"}= t.link_sort_down
+      %td
+        %a.button{:href => "/admin/plugins/links/#{link.id}/edit"}= t.edit
+      %td
+        = link_to t.delete, "/admin/plugins/links/#{link.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete
