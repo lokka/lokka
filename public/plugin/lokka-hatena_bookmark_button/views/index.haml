@@ -1,0 +1,14 @@
+%h2= t.hatena_bookmark_button
+%form{:action => '/admin/plugins/hatena_bookmark_button', :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  .field
+    %label{:for => 'hatena_bookmark_button_layout'}= t.hatena_bookmark_button_layout
+    %br 
+    %input{:type => 'radio', :id => 'hatena_bookmark_button_layout_standard', :name => 'hatena_bookmark_button_layout', :value => 'standard', :checked => Option.hatena_bookmark_button_layout == 'standard'}
+    %label{:for => 'hatena_bookmark_button_layout_standard'}= t.hatena_bookmark_button_layout_standard
+    %input{:type => 'radio', :id => 'hatena_bookmark_button_layout_vertical', :name => 'hatena_bookmark_button_layout', :value => 'vertical', :checked => Option.hatena_bookmark_button_layout == 'vertical'}
+    %label{:for => 'hatena_bookmark_button_layout_vertical'}= t.hatena_bookmark_button_layout_vertical
+    %input{:type => 'radio', :id => 'hatena_bookmark_button_layout_simple', :name => 'hatena_bookmark_button_layout', :value => 'simple', :checked => Option.hatena_bookmark_button_layout == 'simple'}
+    %label{:for => 'hatena_bookmark_button_layout_simple'}= t.hatena_bookmark_button_layout_simple
+  .field
+    %input{:type => 'submit', :value => t.edit}
