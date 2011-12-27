@@ -1,0 +1,9 @@
+en:
+  gravatar_image: Gravatar Image Request
+  gravatar_image_updated: Updated.
+  gravatar_image_default: Default Image URL
+  gravatar_image_default_fix: Default Fix Image
+  gravatar_image_force: force to show
+  gravatar_image_rating: Rating
+  gravatar_image_ext: File-type extension
+  gravatar_image_optional: Optional
