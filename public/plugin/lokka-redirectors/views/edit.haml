@@ -1,0 +1,6 @@
+%h2= t.edit_redirect
+%form{:action => "/admin/plugins/redirectors/#{@redirect.id}", :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  = haml :"plugin/lokka-redirectors/views/form"
+  %p
+    %input{:type => 'submit', :value => t.edit}

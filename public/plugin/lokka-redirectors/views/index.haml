@@ -1,0 +1,16 @@
+%h2= t.listing_redirects
+%table
+  %tr
+    %th= t.redirect_from
+    %th= t.redirect_to
+    %th= t.redirect.created_at
+    %th{:colspan => 2}
+  - @redirects.each_with_index do |redirect, i|
+    %tr{:class => (i+1).odd? ? 'odd' : 'even'}
+      %td=h redirect.regex
+      %td=h redirect.slug
+      %td= l redirect.created_at.to_time
+      %td
+        %a.button{:href => "/admin/plugins/redirectors/#{redirect.id}/edit"}= t.edit
+      %td
+        = link_to t.delete, "/admin/plugins/redirectors/#{redirect.id}", :class => 'button', :confirm => t.are_you_sure, :method => :delete

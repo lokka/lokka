@@ -1,0 +1,23 @@
+- unless @redirect.errors.empty?
+  #error
+    .title= t.error
+    %ul
+      - @redirect.errors.each do |error|
+        %li= error
+%p
+  %label{:for => 'redirect_regex'}= "#{t.redirect_from} (#{t.redirect.regex})"
+  %br
+  %input{:type => 'text', :id => 'redirect_regex', :name => 'redirect[regex]', :value => @redirect.regex}
+%p
+  %label{:for => 'redirect_slug'}= "#{t.redirect_to} (#{t.redirect.slug})"
+  %br
+  %select{:id => "redirect_slug", :name => "redirect[slug]"}
+    - slugs.each do |slug|
+      %option{:value => "#{slug}", :selected => slug == @redirect.slug}= slug
+%p
+  %label{:for => 'redirect_status_code'}= t.redirect.status_code
+  %br
+  %input{:type => 'radio', :value => '301', :id => 'redirect_status_code_301', :name => 'redirect[status_code]', :checked => @redirect.status_code == 301}
+  %label{:for => 'redirect_status_code_301', :style => 'font-weight:normal;'} 301 Moved Permanently
+  %input{:type => 'radio', :value => '307', :id => 'redirect_status_code_307', :name => 'redirect[status_code]', :checked => @redirect.status_code == 307}
+  %label{:for => 'redirect_status_code_307', :style => 'font-weight:normal;'} 307 Temporary Redirect
