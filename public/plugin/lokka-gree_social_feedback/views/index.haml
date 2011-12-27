@@ -1,0 +1,70 @@
+- content_for :head_last do
+  %script{:src => "/plugin/lokka-gree_social_feedback/views/button_height.js", :type => "text/javascript"}
+%h2= t.gree_social_feedback
+%form{:action => '/admin/plugins/gree_social_feedback', :method => 'post'}
+  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+  .field
+    %label{:for => 'gree_social_feedback_button'}= t.gree_social_feedback_button
+    %br 
+    %select{:id => 'gree_social_feedback_button', :name => 'gree_social_feedback_button'}
+      %option{:value => '0', :selected => Option.gree_social_feedback_button == '0'}= t.gree_social_feedback_button_0
+      %option{:value => '1', :selected => Option.gree_social_feedback_button == '1'}= t.gree_social_feedback_button_1
+      %option{:value => '2', :selected => Option.gree_social_feedback_button == '2'}= t.gree_social_feedback_button_2
+      %option{:value => '3', :selected => Option.gree_social_feedback_button == '3'}= t.gree_social_feedback_button_3
+      %option{:value => '4', :selected => Option.gree_social_feedback_button == '4'}= t.gree_social_feedback_button_4
+  .field
+    %label{:for => 'gree_social_feedback_height'}= t.gree_social_feedback_height
+    %br
+    %select{:id => 'gree_social_feedback_height', :name => 'gree_social_feedback_height'}
+      %option{:value => '', :id => 'gree_social_feedback_height_0'}
+      %option{:value => '', :id => 'gree_social_feedback_height_1'}
+      %option{:value => '', :id => 'gree_social_feedback_height_2'}
+  .field
+    %label{:for => 'gree_social_feedback_og_type'}= t.gree_social_feedback_og_type + " (#{t.gree_social_feedback_optional})"
+    %br
+    %select{:id => 'gree_social_feedback_og_type', :name => 'gree_social_feedback_og_type'}
+      %option{:value => '', :selected => Option.gree_social_feedback_og_type.blank?}
+      %option{:value=>'activity', :selected => Option.gree_social_feedback_og_type == 'activity'}= 'activity'
+      %option{:value=>'sport', :selected => Option.gree_social_feedback_og_type == 'sport'}= 'sport'
+      %option{:value=>'bar', :selected => Option.gree_social_feedback_og_type == 'bar'}= 'bar'
+      %option{:value=>'company', :selected => Option.gree_social_feedback_og_type == 'company'}= 'company'
+      %option{:value=>'cafe', :selected => Option.gree_social_feedback_og_type == 'cafe'}= 'cafe'
+      %option{:value=>'hotel', :selected => Option.gree_social_feedback_og_type == 'hotel'}= 'hotel'
+      %option{:value=>'restaurant', :selected => Option.gree_social_feedback_og_type == 'restaurant'}= 'restaurant'
+      %option{:value=>'cause', :selected => Option.gree_social_feedback_og_type == 'cause'}= 'cause'
+      %option{:value=>'sports_league', :selected => Option.gree_social_feedback_og_type == 'sports_league'}= 'sports_league'
+      %option{:value=>'sports_team', :selected => Option.gree_social_feedback_og_type == 'sports_team'}= 'sports_team'
+      %option{:value=>'band', :selected => Option.gree_social_feedback_og_type == 'band'}= 'band'
+      %option{:value=>'government', :selected => Option.gree_social_feedback_og_type == 'government'}= 'government'
+      %option{:value=>'non_profit', :selected => Option.gree_social_feedback_og_type == 'non_profit'}= 'non_profit'
+      %option{:value=>'school', :selected => Option.gree_social_feedback_og_type == 'school'}= 'school'
+      %option{:value=>'university', :selected => Option.gree_social_feedback_og_type == 'university'}= 'university'
+      %option{:value=>'actor', :selected => Option.gree_social_feedback_og_type == 'actor'}= 'actor'
+      %option{:value=>'athlete', :selected => Option.gree_social_feedback_og_type == 'athlete'}= 'athlete'
+      %option{:value=>'author', :selected => Option.gree_social_feedback_og_type == 'author'}= 'author'
+      %option{:value=>'director', :selected => Option.gree_social_feedback_og_type == 'director'}= 'director'
+      %option{:value=>'musician', :selected => Option.gree_social_feedback_og_type == 'musician'}= 'musician'
+      %option{:value=>'politician', :selected => Option.gree_social_feedback_og_type == 'politician'}= 'politician'
+      %option{:value=>'public_figure', :selected => Option.gree_social_feedback_og_type == 'public_figure'}= 'public_figure'
+      %option{:value=>'city', :selected => Option.gree_social_feedback_og_type == 'city'}= 'city'
+      %option{:value=>'country', :selected => Option.gree_social_feedback_og_type == 'country'}= 'country'
+      %option{:value=>'landmark', :selected => Option.gree_social_feedback_og_type == 'landmark'}= 'landmark'
+      %option{:value=>'state_province', :selected => Option.gree_social_feedback_og_type == 'state_province'}= 'state_province'
+      %option{:value=>'album', :selected => Option.gree_social_feedback_og_type == 'album'}= 'album'
+      %option{:value=>'book', :selected => Option.gree_social_feedback_og_type == 'book'}= 'book'
+      %option{:value=>'drink', :selected => Option.gree_social_feedback_og_type == 'drink'}= 'drink'
+      %option{:value=>'food', :selected => Option.gree_social_feedback_og_type == 'food'}= 'food'
+      %option{:value=>'game', :selected => Option.gree_social_feedback_og_type == 'game'}= 'game'
+      %option{:value=>'movie', :selected => Option.gree_social_feedback_og_type == 'movie'}= 'movie'
+      %option{:value=>'product', :selected => Option.gree_social_feedback_og_type == 'product'}= 'product'
+      %option{:value=>'song', :selected => Option.gree_social_feedback_og_type == 'song'}= 'song'
+      %option{:value=>'tv_show', :selected => Option.gree_social_feedback_og_type == 'tv_show'}= 'tv_show'
+      %option{:value=>'article', :selected => Option.gree_social_feedback_og_type == 'article'}= 'article'
+      %option{:value=>'blog', :selected => Option.gree_social_feedback_og_type == 'blog'}= 'blog'
+      %option{:value=>'website', :selected => Option.gree_social_feedback_og_type == 'website'}= 'website'
+  .field
+    %input{:type => 'submit', :value => t.edit}
+:javascript
+  $(function() {
+    changeButtonHeight("#{Option.gree_social_feedback_button}", "#{Option.gree_social_feedback_height}");
+  })

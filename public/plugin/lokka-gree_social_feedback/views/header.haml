@@ -1,0 +1,3 @@
+%meta{:property => "og:title", :content => "#{@entry.title.jleft(100)}"}
+- unless Option.gree_social_feedback_og_type.blank?
+  %meta{:proerpty => "og:type", :content => "#{Option.gree_social_feedback_og_type}"}
