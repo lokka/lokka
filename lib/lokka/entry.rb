@@ -23,6 +23,7 @@ class Entry
   validates_presence_of :title
   validates_uniqueness_of :slug
   validates_uniqueness_of :title
+  validates_with_method :updated_at, :method => :conflict?
 
   before :valid? do
     self.category_id = nil if category_id === ''
@@ -81,6 +82,15 @@ class Entry
     return unless @field
     @fields.each do |k, v|
       self.send("#{k}=", v)
+    end
+  end
+
+  def conflict?
+    return true unless id
+    if @updated_at == self.class.get(id).updated_at
+      return true
+    else
+      return [false, "The entry is updated while you were editing"]
     end
   end
 
