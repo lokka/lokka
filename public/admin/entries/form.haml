@@ -46,6 +46,7 @@
     = f.label :created_at, :caption => t("#{@name}.created_at")
     %br/
     = f.text_field :created_at
+  = f.hidden_field :updated_at
   %p
     %input(type="submit" value="#{t('preview')}" name="preview" formtarget="_blank")
     %input(type="submit" value="#{label}" name="edit")
