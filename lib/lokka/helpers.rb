@@ -251,6 +251,7 @@ module Lokka
           redirect_after_edit(@entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
+          @field_names = FieldName.all(:order => :name.asc)
           render_any :'entries/edit'
         end
       end
