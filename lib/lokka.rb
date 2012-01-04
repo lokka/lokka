@@ -124,6 +124,9 @@ if RUBY_VERSION >= '1.9'
 else
   require 'ruby18'
 end
+if Lokka.development? || Lokka.test?
+  require 'tapp'
+end
 require 'lokka/database'
 require 'lokka/theme'
 require 'lokka/user'

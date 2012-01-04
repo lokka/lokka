@@ -1,0 +1,100 @@
+/*
+Name: One Column Neue
+Description: Simple one-column theme.
+URL: http://lokka.org/
+Author: yayugu
+Author URL: http://moji.yayugu.net/
+Version: 0.0.2
+*/
+
+@charset "UTF-8";
+
+/*
+Skin Name: One Column Neue
+Author: yayugu
+*/
+
+$w: 950px;
+$c: #444444;
+
+@mixin centering {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
+@mixin mono-link {
+  a:link, a:visited, a:hover {
+    color: $c;
+    text-decoration: none;
+  }
+  a:visited {
+    color: #666666;
+    text-decoration: none;
+  }
+}
+
+#header {
+  width: $w;
+  @include centering;
+  h1 {
+    display: inline;
+    font-size: 1em;
+    margin-right: 1em;
+  }
+}
+
+#footer {
+  width: $w;
+  @include centering;
+  font-size: 0.8em;
+  text-align: right;
+  @include mono-link;
+}
+
+body {
+  background: #FAFAFA;
+  color: $c;
+ 	padding: {
+    top: 8px;
+    bottom: 8px;
+  }
+	border: {
+    style: solid;
+    color: #777777;
+    width: 8px 0;
+  }
+}
+
+.article {
+  margin: {
+    top: 3em;
+    bottom: 3em;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, FreeSerif, serif;
+  @include mono-link
+}
+
+h1 {
+  font-size: 3em;
+}
+
+#main {
+  width: $w;
+  @include centering;
+}
+
+.header {
+  font-size: 0.8em;
+  h1 {
+    margin-bottom: 5px;
+  }
+}
+
+.admin-footer {
+  font-size: 0.5em;
+}

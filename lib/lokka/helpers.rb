@@ -11,6 +11,12 @@ module Lokka
       end
     end
 
+    def base_url
+      default_port = (request.scheme == "http") ? 80 : 443
+      port = (request.port == default_port) ? "" : ":#{request.port.to_s}"
+      "#{request.scheme}://#{request.host}#{port}"
+    end
+
     # h + n2br
     def hbr(str)
       h(str).gsub(/\r\n|\r|\n/, "<br />\n")
