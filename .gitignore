@@ -16,3 +16,4 @@ config.yml
 /Lokka.app
 /doc
 /.yardoc
+.sass-cache
