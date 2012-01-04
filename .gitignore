@@ -17,3 +17,4 @@ config.yml
 /doc
 /.yardoc
 .sass-cache
+database.yml
