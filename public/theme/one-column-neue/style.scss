@@ -103,6 +103,18 @@ h1 {
   margin-top: 8em;
 }
 
+/* tags */
+
+ul.tags {
+  display: inline;
+  list-style: none;
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    display: inline;
+  }
+}
 
 /* link */
 
