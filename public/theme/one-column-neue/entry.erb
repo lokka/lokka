@@ -19,4 +19,33 @@
     <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
     <% end %>
   </div>
+
+  <div class="comment-wrap">
+    <% if @entry.comments.size > 0 %>
+    <h3>
+      <%= t('comments') %>
+    </h3>
+    <ul id="comments">
+      <% @entry.comments.reverse.each do |comment| %>
+        <li id="comment-<%= comment.id %>" class="comment">
+          <div class="body">
+            <%= hbr comment.body %>
+          </div>
+          <div class="footer">
+            <span class="name">
+              <%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %>
+            </span>
+            <span class="date">
+              <%= l(comment.created_at) %>
+            </span>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <% end %>
+
+    <div id="comment_form">
+      <%= comment_form %>
+    </div>
+  </div>
 </div>
