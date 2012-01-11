@@ -1,0 +1,343 @@
+@charset "shift_jis"; 
+
+/* åüèÿóp 
+  * { border: 1px solid orange }
+  * * { border: 2px solid green }
+  * * * { border: 2px solid orange }
+  * * * * { outline: 2px solid blue }
+  * * * * * { outline: 1px solid red }
+  * * * * * * { outline: 1px solid green }
+  * * * * * * * { outline: 1px solid orange }
+  * * * * * * * * { outline: 1px solid blue }
+*/
+
+
+/* layout
+---------------------------------------------------------------------- */
+body {
+	position: relative;
+	background: url(../images/bg_wood.jpg) top left repeat;
+	font-family: Helvetica;
+}
+#bg-note {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: url(../images/bg_note.png) repeat-y;
+	z-index: -999;
+}
+#container {
+	top: 0;
+	height: 100%;
+	background: url(../images/bg_note.png) repeat-y;
+	margin: 0 0 0 0;
+}
+#container-inner {
+	padding: 80px 0 0 120px;
+}
+a {
+	color: #1111cc;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+#header h1 a {
+}
+#header,
+#header h1 a,
+#nav-sub h3,
+#nav ul li a {
+	font-family: 'Nothing You Could Do', cursive;
+	color: #000;
+	text-decoration: none;
+	font-weight: normal;
+}
+#header h1 a {
+	font-size: 46px;
+	text-decoration: none;
+}
+#header .discription {
+	font-size: 10px;
+	margin: 10px 0 0 0;
+}
+
+#nav-sub {
+	position: absolute;
+	top: 100px;
+	left: 500px;
+	text-align: right;
+}
+#nav-sub ul {
+	margin: 0 0 20px 2px;
+}
+#nav-sub ul a.b_wood {
+	display: block;
+	font-size: 8px;
+	background: url(../images/tape_wood.png) no-repeat;
+	width: 106px;
+	height: 30px;
+	padding: 10px 0 0 0;
+	text-align: center;
+	margin: 0 0 0 0;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 11px;
+	font-family: "ÉqÉâÉMÉmñæí© Pro W3","Hiragino Mincho Pro W3","ïΩê¨ñæí©",serif;
+	_font-family: "ÇlÇr Çoñæí©",serif;
+}
+#nav-sub ul a.b_leather {
+	display: block;
+	font-size: 8px;
+	background: url(../images/tape_leather.png) no-repeat;
+	width: 106px;
+	height: 30px;
+	padding: 10px 0 0 0;
+	text-align: center;
+	margin: 0 0 0 0;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 11px;
+	
+	_font-family: "ÇlÇr Çoñæí©",serif;
+	text-shadow:
+		0px -1px 0px rgba(000,000,000,1),
+		0px 1px 0px rgba(255,255,255,0.2);
+	color: #ddd;
+	font-weight: lighter;
+}
+
+#nav {
+	margin: 20px 0 0 0;
+}
+#nav ul li {
+	float: left;
+	display: block;
+	font-size: 16px;
+}
+#nav ul li a {
+	text-decoration: underline;
+}
+#nav ul li a:hover {
+	text-decoration: none;
+}
+#nav ul li.sla{
+	margin: 0 4px 0 6px;
+}
+
+#breadlist {
+	clear: both;
+	padding: 10px 0 0 0;
+	font-size: 9px;
+	color: #777;
+}
+#breadlist li {
+	float: left;
+	margin: 0 10px 0 0;
+}
+#breadlist li a {
+	color: #000;
+}
+
+#items {
+	margin: 60px 0 0 0;
+}
+#items-inner {
+	width: 320px;
+}
+
+.item {
+	margin: 0 0 100px 0;
+}
+.item h2,
+.item h3,
+.item h4,
+.item h5,
+.item h6
+{
+	font-family: "ÉqÉâÉMÉmñæí© Pro W3","Hiragino Mincho Pro W3","ïΩê¨ñæí©",serif;
+	_font-family: "ÇlÇr Çoñæí©",serif;
+	font-weight: normal;
+	line-height: 1.6em;
+	margin: 30px 0 0 0;
+	color: #000;
+}
+.item h2,
+.item h3,
+.item h3 a,
+.item h2 a {
+	font-size: 24px;
+	color: #000;
+	text-decoration: none;
+}
+.item h3 a:hover,
+.item h2 a:hover {
+	text-decoration: underline;
+}
+.item h4 {
+	font-size: 18px;
+}
+.item h5 {
+	font-size: 16px;
+}
+
+.item .body {
+	margin: 10px 0 0 0;
+	line-height: 1.8em;
+	font-size: 12px;
+	color: #555;
+}
+.item .date {
+	font-size: 8px;
+	background: url(../images/tape.png) no-repeat;
+	width: 106px;
+	height: 36px;
+	padding: 10px 0 0 0;
+	text-align: center;
+	margin: 0 0 0 -8px;
+}
+.item blockquote {
+	font-size: 10px;
+	margin: 20px 0 10px 0;
+	padding: 0 10px 0 14px;
+	border-left: 2px solid #ddd;
+	color: #777;
+}
+
+.tags li {
+	float: left;
+	margin: 0 10px 0 0;
+}
+.tags li a {
+	color: #999;
+}
+.info,
+.admin {
+	clear: both;
+	font-size: 10px;
+	margin: 10px 0 0 0;
+	padding: 0 0 0 10px;
+}
+.info {
+	margin: 30px 0 0 0;
+	border-left: 5px solid #ccc;
+}
+.admin {
+	margin: 0 0 0 0;
+	border-left: 5px solid #1111cc;
+}
+.admin li {
+	float: left;
+}
+
+#footer {
+	margin: 60px 0 20px 0;
+}
+#footer-inner {
+	font-size: 8px;
+}
+
+.author {
+	display: none;
+}
+
+
+.sns {
+	padding:30px 0 30px 0;
+	width: 500px;
+}
+.sns ul{
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	display:block;
+	list-style:none;
+}
+.sns li{
+	float:left;
+	padding:0 4px 0 0;
+}
+.sns li.gplus{
+	display: none;
+}
+
+.sns a:hover{
+	background:none;
+}
+
+
+
+
+@media screen and (min-width: 0px) and (max-device-width: 920px) {
+	body {
+		position: relative;
+		font-family: Helvetica;
+		-webkit-text-size-adjust: none;
+		background: url(../images/bg_wood.jpg) top left repeat;
+	}
+	#bg-note {
+		position: fixed;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -999;
+		background: url(../images/bg_note_sm.png) repeat-y;
+	}
+	#container {
+		top: 0;
+		height: 100%;
+		margin: 0 0 0 0;
+		background: url(../images/bg_note_sm.png) repeat-y;
+	}
+	#container-inner {
+		padding: 40px 20px 20px 20px;
+	}
+	#nav-sub .badge li {
+		margin: 0 10px 0 -10px;
+	}
+	#nav-sub {
+		position: inline;
+		top: 0;
+		left: 0;
+		text-align: left;
+		margin: 180px 0 20px 20px;
+	}
+	#nav-sub ul {
+		margin: 0 0 20px 5px;
+	}
+	#nav-sub ul li {
+		float: left;
+	}
+	#nav-sub ul a.b_leather,
+	#nav-sub ul a.b_wood {
+		display: block;
+		font-size: 20px;
+		background: none;
+		width: 60px;
+		height: 30px;
+		padding: 10px 0 0 -10px;
+		text-align: left;
+		margin: 0 0 0 0;
+		color: #222;
+		text-decoration: none;
+		font-weight: normal;
+		font-family: 'Nothing You Could Do', cursive;
+	}
+	#items {
+		margin: 220px 0 0 0;
+	}
+	#items-inner {
+		width: auto;
+	}
+}
+
+@media screen and (min-width: 321px) and (max-device-width: 920px) {
+	#items-inner {
+		width: 410px;
+	}
+}
+@media screen and (min-width: 911px)  {
+}

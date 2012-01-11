@@ -1,0 +1,44 @@
+
+<% @posts.each do |post| %>
+  
+	<div class="item">
+		<div class="date"><%= post.created_at.strftime("%Y/%m/%d") %></div>
+		<h3><a href="<%= post.link %>"><%= post.title %></a></h3>
+		<div class="body"><%= post.body %></div>
+		
+		<div class="info">
+		    <ul class="tags">
+				<% unless post.category.nil? %>
+				<li class="category"><a href="<%= post.category.link %>"><%= post.category.title %></a></li>
+				<% end %>
+				<% unless post.tags.size.zero? %>
+				<li class="tags"><%= post.tags_to_html %></li>
+				<% end %>
+		    </ul>
+			<div class="c"></div>
+		</div>
+		<div class="admin">
+		    <ul>
+				<li class="author"><%= post.user.name %></li>
+				<% if logged_in? %>
+				<li class="l"><a href="<%= post.edit_link %>"><%= t('edit') %></a></li>
+				<% end %>
+			</ul>
+			<div class="c"></div>
+		</div>
+	</div>
+
+<% end %>
+
+	<div class="pager">
+		<ul>
+			<% if @posts.pager.next_page %>
+			<li class="next"><a href="?page=<%= @posts.pager.next_page %>">Older</a></li>
+			<% end %>
+			<% if @posts.pager.previous_page %>
+			<li class="previous"><a href="?page=<%= @posts.pager.previous_page %>">Newer</a></li>
+			<% end %>
+		</ul>
+	</div>
+
+
