@@ -93,6 +93,16 @@ describe "App" do
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
       end
+
+      it 'returns status code 200 if entry found by custom permalink' do
+        get '/2011/01/09/welcome-lokka'
+        last_response.status.should == 200
+      end
+
+      it 'but returns status code 404 if entry not found' do
+        get '/2011/01/09/welcome-wordpress'
+        last_response.status.should == 404
+      end
     end
 
     context "with continue reading" do
