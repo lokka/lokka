@@ -1,0 +1,35 @@
+	<div class="item">
+		<div class="date"><%= @entry.created_at.strftime("%Y/%m/%d") %></div>
+		<h3><%= @entry.title %></h3>
+		<div class="sns">
+			<ul>
+				<li class="hatena"><a href="http://b.hatena.ne.jp/entry/<%= request.url %>" class="hatena-bookmark-button" data-hatena-bookmark-title="<%= @entry.title %>" data-hatena-bookmark-layout="standard" title="<%= @entry.title %>"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="" width="20" height="20" style="border:none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script></li>
+				<li class="twitter"><a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="" data-lang="ja">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
+				<li class="facebook"><iframe src="//www.facebook.com/plugins/like.php?href=<%= request.url %> &amp;send=false&amp;layout=button_count&amp;width=200&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:21px;" allowTransparency="true"></iframe>
+			</ul>
+		</div>
+		
+		<div class="body"><%= @entry.body %></div>
+		
+		<div class="info">
+		    <ul class="tags">
+				<% unless @entry.category.nil? %>
+				<li class="category"><a href="<%= @entry.category.link %>"><%= @entry.category.title %></a></li>
+	      <% end %>
+				<% unless @entry.tags.size.zero? %>
+				<li class="tag"><%= @entry.tags_to_html %></li>
+				<% end %>
+		    </ul>
+			<div class="c"></div>
+		</div>
+		<div class="admin">
+		    <ul>
+				<li class="author"><%= @entry.user.name %></li>
+				<% if logged_in? %>
+				<li class="l"><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></li>
+				<% end %>
+			</ul>
+			<div class="c"></div>
+		</div>
+	</div>
+	
