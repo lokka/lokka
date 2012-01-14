@@ -99,6 +99,22 @@ h1 {
   font-size: 0.5em;
 }
 
+.comment-wrap {
+  margin-top: 8em;
+}
+
+/* tags */
+
+ul.tags {
+  display: inline;
+  list-style: none;
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    display: inline;
+  }
+}
 
 /* link */
 
@@ -126,8 +142,8 @@ input:focus {
 pre {
   padding: 15px 20px;
   background-color: #232323;
-  font-family: 'Menlo', monospace;
-  /* font-size: 112%; */
+  font-size: 13px;
+  font-family: monospace;
   line-height: 1.20;
   color: #E6E0DB;
   overflow: auto;

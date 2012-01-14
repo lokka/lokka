@@ -97,8 +97,10 @@ module Lokka
           conditions[:created_at.lt] = Time.local(*args)
         end
 
-        @entry = Entry.first(conditions)
-        return setup_and_render_entry if @entry
+        if @entry = Entry.first(conditions)
+          status 200
+          return setup_and_render_entry
+        end
       end
 
       if output = render_any(:'404', :layout => false)
