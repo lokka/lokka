@@ -7,7 +7,7 @@
   </div>
   <div class="footer">
     <div class="created_at"><%= l(@entry.created_at, :format => :long) %></div>
-<% if logged_in? %>
+<% if logged_in? && @entry.id %>
     <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
 <% end %>
   </div>
