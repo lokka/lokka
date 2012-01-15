@@ -23,7 +23,7 @@
       <div class="section">
         <div class="nav">
           <ul class="wide">
-<% Page.all.each do |page| %>
+<% Page.all(:draft => false).each do |page| %>
             <li><a href="<%= page.link %>"><%= page.title %></a></li>
 <% end %>
           </ul>
