@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
+<head>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=Shift-JIS">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	
+	<% if entry? %>
+    <title><%= @entry.title %> | <%= @site.title %></title>
+	<% else %>
+    <title><%= @site.title %></title>
+	<% end %>
+	
+    <meta name="description" content="<%= @site.meta_description %>" />
+    <meta name="keywords" content="<%= @site.meta_keywords %>" />
+    <link href="/index.atom" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
+	<meta property="og:title" content="<%= @site.title %>" /> 
+	<meta property="og:site_name" content="<%= @site.title %>" /> 
+	<meta property="og:type" content="website" /> 
+	<meta property="og:url" content="<%= @site.url %>" /> 
+	<meta property="og:image" content="<%= @site.url %>/share/images/apple-touch-icon.jpg" /> 
+	<link rel="canonical" href="<%= @site.url %>" /> 
+	<meta http-equiv="imagetoolbar" content="no"> 
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	
+	<link rel="shortcut icon" href="<%= @theme.path %>/share/images/favicon.ico"> 
+	<link rel="apple-touch-icon" href="<%= @theme.path %>/share/images/apple-touch-icon.png" /> 
+    <link rel="stylesheet" href="<%= @theme.path %>/share/css/import.css" type="text/css" />
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">google.load("jquery", "1.6.1");</script>
+	<script type="text/javascript" src="<%= @theme.path %>/share/js/common/static.js"></script>
+	<script type="text/javascript" src="<%= @theme.path %>/share/js/common/common.js"></script>
+	<script type="text/javascript" src="<%= @theme.path %>/share/js/plugin/jrumble.1.1.min.js"></script>
+	<script type="text/javascript" src="<%= @theme.path %>/share/js/plugin/jquery.infinitescroll.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Nothing+You+Could+Do' rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+<div id="bg-note"></div>
+
+<!--container-->
+<div id="container">
+<div id="container-inner">
+
+	<!--header-->
+	<div id="header">
+	<div id="header-inner">
+		<div id="header-content">
+			<h1 id="header-name"><a href="/"><%= @site.title %></a></h1>
+			<div class="discription"><%= @site.description %></div>
+		</div>
+	</div>
+	</div>
+	<div class="c"></div>
+	<!--/header-->
+	
+	<!--sns-->
+	<div id="nav-sub">
+	<div id="nav-sub-inner">
+		<!-- follow me 
+		<h3>follow me!</h3>
+		<ul class="badge">
+			<li class="bubble"><a href="#"><img src="<%= @theme.path %>/share/images/b_twitter.png" alt="" width="106" height="36" /></a></li>
+			<li class="bubble"><a href="#"><img src="<%= @theme.path %>/share/images/b_github.png" alt="" width="106" height="36" /></a></li>
+		</ul>
+		-->
+		<h3>Archives!</h3>
+		<ul class="archives">
+			<% months.each do |month| %>
+			<li class="bubble"><a class="b_leather" href="/<%= month.year %>/<%= month.month %>/"><%= month.year %>/<%= month.month %></a></li>
+			<% end %>
+		</ul>
+	</div>
+	</div>
+	<!--/sns-->
+	
+	<!--nav-->
+	<div id="nav">
+	<div id="nav-inner">
+		<ul>
+			<% Page.all(:draft => false).each do |page| %>
+            <li><a href="<%= page.link %>"><%= page.title %></a></li>
+			<li class="sla">/</li>
+			<% end %>
+		</ul>
+		<div id="breadlist"><%= bread_crumb %></div>
+	</div>
+	</div>
+	<div class="c"></div>
+	<!--/nav-->
+	
+	<!--main-->
+	<div id="items">
+	<div id="items-inner">
+	
+	<%= yield %>
+	
+	</div>
+	</div>
+	<!--/main-->
+	
+	<!--footer-->
+	<div id="footer">
+	<div id="footer-inner">
+		<div class="poweredby">powered by <a href="http://github.com/komagata/lokka">Lokka</a> / <a href="/admin/login">Login</a></div>
+	</div>
+	</div>
+	<!--/footer-->
+
+</div>
+</div>
+<!--/container-->
+
+
+</body>
+</html>
+
+
+
