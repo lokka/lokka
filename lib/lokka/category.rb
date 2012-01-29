@@ -3,8 +3,8 @@ class Category
   include DataMapper::Resource
 
   property :id, Serial
-  property :slug, Slug, :length => 255, :unique => true
-  property :title, String, :length => 255, :unique => true
+  property :slug, Slug, :length => 255
+  property :title, String, :length => 255
   property :description, Text
   property :type, Discriminator
   property :created_at, DateTime
@@ -12,6 +12,8 @@ class Category
   property :parent_id, Integer
 
   validates_presence_of :title
+  validates_uniqueness_of :slug
+  validates_uniqueness_of :title
 
   is :tree, :order => :title
 
