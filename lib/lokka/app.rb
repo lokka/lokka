@@ -37,8 +37,8 @@ module Lokka
       Lokka::Database.new.connect
     end
 
-    load 'lokka/app/admin.rb'
-    load 'lokka/app/entries.rb'
+    require 'lokka/app/admin.rb'
+    require 'lokka/app/entries.rb'
 
     not_found do
       if custom_permalink?
