@@ -11,7 +11,6 @@ module Lokka
 
     configure do
       enable :method_override, :raise_errors, :static, :sessions
-      disable :logging
       YAML::ENGINE.yamler = 'syck' if YAML.const_defined?(:ENGINE)
       register Padrino::Helpers
       set :app_file, __FILE__

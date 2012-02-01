@@ -1,11 +1,11 @@
 source :rubygems
 
 gem 'bundler', '~> 1.0.7'
-gem 'rack', '1.3.5'
+gem 'rack', '1.3.6'
 gem 'rack-flash', '0.1.1'
 gem 'i18n', '0.6.0'
-gem 'sinatra', '1.3.1'
-gem 'sinatra-contrib', '1.3.1', :require => false
+gem 'sinatra', '1.3.2'
+gem 'sinatra-contrib', '1.3.1'
 gem 'dm-core',          '1.2.0'
 gem 'dm-migrations',    '1.2.0'
 gem 'dm-timestamps',    '1.2.0'
@@ -38,7 +38,7 @@ Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read })
 group :production do
 end
 
-group :development do 
+group :development do
   gem 'tapp'
 end
 
@@ -50,13 +50,13 @@ group :test do
 end
 
 group :mysql do
-  gem 'dm-mysql-adapter', '1.2.0.rc2'
+  gem 'dm-mysql-adapter', '1.2.0'
 end
 
 group :postgresql do
-  gem 'dm-postgres-adapter', '1.2.0.rc2'
+  gem 'dm-postgres-adapter', '1.2.0'
 end
 
 group :sqlite do
-  gem 'dm-sqlite-adapter', '1.2.0.rc2'
+  gem 'dm-sqlite-adapter', '1.2.0'
 end
