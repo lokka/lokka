@@ -79,7 +79,7 @@ class Entry
   end
 
   def update_fields
-    return unless @field
+    return unless @fields
     @fields.each do |k, v|
       self.send("#{k}=", v)
     end
