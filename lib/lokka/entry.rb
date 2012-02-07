@@ -187,6 +187,20 @@ class Post < Entry
       orig_link
     end
   end
+
+  def next
+    @next ||= self.class.first(
+      :draft => false,
+      :created_at.gt => self.created_at,
+      :order => [:created_at.asc])
+  end
+
+  def prev
+    @prev ||= self.class.first(
+      :draft => false,
+      :created_at.lt => self.created_at,
+      :order => [:created_at.desc])
+  end
 end
 
 def Post(id_or_slug)

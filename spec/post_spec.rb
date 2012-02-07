@@ -65,6 +65,18 @@ describe Post do
     end
   end
 
+  context "previous or next" do
+    it "should return previous page instance" do
+      Post.get(10).prev.should == Post.get(3)
+      Post.get(10).prev.created_at.should < Post.get(10).created_at
+    end
+
+    it "should return next page instance" do
+      Post.get(3).next.should == Post.get(10)
+      Post.get(3).next.created_at.should > Post.get(3).created_at
+    end
+  end
+
   describe '.first' do
     it { lambda { Post.first }.should_not raise_error }
   end
