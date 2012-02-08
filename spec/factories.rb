@@ -41,4 +41,11 @@ FactoryGirl.define do
     body "= hi! = \nmediawiki test"
     markup 'wikicloth'
   end
+
+  factory :snippet do
+    name 'Test Snippet'
+    body 'Text for test snippet.'
+    created_at create_time
+    updated_at update_time
+  end
 end
