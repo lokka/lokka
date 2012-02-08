@@ -50,21 +50,6 @@ describe Post do
     end
   end
 
-  context "continue reading" do
-    describe 'in entries page' do
-      it "hide texts after <!--more-->" do
-      end
-
-      it "hide texts after first <!--more-->" do
-      end
-    end
-
-    describe 'in entry page' do
-      it "don't hide after <!--more-->" do
-      end
-    end
-  end
-
   context "previous or next" do
     it "should return previous page instance" do
       Post.get(10).prev.should == Post.get(3)
