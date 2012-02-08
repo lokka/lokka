@@ -6,53 +6,47 @@ describe Post do
     User.destroy # User is generated for association
   end
 
-  context '#link' do
-    before do
-      @post = Factory(:post_with_slug)
+  context 'with slug' do
+    subject { Factory(:post_with_slug) }
+
+    its(:link) { should eq('/welcome-lokka') }
+
+    context 'when permalink is enabled' do
+      before do
+        Option.permalink_format = "/%year%/%month%/%day%/%slug%"
+        Option.permalink_enabled = true
+      end
+
+      its(:link) { should eq('/2011/01/09/welcome-lokka') }
     end
 
-    it "should return correct link path" do
-      @post.link.should eq('/welcome-lokka')
-    end
+    context 'when parmalink_format is set but disabled' do
+      before do
+        Option.permalink_format = "/%year%/%month%/%day%/%slug%"
+        Option.permalink_enabled = false
+      end
 
-    it "returns custom permalink when custom permalink enabled" do
-      Option.permalink_format = "/%year%/%month%/%day%/%slug%"
-      Option.permalink_enabled = true
-      @post.link.should eq('/2011/01/09/welcome-lokka')
-      Option.permalink_enabled = false
-      @post.link.should eq('/welcome-lokka')
+      its(:link) { should eq('/welcome-lokka') }
     end
   end
 
-  context "edit_link" do
-    it "should return correct link path" do
-      post = Factory(:post, :id => 1)
-      post.edit_link.should eq('/admin/posts/1/edit')
-    end
+  context "with id 1" do
+    subject { Factory(:post, :id => 1) }
+    its(:edit_link) { should eq('/admin/posts/1/edit') }
   end
 
   context 'markup' do
-    it 'kramdown' do
-      post = Factory(:kramdown)
-      post.body.should_not == post.raw_body
-      post.body.should match('<h1')
+    [:kramdown, :redcloth, :wikicloth].each do |markup|
+      describe "a post using #{markup}" do
+        let(:post) { Factory(markup) }
+        it { post.body.should_not == post.raw_body }
+        it { post.body.should match('<h1') }
+      end
     end
 
-    it 'redcloth' do
-      post = Factory(:redcloth)
-      post.body.should_not == post.raw_body
-      post.body.should match('<h1')
-    end
-
-    it 'wikicloth' do
-      post = Factory(:wikicloth)
-      post.body.should_not == post.raw_body
-      post.body.should match('<h1')
-    end
-
-    it 'default' do
-      post = Factory(:post)
-      post.body.should == post.raw_body
+    context 'default' do
+      let(:post) { Factory(:post) }
+      it { post.body.should == post.raw_body }
     end
   end
 
