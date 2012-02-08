@@ -75,6 +75,16 @@ describe Post do
       Post.get(3).next.should == Post.get(10)
       Post.get(3).next.created_at.should > Post.get(3).created_at
     end
+
+    describe "the latest article" do
+      subject { Post.get(10) }
+      its(:next) { should be_nil }
+    end
+
+    describe "the first article" do
+      subject { Post.get(1) }
+      its(:prev) { should be_nil }
+    end
   end
 
   describe '.first' do
