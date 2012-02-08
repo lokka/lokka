@@ -6,6 +6,7 @@ describe '/admin/comments' do
   before do
     @post = Factory(:post)
     @comment = Factory(:comment, :entry => @post)
+    Factory(:spam_comment, :entry => @post)
   end
 
   after do
@@ -59,6 +60,14 @@ describe '/admin/comments' do
       delete "/admin/comments/#{@comment.id}"
       last_response.should be_redirect
       Comment(@comment.id).should be_nil
+    end
+  end
+
+  context 'delete /admin/comments/spam' do
+    it 'should delete spam comments' do
+      delete "/admin/comments/spam"
+      last_response.should be_redirect
+      Comment.spam.size.should == 0
     end
   end
 end
