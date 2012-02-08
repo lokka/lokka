@@ -48,4 +48,8 @@ FactoryGirl.define do
     created_at create_time
     updated_at update_time
   end
+
+  factory :tag do
+    sequence(:name){|n| "sample-tag-#{n}" }
+  end
 end
