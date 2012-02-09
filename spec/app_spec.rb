@@ -196,12 +196,27 @@ describe "App" do
       end
     end
 
-    context 'when invalid username and password' do
+    context 'when invalid username' do
+      it 'should not redirect' do
+        post '/admin/login', {:name => 'wrong', :password => 'test'}
+        last_response.should_not be_redirect
+      end
+    end
+
+    context 'when invalid password' do
       it 'should not redirect' do
         post '/admin/login', {:name => 'test', :password => 'wrong'}
         last_response.should_not be_redirect
       end
     end
+
+    context 'when invalid username and password' do
+      it 'should not redirect' do
+        post '/admin/login', {:name => 'wrong', :password => 'wrong'}
+        last_response.should_not be_redirect
+      end
+    end
+
   end
 
   describe 'access admin page' do
