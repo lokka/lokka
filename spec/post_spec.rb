@@ -52,10 +52,8 @@ describe Post do
 
   context "previous or next" do
     before do
-      xmas = Time.new(2011, 12, 25, 19, 0, 0)
-      newyear = Time.new(2012, 1, 1, 0, 0, 0)
-      @before = Factory(:post, :created_at => xmas, :updated_at => xmas)
-      @after = Factory(:post, :created_at => newyear, :updated_at => newyear)
+      @before = Factory(:xmas_post)
+      @after = Factory(:newyear_post)
     end
 
     it "should return previous page instance" do

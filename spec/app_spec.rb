@@ -11,12 +11,8 @@ describe "App" do
 
       context 'when posts exists' do
         before do
-          xmas = Time.new(2011, 12, 25, 19, 0, 0)
-          newyear = Time.new(2012, 1, 1, 0, 0, 0)
-          Factory(:post, :title => 'First Post', :created_at => xmas)
-          Factory(:post, :created_at => newyear)
-          Factory(:post, :created_at => newyear)
-          Factory(:post, :created_at => newyear)
+          Factory(:xmas_post, :title => 'First Post')
+          Factory(:newyear_post)
         end
 
         after { Post.destroy }

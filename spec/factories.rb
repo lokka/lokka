@@ -1,6 +1,7 @@
 FactoryGirl.define do
   create_time = update_time = Time.parse("2011-01-09T05:39:08Z")
-  create_time_tokyo = update_time_tokyo = Time.parse("2011-01-09T05:39:08+09:00")
+  xmas = Time.new(2011, 12, 25, 19, 0, 0)
+  newyear = Time.new(2012, 1, 1, 0, 0, 0)
 
   factory :site do
     title 'Test Site'
@@ -39,6 +40,16 @@ FactoryGirl.define do
     slug 'a-day-later'
     created_at create_time + 1.days
     updated_at update_time + 1.days
+  end
+
+  factory :xmas_post, :parent => :post do
+    created_at xmas
+    updated_at xmas
+  end
+
+  factory :newyear_post, :parent => :post do
+    created_at newyear
+    updated_at newyear
   end
 
   factory :kramdown, :parent => :post do
