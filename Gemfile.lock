@@ -164,7 +164,7 @@ DEPENDENCIES
   RedCloth (= 4.2.9)
   activesupport (= 3.1.1)
   builder (= 3.0.0)
-  bundler (~> 1.0.7)
+  bundler
   coderay
   data_objects!
   dm-aggregates (= 1.2.0)
