@@ -32,6 +32,7 @@ gem 'kramdown'
 gem 'RedCloth', '4.2.9'
 gem 'wikicloth'
 gem 'yard-sinatra', '1.0.0'
+gem 'factory_girl'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 

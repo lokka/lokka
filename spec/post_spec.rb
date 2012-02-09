@@ -1,93 +1,84 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe Post do
-  context '#link' do
-    it "should return correct link path" do
-      post = Post.get(1)
-      post.link.should eq('/welcome-lokka')
+  after do
+    Post.destroy
+    User.destroy # User is generated for association
+  end
+
+  context 'with slug' do
+    subject { Factory(:post_with_slug) }
+
+    its(:link) { should eq('/welcome-lokka') }
+
+    context 'when permalink is enabled' do
+      before do
+        Option.permalink_format = "/%year%/%month%/%day%/%slug%"
+        Option.permalink_enabled = true
+      end
+
+      its(:link) { should eq('/2011/01/09/welcome-lokka') }
     end
 
-    it "returns custom permalink when custom permalink enabled" do
-      Option.permalink_format = "/%year%/%month%/%day%/%slug%"
-      Option.permalink_enabled = true
-      post = Post.get(1)
-      post.link.should eq('/2011/01/09/welcome-lokka')
-      Option.permalink_enabled = false
-      post = Post.get(1)
-      post.link.should eq('/welcome-lokka')
+    context 'when parmalink_format is set but disabled' do
+      before do
+        Option.permalink_format = "/%year%/%month%/%day%/%slug%"
+        Option.permalink_enabled = false
+      end
+
+      its(:link) { should eq('/welcome-lokka') }
     end
   end
 
-  context "edit_link" do
-    it "should return correct link path" do
-      post = Post.get(1)
-      post.edit_link.should eq('/admin/posts/1/edit')
-    end
+  context "with id 1" do
+    subject { Factory(:post, :id => 1) }
+    its(:edit_link) { should eq('/admin/posts/1/edit') }
   end
 
   context 'markup' do
-    it 'kramdown' do
-      post = Post.get(6)
-      post.body.should_not == post.raw_body
-      post.body.should match('<h1')
-    end
-
-    it 'redcloth' do
-      post = Post.get(7)
-      post.body.should_not == post.raw_body
-      post.body.should match('<h1')
-    end
-
-    it 'wikicloth' do
-      post = Post.get(8)
-      post.body.should_not == post.raw_body
-      post.body.should match('<h1')
-    end
-
-    it 'default' do
-      post = Post.get(1)
-      post.body.should == post.raw_body
-    end
-  end
-
-  context "continue reading" do
-    describe 'in entries page' do
-      it "hide texts after <!--more-->" do
-      end
-
-      it "hide texts after first <!--more-->" do
+    [:kramdown, :redcloth, :wikicloth].each do |markup|
+      describe "a post using #{markup}" do
+        let(:post) { Factory(markup) }
+        it { post.body.should_not == post.raw_body }
+        it { post.body.should match('<h1') }
       end
     end
 
-    describe 'in entry page' do
-      it "don't hide after <!--more-->" do
-      end
+    context 'default' do
+      let(:post) { Factory(:post) }
+      it { post.body.should == post.raw_body }
     end
   end
 
   context "previous or next" do
+    before do
+      @before = Factory(:xmas_post)
+      @after = Factory(:newyear_post)
+    end
+
     it "should return previous page instance" do
-      Post.get(10).prev.should == Post.get(3)
-      Post.get(10).prev.created_at.should < Post.get(10).created_at
+      @after.prev.should == @before
+      @after.prev.created_at.should < @after.created_at
     end
 
     it "should return next page instance" do
-      Post.get(3).next.should == Post.get(10)
-      Post.get(3).next.created_at.should > Post.get(3).created_at
+      @before.next.should == @after
+      @before.next.created_at.should > @before.created_at
     end
 
     describe "the latest article" do
-      subject { Post.get(10) }
+      subject { @after }
       its(:next) { should be_nil }
     end
 
     describe "the first article" do
-      subject { Post.get(1) }
+      subject { @before }
       its(:prev) { should be_nil }
     end
   end
 
   describe '.first' do
+    before { Factory(:post) }
     it { lambda { Post.first }.should_not raise_error }
   end
 end

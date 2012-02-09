@@ -2,46 +2,83 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe "App" do
+  before { Factory(:site) }
+  after { Site.destroy; User.destroy }
   context "access pages" do
-    it "should show index" do
-      get '/'
-      last_response.body.should match('Test Site')
+    context '/' do
+      subject { get '/'; last_response.body }
+      it { should match('Test Site') }
+
+      context 'when posts exists' do
+        before do
+          Factory(:xmas_post, :title => 'First Post')
+          Factory(:newyear_post)
+        end
+
+        after { Post.destroy }
+
+        it "entries should be sorted by created_at in descending" do
+          subject.index(/First Post/).should be > subject.index(/Test Post \d+/)
+        end
+      end
     end
 
-    it "should individual" do
-      get '/1'
-      last_response.body.should match('Test Site')
+    context '/:id' do
+      before do
+        post = Factory(:post)
+        get "/#{post.id}"
+      end
+
+      after { Post.destroy }
+      subject { last_response.body }
+      it { should match('Test Site') }
     end
 
-    it "entries is sort by created_at in descending" do
-      get '/'
-      body = last_response.body 
-      (body.index(/Test Post2/) < body.index(/Test Post[^\d]/)).should be_true
+    context '/tags/lokka/' do
+      before { Factory(:tag, :name => 'lokka') }
+      after { Tag.destroy }
+
+      it "should show tag index" do
+        get '/tags/lokka/'
+        last_response.body.should match('Test Site')
+      end
     end
 
-    it "should tags index" do
-      get '/tags/lokka/'
-      last_response.body.should match('Test Site')
-    end
+    describe 'a draft post' do
+      before do
+        Factory(:draft_post_with_tag_and_category)
+        @post =  Post.first(:draft => true)
+        @post.should_not be_nil # gauntlet
+        @post.tag_list.should_not be_empty
+        @tag_name =  @post.tag_list.first
+        @category_id =  @post.category.id
+      end
 
-    context 'contain draft post' do
-      it "entry page returns 404" do
-        get '/test_draft_page'
+      after { Post.destroy }
+
+      it "the entry page should return 404" do
+        get '/test-draft-post'
         last_response.status.should == 404
-        get '/2'
+        get "/#{@post.id}"
         last_response.status.should == 404
       end
 
-      it "entries page does not show the post" do
+      it "index page should not show the post" do
         get '/'
         last_response.body.should_not match('Draft post')
+      end
 
-        get '/tags/lokka/'
+      it "tags page should not show the post" do
+        get "/tags/#{@tag_name}/"
         last_response.body.should_not match('Draft post')
+      end
 
-        get '/category/1/'
+      it "category page should not show the post" do
+        get "/category/#{@category_id}/"
         last_response.body.should_not match('Draft post')
+      end
 
+      it "search result should not show the post" do
         get '/search/?query=post'
         last_response.body.should_not match('Draft post')
       end
@@ -49,15 +86,19 @@ describe "App" do
 
     context "with custom permalink" do
       before do
+        @page = Factory(:page)
+        Factory(:post_with_slug)
+        Factory(:later_post_with_slug)
         Option.permalink_enabled = true
         Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
       end
 
       after do
         Option.permalink_enabled = false
+        Entry.destroy
       end
 
-      it "can access entry by custom permalink" do
+      it "an entry can be accessed by custom permalink" do
         get '/2011/01/09/welcome-lokka'
         last_response.body.should match('Welcome to Lokka!')
         last_response.body.should_not match('mediawiki test')
@@ -66,79 +107,88 @@ describe "App" do
         last_response.body.should_not match('Welcome to Lokka!')
       end
 
-      it "redirects to custom permalink when accessed with original permalink" do
+      it "should redirect to custom permalink when accessed with original permalink" do
         get '/welcome-lokka'
         last_response.should be_redirect
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
-
-        get '/4'
-        last_response.should_not be_redirect
 
         Option.permalink_enabled = false
         get '/welcome-lokka'
         last_response.should_not be_redirect
       end
 
-      it "redirects 0 filled url twhen accessed to non-0 prepended url in day/month" do
+      it "should not redirect access to page" do
+        get "/#{@page.id}"
+        last_response.should_not be_redirect
+      end
+
+      it "should redirect to 0 filled url when accessed to non-0 prepended url in day/month" do
         get '/2011/1/9/welcome-lokka'
         last_response.should be_redirect
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
       end
 
-      it "redirects last / removed url when accessed / ended url" do
+      it "should remove trailing / of url by redirection" do
         get '/2011/01/09/welcome-lokka/'
         last_response.should be_redirect
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
       end
 
-      it 'returns status code 200 if entry found by custom permalink' do
+      it 'should return status code 200 if entry found by custom permalink' do
         get '/2011/01/09/welcome-lokka'
         last_response.status.should == 200
       end
 
-      it 'but returns status code 404 if entry not found' do
+      it 'should return status code 404 if entry not found' do
         get '/2011/01/09/welcome-wordpress'
         last_response.status.should == 404
       end
     end
 
     context "with continue reading" do
-      describe 'in entries page' do
-        it "hide texts after <!--more-->" do
+      before { Factory(:post_with_more) }
+      after { Post.destroy }
+      describe 'in entries index' do
+        it "should hide texts after <!--more-->" do
           get '/'
-          last_response.body.should match(/<p>a<\/p>\n\n<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
+          last_response.body.should match(/<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
         end
       end
 
       describe 'in entry page' do
-        it "don't hide after <!--more-->" do
-          get '/9'
+        it "should not hide after <!--more-->" do
+          get '/post-with-more'
           last_response.body.should_not match(/<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
         end
       end
     end
-
   end
 
   context "access tag archive page" do
     before do
-      post = Post.get(1)
+      Factory(:tag, :name => 'lokka')
+      post = Factory(:post)
       post.tag_list = 'lokka'
       post.save
     end
 
+    after { Post.destroy; Tag.destroy }
+
     it "should show lokka tag archive" do
       get '/tags/lokka/'
       last_response.should be_ok
+      last_response.body.should match(/Test Post \d+/)
     end
   end
 
   describe 'login' do
+    before { Factory(:user, :name => 'test') }
+    after { User.destroy }
     context 'when valid username and password' do
-      it 'redirect /admin/' do
+      it 'should redirect to /admin/' do
         post '/admin/login', {:name => 'test', :password => 'test'}
         last_response.should be_redirect
         follow_redirect!
@@ -147,7 +197,7 @@ describe "App" do
     end
 
     context 'when invalid username and password' do
-      it 'not redirect' do
+      it 'should not redirect' do
         post '/admin/login', {:name => 'test', :password => 'wrong'}
         last_response.should_not be_redirect
       end
@@ -156,9 +206,12 @@ describe "App" do
 
   describe 'access admin page' do
     before do
+      Factory(:user, :name => 'test')
       post '/admin/login', {:name => 'test', :password => 'test'}
       follow_redirect!
     end
+
+    after { User.destroy }
 
     context '/admin/' do
       it "should show index" do
@@ -168,16 +221,22 @@ describe "App" do
     end
 
     context '/admin/posts' do
-      context 'when no option' do
-        it 'show all posts' do
+      before do
+        Factory(:post)
+        Factory(:draft_post)
+      end
+      after { Post.destroy }
+
+      context 'with no option' do
+        it 'should show all posts' do
           get '/admin/posts'
           last_response.body.should match('Test Post')
           last_response.body.should match('Draft Post')
         end
       end
 
-      context 'when draft option' do
-        it 'show only draft posts' do
+      context 'with draft option' do
+        it 'should show only draft posts' do
           get '/admin/posts', {:draft => 'true'}
           last_response.body.should_not match('Test Post')
           last_response.body.should match('Draft Post')
@@ -186,31 +245,40 @@ describe "App" do
     end
 
     context '/admin/posts/new' do
-      it 'show edit page' do
+      it 'should show edit page' do
         get '/admin/posts/new'
         last_response.body.should match('<form')
       end
     end
 
     context '/admin/posts/:id/edit' do
-      it 'show edit page' do
-        get '/admin/posts/1/edit'
+      before { @post = Factory(:post) }
+      after { Post.destroy }
+
+      it 'should show edit page' do
+        get "/admin/posts/#{@post.id}/edit"
         last_response.body.should match('<form')
         last_response.body.should match('Test Post')
       end
     end
 
     context '/admin/pages' do
-      context 'when no option' do
-        it 'show all pages' do
+      before do
+        Factory(:page)
+        Factory(:draft_page)
+      end
+      after { Page.destroy }
+
+      context 'with no option' do
+        it 'should show all pages' do
           get '/admin/pages'
           last_response.body.should match('Test Page')
           last_response.body.should match('Draft Page')
         end
       end
 
-      context 'when draft option' do
-        it 'show only draft pages' do
+      context 'with draft option' do
+        it 'should show only draft pages' do
           get '/admin/pages', {:draft => 'true'}
           last_response.body.should_not match('Test Page')
           last_response.body.should match('Draft Page')
@@ -219,15 +287,18 @@ describe "App" do
     end
 
     context '/admin/pages/new' do
-      it 'show edit page' do
+      it 'should show edit page' do
         get '/admin/pages/new'
         last_response.body.should match('<form')
       end
     end
 
     context '/admin/pages/:id/edit' do
-      it 'show edit page' do
-        get '/admin/pages/4/edit'
+      before { @page = Factory(:page) }
+      after { Page.destroy }
+
+      it 'should show edit page' do
+        get "/admin/pages/#{@page.id}/edit"
         last_response.body.should match('<form')
         last_response.body.should match('Test Page')
       end
@@ -244,31 +315,42 @@ describe "App" do
       it 'should show form for new comment' do
         get '/admin/comments/new'
         last_response.should be_ok
+        last_response.body.should match('<form')
       end
     end
 
-    context '/admin/categories' do
-      it 'should show index' do
-        get '/admin/categories'
-        last_response.should be_ok
-      end
-    end
+    context 'with a category' do
+      before { @category = Factory(:category) }
+      after { Category.destroy }
 
-    context '/admin/categories/new' do
-      it 'should show form for new categories' do
-        get '/admin/categories/new'
-        last_response.should be_ok
+      context '/admin/categories' do
+        it 'should show index' do
+          get '/admin/categories'
+          last_response.should be_ok
+        end
       end
-    end
 
-    context '/admin/categories/:id/edit' do
-      it 'should show form for edit categories' do
-        get '/admin/categories/1/edit'
-        last_response.should be_ok
+      context '/admin/categories/new' do
+        it 'should show form for new categories' do
+          get '/admin/categories/new'
+          last_response.should be_ok
+          last_response.body.should match('<form')
+        end
+      end
+
+      context '/admin/categories/:id/edit' do
+        it 'should show form for edit categories' do
+          get "/admin/categories/#{@category.id}/edit"
+          last_response.should be_ok
+          last_response.body.should match('<form')
+        end
       end
     end
 
     context '/admin/tags' do
+      before { Factory(:tag) }
+      after { Tag.destroy }
+
       it 'should show index' do
         get '/admin/tags'
         last_response.should be_ok
@@ -286,34 +368,44 @@ describe "App" do
       it 'should show form for new users' do
         get '/admin/users/new'
         last_response.should be_ok
+        last_response.body.should match('<form')
       end
     end
 
     context '/admin/users/:id/edit' do
+      before { @user = User.first }
       it 'should show form for edit users' do
-        get '/admin/users/1/edit'
+        get "/admin/users/#{@user.id}/edit"
         last_response.should be_ok
+        last_response.body.should match('<form')
       end
     end
 
-    context '/admin/snippets' do
-      it 'should show index' do
-        get '/admin/snippets'
-        last_response.should be_ok
-      end
-    end
+    context 'with a snippet' do
+      before { @snippet = Factory(:snippet) }
+      after { Snippet.destroy }
 
-    context '/admin/snippets/new' do
-      it 'should show form for new snippets' do
-        get '/admin/snippets/new'
-        last_response.should be_ok
+      context '/admin/snippets' do
+        it 'should show index' do
+          get '/admin/snippets'
+          last_response.should be_ok
+        end
       end
-    end
 
-    context '/admin/snippets/:id/edit' do
-      it 'should show form for edit snippets' do
-        get '/admin/snippets/1/edit'
-        last_response.should be_ok
+      context '/admin/snippets/new' do
+        it 'should show form for new snippets' do
+          get '/admin/snippets/new'
+          last_response.should be_ok
+          last_response.body.should match('<form')
+        end
+      end
+
+      context '/admin/snippets/:id/edit' do
+        it 'should show form for edit snippets' do
+          get "/admin/snippets/#{@snippet.id}/edit"
+          last_response.should be_ok
+          last_response.body.should match('<form')
+        end
       end
     end
 
@@ -340,8 +432,9 @@ describe "App" do
 
     context '/admin/site/edit' do
       it 'should show form for site' do
-        get '/admin/snippets/new'
+        get '/admin/site/edit'
         last_response.should be_ok
+        last_response.body.should match('<form')
       end
     end
 
@@ -349,6 +442,7 @@ describe "App" do
       it 'should show form for import' do
         get '/admin/import'
         last_response.should be_ok
+        last_response.body.should match('<form')
       end
     end
 
@@ -362,18 +456,19 @@ describe "App" do
         Option.permalink_enabled = false
       end
 
-      it 'shows form for custom permalink' do
+      it 'GET should show form for custom permalink' do
         get '/admin/permalink'
         last_response.should be_ok
+        last_response.body.should match('<form')
       end
 
-      it 'changes Option' do
+      it 'PUT should change Option' do
         put '/admin/permalink', :enable => '1', :format => '/%year%/%slug%'
         Option.permalink_format.should == "/%year%/%slug%"
         Option.permalink_enabled.should == "true"
       end
 
-      it 'shows error when format including incomplete tag' do
+      it 'should show error when format including incomplete tag' do
         put '/admin/permalink', :enable => '1', :format => '/%year%/%slug'
         follow_redirect!
         last_response.body.should match('not closed')
@@ -381,7 +476,7 @@ describe "App" do
         Option.permalink_enabled.should == "false"
       end
 
-      it "shows error when format doesn't include any tags" do
+      it "should show error when format doesn't include any tags" do
         put '/admin/permalink', :enable => '1', :format => '/'
         follow_redirect!
         last_response.body.should match('should include')

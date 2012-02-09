@@ -1,15 +1,17 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'Tag' do
-  context 'link' do
-    it 'should return link path' do
-      tag = Tag.first(:name => 'lokka')
-      tag.link.should eq('/tags/lokka/')
-    end
+  after do
+    Tag.destroy
+    Tagging.destroy
   end
 
-  it 'should return a tag instance' do
-    tag = Tag.first(:name => 'lokka')
-    Tag('lokka').should eql(tag)
+  context "with name lokka" do
+    before { @tag = Factory(:tag, :name => 'lokka') }
+    subject { @tag }
+    its(:link) { should == '/tags/lokka/' }
+    it 'Tag(name) should return the instance' do
+      Tag('lokka').should eql(@tag)
+    end
   end
 end
