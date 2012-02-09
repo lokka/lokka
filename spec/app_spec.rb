@@ -2,6 +2,8 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
 describe "App" do
+  before { Factory(:site) }
+  after { Site.destroy }
   context "access pages" do
     it "should show index" do
       get '/'
@@ -13,10 +15,22 @@ describe "App" do
       last_response.body.should match('Test Site')
     end
 
-    it "entries is sort by created_at in descending" do
-      get '/'
-      body = last_response.body 
-      (body.index(/Test Post2/) < body.index(/Test Post[^\d]/)).should be_true
+    describe 'when posts exists' do
+      before do
+        xmas = Time.new(2011, 12, 25, 19, 0, 0)
+        newyear = Time.new(2012, 1, 1, 0, 0, 0)
+        Factory(:post, :title => 'First Post', :created_at => xmas)
+        Factory(:post, :created_at => newyear)
+        Factory(:post, :created_at => newyear)
+        Factory(:post, :created_at => newyear)
+      end
+      after { Post.destroy; User.destroy }
+
+      it "entries should be sorted by created_at in descending" do
+        get '/'
+        body = last_response.body
+        body.index(/First Post/).should be > body.index(/Test Post \d+/)
+      end
     end
 
     it "should tags index" do
@@ -49,12 +63,17 @@ describe "App" do
 
     context "with custom permalink" do
       before do
+        @page = Factory(:page)
+        Factory(:post_with_slug)
+        Factory(:later_post_with_slug)
         Option.permalink_enabled = true
         Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
       end
 
       after do
         Option.permalink_enabled = false
+        Post.destroy
+        User.destroy
       end
 
       it "can access entry by custom permalink" do
@@ -72,11 +91,13 @@ describe "App" do
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
 
-        get '/4'
-        last_response.should_not be_redirect
-
         Option.permalink_enabled = false
         get '/welcome-lokka'
+        last_response.should_not be_redirect
+      end
+
+      it "should not redirect access to page" do
+        get "/#{@page.id}"
         last_response.should_not be_redirect
       end
 
@@ -106,16 +127,18 @@ describe "App" do
     end
 
     context "with continue reading" do
-      describe 'in entries page' do
-        it "hide texts after <!--more-->" do
+      before { Factory(:post_with_more) }
+      after { Post.destroy; User.destroy }
+      describe 'in entries index' do
+        it "should hide texts after <!--more-->" do
           get '/'
-          last_response.body.should match(/<p>a<\/p>\n\n<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
+          last_response.body.should match(/<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
         end
       end
 
       describe 'in entry page' do
-        it "don't hide after <!--more-->" do
-          get '/9'
+        it "should not hide after <!--more-->" do
+          get '/post-with-more'
           last_response.body.should_not match(/<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
         end
       end
@@ -125,10 +148,13 @@ describe "App" do
 
   context "access tag archive page" do
     before do
-      post = Post.get(1)
+      Factory(:tag, :name => 'lokka')
+      post = Factory(:post)
       post.tag_list = 'lokka'
       post.save
     end
+
+    after { Post.destroy; Tag.destroy; User.destroy }
 
     it "should show lokka tag archive" do
       get '/tags/lokka/'
@@ -137,6 +163,8 @@ describe "App" do
   end
 
   describe 'login' do
+    before { Factory(:user, :name => 'test') }
+    after { User.destroy }
     context 'when valid username and password' do
       it 'redirect /admin/' do
         post '/admin/login', {:name => 'test', :password => 'test'}
@@ -156,9 +184,12 @@ describe "App" do
 
   describe 'access admin page' do
     before do
+      Factory(:user, :name => 'test')
       post '/admin/login', {:name => 'test', :password => 'test'}
       follow_redirect!
     end
+
+    after { User.destroy }
 
     context '/admin/' do
       it "should show index" do
@@ -168,6 +199,11 @@ describe "App" do
     end
 
     context '/admin/posts' do
+      before do
+        Factory(:post)
+        Factory(:draft_post)
+      end
+
       context 'when no option' do
         it 'show all posts' do
           get '/admin/posts'
@@ -193,14 +229,23 @@ describe "App" do
     end
 
     context '/admin/posts/:id/edit' do
+      before { @post = Factory(:post) }
+      after { Post.destroy; User.destroy }
+
       it 'show edit page' do
-        get '/admin/posts/1/edit'
+        get "/admin/posts/#{@post.id}/edit"
         last_response.body.should match('<form')
         last_response.body.should match('Test Post')
       end
     end
 
     context '/admin/pages' do
+      before do
+        Factory(:page)
+        Factory(:draft_page)
+      end
+      after { Page.destroy }
+
       context 'when no option' do
         it 'show all pages' do
           get '/admin/pages'
@@ -226,8 +271,11 @@ describe "App" do
     end
 
     context '/admin/pages/:id/edit' do
+      before { @page = Factory(:page) }
+      after { Page.destroy }
+
       it 'show edit page' do
-        get '/admin/pages/4/edit'
+        get "/admin/pages/#{@page.id}/edit"
         last_response.body.should match('<form')
         last_response.body.should match('Test Page')
       end
@@ -248,6 +296,9 @@ describe "App" do
     end
 
     context '/admin/categories' do
+      before { Factory(:category) }
+      after { Category.destroy }
+
       it 'should show index' do
         get '/admin/categories'
         last_response.should be_ok
@@ -255,6 +306,9 @@ describe "App" do
     end
 
     context '/admin/categories/new' do
+      before { Factory(:category) }
+      after { Category.destroy }
+
       it 'should show form for new categories' do
         get '/admin/categories/new'
         last_response.should be_ok
@@ -262,13 +316,19 @@ describe "App" do
     end
 
     context '/admin/categories/:id/edit' do
+      before { @category = Factory(:category) }
+      after { Category.destroy }
+
       it 'should show form for edit categories' do
-        get '/admin/categories/1/edit'
+        get "/admin/categories/#{@category.id}/edit"
         last_response.should be_ok
       end
     end
 
     context '/admin/tags' do
+      before { Factory(:tag) }
+      after { Tag.destroy }
+
       it 'should show index' do
         get '/admin/tags'
         last_response.should be_ok
@@ -290,13 +350,17 @@ describe "App" do
     end
 
     context '/admin/users/:id/edit' do
+      before { @user = User.first }
       it 'should show form for edit users' do
-        get '/admin/users/1/edit'
+        get "/admin/users/#{@user.id}/edit"
         last_response.should be_ok
       end
     end
 
     context '/admin/snippets' do
+      before { Factory(:snippet) }
+      after { Snippet.destroy }
+
       it 'should show index' do
         get '/admin/snippets'
         last_response.should be_ok
@@ -304,6 +368,9 @@ describe "App" do
     end
 
     context '/admin/snippets/new' do
+      before { Factory(:snippet) }
+      after { Snippet.destroy }
+
       it 'should show form for new snippets' do
         get '/admin/snippets/new'
         last_response.should be_ok
@@ -311,8 +378,11 @@ describe "App" do
     end
 
     context '/admin/snippets/:id/edit' do
+      before { @snippet = Factory(:snippet) }
+      after { Snippet.destroy }
+
       it 'should show form for edit snippets' do
-        get '/admin/snippets/1/edit'
+        get "/admin/snippets/#{@snippet.id}/edit"
         last_response.should be_ok
       end
     end
