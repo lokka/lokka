@@ -1,14 +1,3 @@
-# encoding: utf-8
-require File.join(File.dirname(__FILE__), '..', 'init.rb')
-
-require 'rubygems'
-require 'sinatra'
-require 'rack/test'
-require 'rspec'
-require 'factory_girl'
-
-require 'factories'
-
 if RUBY_VERSION >= '1.9'
 
   require 'simplecov'
@@ -23,6 +12,17 @@ if RUBY_VERSION >= '1.9'
     add_filter "log/"
   end
 end
+
+require File.join(File.dirname(__FILE__), '..', 'init.rb')
+
+require 'rubygems'
+require 'sinatra'
+require 'rack/test'
+require 'rspec'
+require 'factory_girl'
+
+require 'factories'
+
 
 set :environment, :test
 Lokka::Database.new.connect
