@@ -1,7 +1,7 @@
 FactoryGirl.define do
   create_time = update_time = Time.parse("2011-01-09T05:39:08Z")
-  xmas = Time.new(2011, 12, 25, 19, 0, 0)
-  newyear = Time.new(2012, 1, 1, 0, 0, 0)
+  xmas = Time.parse("2011-12-25T19:00:00Z")
+  newyear = Time.parse("2012-01-01T00:00:00Z")
 
   factory :site do
     title 'Test Site'
