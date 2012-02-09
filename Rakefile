@@ -2,7 +2,7 @@ require './init'
 require 'yard'
 include Rake::DSL if defined? Rake::DSL
 
-task :default => ['spec:setup', 'db:delete', 'db:spec_seed', :spec]
+task :default => ['spec:setup', 'db:delete', :spec]
 
 desc 'Migrate the Lokka database'
 task 'db:migrate' do
@@ -46,15 +46,6 @@ end
 desc 'set ENV'
 task 'spec:setup' do
   ENV['RACK_ENV'] = ENV['LOKKA_ENV'] = 'test'
-end
-
-desc 'Execute spec seed script'
-task 'db:spec_seed' do
-  puts Lokka.dsn
-  DataMapper::Logger.new(STDOUT, :debug)
-  DataMapper.logger.set_log STDERR, :debug, "SQL: ", true
-  Lokka::Database.new.connect
-  load File.join(Lokka.root, 'db', 'spec_seeds.rb')
 end
 
 begin
