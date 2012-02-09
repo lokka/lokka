@@ -483,6 +483,13 @@ describe "App" do
         Option.permalink_format.should == "/%year%/%id%"
         Option.permalink_enabled.should == "false"
       end
+
+      it "should turn off custom permalink after once turned on" do
+        put '/admin/permalink', :enable => '1', :format => '/%year%/%slug%'
+        put '/admin/permalink', :enable => '0', :format => ''
+        Option.permalink_enabled.should == 'false'
+        Option.permalink_format.should == ''
+      end
     end
   end
 end
