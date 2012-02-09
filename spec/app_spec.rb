@@ -340,7 +340,7 @@ describe "App" do
 
     context '/admin/site/edit' do
       it 'should show form for site' do
-        get '/admin/snippets/new'
+        get '/admin/site/edit'
         last_response.should be_ok
       end
     end
