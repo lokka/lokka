@@ -32,7 +32,6 @@ gem 'kramdown'
 gem 'RedCloth', '4.2.9'
 gem 'wikicloth'
 gem 'yard-sinatra', '1.0.0'
-gem 'factory_girl'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
@@ -48,6 +47,7 @@ group :test do
   gem 'rack-test', '0.6.1', :require => 'rack/test'
   gem 'rspec', '~> 2.5'
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'
+  gem 'factory_girl'
 end
 
 group :mysql do
