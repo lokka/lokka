@@ -75,7 +75,12 @@ FactoryGirl.define do
   factory :draft_post, :parent => :post do
     title 'Draft Post'
     draft true
-    slug 'test-draft-page'
+    slug 'test-draft-post'
+  end
+
+  factory :draft_post_with_tag_and_category, :parent =>  :draft_post do
+    association :category
+    after_create { |p| Factory(:tagging, :taggable_id => p.id) }
   end
 
   factory :page do
@@ -100,5 +105,11 @@ FactoryGirl.define do
 
   factory :tag do
     sequence(:name){|n| "sample-tag-#{n}" }
+  end
+
+  factory :tagging do
+    association :tag
+    tag_context 'tags'
+    taggable_type Entry
   end
 end
