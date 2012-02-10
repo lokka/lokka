@@ -70,4 +70,14 @@ describe "User" do
       end
     end
   end
+
+  context "guest" do
+    before { @guest =  GuestUser.new }
+    it "not admin" do
+      @guest.admin?.should be_false
+    end
+    it "permission leve 0" do
+      @guest.permission_level.should eq(0)
+    end
+  end
 end
