@@ -16,21 +16,58 @@ describe "User" do
     it "should be able to register a user" do
       @user.save.should be_true
       @user.name.should eq('Johnny')
+      @user.email.should eq('johnny@example.com')
     end
-    it "should strip spaces" do
-      @user.name = ' Johnny '
-      @user.save.should be_true
-      @user.name.should eq('Johnny')
+    it "should not be able to register a user when name is blank" do
+      @user.name = ''
+      @user.save.should_not be_true
+    end
+    it "should not be able to register a user when email is blank" do
+      @user.email = ''
+      @user.save.should_not be_true
+    end
+
+    describe 'strip spaces' do
+      it "should strip anteroposterior spaces" do
+        @user.name = ' Johnny '
+        @user.save.should be_true
+        @user.name.should eq('Johnny')
+      end
+      it "should not strip middle spaces" do
+        @user.name = ' Johnny Depp '
+        @user.save.should be_true
+        @user.name.should eq('Johnny Depp')
+      end
     end
   end
 
   context "update" do
-    before { Factory(:user, :name => 'Johnny') }
-    it "should strip spaces" do
-      user = User.first(:name => 'Johnny')
-      user.name = ' Jack '
-      user.save.should be_true
-      user.name.should eq('Jack')
+    before { @user = Factory(:user, :name => 'Johnny') }
+    it "should be updated" do
+      @user.name = 'Jack'
+      @user.save.should be_true
+      @user.name.should eq('Jack')
+    end
+    it "should not be updated when name is blank" do
+      @user.name = ''
+      @user.save.should_not be_true
+    end
+    it "should not be updated when email is blank" do
+      @user.email = ''
+      @user.save.should_not be_true
+    end
+
+    describe 'strip spaces' do
+      it "should strip anteroposterior spaces" do
+        @user.name = ' Jack '
+        @user.save.should be_true
+        @user.name.should eq('Jack')
+      end
+      it "should not strip middle spaces" do
+        @user.name = ' Jack Sparrow '
+        @user.save.should be_true
+        @user.name.should eq('Jack Sparrow')
+      end
     end
   end
 end
