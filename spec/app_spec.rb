@@ -693,6 +693,14 @@ describe "App" do
       end
     end
 
+    context 'PUT /admin/site' do
+      it 'should update site information' do
+        put '/admin/site', { :site => { :description => 'new' } }
+        last_response.should be_redirect
+        Site.first.description.should == 'new'
+      end
+    end
+
     context '/admin/import' do
       it 'should show form for import' do
         get '/admin/import'
