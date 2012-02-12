@@ -289,6 +289,14 @@ describe "App" do
           Post(@post.id).body.should == 'updated'
         end
       end
+
+      context 'DELETE /admin/posts/:id' do
+        it 'should delete the post' do
+          delete "/admin/posts/#{@post.id}"
+          last_response.should be_redirect
+          Post(@post.id).should be_nil
+        end
+      end
     end
 
     context '/admin/pages' do
@@ -343,6 +351,14 @@ describe "App" do
           put "/admin/pages/#{@page.id}", { :page => { :body => 'updated' } }
           last_response.should be_redirect
           Page(@page.id).body.should == 'updated'
+        end
+      end
+
+      context 'DELETE /admin/pages/:id' do
+        it 'should delete the page' do
+          delete "/admin/pages/#{@page.id}"
+          last_response.should be_redirect
+          Page(@page.id).should be_nil
         end
       end
     end
