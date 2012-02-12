@@ -54,7 +54,10 @@ describe "App" do
         @category_id =  @post.category.id
       end
 
-      after { Post.destroy }
+      after do
+        Post.destroy
+        Category.destroy
+      end
 
       it "the entry page should return 404" do
         get '/test-draft-post'
