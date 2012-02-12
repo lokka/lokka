@@ -237,7 +237,7 @@ describe "App" do
 
     context '/admin/posts' do
       before do
-        Factory(:post)
+        @post = Factory(:post)
         Factory(:draft_post)
       end
       after { Post.destroy }
@@ -257,23 +257,37 @@ describe "App" do
           last_response.body.should match('Draft Post')
         end
       end
-    end
 
-    context '/admin/posts/new' do
-      it 'should show edit page' do
-        get '/admin/posts/new'
-        last_response.body.should match('<form')
+      context '/admin/posts/new' do
+        it 'should show edit page' do
+          get '/admin/posts/new'
+          last_response.body.should match('<form')
+        end
       end
-    end
 
-    context '/admin/posts/:id/edit' do
-      before { @post = Factory(:post) }
-      after { Post.destroy }
+      context 'POST /admin/posts' do
+        it 'should create a new post' do
+          sample = Factory.attributes_for(:post, :slug => 'created_now')
+          post '/admin/posts', { :post => sample }
+          last_response.should be_redirect
+          Post('created_now').should_not be_nil
+        end
+      end
 
-      it 'should show edit page' do
-        get "/admin/posts/#{@post.id}/edit"
-        last_response.body.should match('<form')
-        last_response.body.should match('Test Post')
+      context '/admin/posts/:id/edit' do
+        it 'should show edit page' do
+          get "/admin/posts/#{@post.id}/edit"
+          last_response.body.should match('<form')
+          last_response.body.should match('Test Post')
+        end
+      end
+
+      context 'PUT /admin/posts/:id' do
+        it 'should update the post\'s body ' do
+          put "/admin/posts/#{@post.id}", { :post => { :body => 'updated' } }
+          last_response.should be_redirect
+          Post(@post.id).body.should == 'updated'
+        end
       end
     end
 
