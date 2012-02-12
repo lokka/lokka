@@ -88,7 +88,7 @@ FactoryGirl.define do
   end
 
   factory :snippet do
-    name 'Test Snippet'
+    sequence(:name){|n| "Test Snippet#{n}" }
     body 'Text for test snippet.'
     created_at create_time
     updated_at update_time
