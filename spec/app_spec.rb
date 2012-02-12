@@ -293,7 +293,7 @@ describe "App" do
 
     context '/admin/pages' do
       before do
-        Factory(:page)
+        @page = Factory(:page)
         Factory(:draft_page)
       end
       after { Page.destroy }
@@ -313,23 +313,37 @@ describe "App" do
           last_response.body.should match('Draft Page')
         end
       end
-    end
 
-    context '/admin/pages/new' do
-      it 'should show edit page' do
-        get '/admin/pages/new'
-        last_response.body.should match('<form')
+      context '/admin/pages/new' do
+        it 'should show edit page' do
+          get '/admin/pages/new'
+          last_response.body.should match('<form')
+        end
       end
-    end
 
-    context '/admin/pages/:id/edit' do
-      before { @page = Factory(:page) }
-      after { Page.destroy }
+      context 'POST /admin/pages' do
+        it 'should create a new page' do
+          sample = Factory.attributes_for(:page, :slug => 'dekitate')
+          post '/admin/pages', { :page => sample }
+          last_response.should be_redirect
+          Page('dekitate').should_not be_nil
+        end
+      end
 
-      it 'should show edit page' do
-        get "/admin/pages/#{@page.id}/edit"
-        last_response.body.should match('<form')
-        last_response.body.should match('Test Page')
+      context '/admin/pages/:id/edit' do
+        it 'should show edit page' do
+          get "/admin/pages/#{@page.id}/edit"
+          last_response.body.should match('<form')
+          last_response.body.should match('Test Page')
+        end
+      end
+
+      context 'PUT /admin/pages/:id' do
+        it 'should update the page\'s body ' do
+          put "/admin/pages/#{@page.id}", { :page => { :body => 'updated' } }
+          last_response.should be_redirect
+          Page(@page.id).body.should == 'updated'
+        end
       end
     end
 
