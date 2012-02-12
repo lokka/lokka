@@ -364,17 +364,58 @@ describe "App" do
     end
 
     context '/admin/comments' do
-      it 'should show index' do
-        get '/admin/comments'
-        last_response.should be_ok
+      before do
+        @post = Factory(:post)
+        @comment = Factory(:comment, :entry => @post)
       end
-    end
+      after { Comment.destroy; Post.destroy }
+      context 'GET /admin/comments' do
+        it 'should show index' do
+          get '/admin/comments'
+          last_response.should be_ok
+        end
+      end
 
-    context '/admin/comments/new' do
-      it 'should show form for new comment' do
-        get '/admin/comments/new'
-        last_response.should be_ok
-        last_response.body.should match('<form')
+      context 'GET /admin/comments/new' do
+        it 'should show form for new comment' do
+          get '/admin/comments/new'
+          last_response.should be_ok
+          last_response.body.should match('<form')
+        end
+      end
+
+      context 'POST /admin/comments' do
+        it 'should create a new comment' do
+          Comment.destroy
+          sample = Factory.attributes_for(:comment, :entry_id => @post.id)
+          post '/admin/comments', { :comment => sample }
+          last_response.should be_redirect
+          Post(@post.id).comments.should have(1).item
+        end
+      end
+
+      context 'GET /admin/comments/:id/edit' do
+        it 'should show edit comment' do
+          get "/admin/comments/#{@comment.id}/edit"
+          last_response.body.should match('<form')
+          last_response.body.should match('Test Comment')
+        end
+      end
+
+      context 'PUT /admin/comments/:id' do
+        it 'should update the comment\'s body ' do
+          put "/admin/comments/#{@comment.id}", { :comment => { :body => 'updated' } }
+          last_response.should be_redirect
+          Comment(@comment.id).body.should == 'updated'
+        end
+      end
+
+      context 'DELETE /admin/comments/:id' do
+        it 'should delete the comment' do
+          delete "/admin/comments/#{@comment.id}"
+          last_response.should be_redirect
+          Comment(@comment.id).should be_nil
+        end
       end
     end
 
