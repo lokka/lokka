@@ -133,4 +133,10 @@ FactoryGirl.define do
     created_at create_time
     updated_at update_time
   end
+
+  factory :field_name do
+    sequence(:name){|n| "Field Name #{n}" }
+    created_at create_time
+    updated_at update_time
+  end
 end
