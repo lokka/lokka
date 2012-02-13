@@ -363,6 +363,8 @@ module Lokka
       end
 
       custom_permalink_path(r) if url_changed
+    rescue => e
+      nil
     end
 
     class << self

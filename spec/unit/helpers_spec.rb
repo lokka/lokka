@@ -30,6 +30,11 @@ describe Lokka::Helpers do
       it 'should return nil for correct URL' do
         custom_permalink_fix('/2011/01/09/welcome').should be_nil
       end
+
+      it 'should return nil when any error is raised' do
+        Option.permalink_format = "/%year" # wrong format to raise error
+        custom_permalink_fix('/2011').should be_nil
+      end
     end
   end
 end
