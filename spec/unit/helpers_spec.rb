@@ -36,5 +36,18 @@ describe Lokka::Helpers do
         custom_permalink_fix('/2011').should be_nil
       end
     end
+
+    describe 'custom_permalink_entry_condition' do
+      it 'should parse date condition' do
+        cond = custom_permalink_entry_condition('/2011/01/09/slug')
+        cond[:created_at.gte].should == Time.local(2011, 1, 9)
+        cond[:created_at.lt].should == Time.local(2011, 1, 10)
+        cond[:slug].should == 'slug'
+      end
+
+      it 'should return nil when any error is raised' do
+        custom_permalink_entry_condition('/no/such/path').should be_nil
+      end
+    end
   end
 end

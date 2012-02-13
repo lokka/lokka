@@ -42,58 +42,15 @@ module Lokka
 
     not_found do
       if custom_permalink?
-        return redirect(request.path.sub(/\/$/,"")) if /\/$/ =~ request.path
-
-        if correct_path = custom_permalink_fix(request.path)
+        if /\/$/ =~ request.path
+          return redirect(request.path.sub(/\/$/,""))
+        elsif correct_path = custom_permalink_fix(request.path)
           return redirect(correct_path)
-        end
-
-        r = custom_permalink_parse(request.path)
-        conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
-          case tag
-          when :year
-            flags[:year] = value.to_i
-            flags[:time] = true
-          when :monthnum, :month
-            flags[:month] = value.to_i
-            flags[:time] = true
-          when :day
-            flags[:day] = value.to_i
-            flags[:time] = true
-          when :hour
-            flags[:hour] = value.to_i
-            flags[:time] = true
-          when :minute
-            flags[:minute] = value.to_i
-            flags[:time] = true
-          when :second
-            flags[:second] = value.to_i
-            flags[:time] = true
-          when :post_id, :id
-            conds[:id] = value.to_i
-          when :postname, :slug
-            conds[:slug] = value
-          when :category
-            conds[:category_id] = Category(value).id
+        elsif cond = custom_permalink_entry_condition(request.path)
+          if @entry = Entry.first(cond)
+            status 200
+            return setup_and_render_entry
           end
-          [conds, flags]
-        }
-
-        if flags[:time]
-          time_order = [:year, :month, :day, :hour, :minute, :second]
-          args, last = time_order.inject([[],nil]) do |(result,last), key|
-            break [result, key] unless flags[key]
-            [result << flags[key], nil]
-          end
-          args = [0,1,1,0,0,0].each_with_index.map{|default,i| args[i] || default }
-          conditions[:created_at.gte] = Time.local(*args)
-          args[time_order.index(last)-1] += 1
-          conditions[:created_at.lt] = Time.local(*args)
-        end
-
-        if @entry = Entry.first(conditions)
-          status 200
-          return setup_and_render_entry
         end
       end
 
