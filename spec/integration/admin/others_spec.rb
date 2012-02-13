@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/spec_helper'
+require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'access admin page' do
   include_context 'admin login'
