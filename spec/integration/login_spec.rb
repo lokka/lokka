@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe 'login' do
+describe 'Login' do
   include_context 'in site'
   before { Factory(:user, :name => 'test') }
   after { User.destroy }
