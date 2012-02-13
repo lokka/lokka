@@ -42,18 +42,13 @@ module Lokka
 
     not_found do
       if custom_permalink?
-        r = custom_permalink_parse(request.path)
-
         return redirect(request.path.sub(/\/$/,"")) if /\/$/ =~ request.path
 
-        url_changed = false
-        [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
-          i = (k == :year ? 4 : 2)
-          (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
+        if correct_path = custom_permalink_fix(request.path)
+          return redirect(correct_path)
         end
 
-        return redirect(custom_permalink_path(r)) if url_changed
-
+        r = custom_permalink_parse(request.path)
         conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
           case tag
           when :year

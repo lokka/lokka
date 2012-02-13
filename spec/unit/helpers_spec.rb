@@ -21,5 +21,15 @@ describe Lokka::Helpers do
       custom_permalink_parse('/2011/01/09/welcome').should ==
         {:year=>"2011", :monthnum=>"01", :day=>"09", :slug=>"welcome"}
     end
+
+    describe 'custom_permalink_fix' do
+      it 'should return corrected URL by padding zero' do
+        custom_permalink_fix('/2011/1/9/welcome').should == '/2011/01/09/welcome'
+      end
+
+      it 'should return nil for correct URL' do
+        custom_permalink_fix('/2011/01/09/welcome').should be_nil
+      end
+    end
   end
 end
