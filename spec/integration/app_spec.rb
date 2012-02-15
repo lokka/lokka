@@ -148,6 +148,11 @@ describe "App" do
         get '/2011/01/09/welcome-wordpress'
         last_response.status.should == 404
       end
+
+      it 'should return status code 404 to path with wrong structure' do
+        get '/obviously/not/existing/path'
+        last_response.status.should == 404
+      end
     end
 
     context "with continue reading" do
