@@ -353,6 +353,68 @@ module Lokka
       path
     end
 
+    def custom_permalink_fix(path)
+      r = custom_permalink_parse(path)
+
+      url_changed = false
+      [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
+        i = (k == :year ? 4 : 2)
+        (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
+      end
+
+      custom_permalink_path(r) if url_changed
+    rescue => e
+      nil
+    end
+
+    def custom_permalink_entry_condition(path)
+      r = custom_permalink_parse(path)
+      conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
+        case tag
+        when :year
+          flags[:year] = value.to_i
+          flags[:time] = true
+        when :monthnum, :month
+          flags[:month] = value.to_i
+          flags[:time] = true
+        when :day
+          flags[:day] = value.to_i
+          flags[:time] = true
+        when :hour
+          flags[:hour] = value.to_i
+          flags[:time] = true
+        when :minute
+          flags[:minute] = value.to_i
+          flags[:time] = true
+        when :second
+          flags[:second] = value.to_i
+          flags[:time] = true
+        when :post_id, :id
+          conds[:id] = value.to_i
+        when :postname, :slug
+          conds[:slug] = value
+        when :category
+          conds[:category_id] = Category(value).id
+        end
+        [conds, flags]
+      }
+
+      if flags[:time]
+        time_order = [:year, :month, :day, :hour, :minute, :second]
+        args, last = time_order.inject([[],nil]) do |(result,last), key|
+          break [result, key] unless flags[key]
+          [result << flags[key], nil]
+        end
+        args = [0,1,1,0,0,0].each_with_index.map{|default,i| args[i] || default }
+        conditions[:created_at.gte] = Time.local(*args)
+        args[time_order.index(last)-1] += 1
+        conditions[:created_at.lt] = Time.local(*args)
+      end
+      conditions
+    rescue => e
+      nil
+    end
+
     class << self
       include Lokka::Helpers
     end
