@@ -1,4 +1,5 @@
 %h2= t('listing_comments')
+%p.spam= link_to t('delete_spam'), "/admin/comments/spam", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 %table.comments
   %tr
     %th= t('comment_status')

@@ -84,6 +84,12 @@ module Lokka
       end
     end
 
+    delete '/admin/comments/spam' do
+      Comment.spam.destroy
+      flash[:notice] = t('comment_was_successfully_deleted')
+      redirect '/admin/comments'
+    end
+
     delete '/admin/comments/:id' do |id|
       Comment.get(id).destroy
       flash[:notice] = t('comment_was_successfully_deleted')
