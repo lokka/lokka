@@ -20,6 +20,7 @@ require 'sinatra'
 require 'rack/test'
 require 'rspec'
 require 'factory_girl'
+require 'database_cleaner'
 
 require 'factories'
 
@@ -38,4 +39,18 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include LokkaTestMethods
   config.include Lokka::Helpers
+
+  config.include FactoryGirl::Syntax::Methods
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 end
