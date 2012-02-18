@@ -48,6 +48,7 @@ group :test do
   gem 'rspec', '~> 2.5'
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'
   gem 'factory_girl'
+  gem 'database_cleaner'
 end
 
 group :mysql do
