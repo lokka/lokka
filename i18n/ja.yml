@@ -170,6 +170,7 @@ ja:
     description: 詳細
     dashboard: ダッシュボード
     theme: テーマ
+    per_page: 表示件数
     default_sort: デフォルトのソート対象
     default_order: デフォルトのソート順
     meta_description: メタディスクリプション

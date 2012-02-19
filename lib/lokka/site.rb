@@ -11,12 +11,17 @@ class Site
   property :dashboard, Text, :length => 65535
   property :theme, String, :length => 64
   property :mobile_theme, String, :length => 64
+  property :per_page, Integer
   property :default_sort, String, :length => 255
   property :default_order, String, :length => 255
   property :meta_description, String, :length => 255
   property :meta_keywords, String, :length => 255
   property :created_at, DateTime
   property :updated_at, DateTime
+
+  def per_page
+    super || '10'
+  end
 
   def default_sort
     super || 'created_at'
