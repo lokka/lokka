@@ -46,11 +46,9 @@ module Lokka
           return redirect(request.path.sub(/\/$/,""))
         elsif correct_path = custom_permalink_fix(request.path)
           return redirect(correct_path)
-        elsif cond = custom_permalink_entry_condition(request.path)
-          if @entry = Entry.first(cond)
-            status 200
-            return setup_and_render_entry
-          end
+        elsif @entry = custom_permalink_entry(request.path)
+          status 200
+          return setup_and_render_entry
         end
       end
 
