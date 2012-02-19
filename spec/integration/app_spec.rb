@@ -20,6 +20,24 @@ describe "App" do
           subject.index(/First Post/).should be > subject.index(/Test Post \d+/)
         end
       end
+
+      context 'number of posts displayed' do
+        before { 11.times { Factory(:post) } }
+        after { Post.destroy }
+
+        it 'should displayed 10' do
+          subject.scan(/<h2 class="title"><a href="\/[^"]*">Test Post.*<\/a><\/h2>/).size.should eq(10)
+        end
+
+        context 'change the number displayed on 5' do
+          before { Site.first.update(:per_page => 5) }
+          after { Site.first.update(:per_page => 10) }
+
+          it 'should displayed 5' do
+            subject.scan(/<h2 class="title"><a href="\/[^"]*">Test Post.*<\/a><\/h2>/).size.should eq(5)
+          end
+        end
+      end
     end
 
     context '/:id' do
