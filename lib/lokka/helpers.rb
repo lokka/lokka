@@ -367,7 +367,7 @@ module Lokka
       nil
     end
 
-    def custom_permalink_entry_condition(path)
+    def custom_permalink_entry(path)
       r = custom_permalink_parse(path)
       conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
         case tag
@@ -410,7 +410,7 @@ module Lokka
         args[time_order.index(last)-1] += 1
         conditions[:created_at.lt] = Time.local(*args)
       end
-      conditions
+      Entry.first(conditions)
     rescue => e
       nil
     end
