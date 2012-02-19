@@ -23,14 +23,21 @@ describe "App" do
     end
 
     context '/:id' do
-      before do
-        post = Factory(:post)
-        get "/#{post.id}"
+      before { @post = Factory(:post) }
+      after { Post.destroy }
+      context "GET" do
+        subject { get "/#{@post.id}"; last_response.body }
+        it { should match('Test Site') }
       end
 
-      after { Post.destroy }
-      subject { last_response.body }
-      it { should match('Test Site') }
+      context "POST" do
+        before { Comment.destroy }
+
+        it "should add a comment to an article" do
+          post "/#{@post.id}", { :check => "check", :comment => { :name => 'lokka tarou', :homepage => 'http://www.example.com/', :body => 'good entry!' } }
+          Comment.should have(1).item
+        end
+      end
     end
 
     context '/tags/lokka/' do
@@ -93,6 +100,7 @@ describe "App" do
         Factory(:later_post_with_slug)
         Option.permalink_enabled = true
         Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
+        Comment.destroy
       end
 
       after do
@@ -152,6 +160,11 @@ describe "App" do
       it 'should return status code 404 to path with wrong structure' do
         get '/obviously/not/existing/path'
         last_response.status.should == 404
+      end
+
+      it "POST request should add a comment to an article" do
+        post '/2011/01/09/welcome-lokka', { :check => "check", :comment => { :name => 'lokka tarou', :homepage => 'http://www.example.com/', :body => 'good entry!' } }
+        Comment.should have(1).item
       end
     end
 

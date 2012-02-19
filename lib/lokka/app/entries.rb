@@ -140,8 +140,8 @@ module Lokka
     post %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
-      return 404 if @entry.blank?
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || ( custom_permalink? && custom_permalink_entry('/' + id_or_slug) )
+      return 404 if !@entry || @entry.blank?
       return 404 if params[:check] != 'check'
 
       @comment = @entry.comments.new(params['comment'])
