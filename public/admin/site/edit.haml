@@ -16,6 +16,10 @@
     %br/
     ~ f.text_area :dashboard
   %p
+    = f.label :per_page, :caption => t('site.per_page')
+    %br/
+    = f.select :per_page, :options => (1..20).to_a
+  %p
     = f.label :default_sort, :caption => t('site.default_sort')
     %br/
     = f.select :default_sort, :options => sort_options

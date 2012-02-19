@@ -170,6 +170,7 @@ en:
     description: Description
     dashboard: Dashboard
     theme: Theme
+    per_page: Number per page
     default_sort: Default sort
     default_order: Default order
     meta_description: Meta description
