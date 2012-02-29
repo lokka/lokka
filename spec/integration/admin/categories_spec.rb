@@ -54,4 +54,23 @@ describe '/admin/categories' do
       Category(@category.id).should be_nil
     end
   end
+
+  context 'when the category does not exist' do
+    before { Category.destroy }
+
+    context 'GET' do
+      before { get '/admin/categories/9999/edit' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'PUT' do
+      before { put '/admin/categories/9999' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'DELETE' do
+      before { delete '/admin/categories/9999' }
+      it_behaves_like 'a not found page'
+    end
+  end
 end

@@ -37,4 +37,13 @@ describe '/admin/field_names' do
       FieldName.get(@field_name.id).should be_nil
     end
   end
+
+  context 'when the field name does not exist' do
+    before { FieldName.destroy }
+
+    context 'DELETE' do
+      before { delete '/admin/field_names/9999' }
+      it_behaves_like 'a not found page'
+    end
+  end
 end

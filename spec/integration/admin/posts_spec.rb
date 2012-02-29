@@ -65,4 +65,23 @@ describe '/admin/posts' do
       Post(@post.id).should be_nil
     end
   end
+
+  context 'when the post does not exist' do
+    before { Post.destroy }
+
+    context 'GET' do
+      before { get '/admin/posts/9999/edit' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'PUT' do
+      before { put '/admin/posts/9999' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'DELETE' do
+      before { delete '/admin/posts/9999' }
+      it_behaves_like 'a not found page'
+    end
+  end
 end

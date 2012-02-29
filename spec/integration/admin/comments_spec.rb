@@ -70,4 +70,23 @@ describe '/admin/comments' do
       Comment.spam.size.should == 0
     end
   end
+
+  context 'when the comment does not exist' do
+    before { Comment.destroy }
+
+    context 'GET' do
+      before { get '/admin/comments/9999/edit' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'PUT' do
+      before { put '/admin/comments/9999' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'DELETE' do
+      before { delete '/admin/comments/9999' }
+      it_behaves_like 'a not found page'
+    end
+  end
 end
