@@ -70,12 +70,12 @@ module Lokka
     end
 
     get '/admin/comments/:id/edit' do |id|
-      @comment = Comment.get(id)
+      @comment = Comment.get(id) or raise Sinatra::NotFound
       render_any :'comments/edit'
     end
 
     put '/admin/comments/:id' do |id|
-      @comment = Comment.get(id)
+      @comment = Comment.get(id) or raise Sinatra::NotFound
       if @comment.update(params['comment'])
         flash[:notice] = t('comment_was_successfully_updated')
         redirect '/admin/comments'
@@ -91,7 +91,8 @@ module Lokka
     end
 
     delete '/admin/comments/:id' do |id|
-      Comment.get(id).destroy
+      comment = Comment.get(id) or raise Sinatra::NotFound
+      comment.destroy
       flash[:notice] = t('comment_was_successfully_deleted')
       redirect '/admin/comments'
     end
@@ -120,12 +121,12 @@ module Lokka
     end
 
     get '/admin/categories/:id/edit' do |id|
-      @category = Category.get(id)
+      @category = Category.get(id) or raise Sinatra::NotFound
       render_any :'categories/edit'
     end
 
     put '/admin/categories/:id' do |id|
-      @category = Category.get(id)
+      @category = Category.get(id) or raise Sinatra::NotFound
       if @category.update(params['category'])
         flash[:notice] = t('category_was_successfully_updated')
         redirect '/admin/categories'
@@ -135,7 +136,8 @@ module Lokka
     end
 
     delete '/admin/categories/:id' do |id|
-      Category.get(id).destroy
+      category = Category.get(id) or raise Sinatra::NotFound
+      category.destroy
       flash[:notice] = t('category_was_successfully_deleted')
       redirect '/admin/categories'
     end
@@ -148,12 +150,12 @@ module Lokka
     end
 
     get '/admin/tags/:id/edit' do |id|
-      @tag = Tag.get(id)
+      @tag = Tag.get(id) or raise Sinatra::NotFound
       render_any :'tags/edit'
     end
 
     put '/admin/tags/:id' do |id|
-      @tag = Tag.get(id)
+      @tag = Tag.get(id) or raise Sinatra::NotFound
       if @tag.update(params['tag'])
         flash[:notice] = t('tag_was_successfully_updated')
         redirect '/admin/tags'
@@ -163,7 +165,8 @@ module Lokka
     end
 
     delete '/admin/tags/:id' do |id|
-      Tag.get(id).destroy
+      tag = Tag.get(id) or raise Sinatra::NotFound
+      tag.destroy
       flash[:notice] = t('tag_was_successfully_deleted')
       redirect '/admin/tags'
     end
@@ -191,12 +194,12 @@ module Lokka
     end
 
     get '/admin/users/:id/edit' do |id|
-      @user = User.get(id)
+      @user = User.get(id) or raise Sinatra::NotFound
       render_any :'users/edit'
     end
 
     put '/admin/users/:id' do |id|
-      @user = User.get(id)
+      @user = User.get(id) or raise Sinatra::NotFound
       if @user.update(params['user'])
         flash[:notice] = t('user_was_successfully_updated')
         redirect '/admin/users'
@@ -206,7 +209,7 @@ module Lokka
     end
 
     delete '/admin/users/:id' do |id|
-      target_user = User.get(id)
+      target_user = User.get(id) or raise Sinatra::NotFound
       if current_user == target_user
         flash[:alert] = 'Can not delete your self.'
       else
@@ -241,12 +244,12 @@ module Lokka
     end
 
     get '/admin/snippets/:id/edit' do |id|
-      @snippet = Snippet.get(id)
+      @snippet = Snippet.get(id) or raise Sinatra::NotFound
       render_any :'snippets/edit'
     end
 
     put '/admin/snippets/:id' do |id|
-      @snippet = Snippet.get(id)
+      @snippet = Snippet.get(id) or raise Sinatra::NotFound
       if @snippet.update(params['snippet'])
         flash[:notice] = t('snippet_was_successfully_updated')
         redirect '/admin/snippets'
@@ -256,7 +259,8 @@ module Lokka
     end
 
     delete '/admin/snippets/:id' do |id|
-      Snippet.get(id).destroy
+      snippet = Snippet.get(id) or raise Sinatra::NotFound
+      snippet.destroy
       flash[:notice] = t('snippet_was_successfully_deleted')
       redirect '/admin/snippets'
     end
@@ -389,7 +393,8 @@ module Lokka
     end
 
     delete '/admin/field_names/:id' do |id|
-      FieldName.get(id).destroy
+      field_name = FieldName.get(id) or raise Sinatra::NotFound
+      field_name.destroy
       flash[:notice] = t('field_name_was_successfully_deleted')
       redirect '/admin/field_names'
     end
