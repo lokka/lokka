@@ -52,4 +52,23 @@ describe '/admin/snippets' do
       Snippet.get(@snippet.id).should be_nil
     end
   end
+
+  context 'when the snippet does not exist' do
+    before { Snippet.destroy }
+
+    context 'GET' do
+      before { get '/admin/snippets/9999/edit' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'PUT' do
+      before { put '/admin/snippets/9999' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'DELETE' do
+      before { delete '/admin/snippets/9999' }
+      it_behaves_like 'a not found page'
+    end
+  end
 end

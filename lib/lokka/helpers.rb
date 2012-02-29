@@ -222,7 +222,7 @@ module Lokka
 
     def get_admin_entry_edit(entry_class, id)
       @name = entry_class.name.downcase
-      @entry = entry_class.get(id)
+      @entry = entry_class.get(id) or raise Sinatra::NotFound
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.all(:order => :name.asc)
       render_any :'entries/edit'
@@ -248,7 +248,7 @@ module Lokka
 
     def put_admin_entry(entry_class, id)
       @name = entry_class.name.downcase
-      @entry = entry_class.get(id)
+      @entry = entry_class.get(id) or raise Sinatra::NotFound
       if params['preview']
         render_preview entry_class.new(params[@name])
       else
@@ -265,7 +265,7 @@ module Lokka
 
     def delete_admin_entry(entry_class, id)
       name = entry_class.name.downcase
-      entry = entry_class.get(id)
+      entry = entry_class.get(id) or raise Sinatra::NotFound
       entry.destroy
       flash[:notice] = t("#{name}_was_successfully_deleted")
       if entry.draft

@@ -11,3 +11,9 @@ shared_context "admin login" do
 
   after { User.destroy }
 end
+
+shared_examples_for 'a not found page' do
+  it 'should return 404' do
+    last_response.status.should == 404
+  end
+end

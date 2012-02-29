@@ -35,4 +35,23 @@ describe '/admin/tags' do
       Tag.get(@tag.id).should be_nil
     end
   end
+
+  context 'when the tag does not exist' do
+    before { Tag.destroy }
+
+    context 'GET' do
+      before { get '/admin/tags/9999/edit' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'PUT' do
+      before { put '/admin/tags/9999' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'DELETE' do
+      before { delete '/admin/tags/9999' }
+      it_behaves_like 'a not found page'
+    end
+  end
 end

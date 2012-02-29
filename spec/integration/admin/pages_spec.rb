@@ -65,4 +65,23 @@ describe '/admin/pages' do
       Page(@page.id).should be_nil
     end
   end
+
+  context 'when the page does not exist' do
+    before { Page.destroy }
+
+    context 'GET' do
+      before { get '/admin/pages/9999/edit' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'PUT' do
+      before { put '/admin/pages/9999' }
+      it_behaves_like 'a not found page'
+    end
+
+    context 'DELETE' do
+      before { delete '/admin/pages/9999' }
+      it_behaves_like 'a not found page'
+    end
+  end
 end
