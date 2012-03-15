@@ -26,7 +26,7 @@ module DataMapper
   end
 end
 
-module LuckySneaks
+module Stringex
   module StringExtensions
     alias :to_url_org :to_url
     def to_url
