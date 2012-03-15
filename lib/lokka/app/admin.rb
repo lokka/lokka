@@ -350,11 +350,13 @@ module Lokka
     put '/admin/permalink' do
       errors = []
 
-      format = params[:format]
-      format = "/#{format}" unless /^\// =~ format
+      if params[:enable] == "1"
+        format = params[:format]
+        format = "/#{format}" unless /^\// =~ format
 
-      errors << t('permalink.error.no_tags') unless /%.+%/ =~ format
-      errors << t('permalink.error.tag_unclosed') unless format.chars.select{|c| c == '%' }.size.even?
+        errors << t('permalink.error.no_tags') unless /%.+%/ =~ format
+        errors << t('permalink.error.tag_unclosed') unless format.chars.select{|c| c == '%' }.size.even?
+      end
 
       if errors.empty?
         Option.permalink_enabled = (params[:enable] == "1")
