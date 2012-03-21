@@ -58,7 +58,7 @@ module Lokka
 
       @bread_crumbs = [{:name => t('home'), :link => '/'}]
       @category.ancestors.each do |cat|
-        @bread_crumbs << {:name => cat.name, :link => cat.link}
+        @bread_crumbs << {:name => cat.title, :link => cat.link}
       end
       @bread_crumbs << {:name => @category.title, :link => @category.link}
 

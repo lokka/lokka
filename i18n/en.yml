@@ -152,6 +152,7 @@ en:
     slug: Slug
     title: Title
     description: Description
+    parent: Parent category
     created_at: Created at
     updated_at: Updated at
   tag:

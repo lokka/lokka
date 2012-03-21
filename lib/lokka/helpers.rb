@@ -196,7 +196,7 @@ module Lokka
       @bread_crumbs = [{:name => t('home'), :link => '/'}]
       if @entry.category
         @entry.category.ancestors.each do |cat|
-          @bread_crumbs << {:name => cat.name, :link => cat.link}
+          @bread_crumbs << {:name => cat.title, :link => cat.link}
         end
         @bread_crumbs << {:name => @entry.category.title, :link => @entry.category.link}
       end
