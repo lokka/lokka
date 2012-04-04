@@ -55,6 +55,22 @@ describe '/admin/categories' do
     end
   end
 
+  context 'when a child category exists' do
+    context 'POST /admin/categories' do
+      it 'should create a new child category' do
+        sample = { :title => 'Child Category',
+          :description => 'This is created in spec',
+          :slug => 'child-category',
+          :parent_id => @category.id }
+        post '/admin/categories', { :category => sample }
+        last_response.should be_redirect
+        child = Category('child-category')
+        child.should_not be_nil
+        child.parent.should == @category
+      end
+    end
+  end
+
   context 'when the category does not exist' do
     before { Category.destroy }
 

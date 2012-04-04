@@ -68,6 +68,27 @@ describe "App" do
       end
     end
 
+    context '/category/:id/' do
+      before do
+        @category = Factory(:category)
+        @category_child = Factory(:category_child, :parent => @category)
+      end
+
+      after do
+        Category.destroy
+      end
+
+      it "should show category index" do
+        get "/category/#{@category.id}/"
+        last_response.body.should match('Test Site')
+      end
+
+      it "should show child category index" do
+        get "/category/#{@category.id}/#{@category_child.id}/"
+        last_response.body.should match('Test Site')
+      end
+    end
+
     describe 'a draft post' do
       before do
         Factory(:draft_post_with_tag_and_category)

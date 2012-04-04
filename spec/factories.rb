@@ -123,6 +123,12 @@ FactoryGirl.define do
     updated_at update_time
   end
 
+  factory :category_child, :parent => :category do
+    title 'Test Child Category'
+    created_at create_time
+    updated_at update_time
+  end
+
   factory :tag do
     sequence(:name){|n| "sample-tag-#{n}" }
   end
