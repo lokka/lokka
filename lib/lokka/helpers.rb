@@ -407,7 +407,10 @@ module Lokka
         end
         args = [0,1,1,0,0,0].each_with_index.map{|default,i| args[i] || default }
         conditions[:created_at.gte] = Time.local(*args)
-        args[time_order.index(last)-1] += 1
+        day_end = {:hour => 23, :minute => 59, :second => 59}
+        day_end.each_pair do |key, value|
+          args[time_order.index(key)] = value.to_i
+        end
         conditions[:created_at.lt] = Time.local(*args)
       end
       Entry.first(conditions)
