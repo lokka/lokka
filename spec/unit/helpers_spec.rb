@@ -41,7 +41,7 @@ describe Lokka::Helpers do
       it 'should parse date condition' do
         Entry.should_receive(:first).with(:slug => 'slug',
                                      :created_at.gte => Time.local(2011, 1, 9),
-                                     :created_at.lt => Time.local(2011, 1, 10))
+                                     :created_at.lt => Time.local(2011, 1, 9, 23, 59, 59))
         custom_permalink_entry('/2011/01/09/slug')
       end
 
