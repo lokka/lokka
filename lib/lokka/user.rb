@@ -53,7 +53,7 @@ class User
   end
 
   def self.random_string(len)
-    Array.new(len) { ['a'..'z','A'..'Z','0'..'9'].map(&:to_a).flatten[rand(61)] }.join
+    Array.new(len) { ['a'..'z','A'..'Z','0'..'9'].map(&:to_a).flatten[rand(62)] }.join
   end
 end
 
