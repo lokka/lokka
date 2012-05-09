@@ -126,7 +126,7 @@ module Lokka
     end
 
     def comment_form
-      haml :'system/comments/form', :layout => false
+      haml :'lokka/comments/form', :layout => false
     end
 
     def months

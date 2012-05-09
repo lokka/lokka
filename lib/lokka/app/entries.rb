@@ -21,7 +21,7 @@ module Lokka
                     page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
       content_type 'application/atom+xml', :charset => 'utf-8'
-      builder :'system/index'
+      builder :'lokka/index'
     end
 
     # search

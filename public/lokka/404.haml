@@ -5,15 +5,16 @@
     %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
     %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
     %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
-    %title 500 - Lokka
-    %link{:rel => 'shortcut icon', :href => '/system/favicon.ico'}
-    %link{:rel => 'stylesheet', :href => '/system/style.css', :type => 'text/css'}
+    %title 404 not found - Lokka
+    %link{:rel => 'shortcut icon', :href => '/lokka/favicon.ico'}
+    %link{:rel => 'stylesheet', :href => '/lokka/style.css', :type => 'text/css'}
   %body
     #header
       %h1
-        %a{:href => '/'} 500 - Lokka
+        %a{:href => '/'} 404 not found - Lokka
     #content
       #main
-        %h2 500
+        %h2 404 not found
+        %p== Not found: #{request.path_info}
     #footer
       %a{:href => 'http://github.com/komagata/lokka'} Lokka

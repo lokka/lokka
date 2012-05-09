@@ -55,7 +55,7 @@ module Lokka
       if output = render_any(:'404', :layout => false)
         output
       else
-        haml :'404', :views => 'public/system', :layout => false
+        haml :'404', :views => 'public/lokka', :layout => false
       end
     end
 
