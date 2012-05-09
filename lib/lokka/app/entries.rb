@@ -133,6 +133,8 @@ module Lokka
       return 404 if @entry.blank?
       redirect @entry.link if @entry.type == Post && custom_permalink?
 
+      @comment = @entry.comments.new
+
       setup_and_render_entry
     end
 
