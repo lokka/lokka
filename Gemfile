@@ -34,7 +34,6 @@ gem 'wikicloth', '0.7.1'
 gem 'yard-sinatra', '1.0.0'
 gem 'stringex', '1.3.2'
 gem 'backports', '2.3.0'
-gem 'rake', '0.8.7'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
