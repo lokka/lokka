@@ -23,6 +23,16 @@ describe Post do
 
       its(:link) { should eq('/welcome-lokka') }
     end
+
+    context 'when a valid slug is specified' do
+      subject { build :post, :slug => 'valid_Str-ing1' }
+      it { should be_valid }
+    end
+
+    context 'when an invalid slug is specified' do
+      subject { build :post, :slug => 'invalid string' }
+      it { should_not be_valid }
+    end
   end
 
   context "with id 1" do
