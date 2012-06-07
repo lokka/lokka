@@ -31,7 +31,9 @@ describe Post do
 
     context 'when an invalid slug is specified' do
       subject { build :post, :slug => 'invalid string' }
-      it { should_not be_valid }
+      it 'should be invalid or created with a different name' do
+        (!subject.valid? || subject.slug != 'invalid string').should be_true
+      end
     end
   end
 
