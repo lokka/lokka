@@ -20,6 +20,8 @@ module Lokka
       set :theme => Proc.new { File.join(public_folder, 'theme') }
       set :supported_templates => %w(erb haml slim erubis)
       set :supported_stylesheet_templates => %w(scss sass)
+      set :scss, Compass.sass_engine_options
+      set :sass, Compass.sass_engine_options
       set :per_page, 10
       set :admin_per_page, 200
       set :default_locale, 'en'
