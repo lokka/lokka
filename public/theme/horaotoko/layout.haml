@@ -9,11 +9,11 @@
         = @entry.title
         \- #{@site.title}
     - else
-      %title= Horaotoko
-    %meta{:content => @site.meta_description, :name => "description"}/
-    %meta{:content => @site.meta_keywords, :name => "keywords"}/
+      %title= Fårikål
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "keywords"}/
     %link{:href => "/index.atom", :rel => "alternate", :title => @title, :type => "application/atom+xml"}/
-    %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "horaotoko/style.css", :rel => "stylesheet", :type => "text/css"}/
   %body
     / header start
     %header
