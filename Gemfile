@@ -20,6 +20,7 @@ gem 'data_objects',     :git => 'git://github.com/datamapper/do.git', :ref => 'd
 gem 'builder', '3.0.0'
 gem 'haml', '3.1.1'
 gem 'sass', '3.1.1'
+gem 'compass'
 gem 'slim', '0.9.2'
 gem 'rake', '0.9.2'
 gem 'erubis', '2.6.6'

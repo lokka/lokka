@@ -1,2 +1,2 @@
 %h2= t("edit_#{@name}")
-= partial 'entries/form', :locals => {:action => "/admin/#{@name.pluralize}/#{@entry.id}", :method => 'put', :label => t('edit')}
+= partial 'entries/form', :locals => {:action => "/admin/#{@name.pluralize}/#{@entry.id}", :method => 'put', :label => t('save')}

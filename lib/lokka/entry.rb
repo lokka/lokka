@@ -24,6 +24,7 @@ class Entry
   validates_uniqueness_of :slug
   validates_uniqueness_of :title
   validates_with_method :updated_at, :method => :validate_confliction
+  validates_format_of :slug, :with => %r{^[_/0-9a-zA-Z-]+$}
 
   before :valid? do
     self.category_id = nil if category_id === ''
