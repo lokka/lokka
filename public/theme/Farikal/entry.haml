@@ -1,55 +1,24 @@
-.section.article
-  .label.clearfix
-    - unless @entry.category.nil?
-      %p.category
-        %a{:href => @entry.category.link}= @entry.category.title
-    - unless @entry.tags.size.zero?
-      .tags
-        Tags :
-        \#{@entry.tags_to_html}
-  .header
-    .title
-      %h2= @entry.title
-      %p.author
-        Posted by #{@entry.user.name}
-    .date
-      %p.month= @entry.created_at.strftime("%b")
-      %p.day= @entry.created_at.day
-      %p.year= @entry.created_at.year
-  .body
-    = @entry.body
-    - if logged_in?
-      %p
-        %a{:href => @entry.edit_link}= t('edit')
-#comment_wrapper
-  - if @entry.comments.size > 0
-    %h3
-      = t('comments')
-    %ul#comments
-      - @entry.comments.reverse.each do |comment|
-        %li.comment.clearfix{:id => "comment-#{comment.id}"}
-          %p
-            = hbr comment.body
-          .commenter
-            .name
-              = link_to comment.name, comment.homepage, :unless => comment.homepage.blank?
-            .date
-              = l comment.created_at, :format => :long
-  #comment_form
-    %form#comment_form{:action => "/2", :method => "post"}
-      :javascript
-        //
-          document.write('<input type="hidden" name="check" value="check" />');
-        //
-            %input{:name => "check", :type => "hidden", :value => "check"}
-        %p.name
-          %label{:for => "comment_name"} Name
-          %input#comment_name{:name => "comment[name]", :type => "text"}
-        %p.url
-          %label{:for => "comment_homepage"} URL
-          %span (option)
-          %input#comment_homepage{:name => "comment[homepage]", :type => "text"}
-        %p
-          %textarea#comment_body{:cols => "40", :name => "comment[body]", :rows => "10"}
-        %p.submit
-          %input.button{:type => "submit", :value => "Commment"}
+%article
+  .date
+    %img{:src => "images/date.png"}/
+      .date_contents
+        %p.days 06/19
+        %p.year ..2012
+          .article_contents
+            .title
+              %h2
+                %a{:href => "/1"} test post
+            .tags
+              %p tags :
+              %ul
+                %li
+                  %a{:href => "/tags/lokka/"} Lokka
+            .body
+              %p test
+              %img.article_image{:src => "images/test.jpg"}
+                %h3 test
+                %p test
+                %p test
+                %p test
+                %p.edit
+                  %a{:href => "/admin/post/1/edit"} •ÒW
