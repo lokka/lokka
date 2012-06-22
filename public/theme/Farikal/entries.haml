@@ -12,7 +12,7 @@
     %img{:src => "images/date.png"}
       .date_contents
         %p.days= post.created_at.strftime("%b")
-        %p.year= ..post.created_at.year
+        %p.year= post.created_at.year
       .article_contents
         .title
           %h2
