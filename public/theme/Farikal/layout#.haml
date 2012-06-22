@@ -1,0 +1,101 @@
+!!! 5
+%html{:lang => "ja"}
+  %head
+    %meta{:charset => "UTF-8"}
+      %title Fårikål
+      %meta{:name => "description"}/
+      %meta{:name => "keywords"}/
+      %link{:href => "style.css", :rel => "stylesheet", :type => "text/css"}
+  %body
+    / header start
+    %header
+      .wrap
+        %h1
+          %a.head_logo{:href => "/"} Fårikål
+        %p.catchcopy description
+        %nav.gNav
+          %ul
+            %li
+              %a{:href => "/"} home
+            %li
+              %a{:href => "/"} test
+            %li
+              %a{:href => "/"} test
+    / header end
+    / contents start
+    #contents.clearfix
+      / pager start
+      %nav.pager
+        %ul
+          %li
+            %a{:href => "/1"} test
+      / pager end
+      / article start
+      #main
+        
+            / body end
+          / a_contents end
+        / article end
+      / side_bar start
+      #side_bar
+        / new start
+        .new
+          .side_header
+            %h4 new entries
+          .new_content
+            %ul
+              %li
+                %a{:href => "/1"} test post
+        / new end
+        / past start
+        .past
+          .side_header
+            %h4 archives
+          .past_content
+            %ul
+              %li
+                %a{:href => "/2012/06/"} 2012/06
+        / past end
+        / side_tags start
+        .side_tags
+          .side_header
+            %h4 tags
+          .side_tags_content
+            %ul
+              %li
+                %a{:href => "/tags/lokka/"} Lokka
+        / side_tags end
+        / search start
+        .search
+          .side_header
+            %h4 search
+          .search_content
+            %form{:action => "/search/", :method => "get"}
+              %input.text_field{:name => "query", :type => "text"}/
+              %button.submit{:onclick => "submit()"} Search
+        / side_tags end
+      / side_bar end
+      / prev_next start
+      .pn_wrap
+        .prev
+          %a{:href => "#"} prevpage
+        .next
+          %a{:href => "#"} nextpage
+      / prev_next end
+    / footer start
+    %footer
+      .wrap
+        %p.copyright
+          Copyright ©
+          %a{:href => "/"} Fårikål
+          2012 -  All Rights Reserved.
+        %p.poweredby
+          powered by
+          %a{:href => "http://github.com/komagata/lokka"} Lokka
+        %nav.control
+          %ul
+            %li
+              %a{:href => "/admin/"} admin
+            %li
+              %a{:href => "/index.atom"} feed
+    / footer start
