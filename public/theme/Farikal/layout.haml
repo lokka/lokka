@@ -17,10 +17,6 @@
           %ul
             %li
               %a{:href => "/"} home
-            %li
-              %a{:href => "/"} test
-            %li
-              %a{:href => "/"} test
     / header end
     / contents start
     #contents.clearfix
@@ -32,11 +28,7 @@
       / pager end
       / article start
       #main
-        
-            / body end
-          / a_contents end
-        / article end
-      / side_bar start
+        = yield
       #side_bar
         / new start
         .new
