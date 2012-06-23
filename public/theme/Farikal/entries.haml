@@ -21,7 +21,7 @@
           %p tags :
           %ul
             %li
-              \#{post.tags_to_html}
+              %a{:href => post.link}= post.title
         .body
           = @entry.body
             = post.body
