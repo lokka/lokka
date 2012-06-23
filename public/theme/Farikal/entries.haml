@@ -1,20 +1,21 @@
-%article
-  .date
-    %img{:src => "images/date.png"}
-      .date_contents
-        %p.days= post.created_at.day
-        %p.year= post.created_at.year
-  .article_contents
-    .title
-      %h2
-        %a{:href => post.link}= post.title
-    .tags
-      %p tags :
-      %ul
-        %li
+- @posts.each do |post|
+  %article
+    .date
+      %img{:src => "images/date.png"}
+        .date_contents
+          %p.days= post.created_at.day
+          %p.year= post.created_at.year
+    .article_contents
+      .title
+        %h2
           %a{:href => post.link}= post.title
-    .body
-      = @entry.body
-        = post.body
-      - if logged_in?
-        %a{:href => post.edit_link}= t('edit')
+      .tags
+        %p tags :
+        %ul
+          %li
+            %a{:href => post.link}= post.title
+      .body
+        = @entry.body
+          = post.body
+        - if logged_in?
+          %a{:href => post.edit_link}= t('edit')
