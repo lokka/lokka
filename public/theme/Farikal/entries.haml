@@ -1,43 +1,20 @@
-- unless index?
-  - if category?
-    %h2.entries_title
-      Category : #{@title}
-  - elsif tag?
-    %h2.entries_title
-      Tag : #{@title}
-  - else
-    %h2.entries_title= @title
-.section.articles
-  - @posts.each do |post|
-    .section.article
-      .label.clearfix
-        - unless post.category.nil?
-          %p.category
-            %a{:href => post.category.link}= post.category.title
-        - unless post.tags.size.zero?
-          .tags
-            Tags :
-            \#{post.tags_to_html}
-      .header
+%article
+  .date
+    %img{:src => "images/date.png"}
+      .date_contents
+        %p.days= post.created_at.day
+        %p.year= post.created_at.year
+      .article_contents
         .title
           %h2
             %a{:href => post.link}= post.title
-          %p.author
-            Posted by #{post.user.name}
-        .date
-          %p.month= post.created_at.strftime("%b")
-          %p.day= post.created_at.day
-          %p.year= post.created_at.year
-      .body
-        = post.body
-        - if logged_in?
-          %p.edit
+        .tags
+          %p tags :
+          %ul
+            %li
+              %a{:href => post.link}= post.title
+        .body
+          = @entry.body
+            = post.body
+          - if logged_in?
             %a{:href => post.edit_link}= t('edit')
-  .pager
-    %ul
-      - if @posts.pager.previous_page
-        %li.previous
-          %a{:href => "?page=#{@posts.pager.previous_page}"} Newer
-      - if @posts.pager.next_page
-        %li.next
-          %a{:href => "?page=#{@posts.pager.next_page}"} Older

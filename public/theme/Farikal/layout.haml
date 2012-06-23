@@ -7,7 +7,6 @@
       %meta{:name => "keywords"}/
       %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}
   %body
-    / header start
     %header
       .wrap
         %h1
@@ -17,20 +16,14 @@
           %ul
             %li
               %a{:href => "/"} home
-    / header end
-    / contents start
     #contents.clearfix
-      / pager start
       %nav.pager
         %ul
           %li
             %a{:href => "/1"} test
-      / pager end
-      / article start
       #main
         = yield
       #side_bar
-        / new start
         .new
           .side_header
             %h4 new entries
@@ -38,8 +31,6 @@
             %ul
               %li
                 %a{:href => "/1"} test post
-        / new end
-        / past start
         .past
           .side_header
             %h4 archives
@@ -47,8 +38,6 @@
             %ul
               %li
                 %a{:href => "/2012/06/"} 2012/06
-        / past end
-        / side_tags start
         .side_tags
           .side_header
             %h4 tags
@@ -56,8 +45,6 @@
             %ul
               %li
                 %a{:href => "/tags/lokka/"} Lokka
-        / side_tags end
-        / search start
         .search
           .side_header
             %h4 search
@@ -65,16 +52,11 @@
             %form{:action => "/search/", :method => "get"}
               %input.text_field{:name => "query", :type => "text"}/
               %button.submit{:onclick => "submit()"} Search
-        / side_tags end
-      / side_bar end
-      / prev_next start
       .pn_wrap
         .prev
           %a{:href => "#"} prevpage
         .next
           %a{:href => "#"} nextpage
-      / prev_next end
-    / footer start
     %footer
       .wrap
         %p.copyright
@@ -90,4 +72,3 @@
               %a{:href => "/admin/"} admin
             %li
               %a{:href => "/index.atom"} feed
-    / footer start
