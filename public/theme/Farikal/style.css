@@ -258,10 +258,16 @@ h3{
 	left : 15px;
 	width : 90px;
 	}
+
+.month{
+	font-size: 31px;
+	margin : 5px;
+	text-align : center;
+	}
 	
 .days{
 	font-size: 31px;
-	margin : 10px;
+	margin : 5px;
 	text-align : center;
 	}
 	

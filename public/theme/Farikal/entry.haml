@@ -2,7 +2,7 @@
   .date
     %img{:src => "#{@theme.path}/images/date.png"}
       .date_contents
-        %p.month= post.created_at.strftime("%b")
+        %p.month= @entry.created_at.strftime("%b")
         %p.days= @entry.created_at.day
         %p.year= @entry.created_at.year
   .article_contents
