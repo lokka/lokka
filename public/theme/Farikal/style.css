@@ -260,6 +260,7 @@ h3{
 	}
 
 .month{
+    float: left;
 	font-size: 31px;
 	margin : 5px;
 	text-align : center;
@@ -277,6 +278,7 @@ h3{
 	}
 	
 .tags{
+    clear: both;
 	border-top : dotted;
 	border-bottom : dotted;
 	border-width : 1px;

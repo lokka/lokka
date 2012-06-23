@@ -7,7 +7,8 @@
         %p.year= @entry.created_at.year
   .article_contents
     .title
-      %h2= @entry.title
+      %h2
+        %a{:href => post.link}= @entry.title 
     .tags
       %p tags :
       %ul
