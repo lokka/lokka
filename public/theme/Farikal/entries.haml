@@ -10,12 +10,11 @@
         %h2
           %a{:href => post.link}= post.title
       .tags
-        %p tags :
+        %p tags:
         %ul
           %li
             %a{:href => post.link}= post.title
       .body
         = @entry.body
-          = post.body
         - if logged_in?
           %a{:href => post.edit_link}= t('edit')
