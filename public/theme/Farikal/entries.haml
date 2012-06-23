@@ -16,5 +16,5 @@
         .body
           = @entry.body
             = post.body
-          - if logged_in?
-            %a{:href => post.edit_link}= ('edit')
+            - if logged_in?
+              %a{:href => post.edit_link}= t('edit')
