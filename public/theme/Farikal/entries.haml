@@ -15,10 +15,6 @@
           %li
             %a{:href => post.link}= post.title
       .body
-<<<<<<< HEAD
-        = @entry.body
-=======
         = post.body
->>>>>>> c4831fdff0a4e2443507b24d458db3cde4bbd371
         - if logged_in?
           %a{:href => post.edit_link}= t('edit')
