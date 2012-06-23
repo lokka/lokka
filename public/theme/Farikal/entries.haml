@@ -1,12 +1,3 @@
-.pager
-  %ul
-    - if @posts.pager.previous_page
-      %li.previous
-        %a{:href => "?page=#{@posts.pager.previous_page}"} Newer
-    - if @posts.pager.next_page
-      %li.next
-        %a{:href => "?page=#{@posts.pager.next_page}"} Older
-          
 %article
   .date
     %img{:src => "images/date.png"}
