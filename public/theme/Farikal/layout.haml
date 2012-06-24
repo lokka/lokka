@@ -6,7 +6,7 @@
     - if entry?
       %title
         = @entry.title
-          #{@site.title}
+        \- #{@site.title}
     - else
       %title= @site.title
     %meta{:content => @site.meta_description, :name => "description"}
