@@ -30,7 +30,6 @@
       %nav.pager
         %ul
           %li
-            %a{:href => "/1"} test
       #main
         = yield
       #side_bar
@@ -67,11 +66,6 @@
             %form{:action => "/search/", :method => "get"}
               %input.text_field{:name => "query", :type => "text"}
               %button.submit{:onclick => "submit()"} Search
-      .pn_wrap
-        .prev
-          %a{:href => "#"} prevpage
-        .next
-          %a{:href => "#"} nextpage
     %footer
       .wrap
         %p.copyright
