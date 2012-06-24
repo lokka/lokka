@@ -39,8 +39,9 @@
             %h4 new entries
           .new_content
             %ul
-              %li
-                %a{:href => "/1"} test post
+              - Post.recent(5).each do |post|
+                %li
+                  %a{:href => post.link}= post.title
         .past
           .side_header
             %h4 archives
@@ -75,8 +76,8 @@
       .wrap
         %p.copyright
           Copyright ©
-          %a{:href => "/"} Fårikål
-          2012 -  All Rights Reserved.
+          %a{:href => "/"}= @site.title
+          2XXX - 2XXXX All Rights Reserved.
         %p.poweredby
           powered by
           %a{:href => "http://github.com/komagata/lokka"} Lokka
