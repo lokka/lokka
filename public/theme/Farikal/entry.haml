@@ -5,21 +5,20 @@
         %p.month= @entry.created_at.strftime("%m")
         %p.days= @entry.created_at.day
         %p.year= @entry.created_at.year
-        - unless @entry.tags.size.zero?
-          = @post.tags_to_html
         - if logged_in?
           .edit
             %a{:href => @entry.edit_link}= t('edit')
   .article_contents
     .title
       %h2
-        %a{:href => @entry.link}= @entry.title 
-    .tags
-      %p tags :
-      %ul
-        %li
-          #{@entry.tags_to_html}
-    .body
+        %a{:href => @entry.link}= @entry.title        
+    - unless @entry.tags.size.zero?
+      .tags
+        %p Tags :
+        %ul
+          %li
+            \#{@entry.tags_to_html}    
+     .body
       = @entry.body
       - if logged_in?
         %p
