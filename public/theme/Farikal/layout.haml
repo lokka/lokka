@@ -1,18 +1,18 @@
 !!! 5
 %html{:lang => "ja"}
-  %meta{:content => "application/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{:content => "text/css", "http-equiv" => "Content-Style-Type"}/
-    %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}/
+  %meta{:content => "application/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{:content => "text/css", "http-equiv" => "Content-Style-Type"}
+    %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}
     - if entry?
       %title
         = @entry.title
-        \- #{@site.title}
+          - #{@site.title}
     - else
       %title= @site.title
-    %meta{:content => @site.meta_description, :name => "description"}/
-    %meta{:content => @site.meta_keywords, :name => "keywords"}/
-    %link{:href => "/index.atom", :rel => "alternate", :title => @title, :type => "application/atom+xml"}/
-    %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}/
+    %meta{:content => @site.meta_description, :name => "description"}
+    %meta{:content => @site.meta_keywords, :name => "keywords"}
+    %link{:href => "/index.atom", :rel => "alternate", :title => @title, :type => "application/atom+xml"}
+    %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}
   %body
     %header
       .wrap
