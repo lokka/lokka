@@ -1,28 +1,32 @@
 !!! 5
 %html{:lang => "ja"}
-  %meta{:content => "application/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-    %meta{:content => "text/css", "http-equiv" => "Content-Style-Type"}
-    %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}
-    - if entry?
-      %title
-        = @entry.title
-        \- #{@site.title}
-    - else
-      %title= @site.title
-    %meta{:content => @site.meta_description, :name => "description"}
-    %meta{:content => @site.meta_keywords, :name => "keywords"}
-    %link{:href => "/index.atom", :rel => "alternate", :title => @title, :type => "application/atom+xml"}
-    %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}
+  %head
+    %meta{:content => "application/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+      %meta{:content => "text/css", "http-equiv" => "Content-Style-Type"}
+      %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}
+      - if entry?
+        %title
+          = @entry.title
+          \- #{@site.title}
+      - else
+        %title= @site.title
+      %meta{:content => @site.meta_description, :name => "description"}
+      %meta{:content => @site.meta_keywords, :name => "keywords"}
+      %link{:href => "/index.atom", :rel => "alternate", :title => @title, :type => "application/atom+xml"}
+      %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}
+  = head
   %body
     %header
       .wrap
         %h1
-          %a.head_logo{:href => "/"} Fårikål
+          %a.head_logo{:href => "/"}= @site.title
         %p.catchcopy description
         %nav.gNav
           %ul
+            - Page.all.each do |page|
+              %li= link_to page.title, url(page.link)
             %li
-              %a{:href => "/"} home
+              %a{:href => "/index.atom"} Feed
     #contents.clearfix
       %nav.pager
         %ul
@@ -57,7 +61,7 @@
             %h4 search
           .search_content
             %form{:action => "/search/", :method => "get"}
-              %input.text_field{:name => "query", :type => "text"}/
+              %input.text_field{:name => "query", :type => "text"}
               %button.submit{:onclick => "submit()"} Search
       .pn_wrap
         .prev
