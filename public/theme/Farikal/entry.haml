@@ -18,5 +18,5 @@
     .body
       = @entry.body
       - if logged_in?
-        %p
-        %a{:href => @entry.edit_link}= t('edit') 
+        %edit
+          %a{:href => @entry.edit_link}= t('edit') 
