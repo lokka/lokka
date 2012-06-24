@@ -5,9 +5,6 @@
         %p.month= @entry.created_at.strftime("%m")
         %p.days= @entry.created_at.day
         %p.year= @entry.created_at.year
-        - if logged_in?
-          .edit
-            %a{:href => @entry.edit_link}= t('edit')
   .article_contents
     .title
       %h2
