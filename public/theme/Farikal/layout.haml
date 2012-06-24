@@ -19,7 +19,7 @@
       .wrap
         %h1
           %a.head_logo{:href => "/"}= @site.title
-        %p.catchcopy description
+        %p.catchcopy= @site.description
         %nav.gNav
           %ul
             - Page.all.each do |page|
@@ -46,15 +46,19 @@
             %h4 archives
           .past_content
             %ul
-              %li
-                %a{:href => "/2012/06/"} 2012/06
+              - months.each do |month|
+                %li
+                  %a{:href => "/#{month.year}/#{month.month}/"}
+                    = month.year
+                    \/#{month.month}
         .side_tags
           .side_header
             %h4 tags
           .side_tags_content
             %ul
-              %li
-                %a{:href => "/tags/lokka/"} Lokka
+              - Tag.all.each do |tag|
+                %li
+                  %a{:href => tag.link}= tag.name
         .search
           .side_header
             %h4 search
