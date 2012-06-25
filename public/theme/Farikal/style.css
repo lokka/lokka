@@ -264,13 +264,13 @@ h3{
 
 .month{
     float: left;
-	font-size: 34px;
+	font-size: 32px;
 	margin : 5px;
 	text-align : center;
 	}
 	
 .days{
-	font-size: 34px;
+	font-size: 32px;
 	margin : 5px;
 	text-align : center;
 	float : left;
