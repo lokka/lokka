@@ -12,7 +12,7 @@
     - unless @entry.tags.size.zero?
       .tags
         %p Tags :
-          \#{@entry.tags_to_html}    
+        \#{@entry.tags_to_html}    
     .body
       = @entry.body
       - if logged_in?
