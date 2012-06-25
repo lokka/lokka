@@ -12,7 +12,6 @@
     - unless @entry.tags.size.zero?
       .tags
         %p Tags :
-        %ul
           \#{@entry.tags_to_html}    
     .body
       = @entry.body
