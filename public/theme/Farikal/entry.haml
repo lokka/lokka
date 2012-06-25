@@ -3,16 +3,14 @@
     %img{:src => "#{@theme.path}/images/date.png"}
       .date_contents
         %p.month= @entry.created_at.strftime("%m")
-        %p.days= @entry.created_at.day
+        %p.days= @entry.created_at.strftime("%d")
         %p.year= @entry.created_at.year
   .article_contents
     .title
       %h2
         %a{:href => @entry.link}= @entry.title        
     - unless @entry.tags.size.zero?
-      .tags
-        %p Tags :
-        \#{@entry.tags_to_html}    
+      \#{@entry.tags_to_html}    
     .body
       = @entry.body
       - if logged_in?

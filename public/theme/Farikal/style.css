@@ -202,7 +202,9 @@ h1{
 
 #main{
      width : 660px;
-
+     margin : 0;
+     padding : 0;
+     float : left; 
      }
 
 article{
@@ -258,26 +260,27 @@ h3{
 	position : relative;
 	color: #edece2;
 	bottom : 95px;
-	left : 15px;
+	left : 20px;
 	width : 90px;
 	}
 
 .month{
     float: left;
-	font-size: 30px;
-	margin : 5px;
+	font-size: 40px;
+	margin : 2px;
 	text-align : center;
 	}
 	
 .days{
-	font-size: 30px;
-	margin : 5px;
+	font-size: 40px;
+	margin : 2px 0px;
+	float : right;
 	text-align : center;
-	float : left;
 	}
 	
 .year{
 	font-size : 23px;
+	margin : 0;
 	text-align : center;
 	}
 	
