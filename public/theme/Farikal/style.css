@@ -114,13 +114,13 @@ h1{
 	line-height:60px;
 	margin-right : 20px; 
     float : left;
-    font-size: 42px;
+    font-size: 30px;
 	color : #edece2;
 	text-decoration : none;
 	}
 
 .catchcopy{
-	top : 27px; 
+	top : 20px; 
 	font-size: 16px;
     font-family: serif;	
     float : left;
@@ -128,7 +128,7 @@ h1{
 	}
 	
 .gNav {  
-    margin-top:30px;     
+    margin-top:20px;     
     overflow:hidden;  
     float : right;
 } 
