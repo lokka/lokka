@@ -333,10 +333,9 @@ h3{
 .article_contents{
 	width : 550px;
 	float:right;
-	
 	}
 		
-.body image{
+.body img{
 	display : block;
 	margin : 20px;
 	width : 510px;
