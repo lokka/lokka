@@ -13,7 +13,8 @@
       .tags
         %p Tags :
         %ul
-          %li= #{@entry.tags_to_html}
+          %li
+            \#{@entry.tags_to_html}    
     .body
       = @entry.body
       - if logged_in?
