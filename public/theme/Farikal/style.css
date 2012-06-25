@@ -140,7 +140,7 @@ h1{
 
 .gNav li {
 	list-style:none;
-	width:80px;
+	width:50px;
 	float:left;
 	} 
 	 
@@ -230,6 +230,7 @@ article p{
 h2{
 	line-height:30px;
 	padding : 25px 0;
+	font-size: 30px;
 	}
 	
 h3{
@@ -242,7 +243,7 @@ h3{
 .title a{
 	text-decoration : none;
 	color : #1C1C1C;
-	font-size : 42px;
+	font-size : 30px;
 	}
 
 .title a:hover {
