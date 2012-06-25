@@ -123,7 +123,7 @@ h1{
 	top : 30px; 
 	font-size: 16px;
     font-family: serif;	
-float : left;
+    float : left;
     position:relative;
 	}
 	
@@ -200,7 +200,10 @@ float : left;
 
 .pager li a:active { background:#faf9f4; }	
 
+#main{
+     width : 660px;
 
+     }
 
 article{
 	white-space: normal;
