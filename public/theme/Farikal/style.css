@@ -13,7 +13,7 @@ a, abbr, acronym, address, big, cite, code,
 del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
-dl, dt, dd, ol,
+dl, dt, dd, ol,ul,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
   margin: 0;
@@ -114,13 +114,13 @@ h1{
 	line-height:60px;
 	margin-right : 20px; 
     float : left;
-    font-size: 50px;
+    font-size: 42px;
 	color : #edece2;
 	text-decoration : none;
 	}
 
 .catchcopy{
-	top : 30px; 
+	top : 27px; 
 	font-size: 16px;
     font-family: serif;	
     float : left;
@@ -128,9 +128,7 @@ h1{
 	}
 	
 .gNav {  
-    margin-top:15px;  
-    width:280px;  
-    height:40px;  
+    margin-top:30px;     
     overflow:hidden;  
     float : right;
 } 
@@ -219,6 +217,10 @@ article{
 	padding-bottom : 20px;
 	margin-bottom : 30px;
 	}
+
+article p{
+    margin : 10px 0;
+    }
 	
 .title{
 	font-size : 24px;
@@ -279,8 +281,9 @@ h3{
 	}
 	
 .year{
-	font-size : 23px;
-	margin : 0;
+	font-size : 20px;
+	float : left;
+	margin : 5px 0 0 20px;
 	text-align : center;
 	}
 	
@@ -558,6 +561,7 @@ footer{
 	color : #edece2 ;
 	background: #1C1C1C;
 	margin-top : 70px;
+	font-size: 15px;
 	}
 	
 .copyright{
@@ -586,14 +590,18 @@ footer{
 .poweredby a:hover { background:#db6b3b; }
 
 .control{
-	margin-top:15px;   
-    width:250px;  
-    height:40px;  
+	margin-top:30px;
+	margin-right : 20px;      
     overflow:hidden;  
     float : right;
+    text-align: center;
 	}
 
-.control li { list-style:none; width:60px; float:left; }  
+.control li {
+    list-style:none;
+    width:70px;
+    float:left;
+    }  
 
 .control li a {  
     display:block;  
