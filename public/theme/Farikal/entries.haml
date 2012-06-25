@@ -14,8 +14,7 @@
         %p tags:
         %ul
           - unless post.tags.size.zero?
-            %li
-              = post.tags_to_html
+            %li= post.tags_to_html             
       .body
         = post.body
         - if logged_in?
