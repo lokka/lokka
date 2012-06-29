@@ -5,6 +5,8 @@
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
 @import compass/reset
+@import compass/css3
+
 
 body
   margin: 0
@@ -130,10 +132,16 @@ article
   font-size: 24px
   padding: 10px
 
-h2
+.title h1
   line-height: 30px
   padding: 25px 0
   font-size: 30px
+
+h2
+  line-height: 30px
+  font-size: 22px
+  margin: 20px 5px
+  border-bottom: dotted 1px
 
 h3
   line-height: 30px
@@ -216,13 +224,16 @@ h3
 .article_contents
   width: 550px
   float: right
+  
+  .body
+    padding : 0 10px
 
-.body img
-  display: block
-  margin: 20px
-  width: 510px
-  line-color: #1C1C1C
-
+    .body img
+      display: block
+      margin: 20px
+      width: 510px
+      line-color: #1C1C1C
+    
 .edit
   margin: 0 10px 10px
   float: right
@@ -249,19 +260,14 @@ h3
     padding: 5px 10px
     text-decoration: none
 
-.side_more
-  float: right
-  margin: 0
-  padding: 0
-
 .new
   padding-bottom: 20px
   ul
     padding: 0
     margin: 0
   li
-    font-size: 14px
-    line-height: 18px
+    font-size: 12px
+    line-height: 15px
     list-style: none
     margin: 0
     border-left: dotted 3px #db6b3b
@@ -286,8 +292,8 @@ h3
     padding: 0
     margin: 0
   li
-    font-size: 14px
-    line-height: 18px
+    font-size: 12px
+    line-height: 15px
     list-style: none
     margin: 0
     border-left: dotted 3px #db6b3b
@@ -311,8 +317,8 @@ h3
     padding: 0
     margin: 0
   li
-    font-size: 14px
-    line-height: 18px
+    font-size: 12px
+    line-height: 15px
     list-style: none
     margin: 0
     border-left: dotted 3px #db6b3b

@@ -8,7 +8,7 @@
           %p.year= post.created_at.year
     .article_contents   
       .title
-        %h2
+        %h1
           %a{:href => post.link}= post.title
       - unless post.tags.size.zero?
         = post.tags_to_html            
@@ -17,7 +17,7 @@
         - if logged_in?
           .edit
             %a{:href => post.edit_link}= t('edit')
-.pager
+.pn_wrap
   %div
     - if @posts.pager.previous_page
       %span.prev
