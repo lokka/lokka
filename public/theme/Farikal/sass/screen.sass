@@ -6,6 +6,7 @@
 
 @import compass/reset
 @import compass/css3
+@import compass/utilities/general/clearfix
 
 
 body
@@ -15,9 +16,7 @@ body
   background: #edece2
 
 p
-  margin: 3px
-  padding: 0
-  font-size: 17px
+  font-size: 15px
   line-height: 25px
 
 header
@@ -85,28 +84,7 @@ h1
   width: 860px
   position: relative
   clear: both
-
-.pager
-  padding-left: 75px
-  height: 30px
-  width: 860px
-  ul
-    margin: 0
-  li
-    list-style: none
-    width: 55px
-    margin-right: 5px
-    float: left
-    a
-      clear: both
-      display: block
-      line-height: 30px
-      text-align: center
-      color: #545353
-      background: #e0ded5
-      font-family: serif
-      &:hover, &:active
-        background: #faf9f4
+  @include clearfix
 
 #main
   width: 660px
@@ -125,16 +103,17 @@ article
   font-family: serif
   padding-bottom: 20px
   margin-bottom: 30px
+  
   p
     margin: 10px 0
 
 .title
   font-size: 24px
-  padding: 10px
+  padding: 20px
 
 .title h1
   line-height: 30px
-  padding: 25px 0
+  padding: 5px 0
   font-size: 30px
 
 h2
@@ -145,7 +124,7 @@ h2
 
 h3
   line-height: 30px
-  font-size: 22px
+  font-size: 18px
   margin: 20px 5px
   border-bottom: dotted 1px
 
@@ -163,7 +142,7 @@ h3
   position: relative
   right: 30px
   bottom: 10px
-
+  
 .date_contents
   position: relative
   color: #edece2
@@ -226,14 +205,33 @@ h3
   float: right
   
   .body
-    padding : 0 10px
-
+    padding : 0 20px
+  
     .body img
       display: block
       margin: 20px
       width: 510px
       line-color: #1C1C1C
-    
+  	  
+    pre
+      background: #545353
+      margin :  20px 0
+      padding : 10px
+      white-space : normal
+        
+      code
+        line-height : 17px
+        font-size: 13px
+        color: #db6b3b
+        margin-bottom: 5px
+        
+  
+    blockquote
+      margin : 20px 0
+      padding : 10px
+      background : red
+      line-height : 20px
+	
 .edit
   margin: 0 10px 10px
   float: right
@@ -258,7 +256,6 @@ h3
     line-height: 30px
     margin: 0
     padding: 5px 10px
-    text-decoration: none
 
 .new
   padding-bottom: 20px
@@ -317,7 +314,7 @@ h3
     padding: 0
     margin: 0
   li
-    font-size: 12px
+    font-size: 13px
     line-height: 15px
     list-style: none
     margin: 0

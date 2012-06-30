@@ -26,11 +26,8 @@
               %li= link_to page.title, url(page.link)
             %li
               %a{:href => "/index.atom"} Feed
-    #contents.clearfix
-      %nav.pager
-        %ul
-          %li
-      #main.clearfix
+    #contents
+      #main
         = yield
       #side_bar
         .new
