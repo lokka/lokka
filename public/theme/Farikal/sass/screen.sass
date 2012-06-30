@@ -12,12 +12,13 @@
 body
   margin: 0
   padding: 0
-  line-height: 1px
+  line-height: 1.0
   background: #edece2
 
 p
   font-size: 15px
-  line-height: 25px
+  line-height: 1.0
+  padding-bottom: 10px
 
 header
   clear: both
@@ -51,7 +52,7 @@ h1
   text-decoration: none
 
 .catchcopy
-  top: 20px
+  top: 25px
   font-size: 16px
   font-family: serif
   float: left
@@ -61,10 +62,6 @@ h1
   margin-top: 20px
   overflow: hidden
   float: right
-
-.gNavi ul
-  margin: 0
-  padding: 0
 
 .gNav li
   list-style: none
@@ -84,7 +81,7 @@ h1
   width: 860px
   position: relative
   clear: both
-  @include clearfix
+  @include pie-clearfix
 
 #main
   width: 660px
@@ -103,31 +100,28 @@ article
   font-family: serif
   padding-bottom: 20px
   margin-bottom: 30px
-  
-  p
-    margin: 10px 0
-
+    
 .title
   font-size: 24px
   padding: 20px
 
 .title h1
-  line-height: 30px
+  line-height: 1.0
   padding: 5px 0
   font-size: 30px
 
 h2
-  line-height: 30px
-  font-size: 22px
+  line-height: 1.2
+  font-size: 24px
   margin: 20px 5px
   border-bottom: dotted 1px
 
 h3
-  line-height: 30px
-  font-size: 18px
+  line-height: 1.2
+  font-size: 20px
   margin: 20px 5px
-  border-bottom: dotted 1px
-
+  color: #db6b3b
+  
 .title a
   text-decoration: none
   color: #1C1C1C
@@ -155,26 +149,31 @@ h3
   font-size: 40px
   margin: 2px
   text-align: center
-
+  padding-bottom: 0px
+  line-height: 0.5
+  
 .days
   font-size: 40px
   margin: 2px 0px
   float: right
   text-align: center
-
+  padding-bottom: 0px
+  line-height: 0.6
+  
 .year
   font-size: 20px
   float: left
   margin: 5px 0 0 20px
   text-align: center
-
+  padding-bottom: 0px
+  line-height: 0.6
+  
 .tags
   clear: both
   border-top: dotted
   border-bottom: dotted
   border-width: 1px
-  margin: 0 10px 45px
-  height: 40px
+  margin: 0 10px 30px
   padding: 15px 0
   overflow: hidden
   p
@@ -190,11 +189,10 @@ h3
     width: 70px
     float: left
     a
-      margin: 0
-      padding: 0
       display: block
-      line-height: 26px
+      line-height: 1.0
       text-align: center
+      font-size: 15px
       color: #1C1C1C
       border: none
       &:hover
@@ -205,13 +203,25 @@ h3
   float: right
   
   .body
-    padding : 0 20px
+    padding : 0 10px
+    padding-bottom: 20px
+    letter-spacing: 1px
+    font-size: 5px
+    white-space: normal
+
   
     .body img
       display: block
       margin: 20px
       width: 510px
       line-color: #1C1C1C
+  	
+    ul,ol
+      list-style: disc
+      margin: 20px 0
+    
+    li 	
+      margin: 5px 0
   	  
     pre
       background: #545353
@@ -220,24 +230,63 @@ h3
       white-space : normal
         
       code
-        line-height : 17px
+        line-height : 1
         font-size: 13px
-        color: #db6b3b
+        color: #edece2
         margin-bottom: 5px
+        
         
   
     blockquote
-      margin : 20px 0
-      padding : 10px
-      background : red
-      line-height : 20px
+      margin : 20px 20px
+      padding : 10px 20px
+      line-height : 1
+      border-left: dotted 3px
+      letter-spacing: 1px
+      font-size: 14px
+      
+    a 
+      color: #1c1c1c
+      line-height: 1.2
+      font-size: 14px
 	
-.edit
-  margin: 0 10px 10px
-  float: right
-  a
-    color: #1C1C1C
+    .edit
+      margin: 0 10px 10px
+      float: right
+      padding-top: 20px  
+      
+      a
+        color: #1C1C1C
+        line-height: 1
 
+section.comments
+  float: right
+  width: 540px
+  margin: 40px 0
+  
+  h1.comment
+    font-size: 30px
+  
+  .comment
+    line-height: 1.2
+    font-size: 14px
+    white-space: normal
+    
+  .comment_li
+    margin: 30px 0
+    font-size: 14px
+    
+    h2
+      font-size: 20px 
+      
+    a
+      color: #1C1C1C
+  
+.comment_form
+  padding: 30px 0 0 0
+             
+              
+  
 #side_bar
   width: 160px
   float: right
@@ -264,11 +313,11 @@ h3
     margin: 0
   li
     font-size: 12px
-    line-height: 15px
+    line-height: 1.2
     list-style: none
     margin: 0
     border-left: dotted 3px #db6b3b
-    padding-left: 11px
+    padding-left: 8px
     margin: 6px
     a
       color: #1C1C1C
@@ -290,11 +339,11 @@ h3
     margin: 0
   li
     font-size: 12px
-    line-height: 15px
+    line-height: 1.2
     list-style: none
     margin: 0
     border-left: dotted 3px #db6b3b
-    padding-left: 11px
+    padding-left: 8px
     margin: 6px
     a
       color: #1C1C1C
@@ -314,12 +363,12 @@ h3
     padding: 0
     margin: 0
   li
-    font-size: 13px
-    line-height: 15px
+    font-size: 12px
+    line-height: 1.2
     list-style: none
     margin: 0
     border-left: dotted 3px #db6b3b
-    padding-left: 11px
+    padding-left: 8px
     margin: 6px
     a
       color: #1C1C1C
@@ -338,16 +387,25 @@ h3
   form
     margin: 0
     border-left: dotted 3px #db6b3b
-    padding-left: 11px
-    margin: 6px
-
+    padding-left: 6px
+    
+    .text_field
+      width: 120px  
+      height: 16px  
+      margin-left: 2px  
+      color: #1c1c1c
+      
+    .submit
+      background: #545353  
+      color: #faf9f4
+  
 .search_content
   border-bottom: dotted
   border-color: #1C1C1C
   border-width: 1px
   background: #faf9f4
-  line-height: 25px
-  padding: 5px
+  line-height: 1.5
+  padding: 10px
 
 .pn_wrap
   width: 860px
@@ -386,8 +444,7 @@ h3
 footer
   clear: both
   width: 100%
-  height: 88px
-  z-index: 10
+  height: 80px
   color: #edece2
   background: #1C1C1C
   margin-top: 70px
@@ -415,7 +472,7 @@ footer
       background: #db6b3b
 
 .control
-  margin-top: 30px
+  margin-top: 25px
   margin-right: 20px
   overflow: hidden
   float: right

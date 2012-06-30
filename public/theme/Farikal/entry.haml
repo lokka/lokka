@@ -18,15 +18,15 @@
           %a{:href => @entry.edit_link}= t('edit')
   - unless page?
     %section.comments
-      %h1.comment Comments
+      %h1.comment comments
       - if @entry.comments.size > 0
         %ul.comments
           - @entry.comments.reverse.each do |comment|
-            %li.comment{:id => "comment-#{comment.id}"}
+            %li.comment_li{:id => "comment-#{comment.id}"}
               .commenter
                 %h2.name
                   = link_to comment.name, comment.homepage, :unless => comment.homepage.blank?
-                %p.date
+                %p.cdate
                   = l(comment.created_at)
               .body
                 = hbr comment.body
