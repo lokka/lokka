@@ -203,7 +203,7 @@ h3
   float: right
   
   .body
-    padding : 0 10px
+    padding : 0 15px
     padding-bottom: 20px
     letter-spacing: 1px
     font-size: 5px
@@ -249,42 +249,80 @@ h3
       color: #1c1c1c
       line-height: 1.2
       font-size: 14px
+      &:hover
+        background: #e0ded5
 	
     .edit
       margin: 0 10px 10px
       float: right
       padding-top: 20px  
       
+  
+  article.comments
+    width: 540px
+    float: right
+    h1
+      margin: 0 0 20px 0
+      font: 
+        size: 27px
+    ul.comments
+      li.comment
+        margin: 0 0 30px 0
+        .commenter
+          h2
+            margin: 0 0 4px 0
+            line-height: 1.4
+            font-size: 5px
+          .cdate
+            font:
+              size: 10px        
+        .cbody
+          padding: 10px 14px
+          line-height: 1.6
+          font-size: 5px
+          content: " "
       a
-        color: #1C1C1C
-        line-height: 1
-
-section.comments
-  float: right
-  width: 540px
-  margin: 40px 0
-  
-  h1.comment
-    font-size: 30px
-  
-  .comment
-    line-height: 1.2
-    font-size: 14px
-    white-space: normal
-    
-  .comment_li
-    margin: 30px 0
-    font-size: 14px
-    
-    h2
-      font-size: 20px 
+        color: #1c1c1c 
+        &:hover
+          background: #e0ded5 
+        
+    .comment_form
+      margin: 40px 0
+      .reader
+        width: 210px
+        div
+          clear: both
+          padding: 0 0 10px 0
+        input
+          width: 160px
+          line-height: 20px
+        label
+          line-height: 20px
+          font: 
+            family: serif
+            size: 12px
+      .textarea
+        label
+          display: none
+        textarea
+          width: 400px
+          margin: 0
+          padding: 0
+      .submit
+        clear: both
+        padding: 10px 0 0 0
+        input
+          float : left
+          background-color: #545353
+          margin: 0 auto
+          cursor: pointer
+          color: white
+          display: block
+          font: 
+            size: 12px
+          &:hover
+            background: #db6b3b
       
-    a
-      color: #1C1C1C
-  
-.comment_form
-  padding: 30px 0 0 0
-             
               
   
 #side_bar
@@ -398,6 +436,9 @@ section.comments
     .submit
       background: #545353  
       color: #faf9f4
+      cursor: pointer
+      &:hover
+        background: #db6b3b
   
 .search_content
   border-bottom: dotted
@@ -472,18 +513,18 @@ footer
       background: #db6b3b
 
 .control
-  margin-top: 25px
+  margin-top: 30px
   margin-right: 20px
   overflow: hidden
   float: right
   text-align: center
   li
     list-style: none
-    width: 70px
     float: left
+    margin: 0 10px
     a
       display: block
-      line-height: 26px
+      line-height: 1
       text-align: center
       color: #edece2
       &:hover
