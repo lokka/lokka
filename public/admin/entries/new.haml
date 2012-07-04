@@ -1,2 +1,2 @@
 %h2= t("new_#{@name}")
-= partial 'entries/form', :locals => {:action => "/admin/#{@name.pluralize}", :method => 'post', :label => t('new')}
+= partial 'entries/form', :views => Lokka.admin_theme_dir, :locals => {:action => "/admin/#{@name.pluralize}", :method => 'post', :label => t('new')}

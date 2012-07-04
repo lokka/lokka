@@ -1,11 +1,11 @@
 module Lokka
   class App
     get '/admin/' do
-      render_any :index
+      haml :index, :views => Lokka.admin_theme_dir
     end
 
     get '/admin/login' do
-      render_any :login, :layout => false
+      haml :login, :layout => false
     end
 
     post '/admin/login' do
@@ -22,7 +22,7 @@ module Lokka
         end
       else
         @login_failed = true
-        render_any :login, :layout => false
+        haml :login, :layout => false, :views => Lokka.admin_theme_dir
       end
     end
 
@@ -51,12 +51,12 @@ module Lokka
     get '/admin/comments' do
       @comments = Comment.all(:order => :created_at.desc).
                     page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'comments/index'
+      haml :'comments/index', :views => Lokka.admin_theme_dir
     end
 
     get '/admin/comments/new' do
       @comment = Comment.new(:created_at => DateTime.now)
-      render_any :'comments/new'
+      haml :'comments/new', :views => Lokka.admin_theme_dir
     end
 
     post '/admin/comments' do
@@ -65,13 +65,13 @@ module Lokka
         flash[:notice] = t('comment_was_successfully_created')
         redirect '/admin/comments'
       else
-        render_any :'comments/new'
+        haml :'comments/new', :views => Lokka.admin_theme_dir
       end
     end
 
     get '/admin/comments/:id/edit' do |id|
       @comment = Comment.get(id) or raise Sinatra::NotFound
-      render_any :'comments/edit'
+      haml :'comments/edit', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/comments/:id' do |id|
@@ -80,7 +80,7 @@ module Lokka
         flash[:notice] = t('comment_was_successfully_updated')
         redirect '/admin/comments'
       else
-        render_any :'comments/edit'
+        haml :'comments/edit', :views => Lokka.admin_theme_dir
       end
     end
 
@@ -101,12 +101,12 @@ module Lokka
     get '/admin/categories' do
       @categories = Category.all.
                     page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'categories/index'
+      haml :'categories/index', :views => Lokka.admin_theme_dir
     end
 
     get '/admin/categories/new' do
       @category = Category.new
-      render_any :'categories/new'
+      haml :'categories/new', :views => Lokka.admin_theme_dir
     end
 
     post '/admin/categories' do
@@ -117,13 +117,13 @@ module Lokka
         flash[:notice] = t('category_was_successfully_created')
         redirect '/admin/categories'
       else
-        render_any :'categories/new'
+        haml :'categories/new', :views => Lokka.admin_theme_dir
       end
     end
 
     get '/admin/categories/:id/edit' do |id|
       @category = Category.get(id) or raise Sinatra::NotFound
-      render_any :'categories/edit'
+      haml :'categories/edit', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/categories/:id' do |id|
@@ -133,7 +133,7 @@ module Lokka
         flash[:notice] = t('category_was_successfully_updated')
         redirect '/admin/categories'
       else
-        render_any :'categories/edit'
+        haml :'categories/edit', :views => Lokka.admin_theme_dir
       end
     end
 
@@ -148,12 +148,12 @@ module Lokka
     get '/admin/tags' do
       @tags = Tag.all.
                     page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'tags/index'
+      haml :'tags/index', :views => Lokka.admin_theme_dir
     end
 
     get '/admin/tags/:id/edit' do |id|
       @tag = Tag.get(id) or raise Sinatra::NotFound
-      render_any :'tags/edit'
+      haml :'tags/edit', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/tags/:id' do |id|
@@ -162,7 +162,7 @@ module Lokka
         flash[:notice] = t('tag_was_successfully_updated')
         redirect '/admin/tags'
       else
-        render_any :'tags/edit'
+        haml :'tags/edit', :views => Lokka.admin_theme_dir
       end
     end
 
@@ -177,12 +177,12 @@ module Lokka
     get '/admin/users' do
       @users = User.all(:order => :created_at.desc).
                     page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'users/index'
+      haml :'users/index', :views => Lokka.admin_theme_dir
     end
 
     get '/admin/users/new' do
       @user = User.new
-      render_any :'users/new'
+      haml :'users/new', :views => Lokka.admin_theme_dir
     end
 
     post '/admin/users' do
@@ -191,13 +191,13 @@ module Lokka
         flash[:notice] = t('user_was_successfully_created')
         redirect '/admin/users'
       else
-        render_any :'users/new'
+        haml :'users/new', :views => Lokka.admin_theme_dir
       end
     end
 
     get '/admin/users/:id/edit' do |id|
       @user = User.get(id) or raise Sinatra::NotFound
-      render_any :'users/edit'
+      haml :'users/edit', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/users/:id' do |id|
@@ -206,7 +206,7 @@ module Lokka
         flash[:notice] = t('user_was_successfully_updated')
         redirect '/admin/users'
       else
-        render_any :'users/edit'
+        haml :'users/edit', :views => Lokka.admin_theme_dir
       end
     end
 
@@ -225,14 +225,14 @@ module Lokka
     get '/admin/snippets' do
       @snippets = Snippet.all(:order => :created_at.desc).
                         page(params[:page], :per_page => settings.admin_per_page)
-      render_any :'snippets/index'
+      haml :'snippets/index', :views => Lokka.admin_theme_dir
     end
 
     get '/admin/snippets/new' do
       @snippet = Snippet.new(
         :created_at => DateTime.now,
         :updated_at => DateTime.now)
-      render_any :'snippets/new'
+      haml :'snippets/new', :views => Lokka.admin_theme_dir
     end
 
     post '/admin/snippets' do
@@ -241,13 +241,13 @@ module Lokka
         flash[:notice] = t('snippet_was_successfully_created')
         redirect '/admin/snippets'
       else
-        render_any :'snippets/new'
+        haml :'snippets/new', :views => Lokka.admin_theme_dir
       end
     end
 
     get '/admin/snippets/:id/edit' do |id|
       @snippet = Snippet.get(id) or raise Sinatra::NotFound
-      render_any :'snippets/edit'
+      haml :'snippets/edit', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/snippets/:id' do |id|
@@ -256,7 +256,7 @@ module Lokka
         flash[:notice] = t('snippet_was_successfully_updated')
         redirect '/admin/snippets'
       else
-        render_any :'snippets/edit'
+        haml :'snippets/edit', :views => Lokka.admin_theme_dir
       end
     end
 
@@ -276,7 +276,7 @@ module Lokka
           screenshot = s.empty? ? nil : "/#{s.first.split('/')[-3, 3].join('/')}"
           OpenStruct.new(:title => title, :screenshot => screenshot)
         end
-      render_any :'themes/index'
+      haml :'themes/index', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/themes' do
@@ -295,7 +295,7 @@ module Lokka
           screenshot = s.empty? ? nil : "/#{s.first.split('/')[-3, 3].join('/')}"
           OpenStruct.new(:title => title, :screenshot => screenshot)
         end
-      render_any :'mobile_themes/index'
+      haml :'mobile_themes/index', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/mobile_themes' do
@@ -307,13 +307,13 @@ module Lokka
 
     # plugin
     get '/admin/plugins' do
-      render_any :'plugins/index'
+      haml :'plugins/index', :views => Lokka.admin_theme_dir
     end
 
     # site
     get '/admin/site/edit' do
       @site = Site.first
-      render_any :'site/edit'
+      haml :'site/edit', :views => Lokka.admin_theme_dir
     end
 
     put '/admin/site' do
@@ -321,13 +321,13 @@ module Lokka
         flash[:notice] = t('site_was_successfully_updated')
         redirect '/admin/site/edit'
       else
-        render_any :'site/edit'
+        haml :'site/edit', :views => Lokka.admin_theme_dir
       end
     end
 
     # import
     get '/admin/import' do
-      render_any :import
+      haml :import, :views => Lokka.admin_theme_dir
     end
 
     post '/admin/import' do
@@ -338,7 +338,7 @@ module Lokka
         flash[:notice] = t('data_was_successfully_imported')
         redirect '/admin/import'
       else
-        render_any :import
+        haml :import, :views => Lokka.admin_theme_dir
       end
     end
 
@@ -346,7 +346,7 @@ module Lokka
     get '/admin/permalink' do
       @enabled = (Option.permalink_enabled == "true")
       @format = Option.permalink_format || ""
-      render_any :permalink
+      haml :permalink, :views => Lokka.admin_theme_dir
     end
 
     put '/admin/permalink' do
@@ -376,14 +376,14 @@ module Lokka
     get '/admin/field_names' do
       @field_names = FieldName.all.
                         page(params[:page], :per_page => settings.admin_per_page, :order => :name.asc)
-      render_any :'field_names/index'
+      haml :'field_names/index', :views => Lokka.admin_theme_dir
     end
 
     get '/admin/field_names/new' do
       @field_name = FieldName.new(
         :created_at => DateTime.now,
         :updated_at => DateTime.now)
-      render_any :'field_names/new'
+      haml :'field_names/new', :views => Lokka.admin_theme_dir
     end
 
     post '/admin/field_names' do
@@ -392,7 +392,7 @@ module Lokka
         flash[:notice] = t('field_name_was_successfully_created')
         redirect '/admin/field_names'
       else
-        render_any :'field_names/new'
+        haml :'field_names/new', :views => Lokka.admin_theme_dir
       end
     end
 

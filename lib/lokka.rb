@@ -18,6 +18,10 @@ module Lokka
       File.expand_path('..', File.dirname(__FILE__))
     end
 
+    def admin_theme_dir
+      File.expand_path("#{self.root}/public/admin")
+    end
+
     ##
     # Data Source Name
     #
