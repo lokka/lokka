@@ -1,0 +1,333 @@
+@charset "UTF-8"
+
+$black: #000 + 68
+$white: #ffffff
+$max-width: 1200px
+$button_color: $black + 119
+$button_color_hover: $button_color - 80
+
+body
+  background-color: $black +156
+  background-image: url("#{$img_path}body.gif")
+  color: $black
+  font: 
+    family: 'ヒラギノ明朝 Pro W3','Hiragino Mincho Pro','ＭＳ Ｐ明朝','MS PMincho',serif
+#header
+  +background(url("#{$img_path}header.png"))
+  padding: 20px 0
+  margin: 0 0 50px 0
+  +clearfix
+  .inner
+    max-width: $max-width
+    margin: 0 auto
+    .title
+      float: left
+    nav
+      float: left
+      padding: 16px 0 0 40px
+      ul
+        +horizontal-list-container
+        margin: -10px 0 0 0
+        li
+          +horizontal-list-item
+          padding: 10px 6px
+          a
+            font: 
+              family: 'Podkova', serif
+              size: $size-20px
+            text:
+              decoration: none 
+            display: block
+            padding: 0 12px
+            color: $black
+            &:link,
+            &:visited
+              background: none
+            &:hover,
+            &:active
+              background-color: rgba(255, 255, 255, .4)
+              +ie8-alpha(44,ffffff)
+              +box-shadow(rgba(0, 0, 0, .2) 0 1px 2px)
+          &.search
+            margin: 0 0 0 20px
+            position: relative
+            padding: 10px 6px
+            input
+              +background($white)
+              border: none
+              height: 20px
+              line-height: 20px
+              padding: 0 50px 0 0
+              width: 160px
+              margin: 0
+            button
+              +background-image(url("#{$img_path}header.png"))
+              background-color: $button_color
+              border: none
+              position: absolute
+              margin: 0
+              padding: 0 4px
+              right: 8px
+              top: 12px
+              height: 16px
+              line-height: 16px
+              cursor: pointer
+              color: $white
+              font:
+                size: $size-12px
+              &:hover
+                background-color: $button_color_hover
+    h2
+      clear: both
+      padding: 12px 0 0 0
+      font: 
+        family: 'Podkova', serif
+        size: $size-12px
+  h1
+    a
+      font: 
+        family: 'Podkova', serif
+        size: 40px
+      text:
+        decoration: none 
+      color: $black
+#main
+  width: 640px
+  margin: 0 auto
+  position: relative
+  @media only screen and (max-device-width : 720px)
+    margin: 0 20px
+section.comments
+  h1
+    margin: 0 0 20px 0
+    font: 
+      family: 'Podkova', serif
+      size: $size-18px
+  ul.comments
+    li.comment
+      +clearfix
+      margin: 0 0 30px 0
+      .commenter
+        text-align: right
+        float: left
+        width: 130px
+        padding: 14px 0 0 0
+        h2
+          margin: 0 0 4px 0
+          line-height: 1.4
+        .date
+          font:
+            size: $size-10px
+          
+      .body
+        position: relative
+        width: 460px
+        float: right
+        background-color: rgba(255, 255, 255, .4)
+        +ie8-alpha(44,ffffff)
+        +border-radius(4px)
+        padding: 10px 14px
+        line-height: 1.6
+        font: 
+          size: $size-12px
+        &:after, &:before
+          right: 100%
+          border: solid transparent
+          content: " "
+          height: 0
+          width: 0
+          position: absolute
+          pointer-events: none
+        &:after
+          border-right-color: rgba(255, 255, 255, .4)
+          border-width: 10px
+          top: 30px
+          margin-top: -10px
+        &:before
+          border-width: 10px
+          top: 30px
+          margin-top: -10px
+        
+  .comment_form
+    .reader
+      float: left
+      width: 210px
+      div
+        clear: both
+        padding: 0 0 10px 0
+        +clearfix
+      input
+        width: 160px
+        float: right
+        padding: 0
+        margin: 0
+        border: none
+        line-height: 20px
+      label
+        float: left
+        line-height: 20px
+        font: 
+          family: 'Podkova', serif
+          size: $size-12px
+    .textarea
+      float: right
+      label
+        display: none
+      textarea
+        width: 400px
+        margin: 0
+        padding: 0
+        border: none
+    .submit
+      clear: both
+      padding: 20px 0 0 0
+      input
+        +background-image(url("#{$img_path}header.png"))
+        background-color: $button_color
+        border: none
+        margin: 0 auto
+        height: 24px
+        cursor: pointer
+        color: $white
+        display: block
+        width: 80px
+        font: 
+          family: 'Podkova', serif
+          size: $size-18px
+        &:hover
+          background-color: $button_color_hover
+
+#wrap
+  max-width: $max-width
+  margin: 0 auto
+  position: relative
+  +clearfix
+
+#footer
+  text-align: center
+  padding: 30px 0
+  a
+    color: $black
+    &:link,
+    &:visited
+      text:
+        decoration: none
+    &:hover,
+    &:active
+      color: $black
+      text:
+        decoration: underline
+  .copyright
+    margin: 0 0 10px 0
+    font: 
+      size: $size-12px
+  .poweredby
+    font:
+      size: $size-12px
+
+.pager
+  +clearfix
+  padding: 0 0 20px 0
+  span
+    a
+      font: 
+        family: 'Podkova', serif
+        size: $size-20px
+      text:
+        decoration: none 
+      display: block
+      padding: 0 12px
+      color: $black
+      &:link,
+      &:visited
+        background: none
+      &:hover,
+      &:active
+        background-color: rgba(255, 255, 255, .4)
+        +ie8-alpha(44,ffffff)
+        +box-shadow(rgba(0, 0, 0, .2) 0 1px 2px)
+    &.previous
+      a
+        float: right
+        &:after
+          content: " >"
+    &.next
+      a
+        float: left
+        &:before
+          content: "< "
+
+#sub
+  position: absolute
+  right: 0
+  top: 0
+  width: 120px
+  div
+    margin: 0 0 20px 0
+    clear: both
+    +clearfix
+    h1
+      font: 
+        family: 'Podkova', serif
+        size: $size-16px
+      text:
+        decoration: none 
+      color: $black
+      display: block
+      margin: 0 0 10px 0
+    ul
+      li
+        display: block
+        font: 
+          size: $size-12px
+        a
+          padding: 2px 8px 0 8px
+          line-height: 1.6
+          color: $black
+          text:
+            decoration: none
+          &:link,
+          &:visited
+            color: $black
+          &:hover,
+          &:active
+            color: $black
+            background-color: rgba(255, 255, 255, .4)
+            +ie8-alpha(44,ffffff)
+    &.tags
+      ul
+        li
+          float: left
+          padding: 2px 0
+          display: block
+          a
+            padding: 2px 8px 0 8px
+            line-height: 1.6
+            color: $black
+            text:
+              decoration: none
+            &:link,
+            &:visited
+              color: $black
+            &:hover,
+            &:active
+              color: $black
+              background-color: rgba(255, 255, 255, .4)
+              background-color: #e7e7e7\9
+    &.archive
+      ul
+        li
+          border-bottom: dotted 1px #eee
+          a
+            border-bottom: dotted 1px #ccc
+            display: block
+
+.articles
+  h1.title
+    font:
+      size: 28px
+    margin: 0 0 30px 0
+    background-color: rgba(0, 0, 0, .1)
+    +ie8-alpha(11, '000000')
+    line-height: 1.4
+    padding: 0 8px
