@@ -1,0 +1,284 @@
+@charset "UTF-8"
+
+article
+  +background($white)
+  +box-shadow(rgba(0, 0, 0, .3) 0 1px 2px)
+  +ie-shadow("888888", 2, 180)
+  position: relative
+  margin: 0 0 50px 0
+  .date
+    $circle-size: 80px
+    $circle-padding: 13px
+    text-align: center
+    +background($black)
+    width: $circle-size
+    height: $circle-size - $circle-padding * 2
+    padding: $circle-padding 0
+    +border-radius(40px)
+    position: absolute
+    left: -90px
+    top: 0
+    li
+      display: block
+      color: $white
+      &.month
+        font: 
+          size: $size-14px
+        line-height: 14px
+      &.day
+        font: 
+          size: $size-18px
+        line-height: 26px
+      &.year
+        font: 
+          size: $size-12px
+        line-height: 12px
+  .category
+    width: 110px
+    position: absolute
+    left: -110px
+    top: 100px
+    a
+      display: block
+      text:
+        decoration: none
+      padding: 4px
+      font: 
+        size: $size-12px
+      margin: 0 0 10px 0
+      &:link,
+      &:visited
+        color: #999
+        +background(rgba(255, 255, 255, .4))
+        +ie8-alpha(44,ffffff)
+      &:hover,
+      &:active
+        color: $black
+        +background(rgba(255, 255, 255, .8))
+        +ie8-alpha(cc,ffffff)
+        +box-shadow(rgba(0, 0, 0, .2) 0 1px 2px)
+  .tags
+    width: 110px
+    position: absolute
+    left: -110px
+    top: 130px
+    li
+      a
+        display: block
+        text:
+          decoration: none
+        padding: 4px
+        font: 
+          size: $size-12px
+        margin: 0 0 10px 0
+        &:link,
+        &:visited
+          color: #999
+          +background(rgba(255, 255, 255, .4))
+          +ie8-alpha(44,ffffff)
+        &:hover,
+        &:active
+          color: $black
+          +background(rgba(255, 255, 255, .8))
+          +ie8-alpha(cc,ffffff)
+          +box-shadow(rgba(0, 0, 0, .2) 0 1px 2px)
+  .edit
+    a
+      width: 60px
+      height: 60px
+      line-height: 60px
+      +border-radius(30px)
+      position: absolute
+      right: -80px
+      top: 60px
+      display: block
+      text:
+        decoration: none
+        align: center
+      font: 
+        size: $size-12px
+      &:link,
+      &:visited
+        color: #999
+        +background(rgba(255, 255, 255, .4))
+      &:hover,
+      &:active
+        color: $black
+        +background(rgba(255, 255, 255, .8))
+        +ie8-alpha(cc,ffffff)
+        +box-shadow(rgba(0, 0, 0, .2) 0 1px 2px)
+  header
+    padding: 20px 36px 0
+    h1
+      font: 
+        size: 32px
+      line-height: 1.3
+      a
+        color: $black
+        text:
+          decoration: none
+  .body
+    padding: 20px 36px
+    p
+      margin: 0 0 1.7em 0
+      line-height: 1.6
+      font:
+        size: $size-13px
+    
+    a
+      text-decoration: none
+      color: #339
+      &:hover
+        text-decoration: underline
+        color: #33f
+    
+    h1, h2, h3, h4
+      line-height: 1.3
+      font-weight: normal
+      margin:
+        top: .5em
+        bottom: .9em
+    
+    h2
+      font:
+        size: $size-20px
+      border: 
+        left: $black solid 4px
+      padding: 0 0 0 .6em
+    h3
+      font-size: 1.25em
+    h4
+      font-size: 1.1em
+    .right
+      float: right
+      clear: left
+    
+    .left
+      float: left
+      clear: right
+    
+    .inset
+      border: 1em solid silver
+      padding: 2px
+      margin: 0em 0.8em 0.8em 0.8em
+    
+    .right.inset
+      margin-right: 0 !important
+    
+    .left.inset
+      margin-left: 0 !important
+    
+    blockquote
+      padding: 0 2.8em
+      margin: 1.714em 0
+      color: $black
+      font-size: 0.875em
+      line-height: 1.714em
+      font:
+        style: italic
+      position: relative
+      &:after
+        content: "“"
+        position: absolute
+        left: 0px
+        top: 0
+        font:
+          family: 'IM Fell French Canon SC', serif
+          size: 42px
+        color: #888
+    
+    .image
+      img
+        display: block
+        margin: 0 auto
+        max-width: 100%
+        height: auto
+      
+    .note
+      padding: 0.5em
+      background-color: #f9f9f9
+      border-top: 1px solid #ccc
+      border-bottom: 1px solid #ccc
+    
+    table
+      width: 100%
+      margin: 1.7em auto 1.7em auto
+      table-layout: fixed
+      border-spacing: 0
+      tr
+        text-align: center
+      th
+        font-weight: normal
+        background-color: #eeeeee
+        border: #ccc solid 1px
+        padding: 4px 12px
+        line-height: 1.4
+      td
+        background-color: white
+        border: #ccc solid 1px
+        padding: 4px 12px
+        line-height: 1.4
+      th.title
+        border-bottom: 1px solid gray
+        border-top: 1px solid gray
+        vertical-align: bottom
+        background-color: lightgrey
+      caption
+        color: $black
+        font:
+          size: $size-12px
+        margin: 0.875em auto 0.5em auto
+        line-height: 1.3
+    
+    pre
+      margin:
+        top: 1.7em
+        bottom: 1.7em
+      +background($black)
+      padding: 0.6em
+      color: #93dd61
+      line-height: 1.4
+
+    
+    ul,
+    ol
+      margin:
+        top: 1.7em
+        bottom: 1.7em
+      line-height: 1.4
+      padding:
+        left: 1.5em
+      
+    ul
+      list-style:
+        type: square
+        position: outside
+    ol
+      list-style-type: decimal
+    li
+      margin:
+        bottom: 0.8em
+      font:
+        size: $size-13px
+    
+    dt
+      line-height: 1.4
+      margin: 0 0 0.6em 0
+      font:
+        weight: bold
+        size: $size-14px
+    
+    dd
+      margin: 0 0 1.5em 0
+      line-height: 1.4
+      font:
+        size: $size-13px
+    
+    hr
+      border:
+        color: #ccc
+        style: solid
+        width: 1px 0 0
+      clear: both
+      margin: 0 0 20px
+      height: 0  
