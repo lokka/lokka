@@ -43,6 +43,7 @@ end
 
 group :development do
   gem 'tapp', '1.3.0'
+  gem 'dm-sqlite-adapter', '1.2.0'
 end
 
 group :test do
@@ -63,5 +64,4 @@ group :postgresql do
 end
 
 group :sqlite do
-  gem 'dm-sqlite-adapter', '1.2.0'
 end
