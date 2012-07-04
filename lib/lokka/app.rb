@@ -67,7 +67,7 @@ module Lokka
 
     get '/*.css' do |path|
       content_type 'text/css', :charset => 'utf-8'
-      render_any path.to_sym
+      render_any path.to_sym, :views => settings.views
     end
 
     run! if app_file == $0
