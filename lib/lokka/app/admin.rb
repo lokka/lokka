@@ -5,7 +5,7 @@ module Lokka
     end
 
     get '/admin/login' do
-      haml :login, :layout => false
+      haml :login, :views => Lokka.admin_theme_dir, :layout => false
     end
 
     post '/admin/login' do
