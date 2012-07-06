@@ -1,0 +1,563 @@
+/*
+  Welcome to Compass.
+  In this file you should write your main styles. (or centralize your imports)
+  Import this file using the following HTML or equivalent:
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+@import compass/reset
+@import compass/css3
+@import compass/utilities/general/clearfix
+
+
+body
+  margin: 0
+  padding: 0
+  line-height: 1.0
+  background: #edece2
+
+p
+  font-size: 15px
+  line-height: 1.0
+  padding-bottom: 10px
+
+header
+  clear: both
+  margin: 0 0 auto
+  padding-top: 10px
+  width: 100%
+  height: 65px
+  color: #edece2
+  background: #1C1C1C
+
+.wrap
+  display: block
+  width: 860px
+  height: 60px
+  position: relative
+  margin-right: auto
+  margin-left: auto
+  padding: 0
+  font-family: serif
+
+h1
+  margin: 0
+  padding: 0
+
+.head_logo
+  line-height: 60px
+  margin-right: 20px
+  float: left
+  font-size: 26px
+  color: #edece2
+  text-decoration: none
+
+.catchcopy
+  top: 27px
+  font-size: 14px
+  font-family: serif
+  float: left
+  position: relative
+
+.gNav
+  margin-top: 20px
+  overflow: hidden
+  float: right
+
+.gNav li
+  list-style: none
+  width: 50px
+  float: left
+  a
+    display: block
+    line-height: 30px
+    text-align: center
+    color: #edece2
+    font-family: serif
+    &:hover, &:active
+      background: #db6b3b
+
+#contents
+  margin: 70px auto
+  width: 860px
+  position: relative
+  clear: both
+  @include pie-clearfix
+
+#main
+  width: 660px
+  margin: 0
+  padding: 0
+  float: left
+
+article
+  white-space: normal
+  border-bottom: dotted
+  border-color: #1C1C1C
+  border-width: 1px
+  width: 660px
+  background: #faf9f4
+  float: left
+  font-family: serif
+  padding-bottom: 20px
+  margin-bottom: 30px
+    
+.title
+  font-size: 24px
+  padding: 20px
+
+.title h1
+  line-height: 1.0
+  padding: 5px 0
+  font-size: 30px
+
+h2
+  line-height: 1.2
+  font-size: 24px
+  margin: 20px 5px
+  border-bottom: dotted 1px
+
+h3
+  line-height: 1.2
+  font-size: 20px
+  margin: 20px 5px
+  color: #db6b3b
+  
+.title a
+  text-decoration: none
+  color: #1C1C1C
+  font-size: 30px
+  &:hover
+    text-decoration: underline
+
+.date
+  float: left
+  height: 130px
+  width: 110px
+  position: relative
+  right: 30px
+  bottom: 10px
+  
+.date_contents
+  position: relative
+  color: #edece2
+  bottom: 95px
+  left: 20px
+  width: 90px
+
+.month
+  float: left
+  font-size: 40px
+  margin: 2px
+  text-align: center
+  padding-bottom: 0px
+  line-height: 0.5
+  
+.days
+  font-size: 40px
+  margin: 2px 0px
+  float: right
+  text-align: center
+  padding-bottom: 0px
+  line-height: 0.6
+  
+.year
+  font-size: 20px
+  float: left
+  margin: 5px 0 0 20px
+  text-align: center
+  padding-bottom: 0px
+  line-height: 0.6
+  
+.tags
+  clear: both
+  border-top: dotted
+  border-bottom: dotted
+  border-width: 1px
+  margin: 0 10px 30px
+  padding: 15px 0
+  overflow: hidden
+  p
+    margin-top: 8px
+    float: left
+  ul
+    margin: 0
+    padding: 0
+    line-height: 0
+  li
+    margin-top: 7px
+    list-style: none
+    width: 70px
+    float: left
+    a
+      display: block
+      line-height: 1.0
+      text-align: center
+      font-size: 15px
+      color: #1C1C1C
+      border: none
+      &:hover
+        background: #e0ded5
+
+.article_contents
+  width: 550px
+  float: right
+  
+  .body
+    padding : 0 38px 0 15px
+    padding-bottom: 20px
+    letter-spacing: 1px
+    font-size: 5px
+    white-space: normal
+
+  
+    img
+      display: block
+      margin: 20px
+      max-width: 480px
+      max-height: auto
+      line-color: #1C1C1C
+  	
+    ul,ol
+      list-style: disc
+      margin: 20px 0
+    
+    li 	
+      margin: 5px 0
+  	  
+    pre
+      background: #545353
+      margin :  20px 0
+      padding : 10px
+      white-space : normal
+        
+      code
+        line-height : 1
+        font-size: 13px
+        color: #edece2
+        margin-bottom: 5px
+     
+    table
+      width: 100%
+      margin: 1.5em auto 1.5em auto
+      table-layout: fixed
+      color: #faf9f4
+      border-spacing: 0
+      tr
+        text-align: center
+      th
+        background-color: #545353
+        border: #edece2 solid 1px
+        padding: 4px 12px
+        line-height: 1.4
+      td
+        background-color: #747373
+        border: #ccc solid 1px
+        padding: 4px 12px
+        line-height: 1.4
+      th.title
+        border-bottom: 1px solid gray
+        border-top: 1px solid gray
+        vertical-align: bottom
+      caption
+        color: black
+        font-size: 14px
+        margin: 0.875em auto 0.5em auto
+        line-height: 1.3
+        
+        
+  
+    blockquote
+      margin : 20px 20px
+      padding : 10px 20px
+      line-height : 1
+      border-left: dotted 3px
+      letter-spacing: 1px
+      font-size: 14px
+      
+    a 
+      color: #1c1c1c
+      line-height: 1.2
+      font-size: 14px
+      &:hover
+        background: #e0ded5
+	
+    .edit
+      margin: 0 10px 10px
+      float: right
+      padding-top: 20px  
+      
+  
+  article.comments
+    width: 540px
+    float: right
+    padding: 50px 0 0 20px
+    line-height: 1.0
+    font-size: 14px
+    h1
+      margin: 0 0 20px 0
+      font: 
+        size: 27px
+    ul.comments
+      li.comment
+        margin: 0 0 30px 0
+        .commenter
+          h2
+            margin: 0 0 4px 0
+            line-height: 1.4
+            font-size: 5px
+          .cdate
+            font:
+              size: 10px        
+        .cbody
+          padding: 10px 14px
+          line-height: 1.6
+          font-size: 5px
+          content: " "
+      a
+        color: #1c1c1c
+        &:hover
+          background: #e0ded5 
+        
+    .comment_form
+      margin: 60px 0
+      .reader
+        width: 210px
+        div
+          clear: both
+          padding: 0 0 10px 0
+        input
+          width: 160px
+          line-height: 20px
+        label
+          line-height: 20px
+          font: 
+            family: serif
+            size: 12px
+      .textarea
+        label
+          display: none
+        textarea
+          width: 400px
+          margin: 0
+          padding: 0
+      .submit
+        clear: both
+        padding: 10px 0 0 0
+        input
+          float : left
+          background-color: #545353
+          margin: 0 auto
+          cursor: pointer
+          color: white
+          display: block
+          font: 
+            size: 12px
+          &:hover
+            background: #db6b3b
+      
+              
+  
+#side_bar
+  width: 160px
+  float: right
+  white-space: normal
+  font-family: serif
+
+.side_header
+  background: #1C1C1C
+  height: 40px
+  color: #edece2
+  font-family: serif
+  text-align: left
+  h4
+    color: #faf9f4
+    font-size: 20px
+    line-height: 30px
+    margin: 0
+    padding: 5px 10px
+
+.new
+  padding-bottom: 20px
+  ul
+    padding: 0
+    margin: 0
+  li
+    font-size: 12px
+    line-height: 1.2
+    list-style: none
+    margin: 0
+    border-left: dotted 3px #db6b3b
+    padding-left: 8px
+    margin: 6px
+    a
+      color: #1C1C1C
+  a
+    color: #1C1C1C
+
+.new_content
+  border-bottom: dotted
+  border-color: #1C1C1C
+  border-width: 1px
+  background: #faf9f4
+  padding: 5px
+  margin: 0
+
+.past
+  padding-bottom: 20px
+  ul
+    padding: 0
+    margin: 0
+  li
+    font-size: 12px
+    line-height: 1.2
+    list-style: none
+    margin: 0
+    border-left: dotted 3px #db6b3b
+    padding-left: 8px
+    margin: 6px
+    a
+      color: #1C1C1C
+  a
+    color: #1C1C1C
+
+.past_content
+  border-bottom: dotted
+  border-color: #1C1C1C
+  border-width: 1px
+  background: #faf9f4
+  padding: 5px
+
+.side_tags
+  padding-bottom: 20px
+  ul
+    padding: 0
+    margin: 0
+  li
+    font-size: 12px
+    line-height: 1.2
+    list-style: none
+    margin: 0
+    border-left: dotted 3px #db6b3b
+    padding-left: 8px
+    margin: 6px
+    a
+      color: #1C1C1C
+  a
+    color: #1C1C1C
+
+.side_tags_content
+  border-bottom: dotted
+  border-color: #1C1C1C
+  border-width: 1px
+  background: #faf9f4
+  padding: 5px
+
+.search
+  padding-bottom: 20px
+  form
+    margin: 0
+    border-left: dotted 3px #db6b3b
+    padding-left: 6px
+    
+    .text_field
+      width: 120px  
+      height: 16px  
+      margin-left: 2px  
+      color: #1c1c1c
+      
+    .submit
+      background: #545353  
+      color: #faf9f4
+      cursor: pointer
+      &:hover
+        background: #db6b3b
+  
+.search_content
+  border-bottom: dotted
+  border-color: #1C1C1C
+  border-width: 1px
+  background: #faf9f4
+  line-height: 1.5
+  padding: 10px
+
+.pn_wrap
+  width: 860px
+  height: 60px
+  margin: 20px auto
+  font-family: serif
+  float: left
+
+.prev
+  width: 100px
+  height: 30px
+  line-height: 30px
+  background: #545353
+  float: left
+  text-align: center
+  a
+    color: #faf9f4
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+
+.next
+  width: 100px
+  height: 30px
+  line-height: 30px
+  background: #545353
+  float: right
+  margin-right: 200px
+  text-align: center
+  a
+    color: #faf9f4
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+
+footer
+  clear: both
+  width: 100%
+  height: 80px
+  color: #edece2
+  background: #1C1C1C
+  margin-top: 70px
+  font-size: 15px
+
+.copyright
+  float: left
+  margin-right: 15px
+  position: relative
+  top: 30px
+  a
+    color: #edece2
+    &:hover
+      background: #db6b3b
+
+.poweredby
+  float: right
+  position: relative
+  top: 30px
+  width: 160px
+  text-align: right
+  a
+    color: #edece2
+    &:hover
+      background: #db6b3b
+
+.control
+  margin-top: 30px
+  margin-right: 20px
+  overflow: hidden
+  float: right
+  text-align: center
+  li
+    list-style: none
+    float: left
+    margin: 0 10px
+    a
+      display: block
+      line-height: 1
+      text-align: center
+      color: #edece2
+      &:hover
+        background: #db6b3b
