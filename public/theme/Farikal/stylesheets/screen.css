@@ -763,11 +763,11 @@ h3 {
 footer {
   clear: both;
   width: 100%;
-  height: 100px;
+  height: 80px;
   color: #edece2;
   background: #1c1c1c;
   margin-top: 70px;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 1px;
 }
 
@@ -777,7 +777,7 @@ footer {
   margin-right: 15px;
   position: relative;
   top: 30px;
-  font-size: 13px;
+  font-size: 12px;
 }
 /* line 541, ../sass/screen.sass */
 .copyright a {
@@ -795,7 +795,7 @@ footer {
   top: 30px;
   width: 160px;
   text-align: right;
-  font-size: 13px;
+  font-size: 12px;
 }
 /* line 553, ../sass/screen.sass */
 .poweredby a {
@@ -808,19 +808,20 @@ footer {
 
 /* line 558, ../sass/screen.sass */
 .control {
-  margin-top: 35px;
+  margin-top: 30px;
   margin-right: 20px;
   overflow: hidden;
   text-align: center;
-  font-size: 13px;
+  float: right;
+  font-size: 12px;
 }
-/* line 564, ../sass/screen.sass */
+/* line 565, ../sass/screen.sass */
 .control li {
   list-style: none;
   float: left;
   margin: 0 10px;
 }
-/* line 568, ../sass/screen.sass */
+/* line 569, ../sass/screen.sass */
 .control li a {
   display: block;
   line-height: 1;
@@ -828,7 +829,7 @@ footer {
   color: #edece2;
   font-size: 13px;
 }
-/* line 574, ../sass/screen.sass */
+/* line 575, ../sass/screen.sass */
 .control li a:hover {
   background: #db6b3b;
 }
