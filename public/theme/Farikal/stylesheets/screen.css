@@ -338,7 +338,7 @@ h3 {
   white-space: normal;
 }
 /* line 213, ../sass/screen.sass */
-.article_contents .body .body img {
+.article_contents .body img {
   display: block;
   margin: 20px;
   width: 510px;
