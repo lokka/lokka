@@ -793,26 +793,26 @@ footer {
   float: right;
   position: relative;
   top: 30px;
-  width: 160px;
   text-align: right;
   font-size: 12px;
 }
-/* line 553, ../sass/screen.sass */
+/* line 552, ../sass/screen.sass */
 .poweredby a {
   color: #edece2;
 }
-/* line 555, ../sass/screen.sass */
+/* line 554, ../sass/screen.sass */
 .poweredby a:hover {
   background: #db6b3b;
 }
 
-/* line 558, ../sass/screen.sass */
+/* line 557, ../sass/screen.sass */
 .control {
-  margin-top: 30px;
+  top: 33px;
   margin-right: 20px;
   overflow: hidden;
   text-align: center;
   float: right;
+  position: relative;
   font-size: 12px;
 }
 /* line 565, ../sass/screen.sass */
