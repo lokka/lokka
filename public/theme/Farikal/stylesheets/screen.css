@@ -811,17 +811,16 @@ footer {
   margin-top: 35px;
   margin-right: 20px;
   overflow: hidden;
-  float: right;
   text-align: center;
   font-size: 13px;
 }
-/* line 565, ../sass/screen.sass */
+/* line 564, ../sass/screen.sass */
 .control li {
   list-style: none;
   float: left;
   margin: 0 10px;
 }
-/* line 569, ../sass/screen.sass */
+/* line 568, ../sass/screen.sass */
 .control li a {
   display: block;
   line-height: 1;
@@ -829,7 +828,7 @@ footer {
   color: #edece2;
   font-size: 13px;
 }
-/* line 575, ../sass/screen.sass */
+/* line 574, ../sass/screen.sass */
 .control li a:hover {
   background: #db6b3b;
 }
