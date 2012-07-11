@@ -14,13 +14,13 @@
     <meta name="keywords" content="<%= @site.meta_keywords %>" />
     <meta content="width=device-width, height=device-height, initial-scale=1.0" name="viewport">
     <link rel="shortcut icon" href="<%= @theme.path %>/favicon.ico" />
-    <link rel="alternate" href="/index.atom" type="application/atom+xml" />
+    <link rel="alternate" href="<%= url('/index.atom') %>" type="application/atom+xml" />
     <link rel="stylesheet" href="<%= @theme.path %>/style.css" type="text/css" />
     <%= header %>
   </head>
   <body class="<%= @theme_types.join(' ') %>">
     <div id="header">
-      <h1><a href="/"><%= @site.title %></a></h1>
+      <h1><a href="<%= url('/') %>"><%= @site.title %></a></h1>
       <div class="section">
         <div class="bread_crumbs">
           <%= bread_crumb %>
@@ -37,7 +37,7 @@
           <dd>
             <ul>
               <% Post.recent(5).each do |post| %>
-                <li><a href="<%= post.link %>"><%= post.title %></a></li>
+                <li><a href="<%= url(post.link) %>"><%= post.title %></a></li>
               <% end %>
             </ul>
           </dd>
@@ -46,7 +46,7 @@
             <dd>
               <ul>
                 <% Page.all.each do |page| %>
-                  <li><a href="<%= page.link %>"><%= page.title %></a></li>
+                  <li><a href="<%= url(page.link) %>"><%= page.title %></a></li>
                 <% end %>
               </ul>
             </dd>
@@ -56,7 +56,7 @@
           <dd>
       		  <ul>
 			        <% Tag.all.each do |tag| %>
-				        <li><%= link_to tag.name, tag.link %></li>				
+				        <li><%= link_to tag.name, url(tag.link) %></li>				
 			        <% end %>
 		        </ul>
           </dd>
@@ -66,7 +66,7 @@
           <dd>
     		    <ul>
 		          <% Comment.recent.each do |comment| %>
-			          <li><%= link_to truncate(strip_tags(comment.body), :length => 16), comment.link %></li>				
+			          <li><%= link_to truncate(strip_tags(comment.body), :length => 16), (comment.link) %></li>				
 		          <% end %>
 	          </ul>
           </dd>
@@ -78,7 +78,7 @@
 
 
     <div id="footer">
-      <div class="copy"><a href="/"><%= @site.title %></a></div>
+      <div class="copy"><a href="<%= url('/') %>"><%= @site.title %></a></div>
       <div class="poweredby">powered by <a href="http://lokka.org/">Lokka</a></div>
       <div class="switch"><a href="?theme=pc">PC Theme</a></div>
     </div>

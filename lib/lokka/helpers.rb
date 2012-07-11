@@ -27,7 +27,7 @@ module Lokka
         return true
       else
         session[:return_to] = request.fullpath
-        redirect '/admin/login'
+        redirect to('/admin/login')
         return false
       end
     end
@@ -155,9 +155,9 @@ module Lokka
     def redirect_after_edit(entry)
       name = entry.class.name.downcase.pluralize
       if entry.draft
-        redirect "/admin/#{name}?draft=true"
+        redirect to("/admin/#{name}?draft=true")
       else
-        redirect "/admin/#{name}"
+        redirect to("/admin/#{name}")
       end
     end
 
@@ -254,9 +254,9 @@ module Lokka
       entry.destroy
       flash[:notice] = t("#{name}_was_successfully_deleted")
       if entry.draft
-        redirect "/admin/#{name.pluralize}?draft=true"
+        redirect to("/admin/#{name.pluralize}?draft=true")
       else
-        redirect "/admin/#{name.pluralize}"
+        redirect to("/admin/#{name.pluralize}")
       end
     end
 

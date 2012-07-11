@@ -1,5 +1,5 @@
 %h2= t('listing_comments')
-%p.spam= link_to t('delete_spam'), "/admin/comments/spam", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+%p.spam= link_to t('delete_spam'), url("/admin/comments/spam"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 %table.comments
   %tr
     %th= t('comment_status')
@@ -11,11 +11,11 @@
     %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
       - status = case comment.status; when Comment::APPROVED; t('comment_approved'); when Comment::MODERATED; t('comment_moderated'); when Comment::SPAM; t('comment_spam'); end
       %td= status
-      %td.body= link_to truncate(strip_tags(comment.body)), comment.link
+      %td.body= link_to truncate(strip_tags(comment.body)), url(comment.link)
       %td= comment.name
       %td= l(comment.created_at, :format => :long)
-      %td= link_to t('edit'), "/admin/comments/#{comment.id}/edit", :class => 'button'
-      %td= link_to t('delete'), "/admin/comments/#{comment.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+      %td= link_to t('edit'), url("/admin/comments/#{comment.id}/edit"), :class => 'button'
+      %td= link_to t('delete'), url("/admin/comments/#{comment.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
   %ul
     - if @comments.pager.previous_page

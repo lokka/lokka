@@ -2,7 +2,7 @@
 - if flash[:error]
   #error
     %p= flash[:error]
-%form{'action' => '/admin/permalink', 'method' => 'post', 'data-method' => 'put'}
+%form{'action' => url('/admin/permalink'), 'method' => 'post', 'data-method' => 'put'}
   %input{'name' => '_method', 'type' => 'hidden', 'value' => 'put'}
   %p
     = t('permalink.description')

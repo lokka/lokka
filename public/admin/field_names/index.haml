@@ -11,7 +11,7 @@
     %td= l field_name.created_at.to_time
     %td= l field_name.updated_at.to_time
     %td
-      = link_to t('delete'), "/admin/field_names/#{field_name.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+      = link_to t('delete'), url("/admin/field_names/#{field_name.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
   %ul
     - if @field_names.pager.previous_page

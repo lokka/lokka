@@ -1,7 +1,7 @@
 <% @posts.each do |post| %>
 <div class="article section">
   <div class="header">
-    <h2 class="title"><a href="<%= post.link %>"><%= post.title %></a></h2>
+    <h2 class="title"><a href="<%= url(post.link) %>"><%= post.title %></a></h2>
     <div class="created_at">
       <span class="mounth <%= post.created_at.strftime("%b") %>"><%= post.created_at.strftime("%b") %></span>
       <span class="day"><%=post.created_at.day %></span>
@@ -15,7 +15,7 @@
   <div class="footer">
 
 <% if logged_in? %>
-    <p><a href="<%= post.edit_link %>"><%= t('edit') %></a></p>
+    <p><a href="<%= url(post.edit_link) %>"><%= t('edit') %></a></p>
 <% end %>
   </div>
 </div>

@@ -23,7 +23,7 @@ module Lokka
         Option.basic_auth_username = params['basic_auth_username']
         Option.basic_auth_password = params['basic_auth_password']
         flash[:notice] = 'Updated.'
-        redirect '/admin/plugins/basic_auth'
+        redirect to('/admin/plugins/basic_auth')
       end
     end
   end

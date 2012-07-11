@@ -1,7 +1,7 @@
 <div class="section article">
   <div class="label clearfix">
     <% unless @entry.category.nil? %>
-    <p class="category"><a href="<%= @entry.category.link %>"><%= @entry.category.title %></a></p>
+    <p class="category"><a href="<%= url(@entry.category.link) %>"><%= @entry.category.title %></a></p>
     <% end %>
     <% unless @entry.tags.size.zero? %>
     <div class="tags">
@@ -24,7 +24,7 @@
   <div class="body">
     <%= @entry.body %>
     <% if logged_in? %>
-      <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
+      <p><a href="<%= url(@entry.edit_link) %>"><%= t('edit') %></a></p>
     <% end %>
   </div>
 </div>

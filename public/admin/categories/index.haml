@@ -6,7 +6,7 @@
     %th(colspan="2")
   - @categories.each do |category|
     %tr
-      %td= link_to category.title, "/admin/categories/#{category.id}/edit"
+      %td= link_to category.title, url("/admin/categories/#{category.id}/edit")
       %td= l(category.created_at, :format => :long)
-      %td= link_to t('edit'), "/admin/categories/#{category.id}/edit", :class => 'button'
-      %td= link_to t('delete'), "/admin/categories/#{category.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+      %td= link_to t('edit'), url("/admin/categories/#{category.id}/edit"), :class => 'button'
+      %td= link_to t('delete'), url("/admin/categories/#{category.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
