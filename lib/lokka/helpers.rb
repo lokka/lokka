@@ -103,12 +103,7 @@ module Lokka
 
     def rendering(ext, name, options = {})
       options[:views] ||= "#{settings.views}/theme/#{@theme.name}"
-      layout = "#{options[:views]}/layout"
       path = "#{options[:views]}/#{name}"
-
-      if File.exist?("#{options[:views]}/#{layout}.#{ext}")
-        options[:layout] = layout.to_sym if options[:layout].nil?
-      end
 
       if File.exist?("#{path}.#{ext}")
         send(ext.to_sym, name.to_sym, options)
