@@ -14,7 +14,7 @@
       %title= @site.title
     %meta{:content => @site.meta_description, :name => "description"}/
     %meta{:content => @site.meta_keywords, :name => "keywords"}/
-    %link{:href => url("/index.atom", :rel => "alternate", :title => @title, :type => "application/atom+xml"}/
+    %link{:href => url("/index.atom"), :rel => "alternate", :title => @title, :type => "application/atom+xml"}/
     %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}/
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js", :type => "text/javascript"}
     %script{:src => "#{@theme.path}/javascripts/gist.js", :type => "text/javascript"}
