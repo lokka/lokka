@@ -11,13 +11,13 @@
 <% end %>
     <meta name="description" content="<%= @site.meta_description %>" />
     <meta name="keywords" content="<%= @site.meta_keywords %>" />
-    <link href="/index.atom" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
+    <link href="<%= url('/index.atom') %>" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
     <link rel="stylesheet" href="<%= @theme.path %>/style.css" type="text/css" />
     <%= header %>
   </head>
   <body>
     <div id="header">
-      <h1><a href="/"><%= @site.title %></a></h1>
+      <h1><a href="<%= url('/') %>"><%= @site.title %></a></h1>
       <div class="description"><%= @site.description %></div>
       <div id="bread_crumb">
         <%= bread_crumb %>
@@ -35,7 +35,7 @@
           <dd>
             <ul>
               <% Post.recent(5).each do |post| %>
-              <li><a href="<%= post.link %>"><%= post.title %></a></li>
+              <li><a href="<%= url(post.link) %>"><%= post.title %></a></li>
               <% end %>
             </ul>
           </dd>
@@ -45,7 +45,7 @@
           <dd>
             <ul>
               <% Tag.all.each do |tag| %>
-              <li><a href="<%= tag.link %>"><%= tag.name %></a></li>
+              <li><a href="<%= url(tag.link) %>"><%= tag.name %></a></li>
               <% end %>
             </ul>
           </dd>
@@ -53,13 +53,13 @@
           <dd>
             <ul>
               <% months.each do |month| %>
-              <li><a href="/<%= month.year %>/<%= month.month %>/"><%= month.year %>/<%= month.month %></a></li>
+              <li><a href="<%= url('/' + month.year + '/' + month.month + '/') %>"><%= month.year %>/<%= month.month %></a></li>
               <% end %>
             </ul>
           </dd>
           <dt>Search</dt>
           <dd>
-            <form action="/search/" method="get">
+            <form action="<%= url('/search/') %>" method="get">
               <input type="text" name="query" class="text_field" />
               <button class="submit" onclick="submit()">Search</button>
             </form>
@@ -67,8 +67,8 @@
           <dt>Others</dt>
           <dd>
             <ul>
-              <li><a href="/admin/">Admin</a></li>
-              <li><a href="/index.atom">Feed</a></li>
+              <li><a href="<%= url('/admin/') %>">Admin</a></li>
+              <li><a href="<%= url('/index.atom') %>">Feed</a></li>
             </ul>
           </dd>
         </dl>

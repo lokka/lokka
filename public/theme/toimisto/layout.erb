@@ -11,7 +11,7 @@
 <% end %>
     <meta name="description" content="<%= @site.meta_description %>" />
     <meta name="keywords" content="<%= @site.meta_keywords %>" />
-    <link href="/index.atom" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
+    <link href="<%= url('/index.atom') %>" rel="alternate" title="<%= @title %>" type="application/atom+xml" />
     <link rel="stylesheet" href="<%= @theme.path %>/style.css" type="text/css" />
     <%= header %>
   </head>
@@ -23,7 +23,7 @@
     <div id="header">
     
       <div class="wrap">
-      <p class="title"><a href="/"><%= @site.title %></a></p>
+      <p class="title"><a href="<%= url('/') %>"><%= @site.title %></a></p>
       <p class="catchcopy"><%= @site.description %></p>
       </div><!-- .wrap -->
       
@@ -40,7 +40,7 @@
           <h2>Recent Entries</h2>
           <ol>
             <% Post.recent(5).each do |post| %>
-              <li><a href="<%= post.link %>"><%= post.title %></a></li>
+              <li><a href="<%= url(post.link) %>"><%= post.title %></a></li>
             <% end %>
           </ol>
         </div><!-- .nav -->
@@ -58,7 +58,7 @@
           <h2>Tags</h2>
           <ul>
             <% Tag.all.each do |tag| %>
-              <li><a href="<%= tag.link %>"><%= tag.name %></a></li>
+              <li><a href="<%= url(tag.link) %>"><%= tag.name %></a></li>
             <% end %>
           </ul>
         </div><!-- .nav -->
@@ -67,14 +67,14 @@
           <h2>Archives</h2>
           <ul>
             <% months.each do |month| %>
-              <li><a href="/<%= month.year %>/<%= month.month %>/"><%= month.year %>/<%= month.month %></a></li>
+              <li><a href="<%= url('/' + month.year + '/' + month.month + '/') %>"><%= month.year %>/<%= month.month %></a></li>
             <% end %>
           </ul>
         </div><!-- .nav -->
         
         <div class="search">
           <h2>Search</h2>
-          <form action="/search/" method="get">
+          <form action="<%= url('/search/') %>" method="get">
             <input type="text" name="query" class="text_field" />
             <button class="submit" onclick="submit()">Search</button>
           </form>
@@ -83,12 +83,12 @@
     </div>
     <div id="footer">
       <div class="wrap">
-        <p class="copyright">Copyright &copy; <a href="/"><%= @site.title %></a> 2XXX - 2XXXX All Rights Reserved.</p>
+        <p class="copyright">Copyright &copy; <a href="<%= url('/') %>"><%= @site.title %></a> 2XXX - 2XXXX All Rights Reserved.</p>
         <p class="poweredby">powered by <a href="http://github.com/komagata/lokka">Lokka</a></p>
         <div class="control">
           <ul>
-            <li><a href="/admin/">Admin</a></li>
-            <li><a href="/index.atom">Feed</a></li>
+            <li><a href="<%= url('/admin/') %>">Admin</a></li>
+            <li><a href="<%= url('/index.atom') %>">Feed</a></li>
           </ul>
       </div>
     </div>

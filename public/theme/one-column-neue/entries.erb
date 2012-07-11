@@ -5,11 +5,11 @@
 <% @posts.each do |post| %>
   <div class="section article">
     <div class="header">
-      <h1><a href="<%= post.link %>"><%= post.title %></a></h1>
+      <h1><a href="<%= url(post.link) %>"><%= post.title %></a></h1>
       <div class="info">
         <span class="date"><%= l post.created_at %></span>
         <% unless post.category.nil? %>
-        <span class="category"><a href="<%= post.category.span %>"><%= post.category.title %></a></span>
+        <span class="category"><a href="<%= url(post.category.span) %>"><%= post.category.title %></a></span>
         <% end %>
         <% unless post.tags.size.zero? %>
         <span class="tags"><%= post.tags_to_html %></span>
@@ -21,7 +21,7 @@
     </div>
     <div class="admin-footer">
       <% if logged_in? %>
-      <p><a href="<%= post.edit_link %>"><%= t('edit') %></a></p>
+      <p><a href="<%= url(post.edit_link) %>"><%= t('edit') %></a></p>
       <% end %>
     </div>
   </div>

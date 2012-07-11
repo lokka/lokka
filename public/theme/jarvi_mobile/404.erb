@@ -13,7 +13,7 @@
   </head>
   <body>
     <div id="header">
-      <h1 class="wide"><a href="/"><%= @site.title %></a></h1>
+      <h1 class="wide"><a href="<%= url('/') %>"><%= @site.title %></a></h1>
     </div>
     <div id="container">
       <div id="main">
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div id="footer">
-      <div class="copy"><a href="/"><%= @site.title %></a></div>
+      <div class="copy"><a href="<%= url('/') %>"><%= @site.title %></a></div>
       <div class="poweredby wide">powered by <a href="http://lokka.org/">Lokka</a></div>
     </div>
   </body>

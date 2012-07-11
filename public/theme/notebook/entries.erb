@@ -3,13 +3,13 @@
   
 	<div class="item">
 		<div class="date"><%= post.created_at.strftime("%Y/%m/%d") %></div>
-		<h3><a href="<%= post.link %>"><%= post.title %></a></h3>
+		<h3><a href="<%= url(post.link) %>"><%= post.title %></a></h3>
 		<div class="body"><%= post.body %></div>
 		
 		<div class="info">
 		    <ul class="tags">
 				<% unless post.category.nil? %>
-				<li class="category"><a href="<%= post.category.link %>"><%= post.category.title %></a></li>
+				<li class="category"><a href="<%= url(post.category.link) %>"><%= post.category.title %></a></li>
 				<% end %>
 				<% unless post.tags.size.zero? %>
 				<li class="tags"><%= post.tags_to_html %></li>
@@ -21,7 +21,7 @@
 		    <ul>
 				<li class="author"><%= post.user.name %></li>
 				<% if logged_in? %>
-				<li class="l"><a href="<%= post.edit_link %>"><%= t('edit') %></a></li>
+				<li class="l"><a href="<%= url(post.edit_link) %>"><%= t('edit') %></a></li>
 				<% end %>
 			</ul>
 			<div class="c"></div>

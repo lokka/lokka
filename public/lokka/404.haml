@@ -6,12 +6,12 @@
     %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
     %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
     %title 404 not found - Lokka
-    %link{:rel => 'shortcut icon', :href => '/lokka/favicon.ico'}
-    %link{:rel => 'stylesheet', :href => '/lokka/style.css', :type => 'text/css'}
+    %link{:rel => 'shortcut icon', :href => url('/lokka/favicon.ico')}
+    %link{:rel => 'stylesheet', :href => url('/lokka/style.css'), :type => 'text/css'}
   %body
     #header
       %h1
-        %a{:href => '/'} 404 not found - Lokka
+        %a{:href => url('/')} 404 not found - Lokka
     #content
       #main
         %h2 404 not found

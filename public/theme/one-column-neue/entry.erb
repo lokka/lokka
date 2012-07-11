@@ -4,7 +4,7 @@
     <div class="info">
       <span class="date"><%= l @entry.created_at %></span>
       <% unless @entry.category.nil? %>
-      <span class="category"><a href="<%= @entry.category.link %>"><%= @entry.category.title %></a></span>
+      <span class="category"><a href="<%= url(@entry.category.link) %>"><%= @entry.category.title %></a></span>
       <% end %>
       <% unless @entry.tags.size.zero? %>
       <span class="tags"><%= @entry.tags_to_html %></span>
@@ -16,7 +16,7 @@
   </div>
   <div class="admin-footer">
     <% if logged_in? %>
-    <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
+    <p><a href="<%= url(@entry.edit_link) %>"><%= t('edit') %></a></p>
     <% end %>
   </div>
 

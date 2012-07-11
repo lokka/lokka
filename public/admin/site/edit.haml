@@ -2,7 +2,7 @@
   sort_options  = Site::SORT_COLUMNS.map {|c| [t("entry.#{c}"), c] }
   order_options = Site::ORDERS.map {|o| [t(o), o] }
 %h2= t('edit_site')
-- form_for @site, '/admin/site', :method => :put do |f|
+- form_for @site, url('/admin/site'), :method => :put do |f|
   %p
     = f.label :title, :caption => t('site.title')
     %br/

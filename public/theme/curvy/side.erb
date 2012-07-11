@@ -17,7 +17,7 @@
 		<ul id="side_list">
 			<% Post.recent.each do |post| %>
 				<li>
-					<span>&middot;</span><%= link_to post.title, post.link %>
+					<span>&middot;</span><%= link_to post.title, url(post.link) %>
 				</li>				
 			<% end %>
 		</ul>
@@ -32,7 +32,7 @@
 		<ul id="side_list">
 			<% Comment.recent.each do |comment| %>
 				<li>
-					<span>&middot;</span><%= link_to truncate(strip_tags(comment.body), :length => 16), comment.link %>
+					<span>&middot;</span><%= link_to truncate(strip_tags(comment.body), :length => 16), url(comment.link) %>
 				</li>				
 			<% end %>
 		</ul>
@@ -48,7 +48,7 @@
 		<ul id="side_list">
 			<% Tag.all.each do |tag| %>
 				<li>
-					<span>&middot;</span><%= link_to tag.name, tag.link %>
+					<span>&middot;</span><%= link_to tag.name, url(tag.link) %>
 				</li>				
 			<% end %>
 		</ul>
@@ -65,7 +65,7 @@
 			<% months.each do |m| %>
 				<li>
 					<span>&middot;</span>
-					<%= link_to "#{m.year}年#{m.month}月", "/#{m.year}/#{m.month}/" %>
+					<%= link_to "#{m.year}年#{m.month}月", url("/#{m.year}/#{m.month}/") %>
 				</li>				
 			<% end %>
 		</ul>
@@ -77,7 +77,7 @@
 	  <%= t('search') %>
 	</h3>
 	<div class="side_cont_body">
-		<form action="/search/" method="get" id="">
+		<form action="<%= url('/search/') %>" method="get" id="">
 			<input type="text" name="query" class="search_field">
 		</form>
 	</div>
