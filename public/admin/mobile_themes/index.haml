@@ -2,17 +2,17 @@
 %ul.themes
   %li{:class => Site.first.mobile_theme.blank? ? 'theme selected blank' : 'theme blank'}
     .title
-      = link_to t('not_select'), "/admin/mobile_themes?title=", :confirm => t('are_you_sure'), :method => 'put'
+      = link_to t('not_select'), url("/admin/mobile_themes?title="), :confirm => t('are_you_sure'), :method => 'put'
     .screenshot
-      = link_to t('not_select'), "/admin/mobile_themes?title=", :confirm => t('are_you_sure'), :method => 'put'
+      = link_to t('not_select'), url("/admin/mobile_themes?title="), :confirm => t('are_you_sure'), :method => 'put'
   - @themes.each do |theme|
     - class_for_theme = theme.title == Site.first.mobile_theme ? 'theme selected' : 'theme'
     %li{:class => class_for_theme}
       .title
-        = link_to theme.title, "/admin/mobile_themes?title=#{theme.title}", :confirm => t('are_you_sure'), :method => 'put'
+        = link_to theme.title, url("/admin/mobile_themes?title=#{theme.title}"), :confirm => t('are_you_sure'), :method => 'put'
       - if theme.screenshot
         .screenshot
-          = link_to "<img src=\"#{theme.screenshot}\" />", "/admin/mobile_themes?title=#{theme.title}", :confirm => t('may_i_change_the_theme'), :method => 'put'
+          = link_to "<img src=\"#{theme.screenshot}\" />", url("/admin/mobile_themes?title=#{theme.title}"), :confirm => t('may_i_change_the_theme'), :method => 'put'
       - else
         .screenshot
           %span no screenshot

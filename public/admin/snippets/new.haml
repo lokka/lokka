@@ -1,5 +1,5 @@
 %h2= t('new_snippet')
-%form(action="/admin/snippets" method="post")
+%form{'action' => url("/admin/snippets"), 'method' => "post"}
   = partial 'snippets/form'
   %p
     %input(type="submit" value="#{t('new')}")

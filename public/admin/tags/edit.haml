@@ -1,5 +1,5 @@
 %h2= t('edit_tag')
-%form(action="/admin/tags/#{@tag.id}" method="post")
+%form{'action' => url("/admin/tags/#{@tag.id}"), 'method' => "post"}
   %input(type="hidden" name="_method" value="put")
   = partial 'tags/form'
   %p

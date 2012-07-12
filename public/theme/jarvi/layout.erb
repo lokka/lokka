@@ -14,7 +14,7 @@
     <meta name="keywords" content="<%= @site.meta_keywords %>" />
     <link rel="shortcut icon" href="<%= @theme.path %>/favicon.ico" />
     <link rel="alternate" href="<%= url('/index.atom') %>" type="application/atom+xml" />
-    <link rel="stylesheet" href="<%= url("#{@theme.path}/style.css") %>" type="text/css" />
+    <link rel="stylesheet" href="<%= "#{@theme.path}/style.css" %>" type="text/css" />
     <%= header %>
   </head>
   <body class="<%= @theme_types.join(' ') %>">

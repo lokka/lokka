@@ -18,7 +18,7 @@ module Lokka
           session[:return_to] = false
           redirect redirect_url
         else
-          redirect '/admin/'
+          redirect to('/admin/')
         end
       else
         @login_failed = true
@@ -28,7 +28,7 @@ module Lokka
 
     get '/admin/logout' do
       session[:user] = nil
-      redirect '/admin/login'
+      redirect to('/admin/login')
     end
 
     # posts
@@ -63,7 +63,7 @@ module Lokka
       @comment = Comment.new(params['comment'])
       if @comment.save
         flash[:notice] = t('comment_was_successfully_created')
-        redirect '/admin/comments'
+        redirect to('/admin/comments')
       else
         haml :'comments/new', :views => Lokka.admin_theme_dir
       end
@@ -78,7 +78,7 @@ module Lokka
       @comment = Comment.get(id) or raise Sinatra::NotFound
       if @comment.update(params['comment'])
         flash[:notice] = t('comment_was_successfully_updated')
-        redirect '/admin/comments'
+        redirect to('/admin/comments')
       else
         haml :'comments/edit', :views => Lokka.admin_theme_dir
       end
@@ -87,14 +87,14 @@ module Lokka
     delete '/admin/comments/spam' do
       Comment.spam.destroy
       flash[:notice] = t('comment_was_successfully_deleted')
-      redirect '/admin/comments'
+      redirect to('/admin/comments')
     end
 
     delete '/admin/comments/:id' do |id|
       comment = Comment.get(id) or raise Sinatra::NotFound
       comment.destroy
       flash[:notice] = t('comment_was_successfully_deleted')
-      redirect '/admin/comments'
+      redirect to('/admin/comments')
     end
 
     # category
@@ -115,7 +115,7 @@ module Lokka
       #@category.user = current_user
       if @category.save
         flash[:notice] = t('category_was_successfully_created')
-        redirect '/admin/categories'
+        redirect to('/admin/categories')
       else
         haml :'categories/new', :views => Lokka.admin_theme_dir
       end
@@ -131,7 +131,7 @@ module Lokka
       params['category'].delete('parent_id') if params['category']['parent_id'].blank?
       if @category.update(params['category'])
         flash[:notice] = t('category_was_successfully_updated')
-        redirect '/admin/categories'
+        redirect to('/admin/categories')
       else
         haml :'categories/edit', :views => Lokka.admin_theme_dir
       end
@@ -141,7 +141,7 @@ module Lokka
       category = Category.get(id) or raise Sinatra::NotFound
       category.destroy
       flash[:notice] = t('category_was_successfully_deleted')
-      redirect '/admin/categories'
+      redirect to('/admin/categories')
     end
 
     # tag
@@ -160,7 +160,7 @@ module Lokka
       @tag = Tag.get(id) or raise Sinatra::NotFound
       if @tag.update(params['tag'])
         flash[:notice] = t('tag_was_successfully_updated')
-        redirect '/admin/tags'
+        redirect to('/admin/tags')
       else
         haml :'tags/edit', :views => Lokka.admin_theme_dir
       end
@@ -170,7 +170,7 @@ module Lokka
       tag = Tag.get(id) or raise Sinatra::NotFound
       tag.destroy
       flash[:notice] = t('tag_was_successfully_deleted')
-      redirect '/admin/tags'
+      redirect to('/admin/tags')
     end
 
     # users
@@ -189,7 +189,7 @@ module Lokka
       @user = User.new(params['user'])
       if @user.save
         flash[:notice] = t('user_was_successfully_created')
-        redirect '/admin/users'
+        redirect to('/admin/users')
       else
         haml :'users/new', :views => Lokka.admin_theme_dir
       end
@@ -204,7 +204,7 @@ module Lokka
       @user = User.get(id) or raise Sinatra::NotFound
       if @user.update(params['user'])
         flash[:notice] = t('user_was_successfully_updated')
-        redirect '/admin/users'
+        redirect to('/admin/users')
       else
         haml :'users/edit', :views => Lokka.admin_theme_dir
       end
@@ -218,7 +218,7 @@ module Lokka
         target_user.destroy
       end
       flash[:notice] = t('user_was_successfully_deleted')
-      redirect '/admin/users'
+      redirect to('/admin/users')
     end
 
     # snippets
@@ -239,7 +239,7 @@ module Lokka
       @snippet = Snippet.new(params['snippet'])
       if @snippet.save
         flash[:notice] = t('snippet_was_successfully_created')
-        redirect '/admin/snippets'
+        redirect to('/admin/snippets')
       else
         haml :'snippets/new', :views => Lokka.admin_theme_dir
       end
@@ -254,7 +254,7 @@ module Lokka
       @snippet = Snippet.get(id) or raise Sinatra::NotFound
       if @snippet.update(params['snippet'])
         flash[:notice] = t('snippet_was_successfully_updated')
-        redirect '/admin/snippets'
+        redirect to('/admin/snippets')
       else
         haml :'snippets/edit', :views => Lokka.admin_theme_dir
       end
@@ -264,7 +264,7 @@ module Lokka
       snippet = Snippet.get(id) or raise Sinatra::NotFound
       snippet.destroy
       flash[:notice] = t('snippet_was_successfully_deleted')
-      redirect '/admin/snippets'
+      redirect to('/admin/snippets')
     end
 
     # theme
@@ -283,7 +283,7 @@ module Lokka
       site = Site.first
       site.update(:theme => params[:title])
       flash[:notice] = t('theme_was_successfully_updated')
-      redirect '/admin/themes'
+      redirect to('/admin/themes')
     end
 
     # mobile_theme
@@ -302,7 +302,7 @@ module Lokka
       site = Site.first
       site.update(:mobile_theme => params[:title])
       flash[:notice] = t('theme_was_successfully_updated')
-      redirect '/admin/mobile_themes'
+      redirect to('/admin/mobile_themes')
     end
 
     # plugin
@@ -319,7 +319,7 @@ module Lokka
     put '/admin/site' do
       if Site.first.update(params['site'])
         flash[:notice] = t('site_was_successfully_updated')
-        redirect '/admin/site/edit'
+        redirect to('/admin/site/edit')
       else
         haml :'site/edit', :views => Lokka.admin_theme_dir
       end
@@ -336,7 +336,7 @@ module Lokka
       if file
         Lokka::Importer::WordPress.new(file).import
         flash[:notice] = t('data_was_successfully_imported')
-        redirect '/admin/import'
+        redirect to('/admin/import')
       else
         haml :import, :views => Lokka.admin_theme_dir
       end
@@ -369,7 +369,7 @@ module Lokka
         flash[:permalink_format] = format
       end
 
-      redirect '/admin/permalink'
+      redirect to('/admin/permalink')
     end
 
     # field names
@@ -390,7 +390,7 @@ module Lokka
       @field_name = FieldName.new(params['field_name'])
       if @field_name.save
         flash[:notice] = t('field_name_was_successfully_created')
-        redirect '/admin/field_names'
+        redirect to('/admin/field_names')
       else
         haml :'field_names/new', :views => Lokka.admin_theme_dir
       end
@@ -400,7 +400,7 @@ module Lokka
       field_name = FieldName.get(id) or raise Sinatra::NotFound
       field_name.destroy
       flash[:notice] = t('field_name_was_successfully_deleted')
-      redirect '/admin/field_names'
+      redirect to('/admin/field_names')
     end
   end
 end

@@ -14,7 +14,7 @@
 		<div class="info">
 		    <ul class="tags">
 				<% unless @entry.category.nil? %>
-				<li class="category"><a href="<%= @entry.category.link %>"><%= @entry.category.title %></a></li>
+				<li class="category"><a href="<%= url(@entry.category.link) %>"><%= @entry.category.title %></a></li>
 	      <% end %>
 				<% unless @entry.tags.size.zero? %>
 				<li class="tag"><%= @entry.tags_to_html %></li>
@@ -26,7 +26,7 @@
 		    <ul>
 				<li class="author"><%= @entry.user.name %></li>
 				<% if logged_in? %>
-				<li class="l"><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></li>
+				<li class="l"><a href="<%= url(@entry.edit_link) %>"><%= t('edit') %></a></li>
 				<% end %>
 			</ul>
 			<div class="c"></div>

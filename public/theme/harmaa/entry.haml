@@ -6,12 +6,12 @@
       %li.year= @entry.created_at.year
     - unless @entry.category.nil?
       %p.category
-        %a{:href => @entry.category.link}= @entry.category.title
+        %a{:href => url(@entry.category.link)}= @entry.category.title
     - unless @entry.tags.size.zero?
       = @post.tags_to_html
     - if logged_in?
       .edit
-        %a{:href => @entry.edit_link}= t('edit')
+        %a{:href => url(@entry.edit_link)}= t('edit')
   %header
     %h1= @entry.title
   .body

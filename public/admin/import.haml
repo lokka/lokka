@@ -1,6 +1,6 @@
 %h2= t('import')
 %h3= t('import_from_wordpress')
-%form(action="/admin/import" method="post" enctype="multipart/form-data")
+%form{'action' => url("/admin/import"), 'method' => "post", 'enctype' => "multipart/form-data"}
   %p
     %label(for="import_file")= t('import_file')
     %br

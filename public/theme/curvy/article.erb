@@ -1,7 +1,7 @@
 <div class="entry_wrapper">
 	<div class="entry">		
 		<h2 class="entry_title">
-			<a href="<%= entry.link %>">
+			<a href="<%= url(entry.link) %>">
 				<%= entry.title %>
 			</a>
 		</h2>
@@ -13,7 +13,7 @@
 	</div>
 	<div class="entry_info">
 		<span class="link_to_entry_comment">
-			<%= link_to "#{t('comments')}(#{entry.comments.size})", "#{entry.link}#comment_wrapper" %>
+			<%= link_to "#{t('comments')}(#{entry.comments.size})", url("#{entry.link}#comment_wrapper") %>
 		</span>
 
 		<span class="entry_date">
@@ -21,7 +21,7 @@
 		</span>
 
 		<% if logged_in? %>
-		  <span><a href="<%= entry.edit_link %>"><%= t('edit') %></a></span>
+		  <span><a href="<%= url(entry.edit_link) %>"><%= t('edit') %></a></span>
 		<% end %>
 
 		<%= entry.tags_to_html %>

@@ -4,7 +4,7 @@
     <ul class="info">
       <li class="date"><%= l @entry.created_at, :format => :long %></li>
       <% unless @entry.category.nil? %>
-      <li class="category"><a href="<%= @entry.category.link %>"><%= @entry.category.title %></a></li>
+      <li class="category"><a href="<%= url(@entry.category.link) %>"><%= @entry.category.title %></a></li>
       <% end %>
       <% unless @entry.tags.size.zero? %>
       <li class="tags"><%= @entry.tags_to_html %></li>
@@ -17,7 +17,7 @@
   </div>
   <div class="footer">
     <% if logged_in? %>
-    <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
+    <p><a href="<%= url(@entry.edit_link) %>"><%= t('edit') %></a></p>
     <% end %>
   </div>
 </div>

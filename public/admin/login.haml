@@ -6,23 +6,23 @@
     %meta(http-equiv="Content-Style-Type" content="text/css")
     %meta(http-equiv="Content-Script-Type" content="text/javascript")
     %title== #{@site.title} - Lokka
-    = favicon_tag '/favicon.ico'
-    = stylesheet_link_tag '/admin/css/style'
+    = favicon_tag url('/favicon.ico')
+    = stylesheet_link_tag url('/admin/css/style.css')
     = javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min'
   %body.admin_login
     #header
-      %h1= link_to @site.title, '/'
+      %h1= link_to @site.title, url('/')
       #nav
         %ul
           - if logged_in?
-            %li= link_to current_user.name, "/admin/users/#{current_user.id}/edit"
-            %li= link_to t('logout'), '/admin/logout'
+            %li= link_to current_user.name, url("/admin/users/#{current_user.id}/edit")
+            %li= link_to t('logout'), url('/admin/logout')
           - else
-            %li= link_to t('login'), '/admin/login'
+            %li= link_to t('login'), url('/admin/login')
     #content
       #main
         %h2= t('login')
-        %form(action="/admin/login" method="post")
+        %form{'action' => url("/admin/login"), 'method' => "post"}
           - if @login_failed
             #error= t('your_name_or_password_is_incorrect')
           .field

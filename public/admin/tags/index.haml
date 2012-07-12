@@ -5,9 +5,9 @@
     %th(colspan="2")
   - @tags.each_with_index do |tag, i|
     %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
-      %td.title= link_to "#{tag.name}(#{tag.taggings.count})", tag.link
-      %td= link_to t('edit'), "/admin/tags/#{tag.id}/edit", :class => 'button'
-      %td= link_to t('delete'), "/admin/tags/#{tag.id}", :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+      %td.title= link_to "#{tag.name}(#{tag.taggings.count})", url(tag.link)
+      %td= link_to t('edit'), url("/admin/tags/#{tag.id}/edit"), :class => 'button'
+      %td= link_to t('delete'), url("/admin/tags/#{tag.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
   %ul
     - if @tags.pager.previous_page

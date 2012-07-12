@@ -8,14 +8,14 @@
   .article_contents
     .title
       %h1
-        %a{:href => @entry.link}= @entry.title        
+        %a{:href => url(@entry.link)}= @entry.title        
     - unless @entry.tags.size.zero?
       \#{@entry.tags_to_html}    
     .body
       = @entry.body
       - if logged_in?
         .edit
-          %a{:href => @entry.edit_link}= t('edit')
+          %a{:href => url(@entry.edit_link)}= t('edit')
     - unless page?
       %article.comments
         %h1.comment comments
