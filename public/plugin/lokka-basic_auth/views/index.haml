@@ -1,5 +1,5 @@
 %h2 Basic Auth
-%form(action="/admin/plugins/basic_auth" method="post")
+%form{'action' => url("/admin/plugins/basic_auth"), 'method' => "post"}
   .field
     %label(for="basic_auth_username") Username
     %br/

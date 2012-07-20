@@ -1,7 +1,7 @@
 - content_for :head_last do
-  %link{:rel => 'stylesheet', :href => '/plugin/lokka-google_analytics/views/style.css', :type => 'text/css'}
+  %link{:rel => 'stylesheet', :href => url('/plugin/lokka-google_analytics/views/style.css'), :type => 'text/css'}
 %h2 Google Analytics
-%form{:action => '/admin/plugins/google_analytics', :method => 'post'}
+%form{:action => url('/admin/plugins/google_analytics'), :method => 'post'}
   %input{:type => 'hidden', :name => '_method', :value => 'put'}
   .field
     %label{:for => 'post_title'} Tracker

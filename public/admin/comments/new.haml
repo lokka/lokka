@@ -1,2 +1,2 @@
 %h2= t('new_comment')
-= partial 'comments/form', :locals => {:action => '/admin/comments', :method => 'post', :label => t('new')}
+= partial 'comments/form', :views => Lokka.admin_theme_dir, :locals => {:action => url('/admin/comments'), :method => 'post', :label => t('new')}

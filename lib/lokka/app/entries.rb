@@ -131,7 +131,7 @@ module Lokka
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
 
       return 404 if @entry.blank?
-      redirect @entry.link if @entry.type == Post && custom_permalink?
+      redirect to(@entry.link) if @entry.type == Post && custom_permalink?
 
       @comment = @entry.comments.new
 
@@ -155,7 +155,7 @@ module Lokka
       end
 
       if @comment.save
-        redirect @entry.link
+        redirect to(@entry.link)
       else
         render_any :entry
       end

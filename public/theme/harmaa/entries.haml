@@ -1,0 +1,31 @@
+%section.articles
+  - unless index?
+    %h1.title= @title
+  - @posts.each do |post|
+    %article
+      .info
+        %ul.date
+          %li.month= post.created_at.strftime("%b")
+          %li.day= post.created_at.day
+          %li.year= post.created_at.year
+        - unless post.category.nil?
+          %p.category
+            %a{:href => url(post.category.link)}= post.category.title
+        - unless post.tags.size.zero?
+          = post.tags_to_html
+        - if logged_in?
+          .edit
+            %a{:href => url(post.edit_link)}= t('edit')
+      %header
+        %h1
+          %a{:href => url(post.link)}= post.title
+      .body
+        = post.body
+  .pager
+    %div
+      - if @posts.pager.previous_page
+        %span.previous
+          %a{:href => "?page=#{@posts.pager.previous_page}"} Newer
+      - if @posts.pager.next_page
+        %span.next
+          %a{:href => "?page=#{@posts.pager.next_page}"} Older

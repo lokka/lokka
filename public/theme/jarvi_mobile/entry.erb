@@ -1,6 +1,6 @@
 <div class="article section">
   <div class="header">
-    <h2 class="title"><a href="<%= @entry.link %>"><%= @entry.title %></a></h2>
+    <h2 class="title"><a href="<%= url(@entry.link) %>"><%= @entry.title %></a></h2>
 <div class="created_at">
   <span class="mounth <%= @entry.created_at.strftime("%b") %>"><%= @entry.created_at.strftime("%b") %></span>
   <span class="day"><%=@entry.created_at.day %></span>
@@ -11,7 +11,7 @@
     <%= @entry.body %>
   </div>
 <% if logged_in? %>
-    <p><a href="<%= @entry.edit_link %>"><%= t('edit') %></a></p>
+    <p><a href="<%= url(@entry.edit_link) %>"><%= t('edit') %></a></p>
 <% end %>
 </div>
 

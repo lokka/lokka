@@ -1,2 +1,2 @@
 %h2= t('new_category')
-= partial 'categories/form', :locals => {:action => '/admin/categories', :method => 'post', :label => t('new')}
+= partial 'categories/form', :views => Lokka.admin_theme_dir, :locals => {:action => url('/admin/categories'), :method => 'post', :label => t('new')}

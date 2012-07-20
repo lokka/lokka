@@ -29,7 +29,7 @@ module Lokka
 				posted_key = params[:akismet][:akismet_key].to_s
 				if valid_akismet_key?(posted_key) && Option.akismet_key = params[:akismet][:akismet_key]
 					flash[:notice] = t('akismet.api_key_updated')
-					redirect '/admin/plugins/akismet'
+					redirect to('/admin/plugins/akismet')
 				else
 					flash[:notice] = t('akismet.api_key_db_error')
 				end
