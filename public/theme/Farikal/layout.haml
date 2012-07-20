@@ -12,20 +12,20 @@
         %title= @site.title
       %meta{:content => @site.meta_description, :name => "description"}
       %meta{:content => @site.meta_keywords, :name => "keywords"}
-      %link{:href => url("/index.atom"), :rel => "alternate", :title => @title, :type => "application/atom+xml"}
-      %link{:href => "#{@theme.path}/stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
+      %link{:href => "/index.atom", :rel => "alternate", :title => @title, :type => "application/atom+xml"}
+      %link{:href => "#{@theme.path}/style.css", :rel => "stylesheet", :type => "text/css"}
   %body
     %header
       .wrap
         %h1
-          %a.head_logo{:href => url("/")}= @site.title
+          %a.head_logo{:href => "/"}= @site.title
         %p.catchcopy= @site.description
         %nav.gNav
           %ul
             - Page.all.each do |page|
               %li= link_to page.title, url(page.link)
             %li
-              %a{:href => url("/index.atom")} Feed
+              %a{:href => "/index.atom"} Feed
     #contents
       #main
         = yield
@@ -37,7 +37,7 @@
             %ul
               - Post.recent(5).each do |post|
                 %li
-                  %a{:href => url(post.link)}= post.title
+                  %a{:href => post.link}= post.title
         .past
           .side_header
             %h4 archives
@@ -45,7 +45,7 @@
             %ul
               - months.each do |month|
                 %li
-                  %a{:href => url("/#{month.year}/#{month.month}/")}
+                  %a{:href => "/#{month.year}/#{month.month}/"}
                     = month.year
                     \/#{month.month}
         .side_tags
@@ -55,19 +55,19 @@
             %ul
               - Tag.all.each do |tag|
                 %li
-                  %a{:href => url(tag.link)}= tag.name
+                  %a{:href => tag.link}= tag.name
         .search
           .side_header
             %h4 search
           .search_content
-            %form{:action => url("/search/"), :method => "get"}
+            %form{:action => "/search/", :method => "get"}
               %input.text_field{:name => "query", :type => "text"}
               %button.submit{:onclick => "submit()"} Search!
     %footer
       .wrap
         %p.copyright
           Copyright ©
-          %a{:href => url("/")}= @site.title
+          %a{:href => "/"}= @site.title
           2XXX - 2XXXX All Rights Reserved.
         %p.poweredby
           powered by
@@ -75,6 +75,6 @@
         %nav.control
           %ul
             %li
-              %a{:href => url("/admin/")} admin
+              %a{:href => "/admin/"} admin
             %li
-              %a{:href => url("/index.atom")} feed
+              %a{:href => "/index.atom"} feed
