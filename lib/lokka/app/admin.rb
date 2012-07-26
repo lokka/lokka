@@ -1,7 +1,7 @@
 module Lokka
   class App
     get '/admin/' do
-      haml :index, :views => Lokka.admin_theme_dir, :layout => :admin_layout
+      haml :admin_index, :views => Lokka.admin_theme_dir, :layout => :admin_layout
     end
 
     get '/admin/login' do
