@@ -81,7 +81,6 @@ module Lokka
       end
     end
 
-
     def partial(name, options = {})
       options[:layout] = false
       render_any(name, options)
@@ -194,7 +193,7 @@ module Lokka
       @name = entry_class.name.downcase
       @entries = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
       @entries = @entries.page(params[:page], :per_page => settings.admin_per_page)
-      haml :'entries/index', :views => Lokka.admin_theme_dir
+      haml :'entries/index', :views => Lokka.admin_theme_dir, :layout => :admin_layout
     end
 
     def get_admin_entry_new(entry_class)
@@ -202,7 +201,7 @@ module Lokka
       @entry = entry_class.new(:created_at => DateTime.now, :updated_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.all(:order => :name.asc)
-      haml :'entries/new', :views => Lokka.admin_theme_dir
+      haml :'entries/new', :views => Lokka.admin_theme_dir, :layout => :admin_layout
     end
 
     def get_admin_entry_edit(entry_class, id)
@@ -210,7 +209,7 @@ module Lokka
       @entry = entry_class.get(id) or raise Sinatra::NotFound
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.all(:order => :name.asc)
-      haml :'entries/edit', :views => Lokka.admin_theme_dir
+      haml :'entries/edit', :views => Lokka.admin_theme_dir, :layout => :admin_layout
     end
 
     def post_admin_entry(entry_class)
@@ -226,7 +225,7 @@ module Lokka
         else
           @field_names = FieldName.all(:order => :name.asc)
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          haml :'entries/new', :views => Lokka.admin_theme_dir
+          haml :'entries/new', :views => Lokka.admin_theme_dir, :layout => :admin_layout
         end
       end
     end
@@ -243,7 +242,7 @@ module Lokka
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
           @field_names = FieldName.all(:order => :name.asc)
-          haml :'entries/edit', :views => Lokka.admin_theme_dir
+          haml :'entries/edit', :views => Lokka.admin_theme_dir, :layout => :admin_layout
         end
       end
     end

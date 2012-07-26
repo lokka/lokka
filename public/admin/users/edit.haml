@@ -1,6 +1,6 @@
 %h2= t('edit_user')
 %form{'action' => url("/admin/users/#{@user.id}"), 'method' => "post"}
   %input(type="hidden" name="_method" value="put")
-  = partial 'users/form', :views => Lokka.admin_theme_dir
+  = partial 'users/form', :views => Lokka.admin_theme_dir, :layout => :admin_layout
   %p
     %input(type="submit" value="#{t('save')}")
