@@ -3,7 +3,7 @@
     #error
       .title= t('error')
       %ul
-        - @comment.errors.each do |error|
+        - @comment.errors.full_messages.each do |error|
           %li= error
   .field
     = f.label :entry, :caption => t('comment.entry')
