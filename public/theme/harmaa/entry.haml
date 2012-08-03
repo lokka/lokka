@@ -35,7 +35,7 @@
         #error
           .title= t('error')
           %ul
-            - @comment.errors.each do |error|
+            - @comment.errors.full_messages.each do |error|
               %li= error
       - form_for @comment, request.path_info, :method => :post do |f|
         :javascript
