@@ -60,55 +60,6 @@ module Lokka
       html
     end
 
-    def render_detect(*names)
-      render_detect_with_options(names)
-    end
-
-    def render_detect_with_options(names, options = {})
-      ret = ''
-      names.each do |name|
-        out = render_any(name, options)
-        unless out.blank?
-          ret = out
-          break
-        end
-      end
-
-      if ret.blank?
-        raise Lokka::NoTemplateError, "Template not found. #{[names.join(', ')]}"
-      else
-        ret
-      end
-    end
-
-    def partial(name, options = {})
-      options[:layout] = false
-      render_any(name, options)
-    end
-
-    def render_any(name, options = {})
-      ret = ''
-      templates = settings.supported_templates + settings.supported_stylesheet_templates
-      templates.each do |ext|
-        out = rendering(ext, name, options)
-        out.force_encoding(Encoding.default_external) unless out.nil?
-        unless out.blank?
-          ret = out
-          break
-        end
-      end
-      ret
-    end
-
-    def rendering(ext, name, options = {})
-      options[:views] ||= "#{settings.views}/theme/#{@theme.name}"
-      path = "#{options[:views]}/#{name}"
-
-      if File.exist?("#{path}.#{ext}")
-        send(ext.to_sym, name.to_sym, options)
-      end
-    end
-
     def comment_form
       haml :'lokka/comments/form', :layout => false
     end
@@ -193,7 +144,7 @@ module Lokka
       @name = entry_class.name.downcase
       @entries = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
       @entries = @entries.page(params[:page], :per_page => settings.admin_per_page)
-      haml :'entries/index', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+      haml :'admin/entries/index', :layout => :'admin/layout'
     end
 
     def get_admin_entry_new(entry_class)
@@ -201,7 +152,7 @@ module Lokka
       @entry = entry_class.new(:created_at => DateTime.now, :updated_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.all(:order => :name.asc)
-      haml :'entries/new', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+      haml :'admin/entries/new', :layout => :'admin/layout'
     end
 
     def get_admin_entry_edit(entry_class, id)
@@ -209,7 +160,7 @@ module Lokka
       @entry = entry_class.get(id) or raise Sinatra::NotFound
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.all(:order => :name.asc)
-      haml :'entries/edit', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+      haml :'admin/entries/edit', :layout => :'admin/layout'
     end
 
     def post_admin_entry(entry_class)
@@ -225,7 +176,7 @@ module Lokka
         else
           @field_names = FieldName.all(:order => :name.asc)
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          haml :'entries/new', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+          haml :'admin/entries/new', :layout => :'admin/layout'
         end
       end
     end
@@ -242,7 +193,7 @@ module Lokka
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
           @field_names = FieldName.all(:order => :name.asc)
-          haml :'entries/edit', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+          haml :'admin/entries/edit', :layout => :'admin/layout'
         end
       end
     end

@@ -1,6 +1,6 @@
 %h2= t('edit_tag')
 %form{'action' => url("/admin/tags/#{@tag.id}"), 'method' => "post"}
   %input(type="hidden" name="_method" value="put")
-  = partial 'tags/form', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+  = haml :'admin/tags/form', :layout => false
   %p
     %input(type="submit" value="#{t('save')}")

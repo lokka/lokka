@@ -31,6 +31,7 @@ module Lokka
       end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
+      helpers Lokka::RenderHelper
       use Rack::Session::Cookie,
         :expire_after => 60 * 60 * 24 * 12
       set :session_secret, 'development' if development?

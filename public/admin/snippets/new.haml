@@ -1,5 +1,5 @@
 %h2= t('new_snippet')
 %form{'action' => url("/admin/snippets"), 'method' => "post"}
-  = partial 'snippets/form', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+  = haml :'admin/snippets/form', :layout => false
   %p
     %input(type="submit" value="#{t('new')}")

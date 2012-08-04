@@ -1,5 +1,5 @@
 %h2= t('new_user')
 %form{'action' => url("/admin/users"), 'method' => "post"}
-  = partial 'users/form', :views => Lokka.admin_theme_dir, :layout => :admin_layout
+  = haml :'admin/users/form', :layout => false
   %p
     %input(type="submit" value="#{t('new')}")
