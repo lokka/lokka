@@ -107,7 +107,7 @@ module Lokka
       if entry.draft
         redirect to("/admin/#{name}?draft=true")
       else
-        redirect to("/admin/#{name}")
+        redirect to("/admin/#{name}/#{entry.id}/edit")
       end
     end
 

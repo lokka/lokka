@@ -63,7 +63,7 @@ module Lokka
       @comment = Comment.new(params['comment'])
       if @comment.save
         flash[:notice] = t('comment_was_successfully_created')
-        redirect to('/admin/comments')
+        redirect to("/admin/comments/#{@comment.id}/edit")
       else
         haml :'admin/comments/new', :layout => :'admin/layout'
       end
@@ -78,7 +78,7 @@ module Lokka
       @comment = Comment.get(id) or raise Sinatra::NotFound
       if @comment.update(params['comment'])
         flash[:notice] = t('comment_was_successfully_updated')
-        redirect to('/admin/comments')
+        redirect to("/admin/comments/#{@comment.id}/edit")
       else
         haml :'admin/comments/edit', :layout => :'admin/layout'
       end
@@ -115,7 +115,7 @@ module Lokka
       #@category.user = current_user
       if @category.save
         flash[:notice] = t('category_was_successfully_created')
-        redirect to('/admin/categories')
+        redirect to("/admin/categories/#{@category.id}/edit")
       else
         haml :'admin/categories/new', :layout => :'admin/layout'
       end
@@ -131,7 +131,7 @@ module Lokka
       params['category'].delete('parent_id') if params['category']['parent_id'].blank?
       if @category.update(params['category'])
         flash[:notice] = t('category_was_successfully_updated')
-        redirect to('/admin/categories')
+        redirect to("/admin/categories/#{@category.id}/edit")
       else
         haml :'admin/categories/edit', :layout => :'admin/layout'
       end
@@ -160,7 +160,7 @@ module Lokka
       @tag = Tag.get(id) or raise Sinatra::NotFound
       if @tag.update(params['tag'])
         flash[:notice] = t('tag_was_successfully_updated')
-        redirect to('/admin/tags')
+        redirect to("/admin/tags/#{@tag.id}/edit")
       else
         haml :'admin/tags/edit', :layout => :'admin/layout'
       end
@@ -189,7 +189,7 @@ module Lokka
       @user = User.new(params['user'])
       if @user.save
         flash[:notice] = t('user_was_successfully_created')
-        redirect to('/admin/users')
+        redirect to("/admin/users/#{@user.id}/edit")
       else
         haml :'admin/users/new', :layout => :'admin/layout'
       end
@@ -204,7 +204,7 @@ module Lokka
       @user = User.get(id) or raise Sinatra::NotFound
       if @user.update(params['user'])
         flash[:notice] = t('user_was_successfully_updated')
-        redirect to('/admin/users')
+        redirect to("/admin/users/#{@user.id}/edit")
       else
         haml :'admin/users/edit', :layout => :'admin/layout'
       end
@@ -239,7 +239,7 @@ module Lokka
       @snippet = Snippet.new(params['snippet'])
       if @snippet.save
         flash[:notice] = t('snippet_was_successfully_created')
-        redirect to('/admin/snippets')
+        redirect to("/admin/snippets/#{@snippet.id}/edit")
       else
         haml :'admin/snippets/new', :layout => :'admin/layout'
       end
@@ -254,7 +254,7 @@ module Lokka
       @snippet = Snippet.get(id) or raise Sinatra::NotFound
       if @snippet.update(params['snippet'])
         flash[:notice] = t('snippet_was_successfully_updated')
-        redirect to('/admin/snippets')
+        redirect to("/admin/snippets/#{@snippet.id}/edit")
       else
         haml :'admin/snippets/edit', :layout => :'admin/layout'
       end
