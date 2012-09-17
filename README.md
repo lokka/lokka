@@ -24,10 +24,11 @@ View at: http://localhost:9292/
 
     $ git clone git://github.com/komagata/lokka.git
     $ cd lokka
-    $ heroku apps:create
+    $ heroku create
     $ git push heroku master
+    $ heroku addons:add heroku-postgresql:dev
     $ heroku rake db:setup
-    $ heroku apps:open
+    $ heroku open
 
 ## Test
 
