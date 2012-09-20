@@ -9,7 +9,7 @@
 # heroku:
 #   <%= ENV['DATABASE_URL'] %>
 production:
-  dsn: <%= ENV['DATABASE_URL'] || ENV.select{|k|k=~/^HEROKU_POSTGRESQL_\w+_URL/}.to_a[0][1] %>
+  dsn: <%= ENV['DATABASE_URL'] %>
 development:
   dsn: sqlite3://<%= root %>/db/development.sqlite3
 test:
