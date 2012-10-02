@@ -242,4 +242,18 @@ describe "App" do
       last_response.body.should match(/Test Post \d+/)
     end
   end
+
+  context "when theme has i18n dir" do
+    before do
+      Theme.any_instance.stub(:exist_i18n?).and_return(true)
+      Theme.any_instance.stub(:i18n_dir).and_return(
+        File.expand_path(".", "public/theme/foo/i18n")
+      )
+    end
+
+    it "should be success" do
+      get '/'
+      last_response.status.should == 200
+    end
+  end
 end
