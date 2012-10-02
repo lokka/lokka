@@ -35,7 +35,7 @@ module Lokka
 
         @theme_types ||= []
         if @theme.exist_i18n?
-          I18n.load_path += "#{@theme.i18n_dir}/*.yml"
+          ::I18n.load_path += Dir["#{@theme.i18n_dir}/*.yml"]
         end
       end
 
