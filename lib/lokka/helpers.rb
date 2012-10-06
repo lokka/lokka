@@ -360,5 +360,16 @@ module Lokka
     def mobile?
       request.user_agent =~ /iPhone|Android/
     end
+
+    def slugs
+      tmp = @theme_types
+      tmp << @entry.slug    if @entry and @entry.slug
+      tmp << @category.slug if @category and @category.slug
+      tmp
+    end
+
+    def body_attrs
+      {:class => slugs.join(' ')}
+    end
   end
 end

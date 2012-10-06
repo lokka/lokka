@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="<%= "#{@theme.path}/style.css" %>" type="text/css" />
     <%= header %>
   </head>
-  <body class="<%= @theme_types.join(' ') %>">
+  <body class="<%= slugs.join(' ') %>">
     <div id="header">
       <h1 class="wide"><%= link_to @site.title, url('/') %></h1>
       <div class="section">
