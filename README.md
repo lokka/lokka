@@ -27,8 +27,15 @@ View at: http://localhost:9292/
     $ heroku create
     $ git push heroku master
     $ heroku addons:add heroku-postgresql:dev
+    $ heroku pg:info | head -n1 | awk '{print $2}' | xargs heroku pg:promote
     $ heroku rake db:setup
     $ heroku open
+
+or just copy and paste
+
+    \curl -L http://bit.ly/ROX0lk | bash -s
+
+to your terminal
 
 ## Test
 
