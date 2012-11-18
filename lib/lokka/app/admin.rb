@@ -22,7 +22,7 @@ module Lokka
         end
       else
         @login_failed = true
-        haml :'admin/login', :layout => :'admin/layout'
+        haml :'admin/login', :layout => false
       end
     end
 
