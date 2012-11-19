@@ -4,6 +4,21 @@ describe 'Login' do
   include_context 'in site'
   before { Factory(:user, :name => 'test') }
   after { User.destroy }
+
+  shared_examples_for 'login failed' do
+    it 'should not redirect' do
+      last_response.should_not be_redirect
+    end
+
+    it 'should render login screen again' do
+      last_response.body.should match('<body class="admin_login">')
+    end
+
+    it 'should not render dashboard side bar' do
+      last_response.body.should_not match('<div id="aside">')
+    end
+  end
+
   context 'when valid username and password' do
     it 'should redirect to /admin/' do
       post '/admin/login', {:name => 'test', :password => 'test'}
@@ -14,23 +29,17 @@ describe 'Login' do
   end
 
   context 'when invalid username' do
-    it 'should not redirect' do
-      post '/admin/login', {:name => 'wrong', :password => 'test'}
-      last_response.should_not be_redirect
-    end
+    before { post '/admin/login', {:name => 'wrong', :password => 'test'} }
+    it_behaves_like 'login failed'
   end
 
   context 'when invalid password' do
-    it 'should not redirect' do
-      post '/admin/login', {:name => 'test', :password => 'wrong'}
-      last_response.should_not be_redirect
-    end
+    before { post '/admin/login', {:name => 'test', :password => 'wrong'} }
+    it_behaves_like 'login failed'
   end
 
   context 'when invalid username and password' do
-    it 'should not redirect' do
-      post '/admin/login', {:name => 'wrong', :password => 'wrong'}
-      last_response.should_not be_redirect
-    end
+    before { post '/admin/login', {:name => 'wrong', :password => 'wrong'} }
+    it_behaves_like 'login failed'
   end
 end
