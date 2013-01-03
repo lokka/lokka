@@ -17,7 +17,7 @@ class Option
       o.value = args.first
       o.save
     else
-      o = self.first_or_new(:name => method)
+      o = self.first_or_new(:name => method.to_s)
       o.value
     end
   end
