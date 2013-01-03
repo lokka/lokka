@@ -14,7 +14,7 @@ class Option
     if attribute =~ /=$/
       column = attribute[0, attribute.size - 1]
       o = self.first_or_new(:name => column)
-      o.value = args.first
+      o.value = args.first.to_s
       o.save
     else
       o = self.first_or_new(:name => method.to_s)
