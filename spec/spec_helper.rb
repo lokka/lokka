@@ -1,17 +1,17 @@
-if RUBY_VERSION >= '1.9'
-
-  require 'simplecov'
-
-  SimpleCov.start do
-    add_filter "spec/"
-    add_filter "public/"
-    add_filter "i18n/"
-    add_filter "db/"
-    add_filter "coverage/"
-    add_filter "tmp/"
-    add_filter "log/"
-  end
-end
+#if RUBY_VERSION >= '1.9'
+#
+#  require 'simplecov'
+#
+#  SimpleCov.start do
+#    add_filter "spec/"
+#    add_filter "public/"
+#    add_filter "i18n/"
+#    add_filter "db/"
+#    add_filter "coverage/"
+#    add_filter "tmp/"
+#    add_filter "log/"
+#  end
+#end
 
 require File.join(File.dirname(__FILE__), '..', 'init.rb')
 
@@ -26,7 +26,8 @@ require 'factories'
 
 
 set :environment, :test
-Lokka::Database.new.connect
+Lokka::Database.connect
+Lokka::Migrator.migrate!
 
 module LokkaTestMethods
   def app

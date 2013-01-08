@@ -14,11 +14,13 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:name){|n| "testuser#{n}" }
-    hashed_password '6338db2314bba79531444996b780fa7036480733'
-    salt '2Z4H4DzATC'
+    password 'test'
+    password_confirmation 'test'
+    #hashed_password '6338db2314bba79531444996b780fa7036480733'
+    #salt '2Z4H4DzATC'
     permission_level 1
-    created_at create_time
-    updated_at update_time
+    #created_at create_time
+    #updated_at update_time
   end
 
   factory :post do
@@ -119,8 +121,9 @@ FactoryGirl.define do
 
   factory :category do
     title 'Test Category'
-    created_at create_time
-    updated_at update_time
+    slug  'testtest'
+    #created_at create_time
+    #updated_at update_time
   end
 
   factory :category_child, :parent => :category do
@@ -135,7 +138,6 @@ FactoryGirl.define do
 
   factory :tagging do
     association :tag
-    tag_context 'tags'
     taggable_type Entry
   end
 

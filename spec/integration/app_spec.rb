@@ -14,7 +14,7 @@ describe "App" do
           Factory(:newyear_post)
         end
 
-        after { Post.destroy }
+        after { Post.delete_all }
 
         it "entries should be sorted by created_at in descending" do
           subject.index(/First Post/).should be > subject.index(/Test Post \d+/)
@@ -23,15 +23,15 @@ describe "App" do
 
       context 'number of posts displayed' do
         before { 11.times { Factory(:post) } }
-        after { Post.destroy }
+        after { Post.delete_all }
 
         it 'should displayed 10' do
           subject.scan(/<h2 class="title"><a href=".*\/[^"]*">Test Post.*<\/a><\/h2>/).size.should eq(10)
         end
 
         context 'change the number displayed on 5' do
-          before { Site.first.update(:per_page => 5) }
-          after { Site.first.update(:per_page => 10) }
+          before { Site.first.update_attributes(per_page: 5) }
+          after { Site.first.update_attributes(per_page: 10) }
 
           it 'should displayed 5' do
             subject.scan(/<h2 class="title"><a href=".*\/[^"]*">Test Post.*<\/a><\/h2>/).size.should eq(5)
@@ -42,14 +42,14 @@ describe "App" do
 
     context '/:id' do
       before { @post = Factory(:post) }
-      after { Post.destroy }
+      after { Post.delete_all }
       context "GET" do
         subject { get "/#{@post.id}"; last_response.body }
         it { should match('Test Site') }
       end
 
       context "POST" do
-        before { Comment.destroy }
+        before { Comment.delete_all }
 
         it "should add a comment to an article" do
           post "/#{@post.id}", { :check => "check", :comment => { :name => 'lokka tarou', :homepage => 'http://www.example.com/', :body => 'good entry!' } }
@@ -60,7 +60,7 @@ describe "App" do
 
     context '/tags/lokka/' do
       before { Factory(:tag, :name => 'lokka') }
-      after { Tag.destroy }
+      after { Tag.delete_all }
 
       it "should show tag index" do
         get '/tags/lokka/'
@@ -71,11 +71,11 @@ describe "App" do
     context '/category/:id/' do
       before do
         @category = Factory(:category)
-        @category_child = Factory(:category_child, :parent => @category)
+        #@category_child = Factory(:category_child, :parent => @category)
       end
 
       after do
-        Category.destroy
+        Category.delete_all
       end
 
       it "should show category index" do
@@ -100,8 +100,8 @@ describe "App" do
       end
 
       after do
-        Post.destroy
-        Category.destroy
+        Post.delete_all
+        Category.delete_all
       end
 
       it "the entry page should return 404" do
@@ -139,12 +139,12 @@ describe "App" do
         Factory(:later_post_with_slug)
         Option.permalink_enabled = true
         Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
-        Comment.destroy
+        Comment.delete_all
       end
 
       after do
         Option.permalink_enabled = false
-        Entry.destroy
+        Entry.delete_all
       end
 
       it "an entry can be accessed by custom permalink" do
@@ -209,7 +209,7 @@ describe "App" do
 
     context "with continue reading" do
       before { Factory(:post_with_more) }
-      after { Post.destroy }
+      after { Post.delete_all }
       describe 'in entries index' do
         it "should hide texts after <!--more-->" do
           get '/'
@@ -234,7 +234,7 @@ describe "App" do
       post.save
     end
 
-    after { Post.destroy; Tag.destroy }
+    after { Post.delete_all; Tag.delete_all }
 
     it "should show lokka tag archive" do
       get '/tags/lokka/'

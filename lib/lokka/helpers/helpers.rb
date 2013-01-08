@@ -1,4 +1,4 @@
-# encoding: utf-8
+require 'pp'
 module Lokka
   module Helpers
     include Rack::Utils
@@ -33,7 +33,7 @@ module Lokka
     end
 
     def current_user
-      logged_in? ? User.get(session[:user]) : GuestUser.new
+      logged_in? ? User.find(session[:user]) : GuestUser.new
     end
 
     def logged_in?
@@ -44,20 +44,6 @@ module Lokka
       @bread_crumbs[0..-2].inject('<ol>') do |html,bread|
         html += "<li><a href=\"#{bread[:link]}\">#{bread[:name]}</a></li>"
       end + "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
-    end
-
-    def category_tree(categories = Category.roots)
-      html = '<ul>'
-      categories.each do |category|
-        html += '<li>'
-        html += "<a href=\"#{category.link}\">#{category.title}</a>"
-        if category.children.count > 0
-          html += category_tree(category.children)
-        end
-        html += '</li>'
-      end
-      html += '</ul>'
-      html
     end
 
     def comment_form
@@ -129,39 +115,38 @@ module Lokka
 
       @title = @entry.title
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'}]
+      @bread_crumbs = [{ name: t('home'), link: '/' }]
       if @entry.category
-        @entry.category.ancestors.each do |cat|
-          @bread_crumbs << {:name => cat.title, :link => cat.link}
-        end
-        @bread_crumbs << {:name => @entry.category.title, :link => @entry.category.link}
+        @bread_crumbs << { name: @entry.category.title, link: @entry.category.link }
       end
-      @bread_crumbs << {:name => @entry.title, :link => @entry.link}
+      @bread_crumbs << { name: @entry.title, link: @entry.link}
 
       render_detect_with_options [type, :entry]
     end
 
     def get_admin_entries(entry_class)
       @name = entry_class.name.downcase
-      @entries = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
-      @entries = @entries.page(params[:page], :per_page => settings.admin_per_page)
-      haml :'admin/entries/index', :layout => :'admin/layout'
+      @entries = params[:draft] == 'true' ? entry_class.unpublished : entry_class
+      @entries = @entries.
+        page(params[:page]).
+        per(settings.admin_per_page)
+      haml :'admin/entries/index', layout: :'admin/layout'
     end
 
     def get_admin_entry_new(entry_class)
       @name = entry_class.name.downcase
-      @entry = entry_class.new(:markup => Site.first.default_markup, :created_at => DateTime.now, :updated_at => DateTime.now)
+      @entry = entry_class.new(markup: Site.first.default_markup)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-      @field_names = FieldName.all(:order => :name.asc)
-      haml :'admin/entries/new', :layout => :'admin/layout'
+      @field_names = FieldName.order('name ASC')
+      haml :'admin/entries/new', layout: :'admin/layout'
     end
 
     def get_admin_entry_edit(entry_class, id)
       @name = entry_class.name.downcase
-      @entry = entry_class.get(id) or raise Sinatra::NotFound
+      @entry = entry_class.find(id) or raise Sinatra::NotFound
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-      @field_names = FieldName.all(:order => :name.asc)
-      haml :'admin/entries/edit', :layout => :'admin/layout'
+      @field_names = FieldName.order('name ASC')
+      haml :'admin/entries/edit', layout: :'admin/layout'
     end
 
     def post_admin_entry(entry_class)
@@ -175,33 +160,34 @@ module Lokka
           flash[:notice] = t("#{@name}_was_successfully_created")
           redirect_after_edit(@entry)
         else
-          @field_names = FieldName.all(:order => :name.asc)
+          @field_names = FieldName.order('name ASC')
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          haml :'admin/entries/new', :layout => :'admin/layout'
+          haml :'admin/entries/new', layout: :'admin/layout'
         end
       end
     end
 
     def put_admin_entry(entry_class, id)
       @name = entry_class.name.downcase
-      @entry = entry_class.get(id) or raise Sinatra::NotFound
+      @entry = entry_class.find(id) or raise Sinatra::NotFound
+      @entry.tagged_with(params[@name][:tag_collection])
       if params['preview']
         render_preview entry_class.new(params[@name])
       else
-        if @entry.update(params[@name])
+        if @entry.update_attributes(params[@name])
           flash[:notice] = t("#{@name}_was_successfully_updated")
           redirect_after_edit(@entry)
         else
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          @field_names = FieldName.all(:order => :name.asc)
-          haml :'admin/entries/edit', :layout => :'admin/layout'
+          @field_names = FieldName.order('name ASC')
+          haml :'admin/entries/edit', layout: :'admin/layout'
         end
       end
     end
 
     def delete_admin_entry(entry_class, id)
       name = entry_class.name.downcase
-      entry = entry_class.get(id) or raise Sinatra::NotFound
+      entry = entry_class.find(id) or raise Sinatra::NotFound
       entry.destroy
       flash[:notice] = t("#{name}_was_successfully_deleted")
       if entry.draft
@@ -248,14 +234,15 @@ module Lokka
     end
     alias_method :t, :translate_compatibly
 
-    def apply_continue_reading(posts)
-      posts.each do |post|
-        class << post
-          alias body short_body
-        end
-      end
-      posts
-    end
+    #FIXME(Stack Error)
+    #def apply_continue_reading(posts)
+    #  posts.each do |post|
+    #    class << post
+    #      alias body short_body
+    #    end
+    #  end
+    #  posts
+    #end
 
     def custom_permalink?
       Option.permalink_enabled == "true"

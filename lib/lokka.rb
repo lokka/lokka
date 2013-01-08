@@ -25,10 +25,10 @@ module Lokka
     ##
     # Data Source Name
     #
-    # @return [String] DSN (Data Source Name) is configuration for database.
+    # @return [Hash] DSN (Data Source Name) is configuration for database.
     def dsn
-      filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
-      YAML.load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[self.env]['dsn']
+      filename = File.exist?("#{Lokka.root}/db/database.yml") ? 'database.yml' : 'database.default.yml'
+      YAML.load(ERB.new(File.read("#{Lokka.root}/db/#{filename}")).result(binding))[self.env]['database']
     end
 
     ##
@@ -102,18 +102,12 @@ module Lokka
 end
 
 require 'active_support/all'
+require 'active_record'
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/flash'
 require 'padrino-helpers'
-require 'dm-core'
-require 'dm-timestamps'
-require 'dm-migrations'
-require 'dm-validations'
-require 'dm-types'
-require 'dm-is-tree'
-require 'dm-tags'
-require 'dm-pager'
+require 'kaminari/sinatra'
 require 'coderay'
 require 'kramdown'
 require 'redcloth'
@@ -126,20 +120,10 @@ require 'slim'
 require 'builder'
 require 'nokogiri'
 require 'lokka/database'
-require 'lokka/models/theme'
-require 'lokka/models/user'
-require 'lokka/models/site'
-require 'lokka/models/option'
-require 'lokka/models/entry'
-require 'lokka/models/category'
-require 'lokka/models/comment'
-require 'lokka/models/field_name'
-require 'lokka/models/field'
-require 'lokka/models/snippet'
-require 'lokka/models/tag'
-require 'lokka/models/markup'
+require 'lokka/models'
 require 'lokka/importer'
 require 'lokka/before'
 require 'lokka/helpers/helpers'
 require 'lokka/helpers/render_helper'
 require 'lokka/app'
+require 'lokka/version'

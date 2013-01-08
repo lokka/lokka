@@ -1,23 +1,19 @@
-# encoding: utf-8
-class Option
-  include DataMapper::Resource
+class Option < ActiveRecord::Base
+  attr_accessible :name
 
-  property :name, String, :length => 255, :key => true
-  property :value, Text
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
-  validates_presence_of :name
+  validates :name,
+    presence:   true,
+    uniqueness: true
 
   def self.method_missing(method, *args)
     attribute = method.to_s
     if attribute =~ /=$/
       column = attribute[0, attribute.size - 1]
-      o = self.first_or_new(:name => column)
-      o.value = args.first.to_s
+      o = self.first_or_initialize(name: column)
+      o.value = args.first
       o.save
     else
-      o = self.first_or_new(:name => method.to_s)
+      o = self.first_or_initialize(name: method.to_s)
       o.value
     end
   end
