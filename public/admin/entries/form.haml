@@ -6,44 +6,44 @@
         - @entry.errors.each do |error|
           %li= error
   .field
-    = f.label :title, :caption => t("#{@name}.title")
+    = f.label :title, caption: t("#{@name}.title")
     %br/
     = f.text_field :title
   .field
-    = f.label :markup, :caption => 'Markup'
+    = f.label :markup, caption: 'Markup'
     %br/
-    = f.select :markup, :options => Markup.engine_list.map {|e| [e[1], e[0]] }
+    = f.select :markup, options: Markup.engine_list.map {|e| [e[1], e[0]] }
   .field
-    = f.label :body, :caption => t("#{@name}.body")
+    = f.label :body, caption: t("#{@name}.body")
     %br/
     #editor
-      %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.raw_body
+      %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.body
   .field
-    = f.label :slug, :caption => t("#{@name}.slug")
+    = f.label :slug, caption: t("#{@name}.slug")
     %br/
     = f.text_field :slug
   .field
-    = f.label :category, :caption => t("#{@name}.category")
+    = f.label :category, caption: t("#{@name}.category")
     %br/
     - if Category.count > 0
-      = f.select :category_id, :collection => Category.all, :fields => [:title, :id], :include_blank => t('not_select')
+      = f.select :category_id, collection: Category.all, fields: [:title, :id], include_blank: t('not_select')
     - else
       = t('no_category')
   .field
-    = f.label :tag_collection, :caption => t("#{@name}.tags")
+    = f.label :tag_collection, caption: t("#{@name}.tags")
     %br/
     = f.text_field :tag_collection
   - @field_names.each do |field_name|
     .field
-      = label_tag "#{@name}_fields_#{field_name.name}", :caption => field_name.name
+      = label_tag "#{@name}_fields_#{field_name.name}", caption: field_name.name
       %br/
-      = text_field_tag "#{@name}[fields][#{field_name.name}]", :id => "#{@name}_fields_#{field_name.name}", :value => "#{@entry.new? ? (params[@name] ? params[@name]['fields'][field_name.name] : '') : @entry.send(field_name.name)}"
+      = text_field_tag "#{@name}[fields][#{field_name.name}]", id: "#{@name}_fields_#{field_name.name}", value: "#{@entry.new_record? ? (params[@name] ? params[@name]['fields'][field_name.name] : '') : @entry.send(field_name.name)}"
   .field
-    = f.label :draft, :caption => t("#{@name}.draft")
+    = f.label :draft, caption: t("#{@name}.draft")
     %br/
     = f.check_box :draft
   .field
-    = f.label :created_at, :caption => t("#{@name}.created_at")
+    = f.label :created_at, caption: t("#{@name}.created_at")
     %br/
     = f.text_field :created_at
   = f.hidden_field :updated_at

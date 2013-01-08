@@ -1,0 +1,40 @@
+# DSN (Data Source Name) examples
+#
+# sqlite3:
+#   sqlite3://<%= root %>/db/development.sqlite3
+# mysql:
+#   mysql://user:pass@host/database
+# postgres:
+#   postgres://user:pass@host/database
+# heroku:
+#   <%= ENV['DATABASE_URL'] %>
+#production:
+#  dsn: <%= ENV['DATABASE_URL'] %>
+#development:
+#  dsn: sqlite3://<%= root %>/db/development.sqlite3
+#test:
+#  dsn: <%= ENV['DATABASE_URL'] || "sqlite3://#{root}/db/test.sqlite3" %>
+
+development:
+  database:
+    adapter: sqlite3
+    database: db/development.sqlite3
+    pool: 5
+    timeout: 5000
+
+test:
+  database:
+    adapter: sqlite3
+    database: db/test.sqlite3
+    pool: 5
+    timeout: 5000
+
+production:
+  database:
+    adapter: mysql2
+    encoding: utf8
+    database: lokka
+    pool: 5
+    username: hoge
+    password: hoge
+    socket: /tmp/mysql.sock

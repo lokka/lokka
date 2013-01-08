@@ -23,9 +23,9 @@
       <div class="section">
         <div class="nav">
           <ul class="wide">
-<% Page.all.each do |page| %>
-            <li><%= link_to page.title, url(page.link) %></li>
-<% end %>
+            <% Page.all.each do |page| %>
+              <li><%= link_to page.title, url(page.link) %></li>
+            <% end %>
           </ul>
         </div>
       </div>
@@ -40,9 +40,9 @@
           <dt><%= t('recent_entries') %></dt>
           <dd>
             <ul>
-<% Post.recent(5).each do |post| %>
-              <li><%= link_to post.title, url(post.link) %></li>
-<% end %>
+              <% Post.recent(5).each do |post| %>
+                <li><%= link_to post.title, url(post.link) %></li>
+              <% end %>
             </ul>
           </dd>
         </dl>

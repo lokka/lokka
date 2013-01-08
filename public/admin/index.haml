@@ -1,4 +1,4 @@
 %h2= t('dashboard')
 = @site.dashboard
-- if snippet = Snippet('Test Snippet')
-  %div= snippet.body
+- if @snippet.present?
+  %div= @snippet.body

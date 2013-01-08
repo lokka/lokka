@@ -1,14 +1,9 @@
-class FieldName
-  include DataMapper::Resource
+class FieldName < ActiveRecord::Base
+  attr_accessible :name
 
-  property :id, Serial
-  property :name, String, :length => 255
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
-  validates_uniqueness_of :name
-  validates_presence_of :name
-  validates_with_method :validate_if_entry_respond_to
+  validates :name, presence: true,
+                   uniqueness: true
+  validate :validate_if_entry_respond_to
 
   def validate_if_entry_respond_to
     entry = Entry.new
@@ -18,8 +13,4 @@ class FieldName
       return true
     end
   end
-end
-
-def FieldName(id)
-  FieldName.get(id)
 end
