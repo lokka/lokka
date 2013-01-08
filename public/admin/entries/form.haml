@@ -9,57 +9,45 @@
           %li= error
   .field
     = f.label :title, caption: t("#{@name}.title")
-    %br
+    %br/
     = f.text_field :title
   .field
-    = f.label :markup, caption: :Markup
-    %br
+    = f.label :markup, caption: 'Markup'
+    %br/
     = f.select :markup, options: Markup.engine_list.map {|e| [e[1], e[0]] }
   .field
     = f.label :body, caption: t("#{@name}.body")
-    %ul.preview-edit
-      %li.selected
-        = label_tag :edit, for: 'preview-edit', caption: 'Edit'
-        = radio_button_tag :ipreview, value: 'edit', checked: true, id: 'preview-edit'
-      %li
-        = label_tag :preview, for: 'preview-preview', caption: 'Preview'
-        = radio_button_tag :ipreview, value: 'preview', id: 'preview-preview'
+    %br/
     #editor
       %textarea.editor{ id: "#{@name}_body", name: "#{@name}[body]", rows: 10, cols: 50 }= @entry.raw_body
     #preview
   .field
     = f.label :slug, caption: t("#{@name}.slug")
-    %br
+    %br/
     = f.text_field :slug
   .field
     = f.label :category, caption: t("#{@name}.category")
-    %br
-    - if Category.any?
-      = f.select :category_id, collection: Category.all, fields: %i[title id], include_blank: t('not_select')
+    %br/
+    - if Category.count > 0
+      = f.select :category_id, collection: Category.all, fields: [:title, :id], include_blank: t('not_select')
     - else
       = t('no_category')
   .field
     = f.label :tag_collection, caption: t("#{@name}.tags")
-    %br
+    %br/
     = f.text_field :tag_collection
   - @field_names.each do |field_name|
     .field
       = label_tag "#{@name}_fields_#{field_name.name}", caption: field_name.name
-      %br
-      :ruby
-        value_for_field = if @entry.new?
-                            params[@name] ? params[@name]['fields'][field_name.name] : ''
-                          else
-                            @entry.send(field_name.name)
-                          end
-      = text_field_tag "#{@name}[fields][#{field_name.name}]", id: "#{@name}_fields_#{field_name.name}", value: value_for_field
+      %br/
+      = text_field_tag "#{@name}[fields][#{field_name.name}]", id: "#{@name}_fields_#{field_name.name}", value: "#{@entry.new_record? ? (params[@name] ? params[@name]['fields'][field_name.name] : '') : @entry.send(field_name.name)}"
   .field
     = f.label :draft, caption: t("#{@name}.draft")
-    %br
+    %br/
     = f.check_box :draft
   .field
     = f.label :created_at, caption: t("#{@name}.created_at")
-    %br
+    %br/
     = f.text_field :created_at
   = f.hidden_field :updated_at
   %p

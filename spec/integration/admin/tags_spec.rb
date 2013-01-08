@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/tags' do
   include_context 'admin login'
-  before { @tag = create(:tag) }
-  after { Tag.destroy }
+  before { @tag = Factory(:tag) }
+  after { Tag.delete_all }
 
   context 'GET /admin/tags' do
     it 'should show index' do
@@ -26,7 +26,7 @@ describe '/admin/tags' do
     it 'should change the name' do
       put "/admin/tags/#{@tag.id}", tag: { name: 'changed' }
       last_response.should be_redirect
-      Tag.get(@tag.id).name.should eq('changed')
+      Tag.find(@tag.id).name.should == 'changed'
     end
   end
 
@@ -34,12 +34,12 @@ describe '/admin/tags' do
     it 'should delete the tag' do
       delete "/admin/tags/#{@tag.id}"
       last_response.should be_redirect
-      Tag.get(@tag.id).should be_nil
+      Tag.where(id: @tag.id).first.should be_nil
     end
   end
 
   context 'when the tag does not exist' do
-    before { Tag.destroy }
+    before { Tag.delete_all }
 
     context 'GET' do
       before { get '/admin/tags/9999/edit' }

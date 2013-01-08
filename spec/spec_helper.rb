@@ -22,11 +22,10 @@ require 'factory_girl'
 require 'database_cleaner'
 
 require 'factories'
-require 'dm-core'
-require 'dm-transactions'
 
 set :environment, :test
-Lokka::Database.new.connect
+Lokka::Database.connect
+Lokka::Migrator.migrate!
 
 module LokkaTestMethods
   def app
@@ -39,7 +38,6 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include LokkaTestMethods
   config.include Lokka::Helpers
-
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do

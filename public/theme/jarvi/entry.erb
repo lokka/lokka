@@ -3,12 +3,14 @@
     <h2 class="title"><a href="<%= url(@entry.link) %>"><%= @entry.title %></a></h2>
   </div>
   <div class="body">
-    <%= @entry.body %>
+    <%= @entry.long_body %>
   </div>
   <div class="footer">
-    <div class="created_at"><%= l(@entry.created_at, format: :long) %></div>
-<% if logged_in? && @entry.id %>
-    <p><a href="<%= url(@entry.edit_link) %>"><%= t('edit') %></a></p>
-<% end %>
+    <% if @entry.created_at.present?%>
+      <div class="created_at"><%= l(@entry.created_at, format: :long) %></div>
+    <% end %>
+    <% if logged_in? && @entry.id %>
+      <p><a href="<%= url(@entry.edit_link) %>"><%= t('edit') %></a></p>
+    <% end %>
   </div>
 </div>

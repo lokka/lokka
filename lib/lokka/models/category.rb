@@ -1,44 +1,35 @@
 # frozen_string_literal: true
 
-class Category
-  include DataMapper::Resource
+class Category < ActiveRecord::Base
+  attr_accessible :title, :slug, :description, :parent_id
 
-  property :id, Serial
-  property :slug, Slug, length: 255
-  property :title, String, length: 255
-  property :description, Text
-  property :type, Discriminator
-  property :created_at, DateTime
-  property :updated_at, DateTime
-  property :parent_id, Integer
+  has_many :entries
 
-  validates_presence_of :title
-  validates_uniqueness_of :slug
-  validates_uniqueness_of :title
+  validates :title, presence:   true,
+                    uniqueness: true
+  validates :slug,  presence:   true
 
-  is :tree, order: :title
+  scope :without_self,
+    ->(id){ self.where("id NOT IN (?)", id) }
 
-  has n, :entries
-
-  def self.get_by_fuzzy_slug(str)
-    ret = first(slug: str)
-    ret.blank? ? get(str) : ret
+  def self.get_by_fuzzy_slug(string)
+    ret = where(slug: string).first || where(title: string).first
   end
 
   def fuzzy_slug
-    slug.blank? ? id : slug
+    slug.blank? ? title : slug
   end
 
   def link
-    cats = [fuzzy_slug]
-    ancestors.each do |ancestor|
-      cats.unshift ancestor.fuzzy_slug
-    end
-    "/category/#{cats.join('/')}/"
+    "/category/#{fuzzy_slug}"
   end
 
   def edit_link
     "/admin/#{self.class.to_s.tableize}/#{id}/edit"
+  end
+
+  def parent
+    Category.find(self.parent_id)
   end
 end
 

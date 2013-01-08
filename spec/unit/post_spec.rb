@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Post do
   context 'with slug' do
-    subject { build :post_with_slug }
+    subject { create :post_with_slug }
 
     its(:link) { should eq('/welcome-lokka') }
 
@@ -47,16 +47,15 @@ describe Post do
   context 'markup' do
     [:kramdown, :redcloth].each do |markup|
       describe "a post using #{markup}" do
-        let(:post) { create(markup) }
-        let(:regexp) { %r{<h1.*>(<a name.+</a><span .+>)*hi!(</span>)*</h1>\s*<p>#{markup} test</p>} }
-        it { post.body.should_not eq(post.raw_body) }
-        it { post.body.tr("\n", '').should match(regexp) }
+        let(:post) { Factory(markup) }
+        it { post.body.should_not == post.long_body }
+        it { post.long_body.should match('<h1') }
       end
     end
 
     context 'default' do
       let(:post) { build :post }
-      it { post.body.should eq(post.raw_body) }
+      it { post.body.should == post.long_body }
     end
   end
 

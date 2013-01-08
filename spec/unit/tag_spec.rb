@@ -7,10 +7,10 @@ describe 'Tag' do
     let!(:tag) { create :tag, name: 'lokka' }
     subject { tag }
 
-    its(:link) { should eq('/tags/lokka/') }
+    its(:link) { should == '/tags/lokka' }
 
     it 'Tag(name) should return the instance' do
-      Tag('lokka').should eql(tag)
+      Tag.where(name: 'lokka').first.should eql(tag)
     end
   end
 end

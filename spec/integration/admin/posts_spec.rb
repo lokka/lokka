@@ -10,7 +10,7 @@ describe '/admin/posts' do
     create(:draft_post)
   end
 
-  after { Post.destroy }
+  after { Post.delete_all}
 
   context 'with no option' do
     it 'should show all posts' do
@@ -36,12 +36,12 @@ describe '/admin/posts' do
 
     Markup.engine_list.map(&:first).each do |markup|
       context "when #{markup} is set a default markup" do
-        before { Site.first.update(default_markup: markup) }
-        after { Site.first.update(default_markup: nil) }
+        before { Site.first.update_attributes(:default_markup => markup) }
+        after { Site.first.update_attributes(:default_markup => nil) }
 
         it "should select #{markup}" do
           get '/admin/posts/new'
-          last_response.body.should match(%(value="#{markup}" selected="selected">))
+          last_response.body.should match(%Q[value="#{markup}" selected>])
         end
       end
     end
@@ -52,7 +52,7 @@ describe '/admin/posts' do
       sample = attributes_for(:post, slug: 'created_now')
       post '/admin/posts', post: sample
       last_response.should be_redirect
-      Post('created_now').should_not be_nil
+      Post.where(slug: 'created_now').first.should_not be_nil
     end
   end
 
@@ -68,7 +68,7 @@ describe '/admin/posts' do
     it 'should update the post"s body ' do
       put "/admin/posts/#{@post.id}", post: { body: 'updated' }
       last_response.should be_redirect
-      Post(@post.id).body.should eq('updated')
+      Post.find(@post.id).body.should == 'updated'
     end
   end
 
@@ -76,12 +76,12 @@ describe '/admin/posts' do
     it 'should delete the post' do
       delete "/admin/posts/#{@post.id}"
       last_response.should be_redirect
-      Post(@post.id).should be_nil
+      Post.where(id: @post.id).first.should be_nil
     end
   end
 
   context 'when the post does not exist' do
-    before { Post.destroy }
+    before { Post.delete_all }
 
     context 'GET' do
       before { get '/admin/posts/9999/edit' }

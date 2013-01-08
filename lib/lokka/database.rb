@@ -1,41 +1,30 @@
 # frozen_string_literal: true
 
+require 'logger'
+
 module Lokka
-  class Database
-    MODELS = %w[site option user entry category comment snippet tag tagging field_name field].freeze
-
-    def connect
-      DataMapper.finalize
-      config = if Lokka.dsn.present?
-                 Lokka.dsn
-               else
-                 Lokka.dsh
-               end
-      DataMapper.setup(:default, config)
-      self
+  module Database
+    def self.connect
+      ActiveRecord::Base.logger = Logger.new(STDERR) if Lokka.env == 'development'
+      ActiveRecord::Base.establish_connection(Lokka.dsn)
     end
+  end
 
-    def load_fixture(path, model_name = nil)
-      model = model_name || File.basename(path).sub('.csv', '').classify.constantize
-      headers, *body = CSV.read(path)
-      body.each {|row| model.create!(Hash[*headers.zip(row).reject {|i| i[1].blank? }.flatten]) }
-    end
+  module Migrator
+    def self.migrate!
+      Database.connect
 
-    def migrate
-      MODELS.each do |model|
-        model.camelize.constantize.auto_upgrade!
+      migration_path = File.join(Lokka.root, 'db', 'migration')
+      ActiveRecord::Migrator.migrate(migration_path)
+
+      schema_file = File.join(Lokka.root, 'db', 'schema.rb')
+      File.open(schema_file, 'w:utf-8') do |io|
+        ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, io)
       end
-      self
     end
 
-    def migrate!
-      MODELS.each do |model|
-        model.camelize.constantize.auto_migrate!
-      end
-      self
-    end
-
-    def seed
+    def self.seed!
+      Database.connect
       seed_file = File.join(Lokka.root, 'db', 'seeds.rb')
       load(seed_file) if File.exist?(seed_file)
     end

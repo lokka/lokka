@@ -1,25 +1,22 @@
 # frozen_string_literal: true
 
-class Option
-  include DataMapper::Resource
+class Option < ActiveRecord::Base
+  attr_accessible :name, :value
 
-  property :name, String, length: 255, key: true
-  property :value, Text
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
-  validates_presence_of :name
+  validates :name,
+    presence:   true,
+    uniqueness: true
 
   def self.method_missing(method, *args)
     attribute = method.to_s
     if attribute =~ /=$/
       column = attribute[0, attribute.size - 1]
-      option = first_or_new(name: column)
-      option.value = args.first.to_s
-      option.save
+      o = self.where(name: column).first_or_create
+      o.value = args.first.to_s
+      o.save
     else
-      option = first_or_new(name: method.to_s)
-      option.value
+      o = self.where(name: attribute).first_or_create
+      o.value
     end
   end
 end

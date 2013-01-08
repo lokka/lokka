@@ -4,7 +4,7 @@
     <h2 class="title"><a href="<%= url(post.link) %>"><%= post.title %></a></h2>
   </div>
   <div class="body">
-    <%= post.body %>
+    <%= post.long_body %>
   </div>
   <div class="footer">
     <div class="created_at"><%= l(post.created_at, format: :long) %></div>
@@ -15,12 +15,5 @@
 </div>
 <% end %>
 <div class="pager">
-  <ul>
-<% if @posts.pager.previous_page %>
-    <li class="previous"><a href="?page=<%= @posts.pager.previous_page %>"><%= t('newer') %></a></li>
-<% end %>
-<% if @posts.pager.next_page %>
-    <li class="next"><a href="?page=<%= @posts.pager.next_page %>"><%= t('older') %></a></li>
-<% end %>
-  </ul>
+    <%= paginate @posts %>
 </div>

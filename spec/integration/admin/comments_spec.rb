@@ -12,8 +12,8 @@ describe '/admin/comments' do
   end
 
   after do
-    Comment.destroy
-    Post.destroy
+    Comment.delete_all
+    Post.delete_all
   end
 
   context 'GET /admin/comments' do
@@ -33,11 +33,11 @@ describe '/admin/comments' do
 
   context 'POST /admin/comments' do
     it 'should create a new comment' do
-      Comment.destroy
-      sample = attributes_for(:comment, entry_id: @post.id)
-      post '/admin/comments', comment: sample
+      Comment.delete_all
+      sample = Factory.attributes_for(:comment, :entry_id => @post.id)
+      post '/admin/comments', { :comment => sample }
       last_response.should be_redirect
-      Post(@post.id).comments.should have(1).item
+      Post.find(@post.id).comments.should have(1).item
     end
   end
 
@@ -53,7 +53,7 @@ describe '/admin/comments' do
     it 'should update the comment"s body ' do
       put "/admin/comments/#{@comment.id}", comment: { body: 'updated' }
       last_response.should be_redirect
-      Comment(@comment.id).body.should eq('updated')
+      Comment.find(@comment.id).body.should == 'updated'
     end
   end
 
@@ -61,7 +61,7 @@ describe '/admin/comments' do
     it 'should delete the comment' do
       delete "/admin/comments/#{@comment.id}"
       last_response.should be_redirect
-      Comment(@comment.id).should be_nil
+      Comment.where(id: @comment.id).first.should be_nil
     end
   end
 
@@ -74,7 +74,7 @@ describe '/admin/comments' do
   end
 
   context 'when the comment does not exist' do
-    before { Comment.destroy }
+    before { Comment.delete_all }
 
     context 'GET' do
       before { get '/admin/comments/9999/edit' }
