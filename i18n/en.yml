@@ -175,6 +175,7 @@ en:
     per_page: Number per page
     default_sort: Default sort
     default_order: Default order
+    default_markup: Default markup
     meta_description: Meta description
     meta_keywords: Meta keywords
     created_at: Created at

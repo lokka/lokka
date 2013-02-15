@@ -14,6 +14,7 @@ class Site
   property :per_page, Integer
   property :default_sort, String, :length => 255
   property :default_order, String, :length => 255
+  property :default_markup, String, :length => 255
   property :meta_description, String, :length => 255
   property :meta_keywords, String, :length => 255
   property :created_at, DateTime

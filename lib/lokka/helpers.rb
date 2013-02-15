@@ -149,7 +149,7 @@ module Lokka
 
     def get_admin_entry_new(entry_class)
       @name = entry_class.name.downcase
-      @entry = entry_class.new(:created_at => DateTime.now, :updated_at => DateTime.now)
+      @entry = entry_class.new(:markup => Site.first.default_markup, :created_at => DateTime.now, :updated_at => DateTime.now)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.all(:order => :name.asc)
       haml :'admin/entries/new', :layout => :'admin/layout'

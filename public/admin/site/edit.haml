@@ -1,6 +1,7 @@
 :ruby
   sort_options  = Site::SORT_COLUMNS.map {|c| [t("entry.#{c}"), c] }
   order_options = Site::ORDERS.map {|o| [t(o), o] }
+  markup_options = Markup.engine_list.map {|e| [e[1], e[0]] }
 %h2= t('edit_site')
 - form_for @site, url('/admin/site'), :method => :put do |f|
   %p
@@ -27,6 +28,10 @@
     = f.label :default_order, :caption => t('site.default_order')
     %br/
     = f.select :default_order, :options => order_options
+  %p
+    = f.label :default_markup, :caption => t('site.default_markup')
+    %br/
+    = f.select :default_markup, :options => markup_options
   %p
     = f.label :meta_description
     %br/
