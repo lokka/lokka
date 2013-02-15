@@ -31,6 +31,18 @@ describe '/admin/posts' do
       get '/admin/posts/new'
       last_response.body.should match('<form')
     end
+
+    Markup.engine_list.map(&:first).each do |markup|
+      context "when #{markup} is set a default markup" do
+        before { Site.first.update(:default_markup => markup) }
+        after { Site.first.update(:default_markup => nil) }
+
+        it "should select #{markup}" do
+          get '/admin/posts/new'
+          last_response.body.should match(%Q[value="#{markup}" selected="selected">])
+        end
+      end
+    end
   end
 
   context 'POST /admin/posts' do
