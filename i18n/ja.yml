@@ -175,6 +175,7 @@ ja:
     per_page: 表示件数
     default_sort: デフォルトのソート対象
     default_order: デフォルトのソート順
+    default_markup: デフォルトのMarkup
     meta_description: メタディスクリプション
     meta_keywords: メタキーワード
     created_at: 作成日時
