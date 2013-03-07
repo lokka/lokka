@@ -116,6 +116,7 @@ module Lokka
       @entry.user = current_user
       @entry.title << ' - Preview'
       @entry.updated_at = DateTime.now
+      @comment = @entry.comments.new
       setup_and_render_entry
     end
 
