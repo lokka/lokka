@@ -30,3 +30,7 @@ class Tag < ActiveRecord::Base
     existing_tags + created_tags
   end
 end
+
+def Tag(name)
+  Tag.where(name: name).first
+end

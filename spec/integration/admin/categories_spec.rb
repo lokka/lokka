@@ -45,7 +45,7 @@ describe '/admin/categories' do
     it 'should update the category\'s description' do
       put "/admin/categories/#{@category.id}", { :category => { :description => 'updated' } }
       last_response.should be_redirect
-      Category.find(@category.id).description.should == 'updated'
+      Category.where(id: @category.id).first.description.should == 'updated'
     end
   end
 
@@ -53,7 +53,7 @@ describe '/admin/categories' do
     it 'should delete the category' do
       delete "/admin/categories/#{@category.id}"
       last_response.should be_redirect
-      Category.find(@category.id).should be_nil
+      Category.where(id: @category.id).first.should be_nil
     end
   end
 

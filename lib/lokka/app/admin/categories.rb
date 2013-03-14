@@ -28,12 +28,12 @@ module Lokka
     end
 
     get '/admin/categories/:id/edit' do |id|
-      @category = Category.find(id) or raise Sinatra::NotFound
+      @category = Category.where(id: id).first or raise Sinatra::NotFound
       haml :'admin/categories/edit', layout: :'admin/layout'
     end
 
     put '/admin/categories/:id' do |id|
-      @category = Category.find(id) or raise Sinatra::NotFound
+      @category = Category.where(id: id).first or raise Sinatra::NotFound
       #FIXME
       #params['category'].delete('parent_id') if params['category']['parent_id'].blank?
       if @category.update_attributes(params[:category])
@@ -45,7 +45,7 @@ module Lokka
     end
 
     delete '/admin/categories/:id' do |id|
-      category = Category.find(id) or raise Sinatra::NotFound
+      category = Category.where(id: id).first or raise Sinatra::NotFound
       category.destroy
       flash[:notice] = t('category_was_successfully_deleted')
       redirect to('/admin/categories')
