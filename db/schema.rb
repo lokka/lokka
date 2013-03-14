@@ -14,9 +14,10 @@
 ActiveRecord::Schema.define(:version => 20130108000009) do
 
   create_table "categories", :force => true do |t|
-    t.string   "slug"
     t.string   "title"
+    t.string   "slug"
     t.text     "description"
+    t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -59,7 +60,8 @@ ActiveRecord::Schema.define(:version => 20130108000009) do
     t.datetime "updated_at",    :null => false
   end
 
-  create_table "options", :primary_key => "name", :force => true do |t|
+  create_table "options", :force => true do |t|
+    t.string   "name",       :null => false
     t.text     "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -74,7 +76,6 @@ ActiveRecord::Schema.define(:version => 20130108000009) do
     t.integer  "per_page"
     t.string   "default_sort"
     t.string   "default_order"
-    t.string   "default_markup"
     t.string   "meta_description"
     t.string   "meta_keywords"
     t.datetime "created_at",                     :null => false
@@ -89,10 +90,9 @@ ActiveRecord::Schema.define(:version => 20130108000009) do
   end
 
   create_table "taggings", :force => true do |t|
-    t.integer "taggable_id",                 :null => false
-    t.integer "taggable_type",               :null => false
-    t.string  "tag_context",   :limit => 50, :null => false
-    t.integer "tag_id",                      :null => false
+    t.integer "tag_id",        :null => false
+    t.string  "taggable_type", :null => false
+    t.integer "taggable_id",   :null => false
   end
 
   create_table "tags", :force => true do |t|
