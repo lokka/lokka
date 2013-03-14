@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20130108000009) do
     t.integer  "per_page"
     t.string   "default_sort"
     t.string   "default_order"
+    t.string   "default_markup"
     t.string   "meta_description"
     t.string   "meta_keywords"
     t.datetime "created_at",                     :null => false
