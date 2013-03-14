@@ -8,13 +8,13 @@ class User < ActiveRecord::Base
     uniqueness: true,
     length:     (3..40)
   validates :email,
+    presence: true,
     uniqueness: true,
-    length:     (5..40), allow_blank: true
+    length:     (5..40)
   validates :password,
     length: { minimum: 4 },
     confirmation: true,
     if: :password_require?
-
   validates :password_confirmation,
     presence: true,
     if: :password_require?

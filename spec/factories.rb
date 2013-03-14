@@ -13,7 +13,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-    sequence(:name){|n| "testuser#{n}" }
+    sequence(:name){ |n| "testuser#{n}" }
+    sequence(:email) { |n| "test_#{n}@test.com" }
     password 'test'
     password_confirmation 'test'
     #hashed_password '6338db2314bba79531444996b780fa7036480733'
@@ -120,7 +121,7 @@ FactoryGirl.define do
   end
 
   factory :category do
-    title 'Test Category'
+    sequence(:title) { |n|  "Test Category #{n}" }
     slug  'testtest'
     #created_at create_time
     #updated_at update_time
