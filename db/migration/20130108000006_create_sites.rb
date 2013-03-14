@@ -10,6 +10,7 @@ class CreateSites < ActiveRecord::Migration
       t.integer :per_page
       t.string  :default_sort,     limit: 255
       t.string  :default_order,    limit: 255
+      t.string  :default_markup,   limit: 255
       t.string  :meta_description, limit: 255
       t.string  :meta_keywords,    limit: 255
 
