@@ -7,6 +7,7 @@ Site.create!(
 
 User.create!(
   name:                  "test",
+  email:                 "test@test.com",
   password:              "test",
   password_confirmation: "test",
   permission_level:      1
