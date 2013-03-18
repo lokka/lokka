@@ -32,9 +32,9 @@ task 'db:setup' => %w(db:migrate db:seed)
 desc 'Lokka console'
 task 'console' do
   require 'pry'
-  require 'lib/lokka/models'
-  Lokka::Database.connect
-  Pry.start(binding)
+  require 'lib/lokka'
+  #Lokka::Database.connect
+  Pry.start
 end
 
 desc 'Install gems'
@@ -55,11 +55,22 @@ task 'spec:setup' do
   ENV['RACK_ENV'] = ENV['LOKKA_ENV'] = 'test'
 end
 
+require 'rspec/core/rake_task'
 begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:spec => 'spec:setup') do |spec|
-    spec.pattern = 'spec/**/*_spec.rb'
-    spec.rspec_opts = ['-cfs']
+  RSpec::Core::RakeTask.new(:spec => 'spec:setup') do |t|
+    t.pattern = 'spec/**/*_spec.rb'
+    t.rspec_opts = ['-cfs']
+  end
+  namespace :spec do
+    RSpec::Core::RakeTask.new(:unit => 'spec:setup') do |t|
+      t.pattern = 'spec/unit/**/*_spec.rb'
+      t.rspec_opts = ['-c']
+    end
+
+    RSpec::Core::RakeTask.new(:integration => 'spec:setup') do |t|
+      t.pattern = "spec/integration/**/*_spec.rb"
+      t.rspec_opts = ['-c']
+    end
   end
 rescue LoadError => e
 end
