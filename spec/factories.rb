@@ -26,7 +26,7 @@ FactoryGirl.define do
 
   factory :post do
     association :user
-    sequence(:title){|n| "Test Post #{n}" }
+    title "Test Post"
     body "<p>Welcome to Lokka!</p><p><a href=""/admin/"">Admin login</a> (user / password : test / test)</p>"
     type 'Post'
     created_at create_time
@@ -99,6 +99,15 @@ FactoryGirl.define do
     after_create { |p| Factory(:tagging, :taggable_id => p.id) }
   end
 
+  factory :tag do
+    sequence(:name){|n| "sample-tag-#{n}" }
+  end
+
+  factory :tagging do
+    association :tag
+    taggable_type 'Entry'
+  end
+
   factory :snippet do
     sequence(:name){|n| "Test Snippet#{n}" }
     body 'Text for test snippet.'
@@ -121,8 +130,8 @@ FactoryGirl.define do
   end
 
   factory :category do
-    sequence(:title) { |n|  "Test Category #{n}" }
-    slug  'testtest'
+    sequence(:title) { |n| "Test Category #{n}" }
+    sequence(:slug)  { |n| "category-slug-#{n}" }
     #created_at create_time
     #updated_at update_time
   end
@@ -133,14 +142,6 @@ FactoryGirl.define do
     updated_at update_time
   end
 
-  factory :tag do
-    sequence(:name){|n| "sample-tag-#{n}" }
-  end
-
-  factory :tagging do
-    association :tag
-    taggable_type Entry
-  end
 
   # Comment has no association to entry by default
   factory :comment do

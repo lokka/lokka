@@ -49,7 +49,7 @@ describe '/admin/snippets' do
     it 'should delete the snippet' do
       delete "/admin/snippets/#{@snippet.id}"
       last_response.should be_redirect
-      Snippet.find(@snippet.id).should be_nil
+      Snippet.where(id: @snippet.id).first.should be_nil
     end
   end
 

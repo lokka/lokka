@@ -33,16 +33,16 @@ module Lokka
     end
 
     # search
-    get '/search/' do
+    get '/search/:query' do
       @theme_types << :search
       @theme_types << :entries
 
       @query = params[:query]
       @posts = Post.
         search(@query).
+        order(@site.default_order).
         page(params[:page]).
-        per(@site.per_page).
-        order(@site.default_order)
+        per(@site.per_page)
 
       #FIXME
       #@posts = apply_continue_reading(@posts)

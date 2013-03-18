@@ -1,7 +1,6 @@
 module Lokka
   class App
     get '/admin/users' do
-      puts 'called'
       @users = User.order('created_at DESC').
         page(params[:page]).
         per(settings.admin_per_page)
@@ -24,12 +23,12 @@ module Lokka
     end
 
     get '/admin/users/:id/edit' do |id|
-      @user = User.find(id) or raise Sinatra::NotFound
+      @user = User.where(id: id).first or raise Sinatra::NotFound
       haml :'admin/users/edit', layout: :'admin/layout'
     end
 
     put '/admin/users/:id' do |id|
-      @user = User.find(id) or raise Sinatra::NotFound
+      @user = User.where(id: id).first or raise Sinatra::NotFound
       if @user.update_attributes(params['user'])
         flash[:notice] = t('user_was_successfully_updated')
         redirect to("/admin/users/#{@user.id}/edit")
@@ -39,7 +38,7 @@ module Lokka
     end
 
     delete '/admin/users/:id' do |id|
-      target_user = User.find(id) or raise Sinatra::NotFound
+      target_user = User.where(id: id).first or raise Sinatra::NotFound
       if current_user == target_user
         flash[:alert] = 'Can not delete your self.'
       else

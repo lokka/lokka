@@ -62,7 +62,7 @@ describe '/admin/pages' do
     it 'should delete the page' do
       delete "/admin/pages/#{@page.id}"
       last_response.should be_redirect
-      Page.find(@page.id).should be_nil
+      Page.where(id: @page.id).first.should be_nil
     end
   end
 

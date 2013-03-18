@@ -12,8 +12,6 @@ describe Post do
         Option.permalink_enabled = 'true'
       end
 
-      puts subject
-      pp subject
       its(:link) { should eq('/2011/01/09/welcome-lokka') }
     end
 

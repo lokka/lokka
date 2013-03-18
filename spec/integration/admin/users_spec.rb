@@ -68,7 +68,7 @@ describe '/admin/users' do
     it 'should delete the another user' do
       delete "/admin/users/#{@another_user.id}"
       last_response.should be_redirect
-      User.find(@another_user.id).should be_nil
+      User.where(id: @another_user.id).first.should be_nil
     end
 
     it 'should not delete the current user' do

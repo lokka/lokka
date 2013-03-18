@@ -23,12 +23,12 @@ module Lokka
     end
 
     get '/admin/comments/:id/edit' do |id|
-      @comment = Comment.find(id) or raise Sinatra::NotFound
+      @comment = Comment.where(id: id).first or raise Sinatra::NotFound
       haml :'admin/comments/edit', layout: :'admin/layout'
     end
 
     put '/admin/comments/:id' do |id|
-      @comment = Comment.find(id) or raise Sinatra::NotFound
+      @comment = Comment.where(id: id).first or raise Sinatra::NotFound
       if @comment.update_attributes(params[:comment])
         flash[:notice] = t('comment_was_successfully_updated')
         redirect to("/admin/comments/#{@comment.id}/edit")
@@ -44,7 +44,7 @@ module Lokka
     end
 
     delete '/admin/comments/:id' do |id|
-      comment = Comment.find(id) or raise Sinatra::NotFound
+      comment = Comment.where(id: id).first or raise Sinatra::NotFound
       comment.destroy
       flash[:notice] = t('comment_was_successfully_deleted')
       redirect to('/admin/comments')

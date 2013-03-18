@@ -7,7 +7,7 @@ class Site < ActiveRecord::Base
   end
 
   def default_order
-    super.blank? ? 'id DESC' : "id #{super}"
+    super.blank? ? 'created_at DESC' : "id #{super}"
   end
 
   def method_missing(method, *args)

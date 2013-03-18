@@ -8,12 +8,12 @@ module Lokka
     end
 
     get '/admin/tags/:id/edit' do |id|
-      @tag = Tag.find(id) or raise Sinatra::NotFound
+      @tag = Tag.where(id: id).first or raise Sinatra::NotFound
       haml :'admin/tags/edit', layout: :'admin/layout'
     end
 
     put '/admin/tags/:id' do |id|
-      @tag = Tag.find(id) or raise Sinatra::NotFound
+      @tag = Tag.where(id: id).first or raise Sinatra::NotFound
       if @tag.update_attributes(params[:tag])
         flash[:notice] = t('tag_was_successfully_updated')
         redirect to("/admin/tags/#{@tag.id}/edit")
@@ -23,7 +23,7 @@ module Lokka
     end
 
     delete '/admin/tags/:id' do |id|
-      tag = Tag.find(id) or raise Sinatra::NotFound
+      tag = Tag.where(id: id).first or raise Sinatra::NotFound
       tag.destroy
       flash[:notice] = t('tag_was_successfully_deleted')
       redirect to('/admin/tags')

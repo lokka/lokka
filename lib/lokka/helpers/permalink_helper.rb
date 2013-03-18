@@ -60,7 +60,7 @@ module Lokka
     def custom_permalink_fix(path)
       r = custom_permalink_parse(path)
       url_changed = false
-      [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
+      [:year, :month, :day, :hour, :minute, :second].each do |k|
         i = (k == :year ? 4 : 2)
         (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
       end

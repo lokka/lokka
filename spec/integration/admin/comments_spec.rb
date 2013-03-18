@@ -59,7 +59,7 @@ describe '/admin/comments' do
     it 'should delete the comment' do
       delete "/admin/comments/#{@comment.id}"
       last_response.should be_redirect
-      Comment.find(@comment.id).should be_nil
+      Comment.where(id: @comment.id).first.should be_nil
     end
   end
 

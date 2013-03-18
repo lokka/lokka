@@ -23,12 +23,12 @@ module Lokka
     end
 
     get '/admin/snippets/:id/edit' do |id|
-      @snippet = Snippet.find(id) or raise Sinatra::NotFound
+      @snippet = Snippet.where(id: id).first or raise Sinatra::NotFound
       haml :'admin/snippets/edit', layout: :'admin/layout'
     end
 
     put '/admin/snippets/:id' do |id|
-      @snippet = Snippet.find(id) or raise Sinatra::NotFound
+      @snippet = Snippet.where(id: id).first or raise Sinatra::NotFound
       if @snippet.update_attributes(params['snippet'])
         flash[:notice] = t('snippet_was_successfully_updated')
         redirect to("/admin/snippets/#{@snippet.id}/edit")
@@ -38,7 +38,7 @@ module Lokka
     end
 
     delete '/admin/snippets/:id' do |id|
-      snippet = Snippet.find(id) or raise Sinatra::NotFound
+      snippet = Snippet.where(id: id).first or raise Sinatra::NotFound
       snippet.destroy
       flash[:notice] = t('snippet_was_successfully_deleted')
       redirect to('/admin/snippets')

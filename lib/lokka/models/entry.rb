@@ -17,15 +17,14 @@ class Entry < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
-  validates :title, presence:   true,
-                    uniqueness: true
+  validates :title, presence:   true
   validates :slug, uniqueness: true,
                    format: %r{^[_/0-9a-zA-Z-]+$}, allow_blank: true
 
   validate :validate_confliction
   after_save :update_fields
 
-  default_scope { published.order('created_at DESC') }
+  default_scope { order('created_at DESC') }
   scope :published,   ->{ where(draft: false) }
   scope :unpublished, ->{ where(draft: true) }
   scope :posts,       ->{ where(type: 'Post') }
@@ -74,8 +73,12 @@ class Entry < ActiveRecord::Base
     Tagging.tagged!(self, string)
   end
 
+  def tag_list
+    tags.pluck(:name)
+  end
+
   def tag_collection
-    tags.pluck(:name).join(',')
+    tag_list.join(',')
   end
 
   def tags_to_html

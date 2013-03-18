@@ -23,7 +23,7 @@ module Lokka
     end
 
     delete '/admin/field_names/:id' do |id|
-      field_name = FieldName.find(id) or raise Sinatra::NotFound
+      field_name = FieldName.where(id: id).first or raise Sinatra::NotFound
       field_name.destroy
       flash[:notice] = t('field_name_was_successfully_deleted')
       redirect to('/admin/field_names')

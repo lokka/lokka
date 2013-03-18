@@ -8,7 +8,7 @@ describe '/admin/posts' do
     Factory(:draft_post)
   end
 
-  after { Post.destroy }
+  after { Post.delete_all}
 
   context 'with no option' do
     it 'should show all posts' do
@@ -34,8 +34,8 @@ describe '/admin/posts' do
 
     Markup.engine_list.map(&:first).each do |markup|
       context "when #{markup} is set a default markup" do
-        before { Site.first.update(:default_markup => markup) }
-        after { Site.first.update(:default_markup => nil) }
+        before { Site.first.update_attributes(:default_markup => markup) }
+        after { Site.first.update_attributes(:default_markup => nil) }
 
         it "should select #{markup}" do
           get '/admin/posts/new'
