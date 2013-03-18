@@ -2,23 +2,25 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Post do
   context 'with slug' do
-    subject { build :post_with_slug }
+    subject { create :post_with_slug }
 
     its(:link) { should eq('/welcome-lokka') }
 
     context 'when permalink is enabled' do
       before do
         Option.permalink_format = "/%year%/%month%/%day%/%slug%"
-        Option.permalink_enabled = true
+        Option.permalink_enabled = 'true'
       end
 
+      puts subject
+      pp subject
       its(:link) { should eq('/2011/01/09/welcome-lokka') }
     end
 
     context 'when parmalink_format is set but disabled' do
       before do
         Option.permalink_format = "/%year%/%month%/%day%/%slug%"
-        Option.permalink_enabled = false
+        Option.permalink_enabled = 'false'
       end
 
       its(:link) { should eq('/welcome-lokka') }
@@ -46,14 +48,14 @@ describe Post do
     [:kramdown, :redcloth, :wikicloth].each do |markup|
       describe "a post using #{markup}" do
         let(:post) { Factory(markup) }
-        it { post.body.should_not == post.raw_body }
-        it { post.body.should match('<h1') }
+        it { post.body.should_not == post.long_body }
+        it { post.long_body.should match('<h1') }
       end
     end
 
     context 'default' do
       let(:post) { build :post }
-      it { post.body.should == post.raw_body }
+      it { post.body.should == post.long_body }
     end
   end
 

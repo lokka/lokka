@@ -1,4 +1,5 @@
 require 'lokka'
+require 'pp'
 module Lokka
   class App < Sinatra::Base
     include Padrino::Helpers::TranslationHelpers
@@ -27,6 +28,7 @@ module Lokka
       end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
+      helpers Lokka::PermalinkHelper
       helpers Lokka::RenderHelper
       helpers Kaminari::Helpers::SinatraHelpers
       use Rack::Session::Cookie,

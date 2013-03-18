@@ -1,6 +1,14 @@
 class Entry < ActiveRecord::Base
-  attr_accessible :user, :category_id, :slug, :title,
-                  :body, :markup, :type, :draft
+  attr_accessible :user,
+                  :category_id,
+                  :slug,
+                  :title,
+                  :body,
+                  :markup,
+                  :type,
+                  :draft,
+                  :created_at,
+                  :updated_at
 
   has_many :comments
   has_many :tags, through: :taggings
@@ -41,11 +49,9 @@ class Entry < ActiveRecord::Base
     result = where(slug: id_or_slug).first || where(id: id_or_slug).first
   end
 
-  #alias_method :raw_body, :body
   def long_body
     Markup.use_engine(markup, self.body)
   end
-  #alias_method :body, :long_body
 
   def short_body
     @short_body ||= self.long_body \

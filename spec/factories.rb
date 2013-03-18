@@ -42,7 +42,7 @@ FactoryGirl.define do
     updated_at update_time
   end
 
-  factory :post_with_slug, :parent => :post do
+  factory :post_with_slug, parent: :post do
     slug 'welcome-lokka'
   end
 

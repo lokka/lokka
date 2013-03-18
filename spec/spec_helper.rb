@@ -40,6 +40,7 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include LokkaTestMethods
   config.include Lokka::Helpers
+  config.include Lokka::PermalinkHelper
 
   config.include FactoryGirl::Syntax::Methods
 

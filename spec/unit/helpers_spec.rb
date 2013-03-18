@@ -7,19 +7,22 @@ describe Lokka::Helpers do
       gravatar_image_url().should eql('http://www.gravatar.com/avatar/00000000000000000000000000000000')
     end
   end
+end
+
+describe Lokka::PermalinkHelper do
   context 'custom_permalink' do
     before do
-      Option.permalink_enabled = true
-      Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
+      Option.permalink_enabled = 'true'
+      Option.permalink_format = "/%year%/%month%/%day%/%slug%"
     end
 
     after do
-      Option.permalink_enabled = false
+      Option.permalink_enabled = 'false'
     end
 
     it 'custom_permalink_parse split path valid and return Hash' do
       custom_permalink_parse('/2011/01/09/welcome').should ==
-        {:year=>"2011", :monthnum=>"01", :day=>"09", :slug=>"welcome"}
+        { year: '2011', month: '01', day: '09', slug: 'welcome' }
     end
 
     describe 'custom_permalink_fix' do
@@ -38,11 +41,11 @@ describe Lokka::Helpers do
     end
 
     describe 'custom_permalink_entry' do
-      it 'should parse date condition' do
-        Entry.should_receive(:first).with(:slug => 'slug',
-                                     :created_at.gte => Time.local(2011, 1, 9),
-                                     :created_at.lt => Time.local(2011, 1, 9, 23, 59, 59))
-        custom_permalink_entry('/2011/01/09/slug')
+      let(:post_with_slug){ create :post_with_slug, slug: 'welcome-permalink'}
+      context 'when permalink_format include id or slug' do
+        it 'should find by slug' do
+          custom_permalink_entry('/2011/01/09/welcome-permalink') == post_with_slug
+        end
       end
 
       it 'should return nil when any error is raised' do

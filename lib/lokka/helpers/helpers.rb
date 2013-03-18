@@ -1,4 +1,5 @@
-require 'pp'
+require 'digest/sha1'
+
 module Lokka
   module Helpers
     include Rack::Utils
@@ -243,103 +244,6 @@ module Lokka
     #  end
     #  posts
     #end
-
-    def custom_permalink?
-      Option.permalink_enabled == "true"
-    end
-
-    def custom_permalink_format
-      Option.permalink_format.scan(/(%.+?%[^%]?|.)/).flatten
-    end
-
-    def custom_permalink_parse(path)
-      chars = path.chars.to_a
-      custom_permalink_format().inject({}) do |result, pattern|
-        if pattern.start_with?("%")
-          next_char = pattern[-1..-1]
-          next_char = nil if next_char == '%'
-          name = pattern.match(/^%(.+)%.?$/)[1].to_sym
-          c = nil
-          (result[name] ||= "") << c until (c = chars.shift) == next_char || c.nil?
-        elsif chars.shift != pattern
-          break nil
-        end
-        result
-      end
-    end
-
-    def custom_permalink_path(param)
-      path = Option.permalink_format
-      param.each do |tag, value|
-        path.gsub!(/%#{Regexp.escape(tag.to_s)}%/,value)
-      end
-      path
-    end
-
-    def custom_permalink_fix(path)
-      r = custom_permalink_parse(path)
-
-      url_changed = false
-      [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
-        i = (k == :year ? 4 : 2)
-        (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
-      end
-
-      custom_permalink_path(r) if url_changed
-    rescue => e
-      nil
-    end
-
-    def custom_permalink_entry(path)
-      r = custom_permalink_parse(path)
-      conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
-        case tag
-        when :year
-          flags[:year] = value.to_i
-          flags[:time] = true
-        when :monthnum, :month
-          flags[:month] = value.to_i
-          flags[:time] = true
-        when :day
-          flags[:day] = value.to_i
-          flags[:time] = true
-        when :hour
-          flags[:hour] = value.to_i
-          flags[:time] = true
-        when :minute
-          flags[:minute] = value.to_i
-          flags[:time] = true
-        when :second
-          flags[:second] = value.to_i
-          flags[:time] = true
-        when :post_id, :id
-          conds[:id] = value.to_i
-        when :postname, :slug
-          conds[:slug] = value
-        when :category
-          conds[:category_id] = Category(value).id
-        end
-        [conds, flags]
-      }
-
-      if flags[:time]
-        time_order = [:year, :month, :day, :hour, :minute, :second]
-        args, last = time_order.inject([[],nil]) do |(result,last), key|
-          break [result, key] unless flags[key]
-          [result << flags[key], nil]
-        end
-        args = [0,1,1,0,0,0].each_with_index.map{|default,i| args[i] || default }
-        conditions[:created_at.gte] = Time.local(*args)
-        day_end = {:hour => 23, :minute => 59, :second => 59}
-        day_end.each_pair do |key, value|
-          args[time_order.index(key)] = value.to_i
-        end
-        conditions[:created_at.lt] = Time.local(*args)
-      end
-      Entry.first(conditions)
-    rescue => e
-      nil
-    end
 
     class << self
       include Lokka::Helpers
