@@ -55,8 +55,9 @@ task 'spec:setup' do
   ENV['RACK_ENV'] = ENV['LOKKA_ENV'] = 'test'
 end
 
-require 'rspec/core/rake_task'
 begin
+  require 'rspec/core/rake_task'
+
   RSpec::Core::RakeTask.new(:spec => 'spec:setup') do |t|
     t.pattern = 'spec/**/*_spec.rb'
     t.rspec_opts = ['-cfs']
