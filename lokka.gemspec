@@ -217,7 +217,7 @@ Gem::Specification.new do |s|
     "test/lokka/app_test.rb",
     "test/lokka/post_test.rb"
   ]
-  s.homepage = %q{http://github.com/komagata/lokka}
+  s.homepage = %q{http://github.com/lokka/lokka}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}

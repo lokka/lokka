@@ -1,4 +1,4 @@
-# Lokka [<img src="https://secure.travis-ci.org/komagata/lokka.png"/>](http://travis-ci.org/komagata/lokka)
+# Lokka [<img src="https://secure.travis-ci.org/lokka/lokka.png"/>](http://travis-ci.org/lokka/lokka)
 
 CMS written in Ruby for cloud computing.
 
@@ -12,7 +12,7 @@ CMS written in Ruby for cloud computing.
 
 ## Installation
 
-    $ git clone git://github.com/komagata/lokka.git
+    $ git clone git://github.com/lokka/lokka.git
     $ cd lokka
     $ bundle install --without=production:test
     $ bundle exec rake db:setup
@@ -22,7 +22,7 @@ View at: http://localhost:9292/
 
 ## Deploy to Heroku
 
-    $ git clone git://github.com/komagata/lokka.git
+    $ git clone git://github.com/lokka/lokka.git
     $ cd lokka
     $ heroku create
     $ git push heroku master
