@@ -1,5 +1,5 @@
 require 'lokka'
-require 'pp'
+
 module Lokka
   class App < Sinatra::Base
     include Padrino::Helpers::TranslationHelpers
