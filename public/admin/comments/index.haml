@@ -17,5 +17,4 @@
       %td= link_to t('edit'), url("/admin/comments/#{comment.id}/edit"), :class => 'button'
       %td= link_to t('delete'), url("/admin/comments/#{comment.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
-  %ul
-    %li= paginate @comments
+  = paginate @comments

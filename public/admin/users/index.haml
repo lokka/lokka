@@ -15,5 +15,4 @@
         - unless user == current_user
           = link_to t('delete'), url("/admin/users/#{user.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
-  %ul
-    %li= paginate @users
+  = paginate @users

@@ -9,5 +9,4 @@
       %td= link_to t('edit'), url("/admin/tags/#{tag.id}/edit"), :class => 'button'
       %td= link_to t('delete'), url("/admin/tags/#{tag.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
-  %ul
-    %li= paginate @tags
+  = paginate @tags

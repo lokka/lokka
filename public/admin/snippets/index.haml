@@ -15,5 +15,4 @@
       %td= link_to t('edit'), snippet.edit_link, :class => 'button'
       %td= link_to t('delete'), url("/admin/snippets/#{snippet.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
-  %ul
-    %li= paginate @snippets
+  = paginate @snippets
