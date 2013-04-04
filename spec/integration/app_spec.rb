@@ -71,7 +71,7 @@ describe "App" do
     context '/category/:id/' do
       before do
         @category = Factory(:category)
-        #@category_child = Factory(:category_child, :parent => @category)
+        @category_child = Factory(:category_child, :parent_id => @category.id)
       end
 
       after do
@@ -83,7 +83,7 @@ describe "App" do
         last_response.body.should match('Test Site')
       end
 
-      xit "should show child category index" do
+      it "should show child category index" do
         get "/category/#{@category.id}/#{@category_child.id}/"
         last_response.body.should match('Test Site')
       end

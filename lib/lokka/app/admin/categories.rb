@@ -13,11 +13,8 @@ module Lokka
     end
 
     post '/admin/categories' do
-      #FIXME
-      #params['category'].delete('parent_id') if params['category']['parent_id'].blank?
-      @category = Category.new(params[:category]) do |c|
-        c.user_id = current_user.id
-      end
+      params['category'].delete('parent_id') if params['category']['parent_id'].blank?
+      @category = Category.new(params[:category])
 
       if @category.save
         flash[:notice] = t('category_was_successfully_created')
@@ -34,8 +31,7 @@ module Lokka
 
     put '/admin/categories/:id' do |id|
       @category = Category.where(id: id).first or raise Sinatra::NotFound
-      #FIXME
-      #params['category'].delete('parent_id') if params['category']['parent_id'].blank?
+      params['category'].delete('parent_id') if params['category']['parent_id'].blank?
       if @category.update_attributes(params[:category])
         flash[:notice] = t('category_was_successfully_updated')
         redirect to("/admin/categories/#{@category.id}/edit")
