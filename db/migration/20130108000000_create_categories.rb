@@ -5,7 +5,7 @@ class CreateCategories < ActiveRecord::Migration
       t.string  :title,       limit: 255
       t.string  :slug,        limit: 255
       t.text    :description
-      t.integer :user_id
+      t.integer :parent_id
 
       t.timestamps
     end

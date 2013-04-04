@@ -60,7 +60,6 @@ describe '/admin/categories' do
   context 'when a child category exists' do
     context 'POST /admin/categories' do
       it 'should create a new child category' do
-        pending('not working.')
         sample = { :title => 'Child Category',
           :description => 'This is created in spec',
           :slug => 'child-category',

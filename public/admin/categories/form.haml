@@ -13,14 +13,13 @@
     = f.label :description, caption: t('category.description')
     %br/
     #editor= f.text_area :description
-  -#FIXME
-  -#.field
-  -#  = f.label :parent, caption: t("category.parent")
-  -#  %br/
-  -#  - if (categories_without_self = Category.without_self(@category.id)).count > 0
-  -#    = f.select :parent_id, collection: categories_without_self, fields: [:title, :id], include_blank: t('not_select')
-  -#  - else
-  -#    = t('no_category')
+  .field
+    = f.label :parent, caption: t("category.parent")
+    %br/
+    - if (categories_without_self = Category.without_self(@category.id)).count > 0
+      = f.select :parent_id, collection: categories_without_self, fields: [:title, :id], include_blank: t('not_select')
+    - else
+      = t('no_category')
   .field
     = f.label :slug, caption: t('category.slug')
     %br/
