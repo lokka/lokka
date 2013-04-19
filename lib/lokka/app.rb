@@ -33,8 +33,8 @@ module Lokka
       helpers Lokka::Helpers
       helpers Lokka::RenderHelper
       use Rack::Session::Cookie,
-        :expire_after => 60 * 60 * 24 * 12
-      set :session_secret, 'development' if development?
+        :expire_after => 60 * 60 * 24 * 12,
+				:secret => SecureRandom.hex(30)
       register Sinatra::Flash
       Lokka.load_plugin(self)
       Lokka::Database.new.connect
