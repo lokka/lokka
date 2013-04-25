@@ -32,7 +32,8 @@ module Lokka
       helpers Lokka::RenderHelper
       helpers Kaminari::Helpers::SinatraHelpers
       use Rack::Session::Cookie,
-        :expire_after => 60 * 60 * 24 * 12
+        :expire_after => 60 * 60 * 24 * 12,
+        :secret => SecureRandom.hex(30)
       set :session_secret, 'development' if development?
       register Sinatra::Flash
       register Padrino::Helpers
