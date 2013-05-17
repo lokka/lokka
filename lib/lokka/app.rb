@@ -23,6 +23,7 @@ module Lokka
       set :admin_per_page, 200
       set :default_locale, 'en'
       set :haml, :ugly => false, :attr_wrapper => '"'
+      set :session_secret, 'development' if development?
       supported_stylesheet_templates.each do |style|
         set style, :style => :expanded
       end
@@ -31,12 +32,13 @@ module Lokka
       helpers Lokka::PermalinkHelper
       helpers Lokka::RenderHelper
       helpers Kaminari::Helpers::SinatraHelpers
-      use Rack::Session::Cookie,
-        :expire_after => 60 * 60 * 24 * 12,
-        :secret => SecureRandom.hex(30)
-      set :session_secret, 'development' if development?
+      use Rack::Session::Cookie, {
+        expire_after: 60 * 60 * 24 * 12,
+        secret: SecureRandom.hex(30)
+      }
       register Sinatra::Flash
       register Padrino::Helpers
+      register Sinatra::Namespace
       Lokka.load_plugin(self)
       Lokka::Database.connect
     end
