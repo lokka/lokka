@@ -17,11 +17,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "test_#{n}@test.com" }
     password 'test'
     password_confirmation 'test'
-    #hashed_password '6338db2314bba79531444996b780fa7036480733'
-    #salt '2Z4H4DzATC'
     permission_level 1
-    #created_at create_time
-    #updated_at update_time
   end
 
   factory :post do

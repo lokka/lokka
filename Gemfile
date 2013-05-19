@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bundler'
+gem 'bcrypt-ruby'
 gem 'rack'
 gem 'rack-flash'
 gem 'sinatra-flash'
