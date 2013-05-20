@@ -10,9 +10,9 @@ module Lokka
     end
 
     post '/admin/login' do
-      @user = User.authenticate(params[:name], params[:password])
-      if @user
-        session[:user] = @user.id
+      user = User.find_by_name(params[:name])
+      if user.try(:authenticate, (params['password']))
+        session[:user] = user.id
         flash[:notice] = t('logged_in_successfully')
         if session[:return_to]
           redirect_url = session[:return_to]
