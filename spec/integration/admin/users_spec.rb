@@ -74,7 +74,6 @@ describe '/admin/users' do
     it 'should not delete the current user' do
       delete "/admin/users/#{user.id}"
       last_response.should be_redirect
-      pp user
       User.find(user.id).should_not be_nil
     end
   end
