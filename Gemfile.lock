@@ -91,15 +91,15 @@ GEM
     kramdown (1.0.1)
     multi_json (1.0.4)
     nokogiri (1.5.9)
-    padrino-core (0.9.21)
-      activesupport (>= 3.0.0)
-      http_router (~> 0.5.4)
-      sinatra (>= 1.1.0)
-      thor (>= 0.14.3)
-      tzinfo
-    padrino-helpers (0.9.21)
-      i18n (>= 0.4.1)
-      padrino-core (= 0.9.21)
+    padrino-core (0.10.5)
+      activesupport (~> 3.1.0)
+      http_router (~> 0.10.2)
+      sinatra (~> 1.3.1)
+      thor (~> 0.14.3)
+      tilt (~> 1.3.0)
+    padrino-helpers (0.10.5)
+      i18n (~> 0.6)
+      padrino-core (= 0.10.5)
     rack (1.5.2)
     rack-flash (0.1.2)
       rack
@@ -150,14 +150,13 @@ GEM
     tapp (1.3.0)
       thor
     temple (0.3.5)
-    thor (0.18.1)
-    tilt (1.4.0)
+    thor (0.14.6)
+    tilt (1.3.4)
     tux (0.3.0)
       ripl (>= 0.3.5)
       ripl-multi_line (>= 0.2.4)
       ripl-rack (>= 0.2.0)
       sinatra (>= 1.2.1)
-    tzinfo (0.3.37)
     url_mount (0.2.1)
       rack
     uuidtools (2.1.4)
@@ -200,7 +199,7 @@ DEPENDENCIES
   i18n (= 0.6.0)
   kramdown
   nokogiri (~> 1.5.2)
-  padrino-helpers
+  padrino-helpers (= 0.10.5)
   rack
   rack-flash (~> 0.1.2)
   rack-test (= 0.6.1)
