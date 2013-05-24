@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'Login' do
   include_context 'in site'
-  before { Factory(:user, :name => 'test') }
+  before { Factory(:user, name: 'test') }
   after { User.delete_all }
 
   shared_examples_for 'login failed' do
@@ -11,7 +11,7 @@ describe 'Login' do
     end
 
     it 'should render login screen again' do
-      last_response.body.should match('<body class="admin_login">')
+      last_response.body.should match('<body class=\'admin_login\'>')
     end
 
     it 'should not render dashboard side bar' do
@@ -21,7 +21,7 @@ describe 'Login' do
 
   context 'when valid username and password' do
     it 'should redirect to /admin/' do
-      post '/admin/login', {:name => 'test', :password => 'test'}
+      post '/admin/login', { name: 'test', password: 'test' }
       last_response.should be_redirect
       follow_redirect!
       last_request.env['PATH_INFO'].should == '/admin/'
@@ -29,17 +29,17 @@ describe 'Login' do
   end
 
   context 'when invalid username' do
-    before { post '/admin/login', {:name => 'wrong', :password => 'test'} }
+    before { post '/admin/login', { name: 'wrong', password: 'test' } }
     it_behaves_like 'login failed'
   end
 
   context 'when invalid password' do
-    before { post '/admin/login', {:name => 'test', :password => 'wrong'} }
+    before { post '/admin/login', { name: 'test', password: 'wrong' } }
     it_behaves_like 'login failed'
   end
 
   context 'when invalid username and password' do
-    before { post '/admin/login', {:name => 'wrong', :password => 'wrong'} }
+    before { post '/admin/login', { name: 'wrong', password: 'wrong' } }
     it_behaves_like 'login failed'
   end
 end
