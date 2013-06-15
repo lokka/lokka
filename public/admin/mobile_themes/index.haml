@@ -12,7 +12,7 @@
         = link_to theme.title, url("/admin/mobile_themes?title=#{theme.title}"), :confirm => t('are_you_sure'), :method => 'put'
       - if theme.screenshot
         .screenshot
-          = link_to "<img src=\"#{theme.screenshot}\" />", url("/admin/mobile_themes?title=#{theme.title}"), :confirm => t('may_i_change_the_theme'), :method => 'put'
+          = link_to image_tag(theme.screenshot), url("/admin/mobile_themes?title=#{theme.title}"), :confirm => t('may_i_change_the_theme'), :method => 'put'
       - else
         .screenshot
           %span no screenshot
