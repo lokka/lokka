@@ -256,4 +256,25 @@ describe "App" do
       last_response.status.should == 200
     end
   end
+
+  context "when theme has coffee scripted js" do
+    before do
+      @file = 'public/theme/jarvi/script.coffee'
+      content =<<-EOS.strip_heredoc
+      console.log "Hello, It's me!"
+      EOS
+      open(@file, 'w') do |f|
+        f.write content
+      end
+    end
+
+    after do
+      File.unlink(@file)
+    end
+
+    it "should return compiled javascript" do
+      get '/theme/jarvi/script.js'
+      last_response.body.should == "(function() {\n  console.log(\"Hello, It's me!\");\n\n}).call(this);\n"
+    end
+  end
 end

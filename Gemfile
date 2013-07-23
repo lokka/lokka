@@ -37,6 +37,8 @@ gem 'redcarpet'
 gem 'yard-sinatra', '1.0.0'
 gem 'stringex', '1.3.2'
 gem 'backports', '2.3.0'
+gem 'coffee-script'
+gem 'therubyracer'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
