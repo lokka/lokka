@@ -7,6 +7,7 @@ describe Lokka::Helpers do
       gravatar_image_url().should eql('http://www.gravatar.com/avatar/00000000000000000000000000000000')
     end
   end
+
   context 'custom_permalink' do
     before do
       Option.permalink_enabled = true
@@ -49,5 +50,12 @@ describe Lokka::Helpers do
         custom_permalink_entry('/no/such/path').should be_nil
       end
     end
+  end
+
+  describe 'months' do
+    subject { months }
+    before  { FactoryGirl.create(:post, draft: true) }
+
+    it { subject.count.should == 0 }
   end
 end
