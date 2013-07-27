@@ -66,7 +66,7 @@ module Lokka
 
     def months
       ms = {}
-      Post.all.each do |post|
+      Post.published.each do |post|
         m = post.created_at.strftime('%Y-%m')
         if ms[m].nil?
           ms[m] = 1
