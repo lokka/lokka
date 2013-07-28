@@ -28,7 +28,8 @@ module Lokka
 
     def render_any(name, options = {})
       ret = ''
-      templates = settings.supported_templates + settings.supported_stylesheet_templates
+      templates = settings.supported_templates + settings.supported_stylesheet_templates +
+        settings.supported_javascript_templates
       templates.each do |ext|
         out = rendering(ext, name, options)
         out.force_encoding(Encoding.default_external) unless out.nil?
