@@ -57,6 +57,7 @@ group :test do
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'
   gem 'factory_girl', '2.6.1'
   gem 'database_cleaner', '0.7.1'
+  gem 'coveralls', require: false
 end
 
 group :mysql do
