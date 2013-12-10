@@ -213,6 +213,10 @@ div.entry_info {
 	text-align: right;
 }
 
+div.entry_inner_info {
+	text-align: right;
+}
+
 ul.tags {
 	display: inline;
 }

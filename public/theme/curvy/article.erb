@@ -5,19 +5,21 @@
 				<%= entry.title %>
 			</a>
 		</h2>
-		
-		<div class="entry_body">
-			<%= entry.body %>
-		</div>
 
-	</div>
-	<div class="entry_info">
-		<span class="link_to_entry_comment">
-			<%= link_to "#{t('comments')}(#{entry.comments.size})", url("#{entry.link}#comment_wrapper") %>
-		</span>
-
-		<span class="entry_date">
-			<%= entry.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+	  <div class="entry_inner_info">
+      <span>作成者: <%= entry.user.name %></span><br />
+      <span class="entry_date">
+        <%= entry.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
+      </span>
+    </div>
+    
+    <div class="entry_body">
+      <%= entry.body %>
+    </div>
+  </div>
+  <div class="entry_info">
+    <span class="link_to_entry_comment">
+      <%= link_to "#{t('comments')}(#{entry.comments.size})", url("#{entry.link}#comment_wrapper") %>
 		</span>
 
 		<% if logged_in? %>
