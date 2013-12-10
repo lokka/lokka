@@ -39,6 +39,7 @@ gem 'stringex', '1.3.2'
 gem 'backports', '2.3.0'
 gem 'coffee-script'
 gem 'therubyracer'
+gem 'rack-ssl', :require => 'rack/ssl'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 

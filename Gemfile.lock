@@ -119,6 +119,8 @@ GEM
       rack
     rack-protection (1.5.1)
       rack
+    rack-ssl (1.3.3)
+      rack
     rack-test (0.6.1)
       rack (>= 1.0)
     rake (10.1.0)
@@ -222,6 +224,7 @@ DEPENDENCIES
   padrino-helpers (= 0.11.2)
   rack
   rack-flash (~> 0.1.2)
+  rack-ssl
   rack-test (= 0.6.1)
   rake
   redcarpet
