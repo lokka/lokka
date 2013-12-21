@@ -49,6 +49,7 @@ end
 group :development do
   gem 'tapp', '1.3.0'
   gem 'dm-sqlite-adapter', '1.2.0'
+  gem 'pry'
 end
 
 group :test do
