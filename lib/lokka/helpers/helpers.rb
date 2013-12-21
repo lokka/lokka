@@ -26,7 +26,9 @@ module Lokka
       if current_user.class != GuestUser
         return true
       else
-        session[:return_to] = request.fullpath
+        return_to = request.fullpath
+        return_to = "/" if return_to == "/favicon.ico"
+        session[:return_to] = return_to
         redirect to('/admin/login')
         return false
       end
