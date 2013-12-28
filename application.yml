@@ -1,5 +1,7 @@
 default: &default
-  foo: bar
+  sidemenu:
+    posts: 30
+    comments: 30
 
 
 development:
