@@ -63,6 +63,9 @@ module Lokka
     end
 
     def comment_form
+      if @comment
+        @comment.name ||= current_user.try(:name)
+      end
       haml :'lokka/comments/form', :layout => false
     end
 
