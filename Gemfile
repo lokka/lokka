@@ -39,19 +39,23 @@ gem 'stringex', '1.3.2'
 gem 'backports', '2.3.0'
 gem 'coffee-script'
 gem 'therubyracer'
+gem 'rack-ssl', :require => 'rack/ssl'
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
 group :production do
 end
 
-group :development do
+group :development, :test do
   gem 'tapp', '1.3.0'
+end
+
+group :development do
   gem 'dm-sqlite-adapter', '1.2.0'
+  gem 'pry'
 end
 
 group :test do
-  gem 'tapp', '1.3.0'
   gem 'rack-test', '0.6.1', :require => 'rack/test'
   gem 'rspec', '2.14.1'
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'

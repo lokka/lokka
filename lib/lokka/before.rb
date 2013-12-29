@@ -39,7 +39,7 @@ module Lokka
         end
       end
 
-      app.before %r{(?!^/admin/login$)^/admin/.*$} do
+      app.before %r{(?!^/admin/login$)^/.*$} do
         login_required
       end
     end
