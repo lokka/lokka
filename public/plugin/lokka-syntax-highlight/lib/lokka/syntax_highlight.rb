@@ -36,6 +36,9 @@ module Lokka
     class HTMLwithPygments < Redcarpet::Render::HTML
       def block_code(code, language)
         Pygments.highlight(code, lexer: language)
+      rescue
+        # language が存在しないとエラー
+        Pygments.highlight(code, lexer: 'console')
       end
     end
   end
