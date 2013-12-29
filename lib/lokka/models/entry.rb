@@ -148,7 +148,7 @@ class Entry
         all(:body.like => "%#{str}%")
     end
   
-    def recent(count = 5)
+    def recent(count = Settings.sidemenu.posts)
       all(:draft => false, :limit => count)
     end
   

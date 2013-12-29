@@ -15,7 +15,7 @@
 	</h3>
 	<div class="side_cont_body">
 		<ul id="side_list">
-			<% Post.recent(Settings.sidemenu.posts).each do |post| %>
+			<% Post.recent.each do |post| %>
 				<li>
 					<span>&middot;</span><%= link_to post.title, url(post.link) %>
 				</li>				
@@ -30,7 +30,7 @@
 	</h3>
 	<div class="side_cont_body">
 		<ul id="side_list">
-			<% Comment.recent(Settings.sidemenu.comments).each do |comment| %>
+			<% Comment.recent.each do |comment| %>
 				<li>
 					<span>&middot;</span><%= link_to truncate(strip_tags(comment.body), :length => 16), url(comment.link) %>
 				</li>				
