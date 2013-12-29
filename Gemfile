@@ -41,6 +41,8 @@ gem 'coffee-script'
 gem 'therubyracer'
 gem 'rack-ssl', :require => 'rack/ssl'
 
+gem "settingslogic"
+
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
 group :production do

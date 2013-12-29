@@ -23,7 +23,7 @@ class Comment
   validates_presence_of :name
   validates_presence_of :body
 
-  def self.recent(count = 5)
+  def self.recent(count = Settings.sidemenu.comments)
     all(:status => APPROVED, :limit => count, :order => [:created_at.desc])
   end
 

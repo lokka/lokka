@@ -1,0 +1,16 @@
+default: &default
+  sidemenu:
+    posts: 30
+    comments: 30
+
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+
+
