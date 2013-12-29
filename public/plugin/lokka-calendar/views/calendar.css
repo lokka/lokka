@@ -1,0 +1,30 @@
+table.calendar {
+  margin: auto;
+  text-align: center;
+}
+
+table.calendar tr {
+  height: 32px;
+}
+
+table.calendar td {
+  width: 32px;
+}
+
+table.calendar a {
+  display: block;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+table.calendar a:link, table.calendar a:visited {
+  color: #cccccc;
+}
+
+table.calendar a:hover, table.calendar a:active {
+  background-color: #41527E;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  color: #ffffff;
+}
