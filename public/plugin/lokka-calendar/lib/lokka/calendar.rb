@@ -11,19 +11,8 @@ module Lokka
           @calendar = Date.new($1.to_i, $2.to_i, $3.to_i)
         end
 
-        unless /^\/admin\/*/ =~ path
-          @calendar_posts = []
-          posts = Post.published.all(:fields => [:created_at]).
-                       all(:created_at.gte => DateTime.new(@calendar.year, @calendar.month, 1)).
-                       all(:created_at.lt => DateTime.new(@calendar.year, @calendar.month, 1) >> 1)
-          posts.each do |post|
-            @calendar_posts << Date.new(post.created_at.year, post.created_at.month, post.created_at.day)
-          end
-          @calendar_posts.uniq!
-
-          content_for :header do
-            haml :'plugin/lokka-calendar/views/header', :layout => false
-          end
+        content_for :header do
+          haml :'plugin/lokka-calendar/views/header', :layout => false
         end
       end
 
@@ -54,6 +43,15 @@ module Lokka
       @calendar_days = []
       @today = @calendar || Date.today
       next_month = @today >> 1
+
+      @calendar_posts = []
+      posts = Post.published.all(:fields => [:created_at]).
+        all(:created_at.gte => DateTime.new(@today.year, @today.month, 1)).
+        all(:created_at.lt => DateTime.new(@today.year, @today.month, 1) >> 1)
+      posts.each do |post|
+        @calendar_posts << Date.new(post.created_at.year, post.created_at.month, post.created_at.day)
+      end
+      @calendar_posts.uniq!
 
       first_day = Date.new(@today.year, @today.month, 1)
       @calendar_prev = @calendar << 1
