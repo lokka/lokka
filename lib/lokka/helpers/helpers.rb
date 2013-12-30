@@ -22,6 +22,26 @@ module Lokka
       h(str).gsub(/\r\n|\r|\n/, "<br />\n")
     end
 
+    def commentize(text)
+      scanner = StringScanner.new(text)
+      result  = ''
+
+      until scanner.eos?
+        result << case
+        when matched = scanner.scan(/\n+/)
+          matched.gsub("\n", "<br />")
+        when matched = scanner.scan(URI.regexp(%w!http https ftp!))
+          %Q!<a href="#{h matched}" target="_blank">#{h matched}</a>!
+        when matched = scanner.scan(/["'&<>]/)
+          h(matched)
+        else
+          scanner.getch
+        end
+      end
+
+      result
+    end
+
     def login_required
       if current_user.class != GuestUser
         return true
