@@ -227,6 +227,7 @@ div.entry_body p {
 }
 
 div.entry_body pre {
+	overflow: auto;
 	padding: 20px;
 	background: #D6E2DF;
 	-webkit-border-radius: 10px;  
