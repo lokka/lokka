@@ -2,6 +2,7 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0
+  - 2.1.0
 before_script:
   - "mysql -e 'create database lokka_test;'"
   - "psql -c 'create database lokka_test;' -U postgres"
