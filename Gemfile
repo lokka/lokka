@@ -47,6 +47,7 @@ gem "gemoji"
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
 group :production do
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
