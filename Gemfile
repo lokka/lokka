@@ -42,6 +42,7 @@ gem 'therubyracer'
 gem 'rack-ssl', :require => 'rack/ssl'
 
 gem "settingslogic"
+gem "gemoji"
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 

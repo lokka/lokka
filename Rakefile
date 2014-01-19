@@ -1,5 +1,8 @@
 require './init'
 require 'yard'
+
+load 'tasks/emoji.rake'
+
 include Rake::DSL if defined? Rake::DSL
 
 task :default => ['spec:setup', 'db:delete', :spec]
