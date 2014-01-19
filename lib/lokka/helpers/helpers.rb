@@ -1,4 +1,7 @@
 # encoding: utf-8
+
+require "emoji"
+
 module Lokka
   module Helpers
     include Rack::Utils
@@ -30,6 +33,14 @@ module Lokka
         result << case
         when matched = scanner.scan(/\n+/)
           matched.gsub("\n", "<br />")
+        when matched = scanner.scan(/:[a-z0-9\+\-_]+:/)
+          name = matched.gsub(":", "") # Regexp.last_match[1]とかで取れないのでmatchedをgsubして名前を抽出する
+          if Emoji.names.include?(name)
+            # +1.png => %2B1.png
+            %Q!<img alt="#{matched}" src="/images/emoji/#{URI.encode_www_form_component(name)}.png" style="vertical-align:middle" width="20" height="20" />!
+          else
+            matched
+          end
         when matched = scanner.scan(URI.regexp(%w!http https ftp!))
           %Q!<a href="#{h matched}" target="_blank">#{h matched}</a>!
         when matched = scanner.scan(/["'&<>]/)
