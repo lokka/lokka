@@ -93,6 +93,7 @@ GEM
       activesupport (>= 2.3.9)
     fastercsv (1.5.5)
     fssm (0.2.10)
+    gemoji (1.5.0)
     haml (4.0.4)
       tilt
     http_router (0.11.0)
@@ -229,6 +230,7 @@ DEPENDENCIES
   dm-validations (= 1.2.0)
   erubis (~> 2.6.6)
   factory_girl (= 2.6.1)
+  gemoji
   haml (~> 4.0.4)
   i18n (= 0.6.0)
   kramdown
