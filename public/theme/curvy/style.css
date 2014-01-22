@@ -239,8 +239,13 @@ div.entry_body pre {
 
 div.entry_body ul,
 div.entry_body ol {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+div.entry_body ul p,
+div.entry_body ol p{
+  margin-bottom: 0px;
 }
 
 div.entry_body ul {
