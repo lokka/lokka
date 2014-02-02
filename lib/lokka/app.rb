@@ -10,7 +10,7 @@ module Lokka
     end
 
     configure do
-      enable :method_override, :raise_errors, :static, :sessions
+      enable :method_override, :raise_errors, :static
       YAML::ENGINE.yamler = 'syck' if YAML.const_defined?(:ENGINE)
       register Padrino::Helpers
       set :app_file, __FILE__
@@ -33,9 +33,6 @@ module Lokka
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
       helpers Lokka::RenderHelper
-      use Rack::Session::Cookie,
-        :expire_after => 60 * 60 * 24 * 12,
-				:secret => SecureRandom.hex(30)
       register Sinatra::Flash
       Lokka.load_plugin(self)
       Lokka::Database.new.connect
