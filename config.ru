@@ -9,6 +9,6 @@ if ENV['RACK_ENV'] == 'production'
 end
 
 use Rack::Session::Cookie,
-  :expire_after => 60 * 60 * 24 * 12,
   :secret => SecureRandom.hex(30)
+  :expire_after => nil, # セッションクッキー＝ブラウザ閉じるまで有効
 run Lokka::App
