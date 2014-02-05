@@ -10,6 +10,15 @@ module Lokka
 
         Lokka::Publisher::Leafy.publish!(@entry, base_url)
       end
+
+      # comment
+      app.after %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
+        return unless request.request_method == "POST"
+        return unless @entry
+        return if params['preview']
+
+        Lokka::Publisher::Leafy.publish!(@entry, base_url)
+      end
     end
 
     class Leafy
