@@ -8,7 +8,11 @@ module Lokka
         return unless @entry
         return if params['preview']
 
-        Lokka::Publisher::Leafy.publish!(@entry, base_url)
+        message = <<-BODY
+#{@entry.user.name} が社内ブログに投稿しました。
+"#{@entry.title}" #{base_url}#{@entry.link}
+        BODY
+        Lokka::Publisher::Leafy.new.post(message)
       end
 
       # comment
@@ -17,22 +21,15 @@ module Lokka
         return unless @entry
         return if params['preview']
 
-        Lokka::Publisher::Leafy.publish!(@entry, base_url)
+        message = <<-BODY
+#{@entry.user.name} が社内ブログにコメントしました。
+#{base_url}#{@entry.link}
+        BODY
+        Lokka::Publisher::Leafy.new.post(message)
       end
     end
 
     class Leafy
-      class << self
-        def publish!(entry, base_url)
-          message = <<-BODY
-#{entry.user.name} が社内ブログに投稿しました。
-"#{entry.title}" #{base_url}#{entry.link}
-          BODY
-
-          new.post(message)
-        end
-      end
-
       def initialize
         settings = Settings.leafy
         @login_url = "https://#{settings.room}.#{settings.domain}/accounts/sign_in"
