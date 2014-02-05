@@ -39,7 +39,10 @@ module Lokka
       end
 
       def post(message)
-        return unless ENV['RACK_ENV'] == "production" || ENV['LOKKA_ENV'] == "production"
+        unless ENV.values_at("RACK_ENV", "LOKKA_ENV").include?("production")
+          warn "Will post to leafy if production:\n#{message}"
+          return
+        end
 
         main_page = login!(@email, @password)
         form = main_page.form(id: 'new_status')
