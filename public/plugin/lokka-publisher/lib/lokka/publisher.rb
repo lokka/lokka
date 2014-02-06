@@ -23,7 +23,7 @@ module Lokka
         return if params['preview']
 
         message = <<-BODY
-#{@entry.user.name} が社内ブログにコメントしました。
+#{@comment.name} が社内ブログにコメントしました。
 "#{@entry.title}" #{base_url}#{@comment.link}
         BODY
         Lokka::Publisher::Leafy.new.post(message)
