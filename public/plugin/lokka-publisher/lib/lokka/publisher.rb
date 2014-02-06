@@ -19,11 +19,12 @@ module Lokka
       app.after %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
         return unless request.request_method == "POST"
         return unless @entry
+        return unless @comment
         return if params['preview']
 
         message = <<-BODY
 #{@entry.user.name} が社内ブログにコメントしました。
-#{base_url}#{@entry.link}
+"#{@entry.title}" #{base_url}#{@comment.link}
         BODY
         Lokka::Publisher::Leafy.new.post(message)
       end
