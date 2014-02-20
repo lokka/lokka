@@ -6,7 +6,7 @@ FactoryGirl.define do
   factory :site do
     title 'Test Site'
     description 'description...'
-    dashboard %q(<p>Welcome to Lokka!</p><p>To post a new article, choose ""<a href=""/admin/posts/new"">New</a>"" under ""Posts"" on the menu to the left. To change the title of the site, choose ""Settings"" on the menu to the left. (The words displayed here can be changed anytime through the ""<a href=""/admin/site/edit"">Settings</a>"" screen.)</p>)
+    dashboard %q(<p>Welcome to Lokka!</p><p>To post a new article, choose "<a href=\"/admin/posts/new\">New</a>" under "Posts" on the menu to the left. To change the title of the site, choose "Settings" on the menu to the left. (The words displayed here can be changed anytime through the "<a href=\"/admin/site/edit\">Settings</a>" screen.)</p>)
     theme 'jarvi'
     created_at create_time
     updated_at update_time
@@ -24,7 +24,7 @@ FactoryGirl.define do
   factory :post do
     association :user
     sequence(:title){|n| "Test Post #{n}" }
-    body "<p>Welcome to Lokka!</p><p><a href=""/admin/"">Admin login</a> (user / password : test / test)</p>"
+    body '<p>Welcome to Lokka!</p><p><a href="/admin/">Admin login</a> (user / password : test / test)</p>'
     type 'Post'
     created_at create_time
     updated_at update_time
@@ -33,7 +33,7 @@ FactoryGirl.define do
   factory :entry do
     association :user
     sequence(:title){|n| "Test Post #{n}" }
-    body "<p>Welcome to Lokka!</p><p><a href=""/admin/"">Admin login</a> (user / password : test / test)</p>"
+    body '<p>Welcome to Lokka!</p><p><a href="/admin/">Admin login</a> (user / password : test / test)</p>'
     type 'Post'
     created_at create_time
     updated_at update_time
