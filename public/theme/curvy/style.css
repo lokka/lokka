@@ -443,3 +443,27 @@ h2.entry_title a:hover {
 	line-height: 140%;
 	font-size: 100%;
 }
+div.entry_body > table {
+  padding: 0; }
+  div.entry_body > table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    div.entry_body > table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    div.entry_body > table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    div.entry_body > table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    div.entry_body > table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    div.entry_body > table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
