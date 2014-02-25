@@ -39,10 +39,16 @@ gem 'stringex', '1.3.2'
 gem 'backports', '2.3.0'
 gem 'coffee-script'
 gem 'therubyracer'
+gem 'rack-ssl', :require => 'rack/ssl'
+
+gem "settingslogic"
+gem "gemoji"
+gem "mechanize"
 
 Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
 
 group :production do
+  gem 'newrelic_rpm'
 end
 
 group :development, :test do
@@ -51,6 +57,7 @@ end
 
 group :development do
   gem 'dm-sqlite-adapter', '1.2.0'
+  gem 'pry'
 end
 
 group :test do

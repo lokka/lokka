@@ -1,0 +1,20 @@
+default: &default
+  sidemenu:
+    posts: 30
+    comments: 30
+  leafy:
+    room: <%= ENV['LEAFY_ROOM'] %>
+    domain: <%= ENV['LEAFY_DOMAIN'] || "leafy.in" %>
+    email: <%= ENV['LEAFY_EMAIL'] %>
+    password: <%= ENV['LEAFY_PASSWORD'] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+
+

@@ -12,7 +12,7 @@
     <% @entry.comments.reverse.each do |comment| %>
       <li id="comment-<%= comment.id %>" class="comment">
         <div class="body">
-          <%= hbr comment.body %>
+          <%= commentize comment.body %>
         </div>
         <div class="footer">
           <span class="name">
