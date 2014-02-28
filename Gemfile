@@ -54,6 +54,7 @@ group :development do
 end
 
 group :test do
+  gem 'dm-transactions', :git => 'git://github.com/datamapper/dm-transactions.git', :branch => 'release-1.2'
   gem 'rack-test', '0.6.1', :require => 'rack/test'
   gem 'rspec', '2.14.1'
   gem 'simplecov', :require => false if RUBY_VERSION >= '1.9'

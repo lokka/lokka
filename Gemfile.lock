@@ -7,6 +7,14 @@ GIT
       addressable (~> 2.3, >= 2.3.5)
 
 GIT
+  remote: git://github.com/datamapper/dm-transactions.git
+  revision: a400e7ffdca0a358b44698259584bb5c29f9f1b8
+  branch: release-1.2
+  specs:
+    dm-transactions (1.2.0)
+      dm-core (~> 1.2.0)
+
+GIT
   remote: git://github.com/datamapper/do.git
   revision: d7cb262d89a16eca86f85c10b88613529e1a992b
   ref: d7cb262d89a1
@@ -211,6 +219,7 @@ DEPENDENCIES
   dm-sqlite-adapter (= 1.2.0)
   dm-tags (= 1.2.0)
   dm-timestamps (= 1.2.0)
+  dm-transactions!
   dm-types (= 1.2.0)
   dm-validations (= 1.2.0)
   erubis (~> 2.6.6)

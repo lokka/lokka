@@ -23,6 +23,8 @@ require 'factory_girl'
 require 'database_cleaner'
 
 require 'factories'
+require "dm-core"
+require "dm-transactions"
 
 
 set :environment, :test
@@ -43,7 +45,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :transaction
   end
 
   config.before(:each) do
