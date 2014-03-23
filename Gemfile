@@ -51,3 +51,7 @@ end
 group :mysql do
   gem 'mysql2'
 end
+
+group :postgresql do
+  gem 'pg'
+end
