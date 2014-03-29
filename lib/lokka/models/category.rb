@@ -8,7 +8,7 @@ class Category < ActiveRecord::Base
   validates :slug,  presence:   true
 
   scope :without_self,
-    ->(id){ self.where('id IS NOT ?', id) }
+    ->(id){ self.where("id NOT IN (?)", id) }
 
   def self.get_by_fuzzy_slug(string)
     ret = where(slug: string).first || where(title: string).first

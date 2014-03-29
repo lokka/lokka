@@ -34,7 +34,7 @@ describe '/admin/field_names' do
       FieldName.find(@field_name.id).should_not be_nil # gauntret
       delete "/admin/field_names/#{@field_name.id}"
       last_response.should be_redirect
-      FieldName.where(@field_name.id).first.should be_nil
+      FieldName.where(id: @field_name.id).first.should be_nil
     end
   end
 
