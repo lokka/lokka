@@ -162,16 +162,6 @@ module Lokka
     end
     alias_method :t, :translate_compatibly
 
-    #FIXME(Stack Error)
-    #def apply_continue_reading(posts)
-    #  posts.each do |post|
-    #    class << post
-    #      alias body short_body
-    #    end
-    #  end
-    #  posts
-    #end
-
     class << self
       include Lokka::Helpers
     end

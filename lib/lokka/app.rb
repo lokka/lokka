@@ -29,7 +29,6 @@ module Lokka
       end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
-      helpers Lokka::PermalinkHelper
       helpers Lokka::RenderHelper
       helpers Kaminari::Helpers::SinatraHelpers
       use Rack::Session::Cookie, {
@@ -50,17 +49,6 @@ module Lokka
     require 'lokka/app/entries.rb'
 
     not_found do
-      if custom_permalink?
-        if /\/$/ =~ request.path
-          return redirect(request.path.sub(/\/$/,""))
-        elsif correct_path = custom_permalink_fix(request.path)
-          return redirect(correct_path)
-        elsif @entry = custom_permalink_entry(request.path)
-          status 200
-          return setup_and_render_entry
-        end
-      end
-
       if output = render_any(:'404', :layout => false)
         output
       else

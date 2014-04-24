@@ -10,9 +10,6 @@ module Lokka
         per(@site.per_page).
         order(@site.default_order)
 
-      #FIXME
-      #@posts = apply_continue_reading(@posts)
-
       @title = @site.title
 
       @bread_crumbs = [{ name: t('home'), link: '/' }]
@@ -26,8 +23,6 @@ module Lokka
         per(@site.per_page).
         order(@site.default_order)
 
-      #FIXME
-      #@posts = apply_continue_reading(@posts)
       content_type 'application/atom+xml', :charset => 'utf-8'
       builder :'lokka/index'
     end
@@ -43,9 +38,6 @@ module Lokka
         order(@site.default_order).
         page(params[:page]).
         per(@site.per_page)
-
-      #FIXME
-      #@posts = apply_continue_reading(@posts)
 
       @title = "Search by #{@query}"
 
@@ -66,9 +58,6 @@ module Lokka
         per(@site.per_page).
         order(@site.default_order)
 
-      #FIXME
-      #@posts = apply_continue_reading(@posts)
-
       @title = @category.title
 
       @bread_crumbs = [{ name: t('home'), link: '/' }]
@@ -87,7 +76,6 @@ module Lokka
         page(params[:page]).
         per(@site.per_page).
         order(@site.default_order)
-      #@posts = apply_continue_reading(@posts)
 
       @title = @tag.name
 
@@ -108,7 +96,6 @@ module Lokka
         page(params[:page]).
         per(@site.per_page).
         order(@site.default_order)
-      #@posts = apply_continue_reading(@posts)
 
       @title = "#{year}/#{month}"
 
@@ -130,7 +117,6 @@ module Lokka
         page(params[:page]).
         per(@site.per_page).
         order(@site.default_order)
-      #@posts = apply_continue_reading(@posts)
 
       @title = year
 
@@ -155,7 +141,7 @@ module Lokka
     post %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || ( custom_permalink? && custom_permalink_entry('/' + id_or_slug) )
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if !@entry || @entry.blank?
       return 404 if params[:check] != 'check'
 

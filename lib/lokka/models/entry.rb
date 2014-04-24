@@ -45,16 +45,11 @@ class Entry < ActiveRecord::Base
   }
 
   def self.get_by_fuzzy_slug(id_or_slug)
-    result = where(slug: id_or_slug).first || where(id: id_or_slug).first
+    where(slug: id_or_slug).first || where(id: id_or_slug).first
   end
 
   def long_body
     Markup.use_engine(markup, self.body)
-  end
-
-  def short_body
-    @short_body ||= self.long_body \
-      .sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>")
   end
 
   def fuzzy_slug

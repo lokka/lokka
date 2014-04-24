@@ -6,24 +6,6 @@ describe Post do
 
     its(:link) { should eq('/welcome-lokka') }
 
-    context 'when permalink is enabled' do
-      before do
-        Option.permalink_format = "/%year%/%month%/%day%/%slug%"
-        Option.permalink_enabled = 'true'
-      end
-
-      its(:link) { should eq('/2011/01/09/welcome-lokka') }
-    end
-
-    context 'when parmalink_format is set but disabled' do
-      before do
-        Option.permalink_format = "/%year%/%month%/%day%/%slug%"
-        Option.permalink_enabled = 'false'
-      end
-
-      its(:link) { should eq('/welcome-lokka') }
-    end
-
     context 'when a valid slug is specified' do
       subject { build :post, :slug => 'valid_Str-ing1' }
       it { should be_valid }
