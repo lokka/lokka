@@ -104,13 +104,6 @@ describe "App" do
         Category.delete_all
       end
 
-      xit "the entry page should return 404" do
-        get '/test-draft-post'
-        last_response.status.should == 404
-        get "/#{@post.id}"
-        last_response.status.should == 404
-      end
-
       it "index page should not show the post" do
         get '/'
         last_response.body.should_not match('Draft post')
@@ -137,34 +130,11 @@ describe "App" do
         @page = Factory(:page)
         Factory(:post_with_slug)
         Factory(:later_post_with_slug)
-        Option.permalink_enabled = 'true'
-        Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
         Comment.delete_all
       end
 
       after do
-        Option.permalink_enabled = 'false'
         Entry.delete_all
-      end
-
-      it "an entry can be accessed by custom permalink" do
-        get '/2011/01/09/welcome-lokka'
-        last_response.body.should match('Welcome to Lokka!')
-        last_response.body.should_not match('mediawiki test')
-        get '/2011/01/10/a-day-later'
-        last_response.body.should match('1 day passed')
-        last_response.body.should_not match('Welcome to Lokka!')
-      end
-
-      xit "should redirect to custom permalink when accessed with original permalink" do
-        get '/welcome-lokka'
-        last_response.should be_redirect
-        follow_redirect!
-        last_request.url.should match('/2011/01/09/welcome-lokka')
-
-        Option.permalink_enabled = 'false'
-        get '/welcome-lokka'
-        last_response.should_not be_redirect
       end
 
       it "should not redirect access to page" do
@@ -172,58 +142,9 @@ describe "App" do
         last_response.should_not be_redirect
       end
 
-      xit "should redirect to 0 filled url when accessed to non-0 prepended url in day/month" do
-        get '/2011/1/9/welcome-lokka'
-        last_response.should be_redirect
-        follow_redirect!
-        last_request.url.should match('/2011/01/09/welcome-lokka')
-      end
-
-      it "should remove trailing / of url by redirection" do
-        get '/2011/01/09/welcome-lokka/'
-        last_response.should be_redirect
-        follow_redirect!
-        last_request.url.should match('/2011/01/09/welcome-lokka')
-      end
-
-      it 'should return status code 200 if entry found by custom permalink' do
-        get '/2011/01/09/welcome-lokka'
-        last_response.status.should == 200
-      end
-
-      it 'should return status code 404 if entry not found' do
-        get '/2011/01/09/welcome-wordpress'
-        last_response.status.should == 404
-      end
-
       it 'should return status code 404 to path with wrong structure' do
         get '/obviously/not/existing/path'
         last_response.status.should == 404
-      end
-
-      it "POST request should add a comment to an article" do
-        post '/2011/01/09/welcome-lokka', { :check => "check", :comment => { :name => 'lokka tarou', :homepage => 'http://www.example.com/', :body => 'good entry!' } }
-        Comment.should have(1).item
-      end
-    end
-
-    pending('not working') do
-      context "with continue reading" do
-        before { Factory(:post_with_more) }
-        after { Post.delete_all }
-        describe 'in entries index' do
-          it "should hide texts after <!--more-->" do
-            get '/'
-            last_response.body.should match(/<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
-          end
-        end
-
-        describe 'in entry page' do
-          it "should not hide after <!--more-->" do
-            get '/post-with-more'
-            last_response.body.should_not match(/<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>/)
-          end
-        end
       end
     end
   end
