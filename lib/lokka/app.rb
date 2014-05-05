@@ -2,9 +2,10 @@ module Lokka
   class App < Base
     register Config
 
-    set :views, './public/themes/vicuna'
+    puts "settings.themes: #{settings.themes}"
 
     get '/' do
+      puts "get '/' settings.themes: #{settings.themes}"
       slim :index
     end
   end
