@@ -1,3 +1,4 @@
+require 'byebug'
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'active_record'

@@ -1,6 +1,20 @@
 module Lokka
   class App < Base
-    register Config
+    enable :sessions,
+           :method_override,
+           :raise_errors,
+           :static
+
+    # lokka variables
+    set :themes, {}
+    set :theme, 'vicuna'
+
+    require 'lokka/theme/vicuna'
+    register ::Lokka::Theme::Vicuna
+
+    configure :development do
+      register Sinatra::Reloader
+    end
 
     puts "settings.themes: #{settings.themes}"
 
