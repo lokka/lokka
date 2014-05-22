@@ -1,4 +1,4 @@
 module Lokka
-  class Base < ::Sinatra::Base
+  class Base < Sinatra::Base
   end
 end

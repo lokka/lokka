@@ -1,11 +1,10 @@
 require 'byebug'
-require 'sinatra/base'
+require 'sinatra'
 require 'sinatra/reloader'
-require 'active_record'
+#require 'active_record'
 require 'slim'
 require 'lokka/version'
 require 'lokka/base'
-require 'lokka/config'
 require 'lokka/admin'
 require 'lokka/app'
 
