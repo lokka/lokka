@@ -9,7 +9,9 @@ module Lokka
 
 
     configure :development do
-      puts ::Lokka::Theme::Vicuna
+      binding.pry
+      theme = settings.theme.capitalize
+      register Lokka::Theme.const_get(theme)
       register Sinatra::Reloader
     end
 
@@ -18,7 +20,6 @@ module Lokka
     end
 
     get '/' do
-      binding.pry
       slim :index
     end
   end
