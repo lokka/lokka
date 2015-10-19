@@ -89,4 +89,17 @@ describe '/admin/comments' do
       it_behaves_like 'a not found page'
     end
   end
+
+  context "When <xmp> tag is used in comment author's name" do
+    before do
+      @comment.update(name: '<xmp>')
+    end
+
+    context 'GET /admin/comments' do
+      it 'should escape html tag' do
+        get '/admin/comments'
+        last_response.body.should match(/&lt;xmp&gt;/)
+      end
+    end
+  end
 end

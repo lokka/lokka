@@ -12,7 +12,7 @@
       - status = case comment.status; when Comment::APPROVED; t('comment_approved'); when Comment::MODERATED; t('comment_moderated'); when Comment::SPAM; t('comment_spam'); end
       %td= status
       %td.body= link_to truncate(strip_tags(comment.body)), url(comment.link)
-      %td= comment.name
+      %td= h(comment.name)
       %td= l(comment.created_at, :format => :long)
       %td= link_to t('edit'), url("/admin/comments/#{comment.id}/edit"), :class => 'button'
       %td= link_to t('delete'), url("/admin/comments/#{comment.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
