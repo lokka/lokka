@@ -92,12 +92,12 @@ describe '/admin/comments' do
 
   context "When <xmp> tag is used in comment author's name" do
     before do
-      @comment.update(name: '<xmp>')
+      @comment.update(name: "<xmp>")
     end
 
-    context 'GET /admin/comments' do
-      it 'should escape html tag' do
-        get '/admin/comments'
+    context "GET /admin/comments" do
+      it "should escape html tag" do
+        get "/admin/comments"
         last_response.body.should match(/&lt;xmp&gt;/)
       end
     end
