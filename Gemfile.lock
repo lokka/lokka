@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/datamapper/dm-transactions.git
-  revision: a400e7ffdca0a358b44698259584bb5c29f9f1b8
-  branch: release-1.2
-  specs:
-    dm-transactions (1.2.0)
-      dm-core (~> 1.2.0)
-
-GIT
   remote: git://github.com/yayugu/dm-pagination.git
   revision: ab6e85d1b9e7d8d8ee69921bd0796f20d34a5e89
   specs:
@@ -66,6 +58,8 @@ GEM
     dm-tags (1.2.0)
       dm-core (~> 1.2.0)
     dm-timestamps (1.2.0)
+      dm-core (~> 1.2.0)
+    dm-transactions (1.2.0)
       dm-core (~> 1.2.0)
     dm-types (1.2.2)
       bcrypt-ruby (~> 3.0)
@@ -205,7 +199,7 @@ DEPENDENCIES
   dm-sqlite-adapter (= 1.2.0)
   dm-tags (= 1.2.0)
   dm-timestamps (= 1.2.0)
-  dm-transactions!
+  dm-transactions (~> 1.2.0)
   dm-types (= 1.2.2)
   dm-validations (= 1.2.0)
   erubis (~> 2.6.6)
