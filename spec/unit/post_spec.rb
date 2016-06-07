@@ -86,4 +86,12 @@ describe Post do
     before { build :post }
     it { expect { Post.first }.not_to raise_error }
   end
+
+  describe "#tag_collection=" do
+    let(:entry) { create(:entry) }
+    before { entry.tag_collection = "foo,bar" }
+    it "should update tags" do
+      expect { entry.save }.to change { entry.tags }
+    end
+  end
 end
