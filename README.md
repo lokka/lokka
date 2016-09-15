@@ -26,8 +26,7 @@ View at: http://localhost:9292/
     $ cd lokka
     $ heroku create
     $ git push heroku master
-    $ heroku addons:add heroku-postgresql:dev
-    $ heroku pg:info | head -n1 | awk '{print $2}' | xargs heroku pg:promote
+    $ heroku addons:add heroku-postgresql:hobby-dev
     $ heroku rake db:setup
     $ heroku open
 
