@@ -161,7 +161,9 @@ describe "App" do
         last_response.should be_redirect
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
+      end
 
+      it do
         Option.permalink_enabled = false
         get '/welcome-lokka'
         last_response.should_not be_redirect

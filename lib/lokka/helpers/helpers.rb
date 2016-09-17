@@ -258,11 +258,15 @@ module Lokka
     end
 
     def custom_permalink?
-      Option.permalink_enabled == "true"
+      @custom_permalink = RequestStore[:custom_permalink] ||= Option.permalink_enabled == "true"
+    end
+
+    def permalink_format
+      @permalink_format = RequestStore[:permalink_format] ||= Option.permalink_format
     end
 
     def custom_permalink_format
-      Option.permalink_format.scan(/(%.+?%[^%]?|.)/).flatten
+      permalink_format.scan(/(%.+?%[^%]?|.)/).flatten
     end
 
     def custom_permalink_parse(path)
@@ -282,7 +286,7 @@ module Lokka
     end
 
     def custom_permalink_path(param)
-      path = Option.permalink_format
+      path = permalink_format.dup
       param.each do |tag, value|
         path.gsub!(/%#{Regexp.escape(tag.to_s)}%/,value)
       end
