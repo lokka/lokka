@@ -47,7 +47,7 @@ describe Post do
       describe "a post using #{markup}" do
         let(:post) { Factory(markup) }
         it { post.body.should_not == post.raw_body }
-        it { post.body.gsub( "\n", '' ).should match( /<h1.*>(<a name.+<\/a><span .+>)*hi!(<\/span>)*<\/h1>\s*<p>#{markup} test<\/p>/ ) }
+        it { post.body.tr("\n", "").should match(%r$<h1.*>(<a name.+</a><span .+>)*hi!(</span>)*</h1>\s*<p>#{markup} test</p>$) }
       end
     end
 
