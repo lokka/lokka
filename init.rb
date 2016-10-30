@@ -5,3 +5,4 @@ require 'rubygems'
 require 'bundler'
 Bundler.setup
 require 'lokka'
+I18n.reload!
