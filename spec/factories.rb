@@ -63,19 +63,19 @@ FactoryGirl.define do
 
   factory :kramdown, :parent => :post do
     title 'Markdown'
-    body "# hi! \nmarkdown test"
+    body "# hi! \nkramdown test"
     markup 'kramdown'
   end
 
   factory :redcloth, :parent => :post do
     title 'Textile'
-    body "h1. hi!  \ntextile test"
+    body "h1. hi!  \n\nredcloth test"
     markup 'redcloth'
   end
 
   factory :wikicloth, :parent => :post do
     title 'MediaWiki'
-    body "= hi! = \nmediawiki test"
+    body "= hi! = \nwikicloth test"
     markup 'wikicloth'
   end
 
