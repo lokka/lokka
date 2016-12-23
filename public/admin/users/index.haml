@@ -1,19 +1,20 @@
 %h2= t('listing_users')
-%table.users
-  %tr
-    %th= t('user.name')
-    %th= t('user.email')
-    %th= t('user.created_at')
-    %th(colspan="2")
-  - @users.each_with_index do |user, i|
-    %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
-      %td.name= link_to user.name, url("/admin/users/#{user.id}/edit")
-      %td= user.email
-      %td= l(user.created_at, :format => :long)
-      %td= link_to t('edit'), url("/admin/users/#{user.id}/edit"), :class => 'button'
-      %td
-        - unless user == current_user
-          = link_to t('delete'), url("/admin/users/#{user.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+#table_wrapper
+  %table.users
+    %tr
+      %th= t('user.name')
+      %th= t('user.email')
+      %th= t('user.created_at')
+      %th(colspan="2")
+    - @users.each_with_index do |user, i|
+      %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
+        %td.name= link_to user.name, url("/admin/users/#{user.id}/edit")
+        %td= user.email
+        %td= l(user.created_at, :format => :long)
+        %td= link_to t('edit'), url("/admin/users/#{user.id}/edit"), :class => 'button'
+        %td
+          - unless user == current_user
+            = link_to t('delete'), url("/admin/users/#{user.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
 .pager
   %ul
     - if @users.pager.previous_page

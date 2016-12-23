@@ -1,4 +1,56 @@
 %h2= t('dashboard')
 = @site.dashboard
-- if snippet = Snippet('Test Snippet')
-  %div= snippet.body
+
+%ul#dashboard
+  %li.post.parent
+    %h3.title= t('posts')
+    %ul
+      %li.list= link_to t('list'), url('/admin/posts')
+      %li.new= link_to t('new'), url('/admin/posts/new')
+  %li.page.parent
+    %h3.title= t('pages')
+    %ul
+      %li.list= link_to t('list'), url('/admin/pages')
+      %li.new= link_to t('new'), url('/admin/pages/new')
+  %li.comment.parent
+    %h3.title= t('comments')
+    %ul
+      %li.list= link_to t('list'), url('/admin/comments')
+      %li.new= link_to t('new'), url('/admin/comments/new')
+  %li.category.parent
+    %h3.title= t('categories')
+    %ul
+      %li.list= link_to t('list'), url('/admin/categories')
+      %li.new= link_to t('new'), url('/admin/categories/new')
+  %li.tag.parent
+    %h3.title= t('tags')
+    %ul
+      %li.list= link_to t('list'), url('/admin/tags')
+  %li.user.parent
+    %h3.title= t('users')
+    %ul
+      %li.list= link_to t('list'), url('/admin/users')
+      %li.new= link_to t('new'), url('/admin/users/new')
+  %li.snippet.parent
+    %h3.title= t('snippets')
+    %ul
+      %li.list= link_to t('list'), url('/admin/snippets')
+      %li.new= link_to t('new'), url('/admin/snippets/new')
+  %li.theme.parent
+    %h3.title= t('themes')
+    %ul
+      %li.list= link_to t('default_themes'), url('/admin/themes')
+      %li.list= link_to t('mobile_themes'), url('/admin/mobile_themes')
+  %li.plugin.parent
+    %h3= link_to t('plugins'), url('/admin/plugins')
+  %li.field_names.parent
+    %h3.title= t('field_names')
+    %ul
+      %li.list= link_to t('list'), url('/admin/field_names')
+      %li.list= link_to t('new'), url('/admin/field_names/new')
+  %li.setting.parent
+    %h3.title= t('settings')
+    %ul
+      %li.list= link_to t('sites'), url('/admin/site/edit')
+      %li.list= link_to t('permalink.title'), url('/admin/permalink')
+      %li.list= link_to t('import'), url('/admin/import')
