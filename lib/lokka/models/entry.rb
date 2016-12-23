@@ -117,6 +117,13 @@ class Entry
     end
   end
 
+  def description
+    src = long_body.tr("\n", "")
+    desc = (src =~ %r!<p[^>]*>(.+?)</p>!i) ? $1 : src[0..50]
+
+    desc.gsub(%r!<[^/]+/>!, " ").gsub(%r!</[^/]+>!, " ").gsub(/<[^>]+>/, "")
+  end
+
   class << self
     def _default_scope
       {:order => :created_at.desc}

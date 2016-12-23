@@ -94,4 +94,23 @@ describe Post do
       expect { entry.save }.to change { entry.tags }
     end
   end
+
+  describe "#description" do
+    [:kramdown, :redcloth, :wikicloth].each do |markup|
+      describe "should use converted markup." do
+        let(:post) { Factory(markup) }
+        it { post.description.should == "#{markup} test" }
+      end
+    end
+
+    context "should use the first paragraph." do
+      let(:post) { build :post }
+      it { post.description.should == "Welcome to Lokka!" }
+    end
+
+    describe "body does not have <p> tag." do
+      let(:post) { build :post, :body => "<h1>Hi!</h1>" }
+      it { post.description.should == "Hi! " }
+    end
+  end
 end
