@@ -865,6 +865,10 @@ textarea#category_description
     font-size: 13px;
 }
 
+#editor.is-dragover textarea {
+    border: dashed 0.5em #f2813c;
+}
+
 #dashboard {
     display: none;
 }

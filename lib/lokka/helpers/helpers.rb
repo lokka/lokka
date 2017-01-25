@@ -376,5 +376,43 @@ module Lokka
     def body_attrs
       {:class => slugs.join(' ')}
     end
+
+    def handle_file_upload(params)
+      begin
+        credentials = Aws::Credentials.new(Option.aws_access_key_id, Option.aws_secret_access_key)
+        s3 = Aws::S3::Resource.new(region: Option.s3_region, credentials: credentials)
+        bucket = s3.bucket(Option.s3_bucket_name)
+        domain_name = Option.s3_domain_name.presence || "#{Option.s3_bucket_name}.s3-website-#{Option.s3_region}.amazonaws.com"
+
+        if params[:file]
+          tempfile = params[:file][:tempfile]
+          digest = Digest::MD5.file(tempfile.path).to_s
+          extname = File.extname(tempfile.path)
+          filename = digest + extname
+          if bucket.object(filename).upload_file(tempfile.path)
+            {
+              message: 'File upload success',
+              url: "#{request.scheme}://#{domain_name}/#{filename}",
+              status: 201
+            }
+          else
+            {
+              message: "Failed uploading file",
+              status: 400
+            }
+          end
+        else
+          {
+            message: "No file",
+            status: 400
+          }
+        end
+      rescue => e
+        {
+          message: e.message,
+          status: 500
+        }
+      end
+    end
   end
 end
