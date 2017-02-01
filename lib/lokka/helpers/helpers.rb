@@ -389,7 +389,8 @@ module Lokka
           digest = Digest::MD5.file(tempfile.path).to_s
           extname = File.extname(tempfile.path)
           filename = digest + extname
-          if bucket.object(filename).upload_file(tempfile.path)
+          content_type = MimeMagic.by_magic(tempfile).type
+          if bucket.object(filename).upload_file(tempfile.path, content_type: content_type)
             {
               message: 'File upload success',
               url: "#{request.scheme}://#{domain_name}/#{filename}",
