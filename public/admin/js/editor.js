@@ -58,47 +58,84 @@ var FileUploader = (function() {
   function FileUploader(editor) {
     this.editor = editor;
     this.textarea = editor.querySelector('textarea');
+    this.markupSelector = document.querySelector('#post_markup');
+    this.observeDragAndDrop();
+    this.observeWysiwyg();
   }
 
-  FileUploader.prototype.isAdvancedUpload = function() {
+  FileUploader.prototype.isAvailable = function() {
     var div = document.createElement('div');
     return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
   }
 
-  FileUploader.prototype.dragAndDropUpload = function() {
+  FileUploader.prototype.observeWysiwyg = function() {
+    var self = this;
+
+    this.markupSelector.addEventListener('change', function(e) {
+      self.toggleWarning();
+      var wysiwyg = document.querySelector('#editor .wysiwyg');
+      if (wysiwyg) {
+        wysiwyg.querySelector('.html').addEventListener('click', function(e) {
+          self.toggleWarning();
+        });
+      }
+    });
+  }
+
+  FileUploader.prototype.isWysiwyg = function() {
+    if (this.markupSelector.querySelector('option:checked').value !== 'html')
+      return false;
+    if (this.textarea.style.display === 'block')
+      return false;
+    return true;
+  }
+
+  FileUploader.prototype.toggleWarning = function() {
+    var warning = document.querySelector('#upload-disabled-warning');
+    if (this.isWysiwyg()) {
+      warning.style.display = 'block';
+    } else {
+      warning.style.display = 'none';
+    }
+  }
+
+  FileUploader.prototype.observeDragAndDrop = function() {
     var editor = this.editor;
     var self = this;
 
-    if (this.isAdvancedUpload()) {
-      var eventsToIgnore      = ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'];
-      var eventsToAddClass    = ['drag', 'dragstart', 'dragover', 'dragenter'];
-      var eventsToRemoveClass = ['dragleave', 'dragend', 'drop'];
-      eventsToIgnore.forEach(function(event) {
-        editor.addEventListener(event, function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        });
-      });
-      eventsToAddClass.forEach(function(event) {
-        editor.addEventListener(event, function(e) {
-          editor.classList.add('is-dragover');
-        });
-      });
-      eventsToRemoveClass.forEach(function(event) {
-        editor.addEventListener(event, function(e) {
-          editor.classList.remove('is-dragover');
-        });
-      });
-      editor.addEventListener('drop', function(e) {
-        var droppedFiles = e.dataTransfer.files;
-        if (droppedFiles) {
-          for (var file of droppedFiles) {
-            self.upload(file);
-          }
-          droppedFiles = null;
-        }
-      });
+    if (!this.isAvailable()) {
+      console.log("Drag and Drop upload is not available on this Browser");
+      return false;
     }
+
+    var eventsToIgnore      = ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'];
+    var eventsToAddClass    = ['drag', 'dragstart', 'dragover', 'dragenter'];
+    var eventsToRemoveClass = ['dragleave', 'dragend', 'drop'];
+    eventsToIgnore.forEach(function(event) {
+      editor.addEventListener(event, function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+    eventsToAddClass.forEach(function(event) {
+      editor.addEventListener(event, function(e) {
+        editor.classList.add('is-dragover');
+      });
+    });
+    eventsToRemoveClass.forEach(function(event) {
+      editor.addEventListener(event, function(e) {
+        editor.classList.remove('is-dragover');
+      });
+    });
+    editor.addEventListener('drop', function(e) {
+      var droppedFiles = e.dataTransfer.files;
+      if (droppedFiles) {
+        for (var file of droppedFiles) {
+          self.upload(file);
+        }
+        droppedFiles = null;
+      }
+    });
   }
 
   FileUploader.prototype.upload = function(file) {
@@ -180,7 +217,6 @@ var FileUploader = (function() {
 document.addEventListener('DOMContentLoaded', function() {
   var editor = document.querySelector('#editor');
   if (typeof editor !== undefined) {
-    var fileUploader = new FileUploader(editor);
-    fileUploader.dragAndDropUpload();
+    new FileUploader(editor);
   }
 });
