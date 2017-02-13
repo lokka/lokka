@@ -3,7 +3,7 @@ module Lokka
   module Before
     def self.registered(app)
       app.before do
-        @site = Site.first
+        @site = RequestStore[:site] ||= Site.first
         @title = @site.title
 
         locales = Lokka.parse_http(request.env['HTTP_ACCEPT_LANGUAGE'])
@@ -27,7 +27,7 @@ module Lokka
           response.set_cookie('theme', params[:theme])
         end
 
-        @theme = Theme.new(
+        @theme = RequestStore[:theme] ||= Theme.new(
           settings.theme,
           request.script_name,
           theme != 'pc' && request.user_agent =~ /iPhone|Android/
