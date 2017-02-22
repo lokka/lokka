@@ -48,7 +48,7 @@ module Lokka
     delete('/admin/pages/:id')      { |id| delete_admin_entry(Page, id) }
 
     # attachments
-    post '/admin/attachments' do
+    post "/admin/attachments" do
       result = handle_file_upload(params)
       content_type :json
       status result[:status]
@@ -381,16 +381,16 @@ module Lokka
     end
 
     # file upload
-    get '/admin/file_upload' do
+    get "/admin/file_upload" do
       @aws_access_key_id     = Option.aws_access_key_id
       @aws_secret_access_key = Option.aws_secret_access_key
       @s3_region             = Option.s3_region
       @s3_bucket_name        = Option.s3_bucket_name
       @s3_domain_name        = Option.s3_domain_name
-      haml :'admin/file_upload', layout: :'admin/layout'
+      haml :"admin/file_upload", layout: :"admin/layout"
     end
 
-    put '/admin/file_upload' do
+    put "/admin/file_upload" do
       errors = []
 
       required_params = %i|aws_access_key_id aws_secret_access_key s3_region s3_bucket_name|
@@ -406,12 +406,13 @@ module Lokka
         optional_params.each do |key|
           Option.send("#{key}=", params[key])
         end
-        flash[:notice] = t('file_upload.successfully_updated')
-        redirect to('/admin/file_upload')
+        flash[:notice] = t("file_upload.successfully_updated")
+        redirect to("/admin/file_upload")
       else
-        flash.now[:error] = (["<ul>"] + errors.map{|e| "<li>#{e}</li>" } + ["</ul>"]).join("\n")
+        error_message = (["<ul>"] + errors.map { |e| "<li>#{e}</li>" } + ["</ul>"]).join("\n")
+        flash.now[:error] = error_message
         status 400
-        haml :'admin/file_upload', layout: :'admin/layout'
+        haml :"admin/file_upload", layout: :"admin/layout"
       end
     end
 

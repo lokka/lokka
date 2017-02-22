@@ -61,12 +61,12 @@ var FileUploader = (function() {
     this.markupSelector = document.querySelector('#post_markup');
     this.observeDragAndDrop();
     this.observeWysiwyg();
-  }
+  };
 
   FileUploader.prototype.isAvailable = function() {
     var div = document.createElement('div');
     return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
-  }
+  };
 
   FileUploader.prototype.observeWysiwyg = function() {
     var self = this;
@@ -80,7 +80,7 @@ var FileUploader = (function() {
         });
       }
     });
-  }
+  };
 
   FileUploader.prototype.isWysiwyg = function() {
     if (this.markupSelector.querySelector('option:checked').value !== 'html')
@@ -88,7 +88,7 @@ var FileUploader = (function() {
     if (this.textarea.style.display === 'block')
       return false;
     return true;
-  }
+  };
 
   FileUploader.prototype.toggleWarning = function() {
     var warning = document.querySelector('#upload-disabled-warning');
@@ -97,7 +97,7 @@ var FileUploader = (function() {
     } else {
       warning.style.display = 'none';
     }
-  }
+  };
 
   FileUploader.prototype.observeDragAndDrop = function() {
     var editor = this.editor;
@@ -136,7 +136,7 @@ var FileUploader = (function() {
         droppedFiles = null;
       }
     });
-  }
+  };
 
   FileUploader.prototype.upload = function(file) {
     var editor = this.editor;
@@ -175,7 +175,7 @@ var FileUploader = (function() {
       console.error(response.message);
     });
     return promise;
-  }
+  };
 
   FileUploader.prototype.insertImage = function(imageTag) {
     var textarea = this.textarea;
@@ -189,7 +189,7 @@ var FileUploader = (function() {
     } else {
       textarea.value = imageTag + "\n\n" + textarea.value.trim();
     }
-  }
+  };
 
   FileUploader.prototype.detectImageTag = function(file, url) {
     var imageTag;
@@ -209,7 +209,7 @@ var FileUploader = (function() {
         break;
     }
     return imageTag;
-  }
+  };
 
   return FileUploader;
 })();
