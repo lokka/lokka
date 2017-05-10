@@ -221,6 +221,22 @@ en:
   import_from_wordpress: Import from WordPress
   import_file: Import File
   data_was_successfully_imported: Data was successfully imported
+  file_upload:
+    name: File Upload
+    description: Input Amazon Web Service token and S3 bucket name.
+    aws_access_key_id: AWS Access Key ID
+    aws_secret_access_key: AWS Secret Access Key
+    s3_region: S3 Region
+    s3_bucket_name: S3 Bucket Name
+    s3_domain_name: S3 Domain Name
+    successfully_updated: Succssfully Updated
+    notice:
+      unavailable_with_wysiwyg: "Notice: File upload function is not available while WYSIWYG editor is active."
+    error:
+      no_aws_access_key_id: No AWS Access Key ID
+      no_aws_secret_access_key: NO AWS Secret Access Key
+      no_s3_region: No S3 region
+      no_s3_bucket_name: No S3 bucket name
   what_about_lokka: "<p>Lokka is a blogging/CMS tool for the personal cloud.</p><p>Users who are accustomed to WordPress or other existing systems like it will find it easy to manage.<br />It's easy on theme designers, and provides a clean plugin API for Ruby developers.</p>"
   home: Home
   getting_started: Getting Started

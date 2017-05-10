@@ -221,6 +221,22 @@ ja:
   import_from_wordpress: WordPressからのインポート
   import_file: インポートファイル
   data_was_successfully_imported: データをインポートしました
+  file_upload:
+    name: アップロード
+    description: Amazon Web Service のトークン、 S3 の bucket 情報を入力してください。
+    aws_access_key_id: AWS Access Key ID
+    aws_secret_access_key: AWS Secret Access Key
+    s3_region: S3 Region
+    s3_bucket_name: S3 Bucket Name
+    s3_domain_name: S3 Domain Name
+    successfully_updated: 更新しました
+    notice:
+      unavailable_with_wysiwyg: "注意: WYSIWYG モードではファイルをアップロードできません。"
+    error:
+      no_aws_access_key_id: AWS Access Key ID が入力されていません
+      no_aws_secret_access_key: AWS Secret Access Key が入力されていません
+      no_s3_region: S3 region が入力されていません
+      no_s3_bucket_name: S3 bucket name が入力されていません
   what_about_lokka: "<p>Lokka(ロッカ)はクラウド環境に対応したCMS/Blogツールです。</p><p>WordPressのような既存のツールに馴染んだユーザーにも簡単に扱えます。<br />テーマを作るデザイナーに優しく、RubyデベロッパーにクリーンなプラグインAPIを提供します。</p>"
   home: ホーム
   getting_started: はじめよう
