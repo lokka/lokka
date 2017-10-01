@@ -4,7 +4,12 @@ module Lokka
 
     def connect
       DataMapper.finalize
-      DataMapper.setup(:default, Lokka.dsn)
+      config = if Lokka.dsn.present?
+                 Lokka.dsn
+               else
+                 Lokka.dsh
+               end
+      DataMapper.setup(:default, config)
       self
     end
 
