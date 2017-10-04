@@ -27,8 +27,20 @@ module Lokka
     #
     # @return [String] DSN (Data Source Name) is configuration for database.
     def dsn
+      database_config['dsn']
+    end
+
+    ##
+    # Data Source Hash
+    #
+    # @return [Hash] DSH (Data Source Hash) is configuration for database.
+    def dsh
+      database_config.dup.delete_if {|key, _| key == 'dsn' }
+    end
+
+    def database_config
       filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
-      YAML.load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[self.env]['dsn']
+      YAML.load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[self.env]
     end
 
     ##
