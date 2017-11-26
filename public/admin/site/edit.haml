@@ -3,7 +3,7 @@
   order_options = Site::ORDERS.map {|o| [t(o), o] }
   markup_options = Markup.engine_list.map {|e| [e[1], e[0]] }
 %h2= t('edit_site')
-- form_for @site, url('/admin/site'), :method => :put do |f|
+= form_for @site, url('/admin/site'), :method => :put do |f|
   %p
     = f.label :title, :caption => t('site.title')
     %br/

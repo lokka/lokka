@@ -54,7 +54,7 @@ describe Lokka::Helpers do
 
   describe 'months' do
     subject { months }
-    before  { FactoryGirl.create(:post, draft: true) }
+    before  { create(:post, draft: true) }
 
     it { subject.count.should == 0 }
   end

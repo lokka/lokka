@@ -40,7 +40,7 @@ class Entry
 
   def short_body
     @short_body ||= self.long_body \
-      .sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>")
+      .sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>").html_safe
   end
 
   def comments
@@ -74,7 +74,8 @@ class Entry
     tags.each do |tag|
       html += %Q(<li class="tag"><a href="#{tag.link}">#{tag.name}</a></li>)
     end
-    html + '</ul>'
+    html += '</ul>'
+    html.html_safe
   end
 
   # custom fields
@@ -121,7 +122,7 @@ class Entry
     src = long_body.tr("\n", "")
     desc = (src =~ %r!<p[^>]*>(.+?)</p>!i) ? $1 : src[0..50]
 
-    desc.gsub(%r!<[^/]+/>!, " ").gsub(%r!</[^/]+>!, " ").gsub(/<[^>]+>/, "")
+    desc.gsub(%r!<[^/]+/>!, " ").gsub(%r!</[^/]+>!, " ").gsub(/<[^>]+>/, "").html_safe
   end
 
   class << self

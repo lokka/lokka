@@ -6,6 +6,7 @@ module Lokka
 
     def render_detect_with_options(names, options = {})
       ret = ''
+      options[:layout] = 'layout'
       names.each do |name|
         out = render_any(name, options)
         unless out.blank?

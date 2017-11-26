@@ -4,8 +4,8 @@ describe '/admin/pages' do
   include_context 'admin login'
 
   before do
-    @page = Factory(:page)
-    Factory(:draft_page)
+    @page = create(:page)
+    create(:draft_page)
   end
 
   after { Page.destroy }
@@ -35,7 +35,7 @@ describe '/admin/pages' do
 
   context 'POST /admin/pages' do
     it 'should create a new page' do
-      sample = Factory.attributes_for(:page, :slug => 'dekitate')
+      sample = attributes_for(:page, :slug => 'dekitate')
       post '/admin/pages', { :page => sample }
       last_response.should be_redirect
       Page('dekitate').should_not be_nil

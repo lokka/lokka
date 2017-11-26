@@ -19,7 +19,7 @@ module Lokka
 
     # h + n2br
     def hbr(str)
-      h(str).gsub(/\r\n|\r|\n/, "<br />\n")
+      h(str).gsub(/\r\n|\r|\n/, "<br />\n").html_safe
     end
 
     def login_required
@@ -41,9 +41,10 @@ module Lokka
     end
 
     def bread_crumb
-      @bread_crumbs[0..-2].inject('<ol>') do |html,bread|
+      bread_crumb = @bread_crumbs[0..-2].inject('<ol>') {|html, bread|
         html += "<li><a href=\"#{bread[:link]}\">#{bread[:name]}</a></li>"
-      end + "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
+      } + "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
+      bread_crumb.html_safe
     end
 
     def category_tree(categories = Category.roots)
@@ -57,7 +58,7 @@ module Lokka
         html += '</li>'
       end
       html += '</ul>'
-      html
+      html.html_safe
     end
 
     def comment_form
@@ -85,12 +86,12 @@ module Lokka
 
     def header
       s = yield_content :header
-      s unless s.blank?
+      mark_safe(s) unless s.blank?
     end
 
     def footer
       s = yield_content :footer
-      s unless s.blank?
+      mark_safe(s) unless s.blank?
     end
 
     # example: /foo/bar?buz=aaa

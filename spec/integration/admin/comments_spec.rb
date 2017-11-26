@@ -4,9 +4,9 @@ describe '/admin/comments' do
   include_context 'admin login'
 
   before do
-    @post = Factory(:post)
-    @comment = Factory(:comment, :entry => @post)
-    Factory(:spam_comment, :entry => @post)
+    @post = create(:post)
+    @comment = create(:comment, :entry => @post)
+    create(:spam_comment, :entry => @post)
   end
 
   after do
@@ -32,7 +32,7 @@ describe '/admin/comments' do
   context 'POST /admin/comments' do
     it 'should create a new comment' do
       Comment.destroy
-      sample = Factory.attributes_for(:comment, :entry_id => @post.id)
+      sample = attributes_for(:comment, :entry_id => @post.id)
       post '/admin/comments', { :comment => sample }
       last_response.should be_redirect
       Post(@post.id).comments.should have(1).item
