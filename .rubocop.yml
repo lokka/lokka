@@ -1,0 +1,80 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+    - 'lokka.gemspec'
+    - 'db/seeds.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Naming/MethodName:
+  Exclude:
+    - 'lib/lokka/models/**/*'
+
+Style/MethodMissing:
+  Exclude:
+    - 'lib/lokka/models/entry.rb'
+    - 'lib/lokka/models/site.rb'
+    - 'lib/lokka/models/option.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+  SupportedStyles:
+    - with_first_parameter
+    - with_fixed_indentation
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyleForEmptyBraces: space
+  SpaceBeforeBlockParameters: false
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'lib/lokka/helpers/helpers.rb'
+    - 'public/theme/Farikal/config.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lokka.gemspec'
+    - 'spec/**/*'
+    - 'lib/lokka/before.rb'
+    - 'lib/lokka/app.rb'
+    - 'lib/lokka/importer.rb'
+
+Metrics/LineLength:
+  Exclude:
+    - 'lokka.gemspec'
+    - 'Gemfile'
+    - 'public/**/*'
+  IgnoredPatterns:
+    - '%r'
+    - '%q'
+    - '%Q'
+    - '/\/.+\//'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'lib/lokka/before.rb'
+    - 'lib/lokka/importer.rb'
+    - 'public/plugin/**/*'

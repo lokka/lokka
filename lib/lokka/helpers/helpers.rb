@@ -1,9 +1,10 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 module Lokka
   module Helpers
     include Rack::Utils
 
-    alias :h :escape_html
+    alias h escape_html
 
     %w[index search category tag yearly monthly daily post page entry entries].each do |name|
       define_method("#{name}?") do
@@ -12,8 +13,8 @@ module Lokka
     end
 
     def base_url
-      default_port = (request.scheme == "http") ? 80 : 443
-      port = (request.port == default_port) ? "" : ":#{request.port.to_s}"
+      default_port = request.scheme == 'http' ? 80 : 443
+      port = request.port == default_port ? '' : ":#{request.port}"
       "#{request.scheme}://#{request.host}#{port}"
     end
 
@@ -23,13 +24,10 @@ module Lokka
     end
 
     def login_required
-      if current_user.class != GuestUser
-        return true
-      else
-        session[:return_to] = request.fullpath
-        redirect to('/admin/login')
-        return false
-      end
+      return true if current_user.class != GuestUser
+      session[:return_to] = request.fullpath
+      redirect to('/admin/login')
+      false
     end
 
     def current_user
@@ -37,13 +35,14 @@ module Lokka
     end
 
     def logged_in?
-      !!session[:user]
+      session[:user].present?
     end
 
     def bread_crumb
-      bread_crumb = @bread_crumbs[0..-2].inject('<ol>') {|html, bread|
-        html += "<li><a href=\"#{bread[:link]}\">#{bread[:name]}</a></li>"
-      } + "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
+      bread_crumb = @bread_crumbs[0..-2].inject('<ol>') do |html, bread|
+        html += %(<li><a href="#{bread[:link]}">#{bread[:name]}</a></li>)
+      end
+      bread_crumb += "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
       bread_crumb.html_safe
     end
 
@@ -52,9 +51,7 @@ module Lokka
       categories.each do |category|
         html += '<li>'
         html += "<a href=\"#{category.link}\">#{category.title}</a>"
-        if category.children.count > 0
-          html += category_tree(category.children)
-        end
+        html += category_tree(category.children) if category.children.count > 0
         html += '</li>'
       end
       html += '</ul>'
@@ -62,7 +59,7 @@ module Lokka
     end
 
     def comment_form
-      haml :'lokka/comments/form', :layout => false
+      haml :"lokka/comments/form", layout: false
     end
 
     def months
@@ -79,7 +76,7 @@ module Lokka
       months = []
       ms.each do |m, count|
         year, month = m.split('-')
-        months << OpenStruct.new({:year => year, :month => month, :count => count})
+        months << OpenStruct.new(year: year, month: month, count: count)
       end
       months.sort {|x, y| y.year + y.month <=> x.year + x.month }
     end
@@ -97,11 +94,13 @@ module Lokka
     # example: /foo/bar?buz=aaa
     def request_path
       path = '/' + request.url.split('/')[3..-1].join('/')
-      path += '/' if path != '/' and request.url =~ /\/$/
+      path += '/' if path != '/' && request.url =~ %r{/$}
       path
     end
 
-    def locale; I18n.locale end
+    def locale
+      I18n.locale
+    end
 
     def redirect_after_edit(entry)
       name = entry.class.name.downcase.pluralize
@@ -116,7 +115,7 @@ module Lokka
       @entry = entry
       @entry.user = current_user
       @entry.title << ' - Preview'
-      @entry.updated_at = DateTime.now
+      @entry.updated_at = Time.current
       @comment = @entry.comments.new
       setup_and_render_entry
     end
@@ -130,14 +129,14 @@ module Lokka
 
       @title = @entry.title
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'}]
+      @bread_crumbs = [{ name: t('home'), link: '/' }]
       if @entry.category
         @entry.category.ancestors.each do |cat|
-          @bread_crumbs << {:name => cat.title, :link => cat.link}
+          @bread_crumbs << { name: cat.title, link: cat.link }
         end
-        @bread_crumbs << {:name => @entry.category.title, :link => @entry.category.link}
+        @bread_crumbs << { name: @entry.category.title, link: @entry.category.link }
       end
-      @bread_crumbs << {:name => @entry.title, :link => @entry.link}
+      @bread_crumbs << { name: @entry.title, link: @entry.link }
 
       render_detect_with_options [type, :entry]
     end
@@ -145,24 +144,24 @@ module Lokka
     def get_admin_entries(entry_class)
       @name = entry_class.name.downcase
       @entries = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
-      @entries = @entries.page(params[:page], :per_page => settings.admin_per_page)
-      haml :'admin/entries/index', :layout => :'admin/layout'
+      @entries = @entries.page(params[:page], per_page: settings.admin_per_page)
+      haml :"admin/entries/index", layout: :"admin/layout"
     end
 
     def get_admin_entry_new(entry_class)
       @name = entry_class.name.downcase
-      @entry = entry_class.new(:markup => Site.first.default_markup, :created_at => DateTime.now, :updated_at => DateTime.now)
+      @entry = entry_class.new(markup: Site.first.default_markup, created_at: Time.current, updated_at: Time.current)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-      @field_names = FieldName.all(:order => :name.asc)
-      haml :'admin/entries/new', :layout => :'admin/layout'
+      @field_names = FieldName.all(order: :name.asc)
+      haml :"admin/entries/new", layout: :"admin/layout"
     end
 
     def get_admin_entry_edit(entry_class, id)
       @name = entry_class.name.downcase
-      @entry = entry_class.get(id) or raise Sinatra::NotFound
+      (@entry = entry_class.get(id)) || raise(Sinatra::NotFound)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-      @field_names = FieldName.all(:order => :name.asc)
-      haml :'admin/entries/edit', :layout => :'admin/layout'
+      @field_names = FieldName.all(order: :name.asc)
+      haml :"admin/entries/edit", layout: :"admin/layout"
     end
 
     def post_admin_entry(entry_class)
@@ -176,33 +175,31 @@ module Lokka
           flash[:notice] = t("#{@name}_was_successfully_created")
           redirect_after_edit(@entry)
         else
-          @field_names = FieldName.all(:order => :name.asc)
+          @field_names = FieldName.all(order: :name.asc)
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          haml :'admin/entries/new', :layout => :'admin/layout'
+          haml :"admin/entries/new", layout: :"admin/layout"
         end
       end
     end
 
     def put_admin_entry(entry_class, id)
       @name = entry_class.name.downcase
-      @entry = entry_class.get(id) or raise Sinatra::NotFound
+      (@entry = entry_class.get(id)) || raise(Sinatra::NotFound)
       if params['preview']
         render_preview entry_class.new(params[@name])
+      elsif @entry.update(params[@name])
+        flash[:notice] = t("#{@name}_was_successfully_updated")
+        redirect_after_edit(@entry)
       else
-        if @entry.update(params[@name])
-          flash[:notice] = t("#{@name}_was_successfully_updated")
-          redirect_after_edit(@entry)
-        else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          @field_names = FieldName.all(:order => :name.asc)
-          haml :'admin/entries/edit', :layout => :'admin/layout'
-        end
+        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
+        @field_names = FieldName.all(order: :name.asc)
+        haml :"admin/entries/edit", layout: :"admin/layout"
       end
     end
 
     def delete_admin_entry(entry_class, id)
       name = entry_class.name.downcase
-      entry = entry_class.get(id) or raise Sinatra::NotFound
+      (entry = entry_class.get(id)) || raise(Sinatra::NotFound)
       entry.destroy
       flash[:notice] = t("#{name}_was_successfully_deleted")
       if entry.draft
@@ -222,10 +219,10 @@ module Lokka
     def gravatar_image_url(email = nil, size = nil)
       url = 'http://www.gravatar.com/avatar/'
       url += if email
-        Digest::MD5.hexdigest(email)
-      else
-        '0' * 32
-      end
+               Digest::MD5.hexdigest(email)
+             else
+               '0' * 32
+             end
       size ? "#{url}?size=#{size}" : url
     end
 
@@ -233,37 +230,38 @@ module Lokka
       def initialize(logger)
         @logger = logger
       end
-      def method_missing(name, *args)
+
+      def method_missing(name, *)
         name = name.to_s
-        @logger.warn %|"t.#{name}" translate style is obsolete. use "t('#{name}')".| # FIXME
+        @logger.warn %|"t.#{name}" translate style is obsolete. use "t("#{name}")".| # FIXME
         I18n.translate(name)
       end
     end
 
     def translate_compatibly(*args)
-      if args.length == 0
+      if args.empty?
         TranslateProxy.new(logger)
       else
         I18n.translate(*args)
       end
     end
-    alias_method :t, :translate_compatibly
+    alias t translate_compatibly
 
     def apply_continue_reading(posts)
       posts.each do |post|
         class << post
-          alias body short_body
+          alias_method :body, :short_body
         end
       end
       posts
     end
 
     def custom_permalink?
-      @custom_permalink = RequestStore[:custom_permalink] ||= Option.permalink_enabled == "true"
+      RequestStore[:custom_permalink] ||= Option.permalink_enabled == 'true'
     end
 
     def permalink_format
-      @permalink_format = RequestStore[:permalink_format] ||= Option.permalink_format
+      RequestStore[:permalink_format] ||= Option.permalink_format
     end
 
     def custom_permalink_format
@@ -272,91 +270,94 @@ module Lokka
 
     def custom_permalink_parse(path)
       chars = path.chars.to_a
-      custom_permalink_format().inject({}) do |result, pattern|
-        if pattern.start_with?("%")
+      custom_permalink_format.each_with_object({}) do |pattern, result|
+        if pattern.start_with?('%')
           next_char = pattern[-1..-1]
           next_char = nil if next_char == '%'
           name = pattern.match(/^%(.+)%.?$/)[1].to_sym
           c = nil
-          (result[name] ||= "") << c until (c = chars.shift) == next_char || c.nil?
+          until (c = chars.shift) == next_char || c.nil?
+            result[name] ||= ''
+            result[name] = result[name].dup << c
+          end
         elsif chars.shift != pattern
           break nil
         end
-        result
       end
     end
 
     def custom_permalink_path(param)
       path = permalink_format.dup
       param.each do |tag, value|
-        path.gsub!(/%#{Regexp.escape(tag.to_s)}%/,value)
+        path.gsub!(/%#{Regexp.escape(tag.to_s)}%/, value)
       end
       path
     end
 
     def custom_permalink_fix(path)
-      r = custom_permalink_parse(path)
+      result = custom_permalink_parse(path)
 
       url_changed = false
-      [:year, :month, :monthnum, :day, :hour, :minute, :second].each do |k|
-        i = (k == :year ? 4 : 2)
-        (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
+      %i[year month monthnum day hour minute second].each do |key|
+        i = (key == :year ? 4 : 2)
+        if result[key] && result[key].size < i
+          result[key] = result[key].rjust(i, '0')
+          url_changed = true
+        end
       end
 
-      custom_permalink_path(r) if url_changed
-    rescue => e
+      custom_permalink_path(result) if url_changed
+    rescue StandardError => _e
       nil
     end
 
     def custom_permalink_entry(path)
-      r = custom_permalink_parse(path)
-      conditions, flags = r.inject([{},{}]) {|(conds, flags), (tag, value)|
-        case tag
-        when :year
-          flags[:year] = value.to_i
-          flags[:time] = true
-        when :monthnum, :month
-          flags[:month] = value.to_i
-          flags[:time] = true
-        when :day
-          flags[:day] = value.to_i
-          flags[:time] = true
-        when :hour
-          flags[:hour] = value.to_i
-          flags[:time] = true
-        when :minute
-          flags[:minute] = value.to_i
-          flags[:time] = true
-        when :second
-          flags[:second] = value.to_i
-          flags[:time] = true
-        when :post_id, :id
-          conds[:id] = value.to_i
-        when :postname, :slug
-          conds[:slug] = value
-        when :category
-          conds[:category_id] = Category(value).id
-        end
-        [conds, flags]
-      }
-
+      parsed = custom_permalink_parse(path)
+      conditions, flags = detect_conditions_and_flags(parsed)
       if flags[:time]
-        time_order = [:year, :month, :day, :hour, :minute, :second]
-        args, last = time_order.inject([[],nil]) do |(result,last), key|
+        time_order = %i[year month day hour minute second]
+        args, _last = time_order.inject([[], nil]) do |(result, _last), key|
           break [result, key] unless flags[key]
           [result << flags[key], nil]
         end
-        args = [0,1,1,0,0,0].each_with_index.map{|default,i| args[i] || default }
+        args = [0, 1, 1, 0, 0, 0].each_with_index.map {|default, i| args[i] || default }
         conditions[:created_at.gte] = Time.local(*args)
-        day_end = {:hour => 23, :minute => 59, :second => 59}
+        day_end = { hour: 23, minute: 59, second: 59 }
         day_end.each_pair do |key, value|
           args[time_order.index(key)] = value.to_i
         end
         conditions[:created_at.lt] = Time.local(*args)
       end
       Entry.first(conditions)
-    rescue => e
+    rescue StandardError => _e
       nil
+    end
+
+    def detect_conditions_and_flags(parsed)
+      parsed.inject([{}, {}]) do |(conditions, flags), (tag, value)|
+        case tag
+        when :year
+          flags[:year] = value.to_i
+        when :monthnum, :month
+          flags[:month] = value.to_i
+        when :day
+          flags[:day] = value.to_i
+        when :hour
+          flags[:hour] = value.to_i
+        when :minute
+          flags[:minute] = value.to_i
+        when :second
+          flags[:second] = value.to_i
+        when :post_id, :id
+          conditions[:id] = value.to_i
+        when :postname, :slug
+          conditions[:slug] = value
+        when :category
+          conditions[:category_id] = Category(value).id
+        end
+        flags[:time] = %i[year month day hour minute second].any? {|key| flags.keys.include?(key) }
+        [conditions, flags]
+      end
     end
 
     class << self
@@ -369,52 +370,51 @@ module Lokka
 
     def slugs
       tmp = @theme_types
-      tmp << @entry.slug    if @entry and @entry.slug
-      tmp << @category.slug if @category and @category.slug
+      tmp << @entry.slug    if @entry && @entry.slug
+      tmp << @category.slug if @category && @category.slug
       tmp
     end
 
     def body_attrs
-      {:class => slugs.join(' ')}
+      { class: slugs.join(' ') }
     end
 
     def handle_file_upload(params)
-      begin
-        credentials = Aws::Credentials.new(Option.aws_access_key_id, Option.aws_secret_access_key)
-        s3 = Aws::S3::Resource.new(region: Option.s3_region, credentials: credentials)
-        bucket = s3.bucket(Option.s3_bucket_name)
-        domain_name = Option.s3_domain_name.presence || "#{Option.s3_bucket_name}.s3-website-#{Option.s3_region}.amazonaws.com"
+      credentials = Aws::Credentials.new(Option.aws_access_key_id, Option.aws_secret_access_key)
+      s3 = Aws::S3::Resource.new(region: Option.s3_region, credentials: credentials)
+      bucket = s3.bucket(Option.s3_bucket_name)
+      domain_name = Option.s3_domain_name.presence ||
+        "#{Option.s3_bucket_name}.s3-website-#{Option.s3_region}.amazonaws.com"
 
-        if params[:file]
-          tempfile = params[:file][:tempfile]
-          digest = Digest::MD5.file(tempfile.path).to_s
-          extname = File.extname(tempfile.path)
-          filename = digest + extname
-          content_type = MimeMagic.by_magic(tempfile).type
-          if bucket.object(filename).upload_file(tempfile.path, content_type: content_type)
-            {
-              message: 'File upload success',
-              url: "#{request.scheme}://#{domain_name}/#{filename}",
-              status: 201
-            }
-          else
-            {
-              message: "Failed uploading file",
-              status: 400
-            }
-          end
+      if params[:file]
+        tempfile = params[:file][:tempfile]
+        digest = Digest::MD5.file(tempfile.path).to_s
+        extname = File.extname(tempfile.path)
+        filename = digest + extname
+        content_type = MimeMagic.by_magic(tempfile).type
+        if bucket.object(filename).upload_file(tempfile.path, content_type: content_type)
+          {
+            message: 'File upload success',
+            url: "#{request.scheme}://#{domain_name}/#{filename}",
+            status: 201
+          }
         else
           {
-            message: "No file",
+            message: 'Failed uploading file',
             status: 400
           }
         end
-      rescue => e
+      else
         {
-          message: e.message,
-          status: 500
+          message: 'No file',
+          status: 400
         }
       end
+    rescue StandardError => e
+      {
+        message: e.message,
+        status: 500
+      }
     end
   end
 end

@@ -1,15 +1,15 @@
 - content_for :head_last do
-  %link{:rel => 'stylesheet', :href => url('/plugin/lokka-google_analytics/views/style.css'), :type => 'text/css'}
+  %link{ rel: :stylesheet, href: url('/plugin/lokka-google_analytics/views/style.css'), type: 'text/css' }
 %h2 Google Analytics
-%form{:action => url('/admin/plugins/google_analytics'), :method => 'post'}
-  %input{:type => 'hidden', :name => '_method', :value => 'put'}
+%form{ action: url('/admin/plugins/google_analytics'), method: :post }
+  %input{ type: :hidden, name: :_method, value: :put }
   .field
-    %label{:for => 'post_title'} Tracker
+    %label{ for: :post_title } Tracker
     %br
-    %input{:type => 'text', :id => 'post_title', :name => 'tracker', :value => Option.tracker}
+    %input{ type: :text, id: :post_title, name: :tracker, value: Option.tracker }
   .field
-    %label{:for => 'dn_title'} Domain Name (Optional)
+    %label{ for: :dn_title } Domain Name (Optional)
     %br
-    %input{:type => 'text', :id => 'dn_title', :name => 'tracker_dn', :value => Option.tracker_dn}
+    %input{ type: :text, id: :dn_title, name: :tracker_dn, value: Option.tracker_dn }
   .field
-    %input{:type => 'submit', :value => t('edit')}
+    %input{ type: :submit, value: t('edit') }

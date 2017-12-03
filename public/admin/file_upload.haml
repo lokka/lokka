@@ -2,7 +2,7 @@
 - if flash[:error]
   #error
     %p= flash[:error]
-%form{ action: url(:'/admin/file_upload'), method: :post, :'data-method' => :put }
+%form{ action: url('/admin/file_upload'), method: :post, 'data-method': :put }
   %input{ name: :_method, type: :hidden, value: :put }
   %p= t('file_upload.description')
   %p

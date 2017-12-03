@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 module Lokka
   module Before
     def self.registered(app)
@@ -34,9 +35,7 @@ module Lokka
         )
 
         @theme_types ||= []
-        if @theme.exist_i18n?
-          ::I18n.load_path += Dir["#{@theme.i18n_dir}/*.yml"]
-        end
+        ::I18n.load_path += Dir["#{@theme.i18n_dir}/*.yml"] if @theme.exist_i18n?
       end
 
       app.before %r{(?!^/admin/login$)^/admin/.*$} do

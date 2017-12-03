@@ -1,2 +1,2 @@
 %h2= t("new_#{@name}")
-= haml :'admin/entries/form', :layout => false, :locals => {:action => url("/admin/#{@name.pluralize}"), :method => 'post', :label => t('new')}
+= haml :'admin/entries/form', layout: false, locals: { action: url("/admin/#{@name.pluralize}"), method: 'post', label: t('new') }

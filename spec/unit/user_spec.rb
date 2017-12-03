@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User do
@@ -38,24 +40,22 @@ describe User do
 
   describe '#save' do
     let(:user) do
-      User.new(:name     => 'Johnny',
-               :email    => 'johnny@example.com',
-               :password => 'password',
-               :password_confirmation => 'password')
+      User.new(name: 'Johnny',
+               email: 'johnny@example.com',
+               password: 'password',
+               password_confirmation: 'password')
     end
     it_behaves_like 'user with validation'
   end
 
-  describe "#update" do
-    let!(:user) { create :user, :name => 'Johnny' }
+  describe '#update' do
+    let!(:user) { create :user, name: 'Johnny' }
 
     it_behaves_like 'user with validation'
   end
-
 end
 
 describe GuestUser do
   it { should_not be_admin }
   its(:permission_level) { should eq 0 }
 end
-

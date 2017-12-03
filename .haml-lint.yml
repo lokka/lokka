@@ -1,0 +1,6 @@
+inherits_from:
+  - .haml-lint_todo.yml
+
+linters:
+  LineLength:
+    enabled: false

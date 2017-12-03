@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Lokka
   class Database
-    MODELS = %w(site option user entry category comment snippet tag tagging field_name field)
+    MODELS = %w[site option user entry category comment snippet tag tagging field_name field].freeze
 
     def connect
       DataMapper.finalize
@@ -13,10 +15,10 @@ module Lokka
       self
     end
 
-    def load_fixture(path, model_name=nil)
-      model = model_name || File.basename(path).sub('.csv','').classify.constantize
+    def load_fixture(path, model_name = nil)
+      model = model_name || File.basename(path).sub('.csv', '').classify.constantize
       headers, *body = CSV.read(path)
-      body.each { |row| model.create!(Hash[*(headers.zip(row).reject {|i|i[1].blank?}.flatten)]) }
+      body.each {|row| model.create!(Hash[*headers.zip(row).reject {|i| i[1].blank? }.flatten]) }
     end
 
     def migrate

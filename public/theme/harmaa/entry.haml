@@ -1,17 +1,17 @@
 %article
   .info
     %ul.date
-      %li.month= @entry.created_at.strftime("%b")
+      %li.month= @entry.created_at.strftime('%b')
       %li.day= @entry.created_at.day
       %li.year= @entry.created_at.year
     - unless @entry.category.nil?
       %p.category
-        %a{:href => url(@entry.category.link)}= @entry.category.title
+        %a{ href: url(@entry.category.link) }= @entry.category.title
     - unless @entry.tags.size.zero?
       = @post.tags_to_html
     - if logged_in?
       .edit
-        %a{:href => url(@entry.edit_link)}= t('edit')
+        %a{ href: url(@entry.edit_link) }= t('edit')
   %header
     %h1= @entry.title
   .body
@@ -19,40 +19,40 @@
 - unless page?
   %section.comments
     %h1.comment Comments
-    - if @entry.comments.size > 0
+    - unless @entry.comments.empty
       %ul.comments
         - @entry.comments.reverse.each do |comment|
-          %li.comment{:id => "comment-#{comment.id}"}
+          %li.comment{ id: "comment-#{comment.id}" }
             .commenter
               %h2.name
-                = link_to comment.name, comment.homepage, :unless => comment.homepage.blank?
+                = link_to comment.name, comment.homepage, unless: comment.homepage.blank?
               %p.date
                 = l(comment.created_at)
             .body
               = hbr comment.body
     .comment_form
-      - if @comment and !@comment.errors.empty?
+      - if @comment && !@comment.errors.empty?
         #error
           .title= t('error')
           %ul
             - @comment.errors.full_messages.each do |error|
               %li= error
-      = form_for @comment, request.path_info, :method => :post do |f|
+      = form_for @comment, request.path_info, method: :post do |f|
         :javascript
           document.write('<input type="hidden" name="check" value="check" />');
         .reader
           .name
             %span.label
-              = f.label :name, :caption => "Name"
+              = f.label :name, caption: 'Name'
             = f.text_field :name
           .website
             %span.label
-              = f.label :homepage, :caption => "URL"
-              == #{"*"}
+              = f.label :homepage, caption: 'URL'
+              *
             = f.text_field :homepage
         .textarea
           .label
-            = f.label :body, :caption => t('comment.body')
-          = f.text_area :body, :rows => 10, :cols => 40
+            = f.label :body, caption: t('comment.body')
+          = f.text_area :body, rows: 10, cols: 40
         .submit
-          = f.submit "Post"
+          = f.submit 'Post'

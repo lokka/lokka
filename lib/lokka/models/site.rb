@@ -1,22 +1,23 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 class Site
   include DataMapper::Resource
 
-  SORT_COLUMNS = %w(id created_at updated_at)
-  ORDERS = %w(asc desc)
+  SORT_COLUMNS = %w[id created_at updated_at].freeze
+  ORDERS = %w[asc desc].freeze
 
   property :id, Serial
-  property :title, String, :length => 255
-  property :description, String, :length => 255
-  property :dashboard, Text, :length => 65535
-  property :theme, String, :length => 64
-  property :mobile_theme, String, :length => 64
+  property :title, String, length: 255
+  property :description, String, length: 255
+  property :dashboard, Text, length: 65_535
+  property :theme, String, length: 64
+  property :mobile_theme, String, length: 64
   property :per_page, Integer
-  property :default_sort, String, :length => 255
-  property :default_order, String, :length => 255
-  property :default_markup, String, :length => 255
-  property :meta_description, String, :length => 255
-  property :meta_keywords, String, :length => 255
+  property :default_sort, String, length: 255
+  property :default_order, String, length: 255
+  property :default_markup, String, length: 255
+  property :meta_description, String, length: 255
+  property :meta_keywords, String, length: 255
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -40,8 +41,8 @@ class Site
     if method.to_s =~ /=$/
       super
     else
-      o = Option.first_or_new(:name => method)
-      o.value
+      option = Option.first_or_new(name: method)
+      option.value
     end
   end
 end

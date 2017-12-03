@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/users' do
@@ -21,23 +23,27 @@ describe '/admin/users' do
 
   context 'POST /admin/users' do
     it 'should create a new user' do
-      user = { :name => 'lokka tarou',
-        :email => 'tarou@example.com',
-        :password => 'test',
-        :password_confirmation => 'test' }
-      post '/admin/users', { :user => user }
+      user = {
+        name: 'lokka tarou',
+        email: 'tarou@example.com',
+        password: 'test',
+        password_confirmation: 'test'
+      }
+      post '/admin/users', user: user
       last_response.should be_redirect
-      User.first(:name => 'lokka tarou').should_not be_nil
+      User.first(name: 'lokka tarou').should_not be_nil
     end
 
     it 'should not create a user when two password does not match' do
-      user = { :name => 'lokka tarou',
-        :email => 'tarou@example.com',
-        :password => 'test',
-        :password_confirmation => 'wrong' }
-      post '/admin/users', { :user => user }
+      user = {
+        name: 'lokka tarou',
+        email: 'tarou@example.com',
+        password: 'test',
+        password_confirmation: 'wrong'
+      }
+      post '/admin/users', user: user
       last_response.should be_ok
-      User.first(:name => 'lokka tarou').should be_nil
+      User.first(name: 'lokka tarou').should be_nil
       last_response.body.should match('<form')
     end
   end
@@ -52,9 +58,9 @@ describe '/admin/users' do
 
   context 'PUT /admin/users/:id' do
     it 'should update the name' do
-      put "/admin/users/#{@user.id}", { :user => { :name => 'newbie' } }
+      put "/admin/users/#{@user.id}", user: { name: 'newbie' }
       last_response.should be_redirect
-      User.get(@user.id).name.should == 'newbie'
+      User.get(@user.id).name.should eq('newbie')
     end
   end
 

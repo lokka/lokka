@@ -1,10 +1,11 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 class Category
   include DataMapper::Resource
 
   property :id, Serial
-  property :slug, Slug, :length => 255
-  property :title, String, :length => 255
+  property :slug, Slug, length: 255
+  property :title, String, length: 255
   property :description, Text
   property :type, Discriminator
   property :created_at, DateTime
@@ -15,12 +16,12 @@ class Category
   validates_uniqueness_of :slug
   validates_uniqueness_of :title
 
-  is :tree, :order => :title
+  is :tree, order: :title
 
   has n, :entries
 
   def self.get_by_fuzzy_slug(str)
-    ret = first(:slug => str)
+    ret = first(slug: str)
     ret.blank? ? get(str) : ret
   end
 

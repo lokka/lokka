@@ -1,24 +1,24 @@
 %h4.comment= t('comments')
-- if @comment and !@comment.errors.empty?
+- if @comment && !@comment.errors.empty?
   #error
     .title= t('error')
     %ul
       - @comment.errors.full_messages.each do |error|
         %li= error
-= form_for @comment, request.path_info, :method => :post do |f|
+= form_for @comment, request.path_info, method: :post do |f|
   :javascript
     document.write('<input type="hidden" name="check" value="check" />');
   %p
-    = f.label :name, :caption => t('comment.name')
-    %br/
+    = f.label :name, caption: t('comment.name')
+    %br
     = f.text_field :name
   %p
-    = f.label :homepage, :caption => t('comment.homepage')
-    == (#{t('option')})
-    %br/
+    = f.label :homepage, caption: t('comment.homepage')
+    = t('option')
+    %br
     = f.text_field :homepage
   %p
-    = f.label :body, :caption => t('comment.body')
-    %br/
-    = f.text_area :body, :rows => 10, :cols => 40
-  = f.submit t('post_comment'), :class => 'button'
+    = f.label :body, caption: t('comment.body')
+    %br
+    = f.text_area :body, rows: 10, cols: 40
+  = f.submit t('post_comment'), class: 'button'

@@ -1,4 +1,4 @@
-= form_for @category, action, :method => method do |f|
+= form_for @category, action, method: method do |f|
   - unless @category.errors.empty?
     #error
       .title= t('error')
@@ -6,22 +6,22 @@
         - @category.errors.each do |error|
           %li= error
   .field
-    = f.label :title, :caption => t('category.title')
+    = f.label :title, caption: t('category.title')
     %br/
     = f.text_field :title
   .field
-    = f.label :description, :caption => t('category.description')
+    = f.label :description, caption: t('category.description')
     %br/
     #editor= f.text_area :description
   .field
-    = f.label :parent, :caption => t("category.parent")
+    = f.label :parent, caption: t('category.parent')
     %br/
     - if (categories_without_self = Category.all(:id.not => @category.id)).count > 0
-      = f.select :parent_id, :collection => categories_without_self, :fields => [:title, :id], :include_blank => t('not_select')
+      = f.select :parent_id, collection: categories_without_self, fields: %i[title id], include_blank: t('not_select')
     - else
       = t('no_category')
   .field
-    = f.label :slug, :caption => t('category.slug')
+    = f.label :slug, caption: t('category.slug')
     %br/
     = f.text_field :slug
   %p= f.submit label

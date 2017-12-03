@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 class Comment
   include DataMapper::Resource
 
@@ -8,9 +9,9 @@ class Comment
 
   property :id, Serial
   property :entry_id, Integer
-  property :status, Integer # 0 => moderated, 1 => approved
+  property :status, Integer # 0: moderated, 1 => approved
   property :name, String
-  property :email, String, :length => (0..40), :format => :email_address
+  property :email, String, length: (0..40), format: :email_address
   property :homepage, String
   property :body, Text
   property :created_at, DateTime
@@ -18,29 +19,29 @@ class Comment
 
   belongs_to :entry
 
-  default_scope(:default).update(:order => :created_at.desc)
+  default_scope(:default).update(order: :created_at.desc)
 
   validates_presence_of :name
   validates_presence_of :body
 
   def self.recent(count = 5)
-    all(:status => APPROVED, :limit => count, :order => [:created_at.desc])
+    all(status: APPROVED, limit: count, order: [:created_at.desc])
   end
 
   def self.moderated
-    all(:status => MODERATED)
+    all(status: MODERATED)
   end
 
   def self.approved
-    all(:status => APPROVED)
+    all(status: APPROVED)
   end
 
   def self.spam
-    all(:status => SPAM)
+    all(status: SPAM)
   end
 
   def link
-    ((entry) ? "#{self.entry.link}#comment-#{id}" : '#')
+    (entry ? "#{entry.link}#comment-#{id}" : '#')
   end
 end
 

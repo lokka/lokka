@@ -1,0 +1,10 @@
+linters:
+  IdNames:
+    enabled: false
+
+  InlineStyles:
+    enabled: false
+
+  ViewLength:
+    exclude:
+      - public/theme/harmaa/layout.haml

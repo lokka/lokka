@@ -3,10 +3,10 @@
   %tr
     %th= t('category.title')
     %th= t('category.created_at')
-    %th(colspan="2")
+    %th{ colspan: 2 }
   - @categories.each do |category|
     %tr
       %td= link_to category.title, url("/admin/categories/#{category.id}/edit")
-      %td= l(category.created_at, :format => :long)
-      %td= link_to t('edit'), url("/admin/categories/#{category.id}/edit"), :class => 'button'
-      %td= link_to t('delete'), url("/admin/categories/#{category.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+      %td= l(category.created_at, format: :long)
+      %td= link_to t('edit'), url("/admin/categories/#{category.id}/edit"), class: 'button'
+      %td= link_to t('delete'), url("/admin/categories/#{category.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete

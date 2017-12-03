@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module Lokka
   module ThemeHelperLoader
-    def self.registered(app)
+    def self.registered(_app)
       Dir["#{Lokka.root}/public/theme/*/helper/*_helper.rb"].each do |path|
         path = Pathname.new(path)
         lib  = path.parent.parent
-        root = lib.parent
-        $:.push lib
+        $LOAD_PATH.push lib
         name = path.basename.to_s.split('.').first
         require "helper/#{name}"
       end

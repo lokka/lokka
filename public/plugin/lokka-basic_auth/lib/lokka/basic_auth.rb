@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module Lokka
   module BasicAuth
     def self.registered(app)
       app.before '*' do |path|
-        return if path =~ %r{^/admin/.*$}
+        next if path =~ %r{^/admin/.*$}
         username = Option.basic_auth_username
         password = Option.basic_auth_password
-        if username.present? and password.present?
-          @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+        if username.present? && password.present?
+          @auth ||= Rack::Auth::Basic::Request.new(request.env)
           unless @auth.provided? && @auth.basic? &&
-          @auth.credentials && @auth.credentials == [username, password]
+              @auth.credentials && @auth.credentials == [username, password]
             response['WWW-Authenticate'] = %(Basic realm="HTTP Auth")
             throw(:halt, [401, "Not authorized\n"])
           end
@@ -16,7 +18,7 @@ module Lokka
       end
 
       app.get '/admin/plugins/basic_auth' do
-        haml :'plugin/lokka-basic_auth/views/index', :layout => :'admin/layout'
+        haml :'plugin/lokka-basic_auth/views/index', layout: :'admin/layout'
       end
 
       app.post '/admin/plugins/basic_auth' do

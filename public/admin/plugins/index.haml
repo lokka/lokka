@@ -1,4 +1,4 @@
 %h2= t('listing_plugins')
 %ul.plugins
   - settings.plugins.each do |plugin|
-    %li= link_to plugin.name.titleize, url("/admin/plugins/#{plugin.name}"), :if => plugin.have_admin_page
+    %li= link_to plugin.name.titleize, url("/admin/plugins/#{plugin.name}"), if: plugin.have_admin_page

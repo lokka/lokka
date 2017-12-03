@@ -1,0 +1,25 @@
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/lokka/app/entries.rb'
+    - 'lib/lokka/app/admin.rb'
+    - 'lib/lokka/models/entry.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'lib/lokka/importer.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+    - 'lib/lokka/before.rb'
+    - 'public/plugin/**/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'lib/lokka/helpers/helpers.rb'
+
+Metrics/MethodLength:
+  Enabled: false

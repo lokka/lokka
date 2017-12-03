@@ -2,10 +2,10 @@
 !!!
 %html
   %head
-    %meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
-    %meta(http-equiv="Content-Style-Type" content="text/css")
-    %meta(http-equiv="Content-Script-Type" content="text/javascript")
-    %meta(name="viewport" content="width=device-width")
+    %meta{ 'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8' }
+    %meta{ 'http-equiv': 'Content-Style-Type', content: 'text/css' }
+    %meta{ 'http-equiv': 'Content-Script-Type', content: 'text/javascript' }
+    %meta{ name: 'viewport', content: 'width=device-width' }
     %title== #{@site.title} - Lokka
     = favicon_tag url('/favicon.ico')
     = stylesheet_link_tag url('/admin/css/style.css')
@@ -23,17 +23,17 @@
     #content
       #main
         %h2= t('login')
-        %form{'action' => url("/admin/login"), 'method' => "post"}
+        %form{ action: url('/admin/login'), method: :post }
           - if @login_failed
             #error= t('your_name_or_password_is_incorrect')
           .field
-            %label(for="user_name")= t('user.name')
+            %label{ for: :user_name }= t('user.name')
             %br/
-            %input(id="user_name" name="name" type="text")
+            %input{ id: :user_name, name: :name, type: :text }
           .field
-            %label(for="user_password")= t('user.password')
+            %label{ for: :user_password }= t('user.password')
             %br/
-            %input(id="user_password" name="password" type="password")
+            %input{ id: :user_password, name: :password, type: :password }
           .field
-            %input(value="login" type="submit" value="#{t('login')}")
+            %input{ id: :login, type: :submit, value: t('login') }
     #footer= link_to 'Lokka', 'http://lokka.org'

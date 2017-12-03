@@ -1,5 +1,5 @@
 %h2= t('new_snippet')
-%form{'action' => url("/admin/snippets"), 'method' => "post"}
-  = haml :'admin/snippets/form', :layout => false
+%form{ action: url('/admin/snippets'), method: :post }
+  = haml :'admin/snippets/form', layout: false
   %p
-    %input(type="submit" value="#{t('new')}")
+    %input{ type: :submit, value: t('new') }

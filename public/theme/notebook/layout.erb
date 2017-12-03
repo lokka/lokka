@@ -79,7 +79,7 @@
 	<div id="nav">
 	<div id="nav-inner">
 		<ul>
-			<% Page.all(:draft => false).each do |page| %>
+			<% Page.all(draft: false).each do |page| %>
             <li><a href="<%= url(page.link) %>"><%= page.title %></a></li>
 			<li class="sla">/</li>
 			<% end %>

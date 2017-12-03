@@ -1,58 +1,58 @@
 %article
   .date
-    %img{:src => "#{@theme.path}/images/date.png"}
+    %img{ src: "#{@theme.path}/images/date.png" }
       .date_contents
-        %p.month= @entry.created_at.strftime("%m")
-        %p.days= @entry.created_at.strftime("%d")
+        %p.month= @entry.created_at.strftime('%m')
+        %p.days= @entry.created_at.strftime('%d')
         %p.year= @entry.created_at.year
   .article_contents
     .title
       %h1
-        %a{:href => url(@entry.link)}= @entry.title        
+        %a{ href: url(@entry.link) }= @entry.title
     - unless @entry.tags.size.zero?
-      \#{@entry.tags_to_html}    
+      = @entry.tags_to_html
     .body
       = @entry.body
       - if logged_in?
         .edit
-          %a{:href => url(@entry.edit_link)}= t('edit')
+          %a{ href: url(@entry.edit_link) }= t('edit')
     - unless page?
       %article.comments
         %h1.comment comments
-        - if @entry.comments.size > 0
+        - if @entry.comments.empty?
           %ul.comments
             - @entry.comments.reverse.each do |comment|
-              %li.comment_li{:id => "comment-#{comment.id}"}
+              %li.comment_li{ id: "comment-#{comment.id}" }
                 .commenter
                   %h2.name
-                    = link_to comment.name, comment.homepage, :unless => comment.homepage.blank?
+                    = link_to comment.name, comment.homepage, unless: comment.homepage.blank?
                   %p.cdate
                     = l(comment.created_at)
                 .cbody
                   = hbr comment.body
         .comment_form
-          - if @comment and !@comment.errors.empty?
+          - if @comment && !@comment.errors.empty?
             #error
               .title= t('error')
               %ul
                 - @comment.errors.full_messages.each do |error|
                   %li= error
-          = form_for @comment, request.path_info, :method => :post do |f|
+          = form_for @comment, request.path_info, method: :post do |f|
             :javascript
               document.write('<input type="hidden" name="check" value="check" />');
             .reader
               .name
                 %span.label
-                  = f.label :name, :caption => "Name"
+                  = f.label :name, caption: 'Name'
                 = f.text_field :name
               .website
                 %span.label
-                  = f.label :homepage, :caption => "URL"
-                  == #{"*"}
+                  = f.label :homepage, caption: 'URL'
+                  *
                 = f.text_field :homepage
             .textarea
               .label
-                = f.label :body, :caption => t('comment.body')
-              = f.text_area :body, :rows => 10, :cols => 40
+                = f.label :body, caption: t('comment.body')
+              = f.text_area :body, rows: 10, cols: 40
             .submit
-              = f.submit "Post"
+              = f.submit 'Post'

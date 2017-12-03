@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/comments' do
@@ -5,8 +7,8 @@ describe '/admin/comments' do
 
   before do
     @post = create(:post)
-    @comment = create(:comment, :entry => @post)
-    create(:spam_comment, :entry => @post)
+    @comment = create(:comment, entry: @post)
+    create(:spam_comment, entry: @post)
   end
 
   after do
@@ -32,8 +34,8 @@ describe '/admin/comments' do
   context 'POST /admin/comments' do
     it 'should create a new comment' do
       Comment.destroy
-      sample = attributes_for(:comment, :entry_id => @post.id)
-      post '/admin/comments', { :comment => sample }
+      sample = attributes_for(:comment, entry_id: @post.id)
+      post '/admin/comments', comment: sample
       last_response.should be_redirect
       Post(@post.id).comments.should have(1).item
     end
@@ -48,10 +50,10 @@ describe '/admin/comments' do
   end
 
   context 'PUT /admin/comments/:id' do
-    it 'should update the comment\'s body ' do
-      put "/admin/comments/#{@comment.id}", { :comment => { :body => 'updated' } }
+    it 'should update the comment"s body ' do
+      put "/admin/comments/#{@comment.id}", comment: { body: 'updated' }
       last_response.should be_redirect
-      Comment(@comment.id).body.should == 'updated'
+      Comment(@comment.id).body.should eq('updated')
     end
   end
 
@@ -65,9 +67,9 @@ describe '/admin/comments' do
 
   context 'delete /admin/comments/spam' do
     it 'should delete spam comments' do
-      delete "/admin/comments/spam"
+      delete '/admin/comments/spam'
       last_response.should be_redirect
-      Comment.spam.size.should == 0
+      Comment.spam.size.should eq(0)
     end
   end
 
@@ -92,12 +94,12 @@ describe '/admin/comments' do
 
   context "When <xmp> tag is used in comment author's name" do
     before do
-      @comment.update(name: "<xmp>")
+      @comment.update(name: '<xmp>')
     end
 
-    context "GET /admin/comments" do
-      it "should escape html tag" do
-        get "/admin/comments"
+    context 'GET /admin/comments' do
+      it 'should escape html tag' do
+        get '/admin/comments'
         last_response.body.should match(/&lt;xmp&gt;/)
       end
     end

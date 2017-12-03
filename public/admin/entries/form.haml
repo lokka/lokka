@@ -1,4 +1,4 @@
-= form_for @entry, action, :method => method do |f|
+= form_for @entry, action, method: method do |f|
   - unless @entry.errors.empty?
     #error
       .title= t('error')
@@ -6,48 +6,54 @@
         - @entry.errors.each do |error|
           %li= error
   .field
-    = f.label :title, :caption => t("#{@name}.title")
-    %br/
+    = f.label :title, caption: t("#{@name}.title")
+    %br
     = f.text_field :title
   .field
-    = f.label :markup, :caption => 'Markup'
-    %br/
-    = f.select :markup, :options => Markup.engine_list.map {|e| [e[1], e[0]] }
+    = f.label :markup, caption: :Markup
+    %br
+    = f.select :markup, options: Markup.engine_list.map {|e| [e[1], e[0]] }
   .field
-    = f.label :body, :caption => t("#{@name}.body")
-    %br/
-    %span(id="upload-disabled-warning" style="display: none")= t('file_upload.notice.unavailable_with_wysiwyg')
+    = f.label :body, caption: t("#{@name}.body")
+    %br
+    %span{ id: 'upload-disabled-warning', style: 'display: none' }= t('file_upload.notice.unavailable_with_wysiwyg')
     #editor
-      %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= @entry.raw_body
+      %textarea.editor{ id: "#{@name}_body", name: "#{@name}[body]", rows: 10, cols: 50 }= @entry.raw_body
   .field
-    = f.label :slug, :caption => t("#{@name}.slug")
-    %br/
+    = f.label :slug, caption: t("#{@name}.slug")
+    %br
     = f.text_field :slug
   .field
-    = f.label :category, :caption => t("#{@name}.category")
-    %br/
-    - if Category.count > 0
-      = f.select :category_id, :collection => Category.all, :fields => [:title, :id], :include_blank => t('not_select')
+    = f.label :category, caption: t("#{@name}.category")
+    %br
+    - if Category.any?
+      = f.select :category_id, collection: Category.all, fields: %i[title id], include_blank: t('not_select')
     - else
       = t('no_category')
   .field
-    = f.label :tag_collection, :caption => t("#{@name}.tags")
-    %br/
+    = f.label :tag_collection, caption: t("#{@name}.tags")
+    %br
     = f.text_field :tag_collection
   - @field_names.each do |field_name|
     .field
-      = label_tag "#{@name}_fields_#{field_name.name}", :caption => field_name.name
-      %br/
-      = text_field_tag "#{@name}[fields][#{field_name.name}]", :id => "#{@name}_fields_#{field_name.name}", :value => "#{@entry.new? ? (params[@name] ? params[@name]['fields'][field_name.name] : '') : @entry.send(field_name.name)}"
+      = label_tag "#{@name}_fields_#{field_name.name}", caption: field_name.name
+      %br
+      :ruby
+        value_for_field = if @entry.new?
+                            params[@name] ? params[@name]['fields'][field_name.name] : ''
+                          else
+                            @entry.send(field_name.name)
+                          end
+      = text_field_tag "#{@name}[fields][#{field_name.name}]", id: "#{@name}_fields_#{field_name.name}", value: value_for_field
   .field
-    = f.label :draft, :caption => t("#{@name}.draft")
-    %br/
+    = f.label :draft, caption: t("#{@name}.draft")
+    %br
     = f.check_box :draft
   .field
-    = f.label :created_at, :caption => t("#{@name}.created_at")
-    %br/
+    = f.label :created_at, caption: t("#{@name}.created_at")
+    %br
     = f.text_field :created_at
   = f.hidden_field :updated_at
   %p
-    %input(type="submit" value="#{t('preview')}" name="preview" formtarget="_blank")
-    %input(type="submit" value="#{label}" name="edit")
+    %input{ type: :submit, value: t('preview'), name: :preview, formtarget: :_blank }
+    %input{ type: :submit, value: label, name: :edit }
