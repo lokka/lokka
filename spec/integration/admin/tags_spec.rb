@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/tags' do
   include_context 'admin login'
-  before { @tag = Factory(:tag) }
+  before { @tag = create(:tag) }
   after { Tag.destroy }
 
   context 'GET /admin/tags' do

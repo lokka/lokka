@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/snippets' do
   include_context 'admin login'
-  before { @snippet = Factory(:snippet) }
+  before { @snippet = create(:snippet) }
   after { Snippet.destroy }
 
   context 'GET /admin/snippets' do
@@ -22,7 +22,7 @@ describe '/admin/snippets' do
 
   context 'POST /admin/snippets' do
     it 'should create a new snippet' do
-      sample = Factory.attributes_for(:snippet, :name => 'Created Snippet')
+      sample = attributes_for(:snippet, :name => 'Created Snippet')
       post '/admin/snippets', { :snippet => sample }
       last_response.should be_redirect
       Snippet('Created Snippet').should_not be_nil

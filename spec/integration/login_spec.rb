@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'Login' do
   include_context 'in site'
-  before { Factory(:user, :name => 'test') }
+  before { create(:user, :name => 'test') }
   after { User.destroy }
 
   shared_examples_for 'login failed' do

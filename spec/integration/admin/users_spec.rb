@@ -59,7 +59,7 @@ describe '/admin/users' do
   end
 
   context 'DELETE /admin/users/:id' do
-    before { @another_user = Factory(:user) }
+    before { @another_user = create(:user) }
 
     it 'should delete the another user' do
       delete "/admin/users/#{@another_user.id}"

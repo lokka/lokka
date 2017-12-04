@@ -6,7 +6,7 @@ module Markup
       @engine_list.each do |engine|
         return engine[2].call(text) if engine[0] == name
       end
-      text
+      text.html_safe
     end
   end
 

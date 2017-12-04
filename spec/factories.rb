@@ -91,9 +91,9 @@ FactoryGirl.define do
     slug 'test-draft-post'
   end
 
-  factory :draft_post_with_tag_and_category, :parent =>  :draft_post do
+  factory :draft_post_with_tag_and_category, :parent => :draft_post do
     association :category
-    after_create { |p| Factory(:tagging, :taggable_id => p.id) }
+    after(:create) { |p| create(:tagging, :taggable_id => p.id) }
   end
 
   factory :snippet do

@@ -4,8 +4,8 @@ describe '/admin/posts' do
   include_context 'admin login'
 
   before do
-    @post = Factory(:post)
-    Factory(:draft_post)
+    @post = create(:post)
+    create(:draft_post)
   end
 
   after { Post.destroy }
@@ -47,7 +47,7 @@ describe '/admin/posts' do
 
   context 'POST /admin/posts' do
     it 'should create a new post' do
-      sample = Factory.attributes_for(:post, :slug => 'created_now')
+      sample = attributes_for(:post, :slug => 'created_now')
       post '/admin/posts', { :post => sample }
       last_response.should be_redirect
       Post('created_now').should_not be_nil

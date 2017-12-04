@@ -45,7 +45,7 @@ describe Post do
   context 'markup' do
     [:kramdown, :redcloth, :wikicloth].each do |markup|
       describe "a post using #{markup}" do
-        let(:post) { Factory(markup) }
+        let(:post) { create(markup) }
         it { post.body.should_not == post.raw_body }
         it { post.body.tr("\n", "").should match(%r$<h1.*>(<a name.+</a><span .+>)*hi!(</span>)*</h1>\s*<p>#{markup} test</p>$) }
       end
@@ -98,7 +98,7 @@ describe Post do
   describe "#description" do
     [:kramdown, :redcloth, :wikicloth].each do |markup|
       describe "should use converted markup." do
-        let(:post) { Factory(markup) }
+        let(:post) { create(markup) }
         it { post.description.should == "#{markup} test" }
       end
     end

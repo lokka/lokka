@@ -11,7 +11,7 @@
 .field
   %label(for="snippet_body")= t('snippet.body')
   %br/
-  %textarea(id="snippet_body" class="editor" name="snippet[body]" rows="10" cols="50")= h @snippet.body
+  %textarea(id="snippet_body" class="editor" name="snippet[body]" rows="10" cols="50")= @snippet.body
 .field
   %label(for="snippet_created_at")= t('snippet.created_at')
   %br/

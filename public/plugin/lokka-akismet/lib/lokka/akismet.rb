@@ -18,11 +18,11 @@ module Lokka
 				end
 			end
 
-			app.get '/admin/plugins/akismet' do
-				login_required
-				@akismet = akismet_key
-       	haml :"#{akismet_view}index", :layout => :"admin/layout"
-			end
+      app.get '/admin/plugins/akismet' do
+        login_required
+        @akismet = akismet_key
+        haml :"#{akismet_view}index", :layout => :"admin/layout"
+      end
 
 			app.put '/admin/plugins/akismet' do
 				login_required
@@ -53,28 +53,26 @@ module Lokka
 			end
 		end
 
-		def spam?
-			key = akismet_key
-			if !key
-				return false
-			end
-			host = "#{key}.rest.akismet.com"
-			queries = []
-			queries << "blog=#{akismet_blog}"
-			queries << "user_ip=#{request.env["REMOTE_ADDR"]}"
-			queries << "user_agent=#{request.env["HTTP_USER_AGENT"]}"
-			queries << "referrer=#{request.env["HTTP_REFERER"]}"
-			queries << "permalink=#{request.env["REQUEST_URI"]}"
-			queries << "comment_type=comment"
-			queries << "comment_author=#{params[:comment][:name]}"
-			queries << "comment_author_email="
-			queries << "comment_author_url=#{params[:comment][:homepage]}"
-			queries << "comment_content=#{params[:comment][:body]}"
-			queries.map!{|value|
-				URI.encode(value)
-			}
-			request = queries.join("&")
-			response = akismet_post host, '/1.1/comment-check', request
+    def spam?
+      key = akismet_key
+      if !key
+        return false
+      end
+      host = "#{key}.rest.akismet.com"
+      queries = []
+      queries << "blog=#{akismet_blog}"
+      queries << "user_ip=#{request.env["REMOTE_ADDR"]}"
+      queries << "user_agent=#{request.env["HTTP_USER_AGENT"]}"
+      queries << "referrer=#{request.env["HTTP_REFERER"]}"
+      queries << "permalink=#{request.env["REQUEST_URI"]}"
+      queries << "comment_type=comment"
+      queries << "comment_author=#{params[:comment][:name]}"
+      queries << "comment_author_email=#{params[:comment][:email]}"
+      queries << "comment_author_url=#{params[:comment][:homepage]}"
+      queries << "comment_content=#{params[:comment][:body]}"
+      queries.map! {|value| URI.encode(value) }
+      request = queries.join("&")
+      response = akismet_post host, '/1.1/comment-check', request
 
 			if response == 'true'
 				true

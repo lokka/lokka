@@ -10,8 +10,8 @@ describe "App" do
 
       context 'when posts exists' do
         before do
-          Factory(:xmas_post, :title => 'First Post')
-          Factory(:newyear_post)
+          create(:xmas_post, :title => 'First Post')
+          create(:newyear_post)
         end
 
         after { Post.destroy }
@@ -22,7 +22,7 @@ describe "App" do
       end
 
       context 'number of posts displayed' do
-        before { 11.times { Factory(:post) } }
+        before { 11.times { create(:post) } }
         after { Post.destroy }
 
         it 'should displayed 10' do
@@ -41,7 +41,7 @@ describe "App" do
     end
 
     context '/:id' do
-      before { @post = Factory(:post) }
+      before { @post = create(:post) }
       after { Post.destroy }
       context "GET" do
         subject { get "/#{@post.id}"; last_response.body }
@@ -59,7 +59,7 @@ describe "App" do
     end
 
     context '/tags/lokka/' do
-      before { Factory(:tag, :name => 'lokka') }
+      before { create(:tag, :name => 'lokka') }
       after { Tag.destroy }
 
       it "should show tag index" do
@@ -70,8 +70,8 @@ describe "App" do
 
     context '/category/:id/' do
       before do
-        @category = Factory(:category)
-        @category_child = Factory(:category_child, :parent => @category)
+        @category = create(:category)
+        @category_child = create(:category_child, :parent => @category)
       end
 
       after do
@@ -91,12 +91,12 @@ describe "App" do
 
     describe 'a draft post' do
       before do
-        Factory(:draft_post_with_tag_and_category)
-        @post =  Post.first(:draft => true)
+        create(:draft_post_with_tag_and_category)
+        @post = Post.first(:draft => true)
         @post.should_not be_nil # gauntlet
         @post.tag_list.should_not be_empty
-        @tag_name =  @post.tag_list.first
-        @category_id =  @post.category.id
+        @tag_name = @post.tag_list.first
+        @category_id = @post.category.id
       end
 
       after do
@@ -134,9 +134,9 @@ describe "App" do
 
     context "with custom permalink" do
       before do
-        @page = Factory(:page)
-        Factory(:post_with_slug)
-        Factory(:later_post_with_slug)
+        @page = create(:page)
+        create(:post_with_slug)
+        create(:later_post_with_slug)
         Option.permalink_enabled = true
         Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
         Comment.destroy
@@ -210,7 +210,7 @@ describe "App" do
     end
 
     context "with continue reading" do
-      before { Factory(:post_with_more) }
+      before { create(:post_with_more) }
       after { Post.destroy }
       describe 'in entries index' do
         it "should hide texts after <!--more-->" do
@@ -230,8 +230,8 @@ describe "App" do
 
   context "access tag archive page" do
     before do
-      Factory(:tag, :name => 'lokka')
-      post = Factory(:post)
+      create(:tag, :name => 'lokka')
+      post = create(:post)
       post.tag_list = 'lokka'
       post.save
     end

@@ -1,4 +1,4 @@
-- form_for @entry, action, :method => method do |f|
+= form_for @entry, action, :method => method do |f|
   - unless @entry.errors.empty?
     #error
       .title= t('error')
@@ -18,7 +18,7 @@
     %br/
     %span(id="upload-disabled-warning" style="display: none")= t('file_upload.notice.unavailable_with_wysiwyg')
     #editor
-      %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= h @entry.raw_body
+      %textarea(id="#{@name}_body" class="editor" name="#{@name}[body]" rows="10" cols="50")= @entry.raw_body
   .field
     = f.label :slug, :caption => t("#{@name}.slug")
     %br/

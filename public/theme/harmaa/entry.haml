@@ -37,7 +37,7 @@
           %ul
             - @comment.errors.full_messages.each do |error|
               %li= error
-      - form_for @comment, request.path_info, :method => :post do |f|
+      = form_for @comment, request.path_info, :method => :post do |f|
         :javascript
           document.write('<input type="hidden" name="check" value="check" />');
         .reader

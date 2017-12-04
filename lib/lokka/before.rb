@@ -17,7 +17,7 @@ module Lokka
           redirect request.referrer
         elsif session[:locale]
           I18n.locale = session[:locale]
-        elsif locales
+        elsif locales.present?
           I18n.locale = locales.first
         end
 

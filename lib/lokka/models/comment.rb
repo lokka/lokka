@@ -40,7 +40,7 @@ class Comment
   end
 
   def link
-    (entry) ? "#{self.entry.link}#comment-#{id}" : '#'
+    ((entry) ? "#{self.entry.link}#comment-#{id}" : '#')
   end
 end
 

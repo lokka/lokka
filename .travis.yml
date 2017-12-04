@@ -1,13 +1,12 @@
 rvm:
-  - 2.0
-  - 2.1.7
-  - 2.2.3
-  - 2.3.1
+  - 2.2.8
+  - 2.3.5
+  - 2.4.2
 addons:
   apt:
     packages:
-      - postgresql-server-dev-9.3
-  postgresql: "9.3"
+      - postgresql-server-dev-9.6
+  postgresql: "9.6"
 services:
   - posgresql
 before_script:
@@ -17,6 +16,3 @@ env:
   - DATABASE_URL="mysql://0.0.0.0/lokka_test"
   - DATABASE_URL="postgres://postgres@127.0.0.1/lokka_test"
   - DUMMY=DUMMY # sqlite
-notifications:
-  irc: "irc.freenode.org#lokka"
-  irc: "irc.freenode.org#lokka-ja"
