@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/pages' do
@@ -20,7 +22,7 @@ describe '/admin/pages' do
 
   context 'with draft option' do
     it 'should show only draft pages' do
-      get '/admin/pages', {:draft => 'true'}
+      get '/admin/pages', draft: 'true'
       last_response.body.should_not match('Test Page')
       last_response.body.should match('Draft Page')
     end
@@ -35,8 +37,8 @@ describe '/admin/pages' do
 
   context 'POST /admin/pages' do
     it 'should create a new page' do
-      sample = attributes_for(:page, :slug => 'dekitate')
-      post '/admin/pages', { :page => sample }
+      sample = attributes_for(:page, slug: 'dekitate')
+      post '/admin/pages', page: sample
       last_response.should be_redirect
       Page('dekitate').should_not be_nil
     end
@@ -51,10 +53,10 @@ describe '/admin/pages' do
   end
 
   context 'PUT /admin/pages/:id' do
-    it 'should update the page\'s body ' do
-      put "/admin/pages/#{@page.id}", { :page => { :body => 'updated' } }
+    it 'should update the page"s body ' do
+      put "/admin/pages/#{@page.id}", page: { body: 'updated' }
       last_response.should be_redirect
-      Page(@page.id).body.should == 'updated'
+      Page(@page.id).body.should eq('updated')
     end
   end
 

@@ -1,9 +1,10 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 class Snippet
   include DataMapper::Resource
 
   property :id, Serial
-  property :name, String, :length => 255
+  property :name, String, length: 255
   property :body, Text
   property :created_at, DateTime
   property :updated_at, DateTime
@@ -18,5 +19,5 @@ class Snippet
 end
 
 def Snippet(name)
-  Snippet.first(:name => name)
+  Snippet.first(name: name)
 end

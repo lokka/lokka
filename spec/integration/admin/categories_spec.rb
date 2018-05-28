@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/categories' do
@@ -22,10 +24,10 @@ describe '/admin/categories' do
 
   context 'POST /admin/categories' do
     it 'should create a new category' do
-      sample = { :title => 'Created Category',
-        :description => 'This is created in spec',
-        :slug => 'created-category' }
-      post '/admin/categories', { :category => sample }
+      sample = { title: 'Created Category',
+                 description: 'This is created in spec',
+                 slug: 'created-category' }
+      post '/admin/categories', category: sample
       last_response.should be_redirect
       Category('created-category').should_not be_nil
     end
@@ -40,10 +42,10 @@ describe '/admin/categories' do
   end
 
   context 'PUT /admin/categories/:id' do
-    it 'should update the category\'s description' do
-      put "/admin/categories/#{@category.id}", { :category => { :description => 'updated' } }
+    it 'should update the category"s description' do
+      put "/admin/categories/#{@category.id}", category: { description: 'updated' }
       last_response.should be_redirect
-      Category(@category.id).description.should == 'updated'
+      Category(@category.id).description.should eq('updated')
     end
   end
 
@@ -58,15 +60,15 @@ describe '/admin/categories' do
   context 'when a child category exists' do
     context 'POST /admin/categories' do
       it 'should create a new child category' do
-        sample = { :title => 'Child Category',
-          :description => 'This is created in spec',
-          :slug => 'child-category',
-          :parent_id => @category.id }
-        post '/admin/categories', { :category => sample }
+        sample = { title: 'Child Category',
+                   description: 'This is created in spec',
+                   slug: 'child-category',
+                   parent_id: @category.id }
+        post '/admin/categories', category: sample
         last_response.should be_redirect
         child = Category('child-category')
         child.should_not be_nil
-        child.parent.should == @category
+        child.parent.should eq(@category)
       end
     end
   end

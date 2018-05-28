@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Lokka
   module GoogleAnalytics
     def self.registered(app)
       app.get '/admin/plugins/google_analytics' do
-        haml :"plugin/lokka-google_analytics/views/index", :layout => :"admin/layout"
+        haml :"plugin/lokka-google_analytics/views/index", layout: :"admin/layout"
       end
 
       app.put '/admin/plugins/google_analytics' do
@@ -14,9 +16,9 @@ module Lokka
 
       app.before do
         tracker = Option.tracker
-        if !tracker.blank? and ENV['RACK_ENV'] == 'production' and !logged_in?
+        if !tracker.blank? && ENV['RACK_ENV'] == 'production' && !logged_in?
           content_for :header do
-            <<-EOS.strip_heredoc.html_safe
+            <<-SCRIPT.strip_heredoc.html_safe
               <script>
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -26,7 +28,7 @@ module Lokka
                 ga('create', '#{tracker}', 'auto');
                 ga('send', 'pageview');
               </script>
-            EOS
+            SCRIPT
           end
         end
       end

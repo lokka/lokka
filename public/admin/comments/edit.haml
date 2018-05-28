@@ -1,2 +1,2 @@
 %h2= t('edit_comment')
-= haml :'admin/comments/form', :layout => false, :locals => {:action => url("/admin/comments/#{@comment.id}"), :method => 'put', :label => t('save')}
+= haml :'admin/comments/form', layout: false, locals: { action: url("/admin/comments/#{@comment.id}"), method: 'put', label: t('save') }

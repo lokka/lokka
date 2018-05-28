@@ -1,5 +1,5 @@
 %h2= t('new_user')
-%form{'action' => url("/admin/users"), 'method' => "post"}
-  = haml :'admin/users/form', :layout => false
+%form{ action: url('/admin/users'), method: :post }
+  = haml :'admin/users/form', layout: false
   %p
-    %input(type="submit" value="#{t('new')}")
+    %input{ type: :submit, value: t('new') }

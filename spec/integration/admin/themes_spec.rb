@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'themes' do
@@ -13,9 +15,9 @@ describe 'themes' do
 
   context 'PUT /admin/themes' do
     it 'should change the theme' do
-      put '/admin/themes', { :title => 'curvy' }
+      put '/admin/themes', title: 'curvy'
       last_response.should be_redirect
-      Site.first.theme.should == 'curvy'
+      Site.first.theme.should eq('curvy')
     end
   end
 
@@ -29,9 +31,9 @@ describe 'themes' do
 
   context 'PUT /admin/mobile_themes' do
     it 'should change the mobile theme' do
-      put '/admin/mobile_themes', { :title => 'jarvi_mobile' }
+      put '/admin/mobile_themes', title: 'jarvi_mobile'
       last_response.should be_redirect
-      Site.first.mobile_theme.should == 'jarvi_mobile'
+      Site.first.mobile_theme.should eq('jarvi_mobile')
     end
   end
 end

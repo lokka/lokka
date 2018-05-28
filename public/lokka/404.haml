@@ -2,19 +2,19 @@
 !!!
 %html
   %head
-    %meta{'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8'}
-    %meta{'http-equiv' => 'Content-Style-Type', 'content' => 'text/css'}
-    %meta{'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript'}
+    %meta{ 'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8' }
+    %meta{ 'http-equiv' => 'Content-Style-Type', 'content' => 'text/css' }
+    %meta{ 'http-equiv' => 'Content-Script-Type', 'content' => 'text/javascript' }
     %title 404 not found - Lokka
-    %link{:rel => 'shortcut icon', :href => url('/lokka/favicon.ico')}
-    %link{:rel => 'stylesheet', :href => url('/lokka/style.css'), :type => 'text/css'}
+    %link{ rel: 'shortcut icon', href: url('/lokka/favicon.ico') }
+    %link{ rel: 'stylesheet', href: url('/lokka/style.css'), type: 'text/css' }
   %body
     #header
       %h1
-        %a{:href => url('/')} 404 not found - Lokka
+        %a{ href: url('/') } 404 not found - Lokka
     #content
       #main
         %h2 404 not found
         %p== Not found: #{request.path_info}
     #footer
-      %a{:href => 'http://github.com/lokka/lokka'} Lokka
+      %a{ href: 'http://github.com/lokka/lokka' } Lokka

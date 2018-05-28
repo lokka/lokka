@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="commenter">
-          <span class="name"><%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %></span>
+          <span class="name"><%= link_to comment.name, comment.homepage, unless: comment.homepage.blank? %></span>
           <span class="date"><%= l comment.created_at.strftime("%Y/%m/%d %H:%m:%d") %></span>
         </div>
       </li>

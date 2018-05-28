@@ -1,21 +1,21 @@
 !!!
 %html
   %head
-    %meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
-    %meta(http-equiv="Content-Style-Type" content="text/css")
-    %meta(http-equiv="Content-Script-Type" content="text/javascript")
-    %meta(name="viewport" content="width=device-width")
+    %meta{ 'http-equiv': 'Content-Type', content: 'text/html; charset=utf-8' }
+    %meta{ 'http-equiv': 'Content-Style-Type', content: 'text/css' }
+    %meta{ 'http-equiv': 'Content-Script-Type', content: 'text/javascript' }
+    %meta{ name: 'viewport', content: 'width=device-width' }
     %title== #{@site.title} - Lokka
-    %link{'rel' => "shortcut icon", 'href' => url("/admin/favicon.ico")}
-    %link{'rel' => "stylesheet", 'href' => url("/admin/css/style.css"), 'type' => "text/css"}
-    %link{'rel' => "stylesheet", 'href' => url("/admin/jwysiwyg/jquery.wysiwyg.css"), 'type' => "text/css"}
-    %script(src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript")
-    %script{'src' => url("/admin/js/jquery-ujs.js"), 'type' => "text/javascript"}
-    %script{'src' => url("/admin/jwysiwyg/jquery.wysiwyg.js"), 'type' => "text/javascript"}
-    %script{'src' => url("/admin/js/editor.js"), 'type' => "text/javascript"}
-    %script{'src' => url("/admin/jwysiwyg/controls/wysiwyg.table.js"), 'type' => "text/javascript"}
-    %script{'src' => url("/admin/jwysiwyg/controls/wysiwyg.link.js"), 'type' => "text/javascript"}
-    %script{'src' => url("/admin/jwysiwyg/controls/wysiwyg.image.js"), 'type' => "text/javascript"}
+    %link{ rel: 'shortcut icon', href: url('/admin/favicon.ico') }
+    %link{ rel: 'stylesheet', href: url('/admin/css/style.css'), type: 'text/css' }
+    %link{ rel: 'stylesheet', href: url('/admin/jwysiwyg/jquery.wysiwyg.css'), type: 'text/css' }
+    %script{ src: '//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js', type: 'text/javascript' }
+    %script{ src: url('/admin/js/jquery-ujs.js'), type: 'text/javascript' }
+    %script{ src: url('/admin/jwysiwyg/jquery.wysiwyg.js'), type: 'text/javascript' }
+    %script{ src: url('/admin/js/editor.js'), type: 'text/javascript' }
+    %script{ src: url('/admin/jwysiwyg/controls/wysiwyg.table.js'), type: 'text/javascript' }
+    %script{ src: url('/admin/jwysiwyg/controls/wysiwyg.link.js'), type: 'text/javascript' }
+    %script{ src: url('/admin/jwysiwyg/controls/wysiwyg.image.js'), type: 'text/javascript' }
     - head_last = yield_content :head_last
     - unless head_last.blank?
       = head_last

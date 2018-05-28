@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lokka
   class App
     # index
@@ -6,22 +8,22 @@ module Lokka
       @theme_types << :entries
 
       @posts = Post.published.
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
 
       @title = @site.title
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'}]
+      @bread_crumbs = [{ name: t('home'), link: '/' }]
 
       render_detect :index, :entries
     end
 
     get '/index.atom' do
       @posts = Post.published.
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
-      content_type 'application/atom+xml', :charset => 'utf-8'
-      builder :'lokka/index'
+      content_type 'application/atom+xml', charset: 'utf-8'
+      builder :"lokka/index"
     end
 
     # search
@@ -31,13 +33,13 @@ module Lokka
 
       @query = params[:query]
       @posts = Post.published.search(@query).
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
 
       @title = "Search by #{@query}"
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'},
-                       {:name => @query }]
+      @bread_crumbs = [{ name: t('home'), link: '/' },
+                       { name: @query }]
 
       render_detect :search, :entries
     end
@@ -50,17 +52,17 @@ module Lokka
       category_title = path.split('/').last
       @category = Category.get_by_fuzzy_slug(category_title)
       return 404 if @category.nil?
-      @posts = Post.all(:category => @category).published.
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+      @posts = Post.all(category: @category).published.
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
 
       @title = @category.title
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'}]
+      @bread_crumbs = [{ name: t('home'), link: '/' }]
       @category.ancestors.each do |cat|
-        @bread_crumbs << {:name => cat.title, :link => cat.link}
+        @bread_crumbs << { name: cat.title, link: cat.link }
       end
-      @bread_crumbs << {:name => @category.title, :link => @category.link}
+      @bread_crumbs << { name: @category.title, link: @category.link }
 
       render_detect :category, :entries
     end
@@ -70,17 +72,17 @@ module Lokka
       @theme_types << :tag
       @theme_types << :entries
 
-      @tag = Tag.first(:name => tag)
+      @tag = Tag.first(name: tag)
       return 404 if @tag.nil?
-      @posts = Post.all(:id => @tag.taggings.map {|o| o.taggable_id }).
-                    published.
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+      @posts = Post.all(id: @tag.taggings.map(&:taggable_id)).
+                 published.
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
 
       @title = @tag.name
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'},
-                       {:name => @tag.name, :link => @tag.link}]
+      @bread_crumbs = [{ name: t('home'), link: '/' },
+                       { name: @tag.name, link: @tag.link }]
 
       render_detect :tag, :entries
     end
@@ -90,18 +92,19 @@ module Lokka
       @theme_types << :monthly
       @theme_types << :entries
 
-      year, month = year.to_i, month.to_i
-      @posts = Post.all(:created_at.gte => DateTime.new(year, month)).
-                    all(:created_at.lt => DateTime.new(year, month) >> 1).
-                    published.
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+      year = year.to_i
+      month = month.to_i
+      @posts = Post.all(:created_at.gte => Time.local(year, month)).
+                 all(:created_at.lt => Time.local(year, month) >> 1).
+                 published.
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
 
       @title = "#{year}/#{month}"
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'},
-                       {:name => "#{year}", :link => "/#{year}/"},
-                       {:name => "#{year}/#{month}", :link => "/#{year}/#{month}/"}]
+      @bread_crumbs = [{ name: t('home'), link: '/' },
+                       { name: year.to_s, link: "/#{year}/" },
+                       { name: "#{year}/#{month}", link: "/#{year}/#{month}/" }]
 
       render_detect :monthly, :entries
     end
@@ -112,16 +115,16 @@ module Lokka
       @theme_types << :entries
 
       year = year.to_i
-      @posts = Post.all(:created_at.gte => DateTime.new(year)).
-                    all(:created_at.lt => DateTime.new(year + 1)).
-                    published.
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+      @posts = Post.all(:created_at.gte => Time.local(year)).
+                 all(:created_at.lt => Time.local(year + 1)).
+                 published.
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
 
       @title = year
 
-      @bread_crumbs = [{:name => t('home'), :link => '/'},
-                       {:name => "#{year}", :link => "/#{year}/"}]
+      @bread_crumbs = [{ name: t('home'), link: '/' },
+                       { name: year.to_s, link: "/#{year}/" }]
 
       render_detect :yearly, :entries
     end
@@ -142,17 +145,17 @@ module Lokka
     post %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || ( custom_permalink? && custom_permalink_entry('/' + id_or_slug) )
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || (custom_permalink? && custom_permalink_entry('/' + id_or_slug))
       return 404 if !@entry || @entry.blank?
       return 404 if params[:check] != 'check'
 
       @comment = @entry.comments.new(params['comment'])
 
-      unless params['comment']['status'] # unless status value is overridden by plugins
-        @comment[:status] = logged_in? ? Comment::APPROVED : Comment::MODERATED
-      else
-       @comment[:status] = params['comment']['status']
-      end
+      @comment[:status] = if params['comment']['status']
+                            params['comment']['status']
+                          else # unless status value is overridden by plugins
+                            logged_in? ? Comment::APPROVED : Comment::MODERATED
+                          end
 
       if @comment.save
         redirect to(@entry.link)
@@ -164,10 +167,10 @@ module Lokka
     # sitemap
     get '/sitemap.xml' do
       @posts = Post.published.
-                    page(params[:page], :per_page => @site.per_page, :order => @site.default_order_query_operator)
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
       @posts = apply_continue_reading(@posts)
-      content_type 'application/xml', :charset => 'utf-8'
-      builder :'lokka/sitemap'
+      content_type 'application/xml', charset: 'utf-8'
+      builder :"lokka/sitemap"
     end
   end
 end

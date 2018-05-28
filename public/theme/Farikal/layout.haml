@@ -1,31 +1,30 @@
 !!! 5
-%html{:lang => "ja"}
+%html{ lang: 'ja' }
   %head
-    %meta{:content => "application/html; charset=UTF-8", "http-equiv" => "Content-Type"}
-      %meta{:content => "text/css", "http-equiv" => "Content-Style-Type"}
-      %meta{:content => "text/javascript", "http-equiv" => "Content-Script-Type"}
+    %meta{ content: 'application/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }
+      %meta{ content: 'text/css', 'http-equiv' => 'Content-Style-Type' }
+      %meta{ content: 'text/javascript', 'http-equiv' => 'Content-Script-Type' }
       - if entry?
         %title
-          = @entry.title
-          \- #{@site.title}
+          #{@entry.title} - #{@site.title}
       - else
         %title= @site.title
-      %meta{:content => @site.meta_description, :name => "description"}
-      %meta{:content => @site.meta_keywords, :name => "keywords"}
-      %link{:href => url("/index.atom"), :rel => "alternate", :title => @title, :type => "application/atom+xml"}
-      %link{:href => "#{@theme.path}/stylesheets/screen.css", :rel => "stylesheet", :type => "text/css"}
+      %meta{ content: @site.meta_description, name: 'description' }
+      %meta{ content: @site.meta_keywords, name: 'keywords' }
+      %link{ href: url('/index.atom'), rel: 'alternate', title: @title, type: 'application/atom+xml' }
+      %link{ href: "#{@theme.path}/stylesheets/screen.css", rel: 'stylesheet', type: 'text/css' }
   %body
     %header
       .wrap
         %h1
-          %a.head_logo{:href => url("/")}= @site.title
+          %a.head_logo{ href: url('/') }= @site.title
         %p.catchcopy= @site.description
         %nav.gNav
           %ul
             - Page.all.each do |page|
               %li= link_to page.title, url(page.link)
             %li
-              %a{:href => url("/index.atom")} Feed
+              %a{ href: url('/index.atom') } Feed
     #contents
       #main
         = yield
@@ -37,7 +36,7 @@
             %ul
               - Post.recent(5).each do |post|
                 %li
-                  %a{:href => url(post.link)}= post.title
+                  %a{ href: url(post.link) }= post.title
         .past
           .side_header
             %h4 archives
@@ -45,7 +44,7 @@
             %ul
               - months.each do |month|
                 %li
-                  %a{:href => url("/#{month.year}/#{month.month}/")}
+                  %a{ href: url("/#{month.year}/#{month.month}/") }
                     = month.year
                     \/#{month.month}
         .side_tags
@@ -55,26 +54,26 @@
             %ul
               - Tag.all.each do |tag|
                 %li
-                  %a{:href => url(tag.link)}= tag.name
+                  %a{ href: url(tag.link) }= tag.name
         .search
           .side_header
             %h4 search
           .search_content
-            %form{:action => url("/search/"), :method => "get"}
-              %input.text_field{:name => "query", :type => "text"}
-              %button.submit{:onclick => "submit()"} Search!
+            %form{ action: url('/search/'), method: 'get' }
+              %input.text_field{ name: 'query', type: 'text' }
+              %button.submit{ onclick: 'submit()' } Search!
     %footer
       .wrap
         %p.copyright
           Copyright ©
-          %a{:href => url("/")}= @site.title
+          %a{ href: url('/') }= @site.title
           2XXX - 2XXXX All Rights Reserved.
         %p.poweredby
           powered by
-          %a{:href => "http://github.com/lokka/lokka"} Lokka
+          %a{ href: 'http://github.com/lokka/lokka' } Lokka
         %nav.control
           %ul
             %li
-              %a{:href => url("/admin/")} admin
+              %a{ href: url('/admin/') } admin
             %li
-              %a{:href => url("/index.atom")} feed
+              %a{ href: url('/index.atom') } feed

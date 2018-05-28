@@ -32,7 +32,7 @@
 		<ul id="side_list">
 			<% Comment.recent.each do |comment| %>
 				<li>
-					<span>&middot;</span><%= link_to truncate(strip_tags(comment.body), :length => 16), url(comment.link) %>
+					<span>&middot;</span><%= link_to truncate(strip_tags(comment.body), length: 16), url(comment.link) %>
 				</li>				
 			<% end %>
 		</ul>

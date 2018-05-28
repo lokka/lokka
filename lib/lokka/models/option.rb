@@ -1,8 +1,9 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 class Option
   include DataMapper::Resource
 
-  property :name, String, :length => 255, :key => true
+  property :name, String, length: 255, key: true
   property :value, Text
   property :created_at, DateTime
   property :updated_at, DateTime
@@ -13,12 +14,12 @@ class Option
     attribute = method.to_s
     if attribute =~ /=$/
       column = attribute[0, attribute.size - 1]
-      o = self.first_or_new(:name => column)
-      o.value = args.first.to_s
-      o.save
+      option = first_or_new(name: column)
+      option.value = args.first.to_s
+      option.save
     else
-      o = self.first_or_new(:name => method.to_s)
-      o.value
+      option = first_or_new(name: method.to_s)
+      option.value
     end
   end
 end

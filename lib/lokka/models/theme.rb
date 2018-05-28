@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 class Theme
   attr_reader :name, :root_dir, :root_path, :dir, :path, :i18n_dir
 

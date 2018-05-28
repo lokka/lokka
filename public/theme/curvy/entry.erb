@@ -1,5 +1,5 @@
 <div id="entry">
-  <%= partial "article", :locals => {:entry => @entry}, :theme => "curvy" %>
+  <%= partial "article", locals: {entry: @entry}, theme: "curvy" %>
 </div>
 
 <div id="comment_wrapper">
@@ -16,7 +16,7 @@
         </div>
         <div class="footer">
           <span class="name">
-            <%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %>
+            <%= link_to comment.name, comment.homepage, unless: comment.homepage.blank? %>
           </span>
           <span class="date">
             <%= l(comment.created_at) %>

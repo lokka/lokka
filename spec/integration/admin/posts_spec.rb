@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/posts' do
@@ -20,7 +22,7 @@ describe '/admin/posts' do
 
   context 'with draft option' do
     it 'should show only draft posts' do
-      get '/admin/posts', {:draft => 'true'}
+      get '/admin/posts', draft: 'true'
       last_response.body.should_not match('Test Post')
       last_response.body.should match('Draft Post')
     end
@@ -34,12 +36,12 @@ describe '/admin/posts' do
 
     Markup.engine_list.map(&:first).each do |markup|
       context "when #{markup} is set a default markup" do
-        before { Site.first.update(:default_markup => markup) }
-        after { Site.first.update(:default_markup => nil) }
+        before { Site.first.update(default_markup: markup) }
+        after { Site.first.update(default_markup: nil) }
 
         it "should select #{markup}" do
           get '/admin/posts/new'
-          last_response.body.should match(%Q[value="#{markup}" selected="selected">])
+          last_response.body.should match(%(value="#{markup}" selected="selected">))
         end
       end
     end
@@ -47,8 +49,8 @@ describe '/admin/posts' do
 
   context 'POST /admin/posts' do
     it 'should create a new post' do
-      sample = attributes_for(:post, :slug => 'created_now')
-      post '/admin/posts', { :post => sample }
+      sample = attributes_for(:post, slug: 'created_now')
+      post '/admin/posts', post: sample
       last_response.should be_redirect
       Post('created_now').should_not be_nil
     end
@@ -63,10 +65,10 @@ describe '/admin/posts' do
   end
 
   context 'PUT /admin/posts/:id' do
-    it 'should update the post\'s body ' do
-      put "/admin/posts/#{@post.id}", { :post => { :body => 'updated' } }
+    it 'should update the post"s body ' do
+      put "/admin/posts/#{@post.id}", post: { body: 'updated' }
       last_response.should be_redirect
-      Post(@post.id).body.should == 'updated'
+      Post(@post.id).body.should eq('updated')
     end
   end
 

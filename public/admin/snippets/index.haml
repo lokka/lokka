@@ -6,15 +6,15 @@
       %th= t('snippet.body')
       %th= t('snippet.created_at')
       %th= t('snippet.updated_at')
-      %th(colspan="2")
+      %th{ colspan: 2 }
     - @snippets.each_with_index do |snippet, i|
-      %tr{:class => (i + 1).odd? ? 'odd' : 'even'}
+      %tr{ class: (i + 1).odd? ? :odd : :even }
         %td.title= snippet.name
         %td= truncate(strip_tags(snippet.body))
-        %td= l(snippet.created_at, :format => :long)
-        %td= l(snippet.updated_at, :format => :long)
-        %td= link_to t('edit'), snippet.edit_link, :class => 'button'
-        %td= link_to t('delete'), url("/admin/snippets/#{snippet.id}"), :class => 'button', :confirm => t('are_you_sure'), :method => :delete
+        %td= l(snippet.created_at, format: :long)
+        %td= l(snippet.updated_at, format: :long)
+        %td= link_to t('edit'), snippet.edit_link, class: 'button'
+        %td= link_to t('delete'), url("/admin/snippets/#{snippet.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete
 .pager
   %ul
     - if @snippets.pager.previous_page

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/field_names' do
@@ -23,9 +25,9 @@ describe '/admin/field_names' do
 
   context 'POST /admin/field_names' do
     it 'should create a new field_name' do
-      post '/admin/field_names', { :field_name => { :name => 'new field'} }
+      post '/admin/field_names', field_name: { name: 'new field' }
       last_response.should be_redirect
-      FieldName.first(:name => 'new field').should_not be_nil
+      FieldName.first(name: 'new field').should_not be_nil
     end
   end
 

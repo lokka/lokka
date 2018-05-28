@@ -5,6 +5,6 @@
       - @tag.errors.each do |error|
         %li= error
 .field
-  %label(for="tag_name")= t('tag.name')
+  %label{ for: :tag_name }= t('tag.name')
   %br
-  %input(type="text" id="tag_name" name="tag[name]" value="#{@tag.name}")
+  %input{ type: :text, id: :tag_name, name: 'tag[name]', value: @tag.name }

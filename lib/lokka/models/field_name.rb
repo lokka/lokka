@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class FieldName
   include DataMapper::Resource
 
   property :id, Serial
-  property :name, String, :length => 255
+  property :name, String, length: 255
   property :created_at, DateTime
   property :updated_at, DateTime
 
@@ -12,11 +14,8 @@ class FieldName
 
   def validate_if_entry_respond_to
     entry = Entry.new
-    if entry.respond_to?(self.name, true)
-      [false, "'#{self.name}' cannot be used because Entry has a method of the same name"]
-    else
-      return true
-    end
+    return true unless entry.respond_to?(name, true)
+    [false, "'#{name}' cannot be used because Entry has a method of the same name"]
   end
 end
 
