@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - data-volume:/var/lib/mysql
+  app:
+    image: lokka/lokka
+    environment:
+      DB_HOST: db
+    build: .
+    command: ["bundle", "exec", "rackup", "-o", "0.0.0.0"]
+    volumes:
+      - .:/app
+      - bundle:/user/local/bundle
+    ports:
+      - "9292:9292"
+    depends_on:
+      - db
+volumes:
+  data-volume:
+  bundle:

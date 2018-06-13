@@ -1,0 +1,2 @@
+#!/bin/sh
+find . -type d -name 'vendor' -prune -o -type f -name 'Gemfile' -print | sort | xargs cat | grep -v Dir > Gemfile.docker
