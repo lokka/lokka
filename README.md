@@ -12,33 +12,51 @@ CMS written in Ruby for cloud computing.
 
 ## Installation
 
-    $ git clone git://github.com/lokka/lokka.git
-    $ cd lokka
-    $ bundle install --without=production:test
-    $ bundle exec rake db:setup
-    $ bundle exec rackup
+```sh
+$ git clone git://github.com/lokka/lokka.git
+$ cd lokka
+$ bundle install --without=production:test
+$ bundle exec rake db:setup
+$ bundle exec rackup
+```
 
 View at: http://localhost:9292/
 
 ## Deploy to Heroku
 
-    $ git clone git://github.com/lokka/lokka.git
-    $ cd lokka
-    $ heroku create
-    $ git push heroku master
-    $ heroku addons:add heroku-postgresql:hobby-dev
-    $ heroku rake db:setup
-    $ heroku open
+```sh
+$ git clone git://github.com/lokka/lokka.git
+$ cd lokka
+$ heroku create
+$ git push heroku master
+$ heroku addons:add heroku-postgresql:hobby-dev
+$ heroku rake db:setup
+$ heroku open
+```
 
 or just copy and paste
 
-    \curl -L http://bit.ly/ROX0lk | bash -s
+```sh
+curl -L http://bit.ly/ROX0lk | bash -s
+```
 
 to your terminal
 
+## Docker
+
+```sh
+$ bin/docker_gemfile
+$ docker-compose build
+$ docker-compose up
+```
+
+open http://localhost:9292 on your browser.
+
 ## Test
 
-    $ rake spec
+```sh
+rake spec
+```
 
 ## How to make a theme
 
@@ -48,30 +66,34 @@ Make a directory for theme in public/theme and you need to create entries.erb an
 
 public/theme/example/entries.haml:
 
-    !!! XML
-    !!!
-    %html
-      %head
-        %title Example
-      %body
-        %h1= @site.title
-        - @entries.each do |entry|
-          %h2= entry.title
-          .body= entry.body
+```haml
+!!! XML
+!!!
+%html
+  %head
+    %title Example
+  %body
+    %h1= @site.title
+    - @entries.each do |entry|
+      %h2= entry.title
+      .body= entry.body
+```
 
 ### Individual page
 
 public/theme/example/entry.haml:
 
-    !!! XML
-    !!!
-    %html
-      %head
-        %title Example
-      %body
-        %h1= @site.title
-        %h2= @entry.title
-        .body= @entry.body
+```haml
+!!! XML
+!!!
+%html
+  %head
+    %title Example
+  %body
+    %h1= @site.title
+    %h2= @entry.title
+    .body= @entry.body
+```
 
 ## How to make a plugin
 
@@ -80,13 +102,15 @@ If you need display "Hello, World" when access to "/hello", Write a following.
 
 public/plugin/lokka-hello/lib/lokka/hello.rb:
 
-    module Lokka::Hello
-      def self.registerd(app)
-        app.get '/hello' do
-          'hello'
-        end
-      end
+```ruby
+module Lokka::Hello
+  def self.registerd(app)
+    app.get '/hello' do
+      'hello'
     end
+  end
+end
+```
 
 ## Copyright
 
