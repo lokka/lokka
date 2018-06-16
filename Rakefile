@@ -57,3 +57,15 @@ rescue LoadError => e
   puts e.message
   puts e.backtrace
 end
+
+namespace :admin do
+  desc 'Install dependencies for admin JavaScript'
+  task :install_deps do
+    system('cd public/admin && npm install')
+  end
+
+  desc 'Build admin js'
+  task :build_js => [:install_deps] do
+    system('cd public/admin && npm run build')
+  end
+end

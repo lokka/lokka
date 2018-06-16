@@ -230,8 +230,6 @@ en:
     s3_bucket_name: S3 Bucket Name
     s3_domain_name: S3 Domain Name
     successfully_updated: Succssfully Updated
-    notice:
-      unavailable_with_wysiwyg: "Notice: File upload function is not available while WYSIWYG editor is active."
     error:
       no_aws_access_key_id: No AWS Access Key ID
       no_aws_secret_access_key: NO AWS Secret Access Key

@@ -18,4 +18,4 @@ RUN apk add --no-cache alpine-sdk \
 COPY . /app
 COPY Gemfile.docker /app/Gemfile
 
-CMD ['bundle', 'exec', 'rackup']
+CMD ['bundle', 'exec', 'rackup', '-o', '0.0.0.0']

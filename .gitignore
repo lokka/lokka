@@ -18,3 +18,6 @@ config.yml
 /.yardoc
 .sass-cache
 database.yml
+
+/public/**/node_modules
+.node-version

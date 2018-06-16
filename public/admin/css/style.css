@@ -869,6 +869,10 @@ textarea#category_description
     border: dashed 0.5em #f2813c;
 }
 
+.ql-snow.ql-toolbar:after, .ql-snow .ql-toolbar:after {
+  clear: none !important;
+}
+
 #dashboard {
     display: none;
 }

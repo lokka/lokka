@@ -230,8 +230,6 @@ ja:
     s3_bucket_name: S3 Bucket Name
     s3_domain_name: S3 Domain Name
     successfully_updated: 更新しました
-    notice:
-      unavailable_with_wysiwyg: "注意: WYSIWYG モードではファイルをアップロードできません。"
     error:
       no_aws_access_key_id: AWS Access Key ID が入力されていません
       no_aws_secret_access_key: AWS Secret Access Key が入力されていません

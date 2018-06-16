@@ -16,7 +16,6 @@
   .field
     = f.label :body, caption: t("#{@name}.body")
     %br
-    %span{ id: 'upload-disabled-warning', style: 'display: none' }= t('file_upload.notice.unavailable_with_wysiwyg')
     #editor
       %textarea.editor{ id: "#{@name}_body", name: "#{@name}[body]", rows: 10, cols: 50 }= @entry.raw_body
   .field
