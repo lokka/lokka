@@ -47,6 +47,7 @@ to your terminal
 ```sh
 $ bin/docker_gemfile
 $ docker-compose build
+$ docker-compose run --rm app bundle exec rake db:setup
 $ docker-compose up
 ```
 
