@@ -78,8 +78,6 @@ Gem::Specification.new do |s|
     'public/admin/comments/form.haml',
     'public/admin/comments/index.haml',
     'public/admin/comments/new.haml',
-    'public/admin/css/editor.css',
-    'public/admin/css/jquery.cleditor.css',
     'public/admin/css/style.css',
     'public/admin/edit.haml',
     'public/admin/favicon.ico',

@@ -17,7 +17,7 @@ services:
     command: ["bundle", "exec", "rackup", "-o", "0.0.0.0"]
     volumes:
       - .:/app
-      - bundle:/user/local/bundle
+      - bundle:/usr/local/bundle
     ports:
       - "9292:9292"
     depends_on:
