@@ -39,7 +39,6 @@ gem 'sinatra-flash', '~> 0.3.0'
 gem 'slim', '~> 3.0.7'
 gem 'tilt', '~> 2.0'
 gem 'tux'
-gem 'wikicloth', '0.8.3'
 gem 'yard-sinatra', '1.0.0'
 
 Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }

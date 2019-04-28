@@ -75,12 +75,6 @@ FactoryGirl.define do
     markup 'redcloth'
   end
 
-  factory :wikicloth, parent: :post do
-    title 'MediaWiki'
-    body "= hi! = \nwikicloth test"
-    markup 'wikicloth'
-  end
-
   factory :post_with_more, parent: :post do
     body "a\n\n<!--more-->\n\nb\n\n<!--more-->\n\nc\n"
     slug 'post-with-more'
