@@ -22,8 +22,6 @@ module Markup
      end],
     ['redcloth', 'Textile (Redcloth)',
      ->(text) { RedCloth.new(text).to_html }],
-    ['wikicloth', 'MediaWiki (WikiCloth)',
-     ->(text) { WikiCloth::Parser.new(data: text).to_html(noedit: true) }],
     ['redcarpet', 'Markdown (redcarpet)',
      lambda do |text|
        Redcarpet::Markdown.new(

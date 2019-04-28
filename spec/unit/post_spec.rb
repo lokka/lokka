@@ -45,7 +45,7 @@ describe Post do
   end
 
   context 'markup' do
-    %i[kramdown redcloth wikicloth].each do |markup|
+    [:kramdown, :redcloth].each do |markup|
       describe "a post using #{markup}" do
         let(:post) { create(markup) }
         let(:regexp) { %r{<h1.*>(<a name.+</a><span .+>)*hi!(</span>)*</h1>\s*<p>#{markup} test</p>} }
@@ -99,7 +99,7 @@ describe Post do
   end
 
   describe '#description' do
-    %i[kramdown redcloth wikicloth].each do |markup|
+    %i[kramdown redcloth].each do |markup|
       describe 'should use converted markup.' do
         let(:post) { create(markup) }
         it { post.description.should eq("#{markup} test") }
