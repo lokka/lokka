@@ -380,33 +380,39 @@ module Lokka
     end
 
     def handle_file_upload(params)
+      if params[:file].blank?
+        return {
+          message: 'No file',
+          status: 400
+        }
+      end
+
       credentials = Aws::Credentials.new(Option.aws_access_key_id, Option.aws_secret_access_key)
+      unless credentials.set?
+        return {
+          status: 400,
+          message: 'AWS Credentials are not set'
+        }
+      end
+
       s3 = Aws::S3::Resource.new(region: Option.s3_region, credentials: credentials)
       bucket = s3.bucket(Option.s3_bucket_name)
-      domain_name = Option.s3_domain_name.presence ||
-        "#{Option.s3_bucket_name}.s3-website-#{Option.s3_region}.amazonaws.com"
+      domain_name = Option.s3_domain_name.presence || bucket.url
 
-      if params[:file]
-        tempfile = params[:file][:tempfile]
-        digest = Digest::MD5.file(tempfile.path).to_s
-        extname = File.extname(tempfile.path)
-        filename = digest + extname
-        content_type = MimeMagic.by_magic(tempfile).type
-        if bucket.object(filename).upload_file(tempfile.path, content_type: content_type)
-          {
-            message: 'File upload success',
-            url: "#{request.scheme}://#{domain_name}/#{filename}",
-            status: 201
-          }
-        else
-          {
-            message: 'Failed uploading file',
-            status: 400
-          }
-        end
+      tempfile = params[:file][:tempfile]
+      digest = Digest::MD5.file(tempfile.path).to_s
+      extname = File.extname(tempfile.path)
+      filename = digest + extname
+      content_type = MimeMagic.by_magic(tempfile).type
+      if bucket.object(filename).upload_file(tempfile.path, content_type: content_type)
+        {
+          message: 'File upload success',
+          url: "#{request.scheme}://#{domain_name}/#{filename}",
+          status: 201
+        }
       else
         {
-          message: 'No file',
+          message: 'Failed uploading file',
           status: 400
         }
       end

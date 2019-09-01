@@ -1,4 +1,5 @@
 import Quill from 'quill'
+import FileUploader from './FileUploader'
 
 class FormObserver {
   constructor(textarea) {
