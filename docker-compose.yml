@@ -18,6 +18,8 @@ services:
     volumes:
       - .:/app
       - bundle:/usr/local/bundle
+      - app_bundle:/app/.bundle
+      - vendor:/app/vendor
     ports:
       - "9292:9292"
     depends_on:
@@ -25,3 +27,5 @@ services:
 volumes:
   data-volume:
   bundle:
+  app_bundle:
+  vendor:
