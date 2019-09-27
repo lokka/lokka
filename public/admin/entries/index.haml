@@ -5,20 +5,20 @@
 %ul.conditions
   %li= link_to t('all'), url("/admin/#{@name.pluralize}")
   %li= link_to t('draft'), url("/admin/#{@name.pluralize}?draft=true")
-  #table_wrapper
-    %table{ class: @name.pluralize }
-      %tr
-        %th= t("#{@name}.title")
-        %th= t("#{@name}.user")
-        %th= t("#{@name}.created_at")
-        %th{ colspan: 2 }
-      - @entries.each_with_index do |entry, i|
-        %tr{ class: (i + 1).odd? ? :odd : :even }
-          %td.title= link_to entry.title, url(entry.link)
-          %td= entry.user.nil? ? '' : entry.user.name
-          %td= l(entry.created_at, format: :long)
-          %td= link_to t('edit'), url(entry.edit_link), class: :button
-          %td= link_to t('delete'), url("/admin/#{@name.pluralize}/#{entry.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete
+#table_wrapper
+  %table{ class: @name.pluralize }
+    %tr
+      %th= t("#{@name}.title")
+      %th= t("#{@name}.user")
+      %th= t("#{@name}.created_at")
+      %th{ colspan: 2 }
+    - @entries.each_with_index do |entry, i|
+      %tr{ class: (i + 1).odd? ? :odd : :even }
+        %td.title= link_to entry.title, url(entry.link)
+        %td= entry.user.nil? ? '' : entry.user.name
+        %td= l(entry.created_at, format: :long)
+        %td= link_to t('edit'), url(entry.edit_link), class: :button
+        %td= link_to t('delete'), url("/admin/#{@name.pluralize}/#{entry.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete
 .pager
   %ul
     - if @entries.pager.previous_page

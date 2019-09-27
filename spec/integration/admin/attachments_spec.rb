@@ -49,7 +49,8 @@ describe '/admin/attachments' do
     context 'Without S3 configuration' do
       it 'should be failure' do
         post '/admin/attachments', file: Rack::Test::UploadedFile.new(File.join(fixture_path, '1px.gif'))
-        last_response.status.should eq(500)
+        last_response.status.should eq(400)
+        expect(JSON.parse(last_response.body)['message']).to eq('AWS Credentials are not set')
       end
     end
   end

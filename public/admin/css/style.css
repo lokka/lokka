@@ -113,7 +113,6 @@ input[type="submit"],
     color: #FFF;
 }
 
-
 form p {
     display:block;
     margin-bottom:15px;
@@ -138,7 +137,6 @@ form div.textarea {
     padding-left: 2px;
 }
 
-
 input[type="text"],
 input[type="password"] {
     display:block;
@@ -146,9 +144,13 @@ input[type="password"] {
 }
 
 textarea {
-	display:block;
-	width:550px;
-	height:450px;
+    display: block;
+    position: relative;
+    top: -3px;
+    width: 85%;
+    min-width: 550px;
+    max-width: 1000px;
+    height: 450px;
 }
 textarea#site_description {
     height:50px;
@@ -189,7 +191,7 @@ h1 {
     font-size: 12px;
 }
 
-h2 {
+#main > h2 {
     font-size: 16px;
     display: block;
     background-color: #666;
@@ -410,8 +412,6 @@ label {
     width: 600px;
     font-weight: bold;
 }
-
-
 
 #main table tr.odd {
     background-color: #f4f4f4;
@@ -890,6 +890,7 @@ textarea#category_description
     textarea {
         margin: auto 0;
         width: 100%;
+        min-width: 100%;
     }
 
     textarea, select,
@@ -949,7 +950,7 @@ textarea#category_description
         overflow-x: auto;
     }
     #table_wrapper table {
-        max-width: 100%;
+        width: 100% !important;
         min-width: inherit;
     }
     .pager {
