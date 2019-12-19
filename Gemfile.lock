@@ -143,7 +143,7 @@ GEM
       ast (~> 2.4.0)
     powerpack (0.1.1)
     public_suffix (3.0.1)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-flash (0.1.2)
       rack
     rack-protection (1.5.5)
