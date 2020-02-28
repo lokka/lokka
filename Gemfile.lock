@@ -151,7 +151,7 @@ GEM
     rack-test (0.6.1)
       rack (>= 1.0)
     rainbow (3.0.0)
-    rake (11.3.0)
+    rake (12.3.3)
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -265,7 +265,7 @@ DEPENDENCIES
   rack
   rack-flash (~> 0.1.2)
   rack-test (= 0.6.1)
-  rake (~> 11.0)
+  rake (~> 12.3)
   redcarpet
   request_store
   rspec (= 2.14.1)
