@@ -61,7 +61,7 @@ group :test do
   gem 'dm-transactions', '~> 1.2.0'
   gem 'factory_girl', '~> 4.0'
   gem 'rack-test', '0.6.1', require: 'rack/test'
-  gem 'rspec', '2.14.1'
+  gem 'rspec', '~> 2.0'
   gem 'simplecov', require: false
 end
 

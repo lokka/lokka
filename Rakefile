@@ -3,6 +3,13 @@ require 'yard'
 
 task default: ['spec:setup', 'db:delete', :spec]
 
+module TempFixForRakeLastComment
+  def last_comment
+    last_description
+  end
+end
+Rake::Application.include(TempFixForRakeLastComment)
+
 desc 'Migrate the Lokka database'
 task 'db:migrate' do
   puts 'Upgrading Database...'
