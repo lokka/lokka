@@ -10,10 +10,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     RedCloth (4.2.9)
-    activesupport (4.2.10)
-      i18n (~> 0.7)
+    activesupport (5.2.4.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
@@ -55,7 +55,7 @@ GEM
       sass (>= 3.3.0, < 3.5)
     compass-import-once (1.0.5)
       sass (>= 3.2, < 3.5)
-    concurrent-ruby (1.0.5)
+    concurrent-ruby (1.1.6)
     data_objects (0.10.17)
       addressable (~> 2.1)
     database_cleaner (0.7.1)
@@ -122,14 +122,14 @@ GEM
       rake (>= 10, < 13)
       rubocop (>= 0.50.0)
       sysexits (~> 1.1)
-    i18n (0.9.1)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jmespath (1.3.1)
     json (1.8.6)
     kramdown (1.15.0)
     mimemagic (0.3.2)
     mini_portile2 (2.4.0)
-    minitest (5.10.3)
+    minitest (5.14.0)
     multi_json (1.12.2)
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
@@ -216,7 +216,7 @@ GEM
       ripl-multi_line (>= 0.2.4)
       ripl-rack (>= 0.2.0)
       sinatra (>= 1.2.1)
-    tzinfo (1.2.4)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     unicode-display_width (1.3.0)
     uuidtools (2.1.5)
@@ -229,7 +229,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (= 4.2.9)
-  activesupport (~> 4.2)
+  activesupport (~> 5.0)
   aws-sdk-s3
   backports (= 2.3.0)
   builder

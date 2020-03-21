@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'activesupport', '~> 4.2'
+gem 'activesupport', '~> 5.0'
 gem 'aws-sdk-s3'
 gem 'backports', '2.3.0'
 gem 'builder'

@@ -121,25 +121,27 @@ class Entry
     desc.gsub(%r{<[^/]+/>}, ' ').gsub(%r{</[^/]+>}, ' ').gsub(/<[^>]+>/, '').html_safe
   end
 
-  class << self
+  module FinderstWithScope
     def _default_scope
       { order: :created_at.desc }
     end
 
-    def first_with_scope(limit = 1, query = DataMapper::Undefined)
+    def first(limit = 1, query = DataMapper::Undefined)
       query = limit unless limit.is_a? Integer
       query = _default_scope.update(query) if query.is_a? Hash
       query = _default_scope if query == DataMapper::Undefined
-      first_without_scope query
+      super(query)
     end
-    alias_method_chain :first, :scope
 
-    def all_with_scope(query = DataMapper::Undefined)
+    def all(query = DataMapper::Undefined)
       query = _default_scope.update(query) if query.is_a? Hash
       query = _default_scope if query == DataMapper::Undefined
-      all_without_scope query
+      super(query)
     end
-    alias_method_chain :all, :scope
+  end
+
+  class << self
+    prepend FinderstWithScope
 
     def get_by_fuzzy_slug(str, query = {})
       query = { draft: false }.update(query)
