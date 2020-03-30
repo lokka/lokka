@@ -49,6 +49,13 @@ module Lokka
     put('/admin/pages/:id')      {|id| put_admin_entry(Page, id) }
     delete('/admin/pages/:id')   {|id| delete_admin_entry(Page, id) }
 
+    post '/admin/previews' do
+      result = handle_entry_preview(params)
+      content_type :json
+      status result[:status]
+      result.to_json
+    end
+
     # attachments
     post '/admin/attachments' do
       result = handle_file_upload(params)
