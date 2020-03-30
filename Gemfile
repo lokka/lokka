@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "~> 2.4"
 
 gem 'activesupport', '~> 5.0'
 gem 'aws-sdk-s3'
