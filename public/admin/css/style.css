@@ -10,7 +10,6 @@
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
-
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
     background:none repeat scroll 0 0;
     border:0 none;
@@ -64,8 +63,6 @@ input[type="submit"],
     box-shadow:1px 1px 2px #bbb;
     white-space: nowrap;
 }
-
-
 
 .button:link, .button:visited {
     color:#444 !important;
@@ -141,6 +138,59 @@ input[type="text"],
 input[type="password"] {
     display:block;
     width:550px;
+}
+
+ul.preview-edit {
+    margin-left: 0 !important;
+    margin-top: .5em !important;
+    margin-bottom: 0 !important;
+    list-style: none;
+    display: block;
+    overflow: hidden;
+    height: 100%;
+}
+
+ul.preview-edit li {
+    padding: .75em;
+    float: left;
+    line-height: 20px;
+}
+
+ul.preview-edit li.selected {
+    border-radius: 6px;
+    background: #eee;
+}
+
+ul.preview-edit li > input[type='radio'] {
+    outline: none;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
+
+#preview {
+    display: none;
+    background: #eee;
+    padding: 8px .5em;
+    margin: -3px 0 0;
+    border-radius: 6px;
+    min-height: 445px;
+    width: 85%;
+    min-width: 550px;
+    max-width: 1000px;
+}
+
+#preview h1, h2, h3, h4, h5, h6 {
+    margin: 0.25em 0 .75em;
+    padding: unset;
+    background: unset;
+    text-shadow: unset;
+}
+
+#preview img {
+    max-width: 100%;
+    height: auto;
 }
 
 textarea {
@@ -891,6 +941,13 @@ textarea#category_description
         margin: auto 0;
         width: 100%;
         min-width: 100%;
+    }
+
+    #preview {
+        margin: auto 0;
+        width: 100%;
+        min-width: 100%;
+        padding: 0;
     }
 
     textarea, select,

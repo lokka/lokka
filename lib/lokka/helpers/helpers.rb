@@ -422,5 +422,22 @@ module Lokka
         status: 500
       }
     end
+
+    def handle_entry_preview(params)
+      markup   = params[:markup]   || @site.default_markup
+      raw_body = params[:raw_body] || ''
+      body     = Markup.use_engine(markup, raw_body)
+      {
+        message: 'Preview successfull',
+        body: body,
+        markup: markup,
+        status: 201
+      }
+    rescue StandardError => e
+      {
+        message: e.message,
+        status: 500
+      }
+    end
   end
 end
