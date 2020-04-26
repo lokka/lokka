@@ -13,7 +13,7 @@ module Lokka
     configure do
       enable :method_override, :raise_errors, :static, :sessions
       set :app_file, __FILE__
-      set :root, File.expand_path('../../..', __FILE__)
+      set :root, File.expand_path('../..', __dir__)
       set public_folder: proc { File.join(root, 'public') }
       set views: proc { public_folder }
       set theme: proc { File.join(public_folder, 'theme') }
@@ -26,32 +26,38 @@ module Lokka
       set :admin_per_page, 200
       set :default_locale, 'en'
       set :haml, attr_wrapper: '"'
-      set :session_secret, 'development' if development?
+      set :session_secret, ENV['SESSION_SECRET'] || SecureRandom.hex(30)
       set :protect_from_csrf, true
       supported_stylesheet_templates.each do |style|
         set style, style: :expanded
       end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
-      helpers Lokka::Helpers
-      helpers Lokka::RenderHelper
-      helpers Kaminari::Helpers::SinatraHelpers
-      use Rack::Session::Cookie, {
-        expire_after: 60 * 60 * 24 * 12,
-        secret: SecureRandom.hex(30)
-      }
       use RequestStore::Middleware
       register Sinatra::Flash
       register Padrino::Helpers
       register Sinatra::Namespace
+      helpers Kaminari::Helpers::SinatraHelpers
+      helpers Lokka::Helpers
+      helpers Lokka::PermalinkHelper
+      helpers Lokka::RenderHelper
       Lokka.load_plugin(self)
       Lokka::Database.connect
     end
 
+    configure :development do
+      set :session_secret, 'development'
+    end
+
     require 'lokka/app/admin.rb'
-    %w[categories comments entries field_names snippets tags themes users].each do |f|
+    %w[
+      categories comments entries posts pages field_names snippets tags themes users file_upload
+    ].each do |f|
       require "lokka/app/admin/#{f}"
     end
     require 'lokka/app/entries.rb'
+    %w[file_upload_handler entry_preview_handler].each do |f|
+      require "lokka/handlers/#{f}"
+    end
 
     not_found do
       if custom_permalink?

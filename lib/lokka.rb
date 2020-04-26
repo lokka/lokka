@@ -27,8 +27,16 @@ module Lokka
     #
     # @return [Hash] DSN (Data Source Name) is configuration for database.
     def dsn
-      filename = File.exist?("#{Lokka.root}/db/database.yml") ? 'database.yml' : 'database.default.yml'
-      YAML.load(ERB.new(File.read("#{Lokka.root}/db/#{filename}")).result(binding))[self.env]['database']
+      database_config[env]
+    end
+
+    def database_config
+      YAML.safe_load(ERB.new(File.read(database_config_file)).result(binding), [], [], true)
+    end
+
+    def database_config_file
+      dir = "#{root}/db"
+      File.exist?("#{dir}/database.yml") ? "#{dir}/database.yml" : "#{dir}/database.default.yml"
     end
 
     ##
@@ -53,6 +61,7 @@ module Lokka
 
     def parse_http(str)
       return [] if str.nil?
+
       locales = str.split(',')
       locales.map! do |locale|
         locale = locale.split ';q='
@@ -102,35 +111,42 @@ module Lokka
   end
 end
 
-require 'active_support/all'
+module Rails
+  def self.root
+    Lokka.root
+  end
+end
+
 require 'active_record'
+require 'active_support/all'
+require 'aws-sdk-s3'
+require 'builder'
+require 'coderay'
+require 'coffee-script'
+require 'compass'
+require 'haml'
+require 'kaminari/activerecord'
+require 'kaminari/sinatra'
+require 'kramdown'
+require 'mimemagic'
+require 'nokogiri'
+require 'padrino-helpers'
+require 'redcarpet'
+require 'redcloth'
+require 'request_store'
+require 'sass'
+require 'securerandom'
 require 'sinatra/base'
-require 'sinatra/reloader'
 require 'sinatra/flash'
 require 'sinatra/namespace'
-require 'kaminari/sinatra'
-require 'padrino-helpers'
-require 'coderay'
-require 'kramdown'
-require 'redcloth'
-require 'redcarpet'
-require 'haml'
-require 'sass'
-require 'compass'
+require 'sinatra/reloader'
 require 'slim'
-require 'coffee-script'
-require 'builder'
-require 'nokogiri'
-require 'request_store'
-require 'securerandom'
-require 'aws-sdk-s3'
-require 'mimemagic'
 require 'lokka/helpers/helpers'
+require 'lokka/helpers/permalink_helper'
 require 'lokka/helpers/render_helper'
 require 'lokka/database'
 require 'lokka/models'
 require 'lokka/importer'
 require 'lokka/before'
-require 'lokka/app'
-require 'securerandom'
 require 'lokka/version'
+require 'lokka/app'

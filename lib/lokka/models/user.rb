@@ -5,17 +5,17 @@ class User < ActiveRecord::Base
   has_secure_password
 
   validates :name, {
-    presence:   true,
+    presence: true,
     uniqueness: true,
-    length:     (3..40)
+    length: (3..40)
   }
   validates :email, {
-    presence:   true,
+    presence: true,
     uniqueness: true,
-    length:     (5..40)
+    length: (5..40)
   }
   validates :password, {
-    length:       { minimum: 4 },
+    length: { minimum: 4 },
     confirmation: true,
     if: :password_require?
   }
@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
 
   def admin?
     permission_level == 1
+  end
+
+  def authenticate(password)
+    return hashed_password == Digest::SHA1.hexdigest(password + salt) if aged_user?
+
+    super
+  end
+
+  def aged_user?
+    respond_to?(:hashed_password) && respond_to?(:salt)
   end
 end
 

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Site < ActiveRecord::Base
-  SORT_COLUMNS = %w(id created_at updated_at)
-  ORDERS = %w(asc desc)
+  SORT_COLUMNS = %w[id created_at updated_at].freeze
+  ORDERS = %w[asc desc].freeze
 
   def per_page
     super || '10'
@@ -16,8 +16,8 @@ class Site < ActiveRecord::Base
     if method.to_s =~ /=$/
       super
     else
-      o = Option.where(name: method).first
-      o.value
+      option = Option.where(name: method).first
+      option.value
     end
   end
 end

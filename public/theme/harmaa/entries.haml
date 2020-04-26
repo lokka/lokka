@@ -22,10 +22,4 @@
       .body
         = post.body
   .pager
-    %div
-      - if @posts.pager.previous_page
-        %span.previous
-          %a{ href: "?page=#{@posts.pager.previous_page}" } Newer
-      - if @posts.pager.next_page
-        %span.next
-          %a{ href: "?page=#{@posts.pager.next_page}" } Older
+    %div= paginate @posts

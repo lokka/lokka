@@ -15,8 +15,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-    sequence(:name){ |n| "testuser#{n}" }
-    sequence(:email) { |n| "test_#{n}@test.com" }
+    sequence(:name) {|n| "testuser#{n}" }
+    sequence(:email) {|n| "test_#{n}@test.com" }
     password 'test'
     password_confirmation 'test'
     permission_level 1
@@ -24,11 +24,23 @@ FactoryGirl.define do
 
   factory :post do
     association :user
-    title "Test Post"
-    body "<p>Welcome to Lokka!</p><p><a href=""/admin/"">Admin login</a> (user / password : test / test)</p>"
+    title 'Test Post'
+    body '<p>Welcome to Lokka!</p><p><a href="/admin/">Admin login</a> (user / password : test / test)</p>'
     type 'Post'
     created_at create_time
     updated_at update_time
+
+    trait :kramdown do
+      title 'Markdown'
+      body "# hi! \nkramdown test"
+      markup 'kramdown'
+    end
+
+    trait :redcloth do
+      title 'Textile'
+      body "h1. hi!  \n\nredcloth test"
+      markup 'redcloth'
+    end
   end
 
   factory :entry do
@@ -74,13 +86,19 @@ FactoryGirl.define do
     markup 'redcloth'
   end
 
-  factory :wikicloth, :parent => :post do
+  factory :wikicloth, parent: :post do
     title 'MediaWiki'
     body "= hi! = \nmediawiki test"
     markup 'wikicloth'
   end
 
-  factory :draft_post, :parent => :post do
+  factory :post_with_more, parent: :post do
+    body "a\n\n<!--more-->\n\nb\n\n<!--more-->\n\nc\n"
+    slug 'post-with-more'
+    markup 'kramdown'
+  end
+
+  factory :draft_post, parent: :post do
     title 'Draft Post'
     draft true
     slug 'test-draft-post'
@@ -92,7 +110,7 @@ FactoryGirl.define do
   end
 
   factory :tag do
-    sequence(:name){|n| "sample-tag-#{n}" }
+    sequence(:name) {|n| "sample-tag-#{n}" }
   end
 
   factory :tagging do
@@ -122,10 +140,10 @@ FactoryGirl.define do
   end
 
   factory :category do
-    sequence(:title) { |n| "Test Category #{n}" }
-    sequence(:slug)  { |n| "category-slug-#{n}" }
-    #created_at create_time
-    #updated_at update_time
+    sequence(:title) {|n| "Test Category #{n}" }
+    sequence(:slug)  {|n| "category-slug-#{n}" }
+    # created_at create_time
+    # updated_at update_time
   end
 
   factory :category_child, parent: :category do
@@ -133,7 +151,6 @@ FactoryGirl.define do
     created_at create_time
     updated_at update_time
   end
-
 
   # Comment has no association to entry by default
   factory :comment do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 port = request.port == 80 ? '' : ':' + request.port.to_s
 base_url = request.scheme + '://' + request.host + port
 

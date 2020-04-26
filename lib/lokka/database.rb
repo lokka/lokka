@@ -5,8 +5,15 @@ require 'logger'
 module Lokka
   module Database
     def self.connect
-      ActiveRecord::Base.logger = Logger.new(STDERR) if Lokka.env == 'development'
+      ActiveRecord::Base.logger = Logger.new(STDERR) if Lokka.development?
+      ActiveRecord::Base.logger = Logger.new(File.join(Lokka.root, 'log', 'test.log')) if Lokka.test?
       ActiveRecord::Base.establish_connection(Lokka.dsn)
+      ActiveRecord::Base.default_timezone = :local
+    end
+
+    def self.delete!
+      ActiveRecord::Base.configurations = Lokka.database_config
+      ActiveRecord::Tasks::DatabaseTasks.drop_current(Lokka.env)
     end
   end
 
@@ -15,7 +22,7 @@ module Lokka
       Database.connect
 
       migration_path = File.join(Lokka.root, 'db', 'migration')
-      ActiveRecord::Migrator.migrate(migration_path)
+      ActiveRecord::MigrationContext.new(migration_path).migrate
 
       schema_file = File.join(Lokka.root, 'db', 'schema.rb')
       File.open(schema_file, 'w:utf-8') do |io|

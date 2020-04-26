@@ -16,7 +16,7 @@
         <% end %>
         <% unless post.tags.size.zero? %>
           <div class="tags">
-            Tags : 
+            Tags :
             <%= post.tags_to_html %>
           </div>
         <% end %>
@@ -27,7 +27,7 @@
         <p class="author">Posted by <%= post.user.name %></p>
       </div>
       <div class="date">
-        <p class="month"><%= post.created_at.strftime("%b")  %></p>     
+        <p class="month"><%= post.created_at.strftime("%b")  %></p>
         <p class="day"><%= post.created_at.day %></p>
         <p class="year"><%= post.created_at.year %></p>
       </div>
@@ -41,13 +41,6 @@
   </div>
 <% end %>
   <div class="pager">
-    <ul>
-      <% if @posts.pager.previous_page %>
-      <li class="previous"><a href="?page=<%= @posts.pager.previous_page %>">Newer</a></li>
-      <% end %>
-      <% if @posts.pager.next_page %>
-      <li class="next"><a href="?page=<%= @posts.pager.next_page %>">Older</a></li>
-      <% end %>
-    </ul>
+    <%= paginate @posts %>
   </div>
 </div>

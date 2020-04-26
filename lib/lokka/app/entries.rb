@@ -7,10 +7,12 @@ module Lokka
       @theme_types << :index
       @theme_types << :entries
 
-      @posts = Post.
-        page(params[:page] || 1).
-        per(@site.per_page).
-        order(@site.default_order_query_operator)
+      @posts = Post.published.
+                 includes(:category, :tags, :user).
+                 page(params[:page] || 1).
+                 per(@site.per_page).
+                 order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = @site.title
 
@@ -20,26 +22,30 @@ module Lokka
     end
 
     get '/index.atom' do
-      @posts = Post.
-        page(params[:page] || 1).
-        per(@site.per_page).
-        order(@site.default_order_query_operator)
+      @posts = Post.published.
+                 includes(:category, :tags, :user).
+                 page(params[:page] || 1).
+                 per(@site.per_page).
+                 order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
-      content_type 'application/atom+xml', :charset => 'utf-8'
+      content_type 'application/atom+xml', charset: 'utf-8'
       builder :'lokka/index'
     end
 
     # search
-    get '/search/:query' do
+    get '/search/' do
       @theme_types << :search
       @theme_types << :entries
 
       @query = params[:query]
-      @posts = Post.
-        search(@query).
-        order(@site.default_order_query_operator).
-        page(params[:page]).
-        per(@site.per_page)
+      @posts = Post.published.
+                 includes(:category, :tags, :user).
+                 search(@query).
+                 page(params[:page || 1]).
+                 per(@site.per_page).
+                 order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = "Search by #{@query}"
 
@@ -55,10 +61,12 @@ module Lokka
       @theme_types << :entries
 
       @category = Category.get_by_fuzzy_slug(params[:slug]) || halt(404)
-      @posts = @category.entries.
-        page(params[:page] || 1).
-        per(@site.per_page).
-        order(@site.default_order_query_operator)
+      @posts = @category.entries.published.
+                 includes(:category, :tags, :user).
+                 page(params[:page] || 1).
+                 per(@site.per_page).
+                 order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = @category.title
 
@@ -74,10 +82,12 @@ module Lokka
       @theme_types << :entries
 
       @tag = Tag.where(name: params[:name]).first || halt(404)
-      @posts = @tag.entries.
-        page(params[:page]).
-        per(@site.per_page).
-        order(@site.default_order_query_operator)
+      @posts = @tag.entries.published.
+                 includes(:category, :tags, :user).
+                 page(params[:page]).
+                 per(@site.per_page).
+                 order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = @tag.name
 
@@ -92,17 +102,20 @@ module Lokka
       @theme_types << :monthly
       @theme_types << :entries
 
-      year, month = year.to_i, month.to_i
-      @posts = Post.
-        between_a_month(DateTime.new(year, month)).
-        page(params[:page]).
-        per(@site.per_page).
-        order(@site.default_order_query_operator)
+      year = year.to_i
+      month = month.to_i
+      @posts = Post.published.
+                 includes(:category, :tags, :user).
+                 between_a_month(DateTime.new(year, month)).
+                 page(params[:page]).
+                 per(@site.per_page).
+                 order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = "#{year}/#{month}"
 
       @bread_crumbs = [{ name: t('home'), link: '/' },
-                       { name: "#{year}", link: "/#{year}/" },
+                       { name: year.to_s, link: "/#{year}/" },
                        { name: "#{year}/#{month}", link: "/#{year}/#{month}/" }]
 
       render_detect :monthly, :entries
@@ -114,27 +127,29 @@ module Lokka
       @theme_types << :entries
 
       year = year.to_i
-      @posts = Post.
-        between_a_year(DateTime.new(year)).
-        page(params[:page]).
-        per(@site.per_page).
-        order(@site.default_order_query_operator)
+      @posts = Post.published.
+                 includes(:category, :tags, :user).
+                 between_a_year(DateTime.new(year)).
+                 page(params[:page]).
+                 per(@site.per_page).
+                 order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = year
 
       @bread_crumbs = [{ name: t('home'), link: '/' },
-                       { name: "#{year}", link: "/#{year}/" }]
+                       { name: year.to_s, link: "/#{year}/" }]
 
       render_detect :yearly, :entries
     end
 
     # entry
     get %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
-      @entry = Post.get_by_fuzzy_slug(id_or_slug) || halt(404)
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || halt(404)
 
-      redirect to(@entry.link) if @entry.type == Post && custom_permalink?
+      redirect to(@entry.link) if @entry.type == 'Post' && custom_permalink?
 
-      @comment = @entry.comments.build
+      @comment = Comment.new
 
       setup_and_render_entry
     end
@@ -165,7 +180,10 @@ module Lokka
     # sitemap
     get '/sitemap.xml' do
       @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 includes(:category, :tags, :user).
+                 page(params[:page]).
+                 per(@site.per_page).
+                 order(@site.default_order)
       @posts = apply_continue_reading(@posts)
       content_type 'application/xml', charset: 'utf-8'
       builder :"lokka/sitemap"

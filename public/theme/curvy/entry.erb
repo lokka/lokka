@@ -9,7 +9,7 @@
     <%= t('comments') %>
   </h3>
   <ul id="comments">
-    <% @entry.comments.reverse.each do |comment| %>
+    <% @entry.comments.approved.reverse.each do |comment| %>
       <li id="comment-<%= comment.id %>" class="comment">
         <div class="body">
           <%= hbr comment.body %>

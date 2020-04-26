@@ -1,3 +1,6 @@
+Layout/LineLength:
+  Max: 120
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -13,9 +16,6 @@ Metrics/CyclomaticComplexity:
     - 'lib/lokka/helpers/helpers.rb'
     - 'lib/lokka/before.rb'
     - 'public/plugin/**/*'
-
-Metrics/LineLength:
-  Max: 120
 
 Metrics/ModuleLength:
   Exclude:

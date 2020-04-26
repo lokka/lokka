@@ -1,4 +1,4 @@
-<% if about = Snippet("about") %>
+<% if about = Snippet.find_by(name: "about") %>
 <div id="profile" class="side_cont_wrapper first_side_cont_wrapper">
 	<h3 class="side_cont_title">
 	  <%= t('profile') %>
@@ -18,7 +18,7 @@
 			<% Post.recent.each do |post| %>
 				<li>
 					<span>&middot;</span><%= link_to post.title, url(post.link) %>
-				</li>				
+				</li>
 			<% end %>
 		</ul>
 	</div>
@@ -33,7 +33,7 @@
 			<% Comment.recent.each do |comment| %>
 				<li>
 					<span>&middot;</span><%= link_to truncate(strip_tags(comment.body), length: 16), url(comment.link) %>
-				</li>				
+				</li>
 			<% end %>
 		</ul>
 	</div>
@@ -49,7 +49,7 @@
 			<% Tag.all.each do |tag| %>
 				<li>
 					<span>&middot;</span><%= link_to tag.name, url(tag.link) %>
-				</li>				
+				</li>
 			<% end %>
 		</ul>
 	</div>
@@ -66,7 +66,7 @@
 				<li>
 					<span>&middot;</span>
 					<%= link_to "#{m.year}年#{m.month}月", url("/#{m.year}/#{m.month}/") %>
-				</li>				
+				</li>
 			<% end %>
 		</ul>
 	</div>

@@ -1,4 +1,6 @@
-%w(
+# frozen_string_literal: true
+
+%w[
   entry
   entry/page
   entry/post
@@ -14,6 +16,6 @@
   tagging
   theme
   user
-).each do |model|
+].each do |model|
   require "lokka/models/#{model}"
 end

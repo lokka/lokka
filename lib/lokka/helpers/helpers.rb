@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'digest/sha1'
 
 module Lokka
@@ -26,6 +27,7 @@ module Lokka
 
     def login_required
       return true if current_user.class != GuestUser
+
       session[:return_to] = request.fullpath
       redirect to('/admin/login')
       false
@@ -119,10 +121,8 @@ module Lokka
       @title = @entry.title
 
       @bread_crumbs = [{ name: t('home'), link: '/' }]
-      if @entry.category
-        @bread_crumbs << { name: @entry.category.title, link: @entry.category.link }
-      end
-      @bread_crumbs << { name: @entry.title, link: @entry.link}
+      @bread_crumbs << { name: @entry.category.title, link: @entry.category.link } if @entry.category
+      @bread_crumbs << { name: @entry.title, link: @entry.link }
 
       render_detect_with_options [type, :entry]
     end
@@ -165,6 +165,15 @@ module Lokka
     end
     alias t translate_compatibly
 
+    def apply_continue_reading(posts)
+      posts.each do |post|
+        class << post
+          alias_method :body, :short_body
+        end
+      end
+      posts
+    end
+
     class << self
       include Lokka::Helpers
     end
@@ -175,74 +184,13 @@ module Lokka
 
     def slugs
       tmp = @theme_types
-      tmp << @entry.slug    if @entry && @entry.slug
-      tmp << @category.slug if @category && @category.slug
+      tmp << @entry.slug    if @entry&.slug
+      tmp << @category.slug if @category&.slug
       tmp
     end
 
     def body_attrs
       { class: slugs.join(' ') }
-    end
-
-    def handle_file_upload(params)
-      if params[:file].blank?
-        return {
-          message: 'No file',
-          status: 400
-        }
-      end
-
-      credentials = Aws::Credentials.new(Option.aws_access_key_id, Option.aws_secret_access_key)
-      unless credentials.set?
-        return {
-          status: 400,
-          message: 'AWS Credentials are not set'
-        }
-      end
-
-      s3 = Aws::S3::Resource.new(region: Option.s3_region, credentials: credentials)
-      bucket = s3.bucket(Option.s3_bucket_name)
-      domain_name = Option.s3_domain_name.presence || bucket.url
-
-      tempfile = params[:file][:tempfile]
-      digest = Digest::MD5.file(tempfile.path).to_s
-      extname = File.extname(tempfile.path)
-      filename = digest + extname
-      content_type = MimeMagic.by_magic(tempfile).type
-      if bucket.object(filename).upload_file(tempfile.path, content_type: content_type)
-        {
-          message: 'File upload success',
-          url: "#{request.scheme}://#{domain_name}/#{filename}",
-          status: 201
-        }
-      else
-        {
-          message: 'Failed uploading file',
-          status: 400
-        }
-      end
-    rescue StandardError => e
-      {
-        message: e.message,
-        status: 500
-      }
-    end
-
-    def handle_entry_preview(params)
-      markup   = params[:markup]   || @site.default_markup
-      raw_body = params[:raw_body] || ''
-      body     = Markup.use_engine(markup, raw_body)
-      {
-        message: 'Preview successfull',
-        body: body,
-        markup: markup,
-        status: 201
-      }
-    rescue StandardError => e
-      {
-        message: e.message,
-        status: 500
-      }
     end
   end
 end

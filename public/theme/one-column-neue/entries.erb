@@ -27,13 +27,6 @@
   </div>
 <% end %>
   <div class="pager">
-    <div>
-      <% if @posts.pager.previous_page %>
-      <span class="previous"><a href="?page=<%= @posts.pager.previous_page %>">Newer</a></span>
-      <% end %>
-      <% if @posts.pager.next_page %>
-      <span class="next"><a href="?page=<%= @posts.pager.next_page %>">Older</a></span>
-      <% end %>
-    </div>
+    <%= paginate @posts %>
   </div>
 </div>

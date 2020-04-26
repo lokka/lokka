@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Lokka
   class App
     namespace '/admin' do
       namespace '/snippets' do
         get do
           @snippets = Snippet.order('created_at DESC').
-            page(params[:page]).
-            per(settings.admin_per_page)
+                        page(params[:page]).
+                        per(settings.admin_per_page)
           haml :'admin/snippets/index', layout: :'admin/layout'
         end
 
@@ -25,12 +27,12 @@ module Lokka
         end
 
         get '/:id/edit' do |id|
-          @snippet = Snippet.where(id: id).first or raise Sinatra::NotFound
+          (@snippet = Snippet.where(id: id).first) || raise(Sinatra::NotFound)
           haml :'admin/snippets/edit', layout: :'admin/layout'
         end
 
         put '/:id' do |id|
-          @snippet = Snippet.where(id: id).first or raise Sinatra::NotFound
+          (@snippet = Snippet.where(id: id).first) || raise(Sinatra::NotFound)
           if @snippet.update_attributes(params['snippet'])
             flash[:notice] = t('snippet_was_successfully_updated')
             redirect to("/admin/snippets/#{@snippet.id}/edit")
@@ -40,7 +42,7 @@ module Lokka
         end
 
         delete '/:id' do |id|
-          snippet = Snippet.where(id: id).first or raise Sinatra::NotFound
+          (snippet = Snippet.where(id: id).first) || raise(Sinatra::NotFound)
           snippet.destroy
           flash[:notice] = t('snippet_was_successfully_deleted')
           redirect to('/admin/snippets')

@@ -19,7 +19,8 @@ require 'sinatra'
 require 'rack/test'
 require 'rspec'
 require 'factory_girl'
-require 'database_cleaner'
+require 'database_cleaner/active_record'
+require 'pry'
 
 require 'factories'
 
@@ -42,14 +43,16 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before(:each) do
-    DatabaseCleaner.start
     RequestStore.clear!
   end
 
-  config.after(:each) do
-    DatabaseCleaner.clean
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 end

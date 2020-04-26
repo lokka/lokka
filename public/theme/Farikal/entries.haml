@@ -18,10 +18,4 @@
           .edit
             %a{ href: url(post.edit_link) }= t('edit')
 .pn_wrap
-  %div
-    - if @posts.pager.previous_page
-      %span.prev
-        %a{ href: "?page=#{@posts.pager.previous_page}" } Newer
-    - if @posts.pager.next_page
-      %span.next
-        %a{ href: "?page=#{@posts.pager.next_page}" } Older
+  %div= paginate @posts

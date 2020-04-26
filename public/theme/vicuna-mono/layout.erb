@@ -40,7 +40,13 @@
             </ul>
           </dd>
           <dt>Categories</dt>
-          <dd><%= category_tree %></dd>
+          <dd>
+            <ul>
+            <%- Category.all.each do |category| %>
+              <li><%= link_to category.link, catgory.title %></li>
+            <%- end %>
+            </ul>
+          </dd>
           <dt>Tags</dt>
           <dd>
             <ul>

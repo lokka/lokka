@@ -22,13 +22,13 @@ describe 'App' do
 
         after { Post.delete_all }
 
-        it "entries should be sorted by created_at in descending" do
+        it 'entries should be sorted by created_at in descending' do
           subject.index(/First Post/).should be > subject.index(/Test Post/)
         end
       end
 
       context 'number of posts displayed' do
-        before { 11.times { Factory(:post) } }
+        before { 11.times { create(:post) } }
         after { Post.delete_all }
 
         let(:regexp) do
@@ -51,14 +51,18 @@ describe 'App' do
     end
 
     context '/:id' do
-      before { @post = Factory(:post) }
+      before { @post = create(:post) }
       after { Post.delete_all }
-      context "GET" do
-        subject { get "/#{@post.id}"; last_response.body }
+      context 'GET' do
+        subject do
+          get "/#{@post.id}"
+          last_response.body
+        end
+
         it { should match('Test Site') }
       end
 
-      context "POST" do
+      context 'POST' do
         before { Comment.delete_all }
 
         let(:params) do
@@ -80,7 +84,7 @@ describe 'App' do
     end
 
     context '/tags/lokka/' do
-      before { Factory(:tag, :name => 'lokka') }
+      before { create(:tag, name: 'lokka') }
       after { Tag.delete_all }
 
       it 'should show tag index' do
@@ -91,8 +95,8 @@ describe 'App' do
 
     context '/category/:id/' do
       before do
-        @category = Factory(:category)
-        @category_child = Factory(:category_child, :parent_id => @category.id)
+        @category = create(:category)
+        @category_child = create(:category_child, parent_id: @category.id)
       end
 
       after do
@@ -112,8 +116,8 @@ describe 'App' do
 
     describe 'a draft post' do
       before do
-        FactoryGirl.create(:draft_post_with_tag_and_category)
-        @post =  Post.unpublished.first
+        create(:draft_post_with_tag_and_category)
+        @post = Post.unpublished.first
         @post.should_not be_nil # gauntlet
         @post.tag_list.should_not be_empty
         @tag_name = @post.tag_list.first
@@ -148,14 +152,36 @@ describe 'App' do
 
     context 'with custom permalink' do
       before do
-        @page = Factory(:page)
-        Factory(:post_with_slug)
-        Factory(:later_post_with_slug)
+        @page = create(:page)
+        create(:post_with_slug)
+        create(:later_post_with_slug)
+        Option.permalink_enabled = 'true'
+        Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
         Comment.delete_all
       end
 
       after do
         Entry.delete_all
+      end
+
+      it 'an entry can be accessed by custom permalink' do
+        get '/2011/01/09/welcome-lokka'
+        last_response.body.should match('Welcome to Lokka!')
+        last_response.body.should_not match('mediawiki test')
+        get '/2011/01/10/a-day-later'
+        last_response.body.should match('1 day passed')
+        last_response.body.should_not match('Welcome to Lokka!')
+      end
+
+      it 'should redirect to custom permalink when accessed with original permalink' do
+        get '/welcome-lokka'
+        last_response.should be_redirect
+        follow_redirect!
+        last_request.url.should match('/2011/01/09/welcome-lokka')
+
+        Option.permalink_enabled = 'false'
+        get '/welcome-lokka'
+        last_response.should_not be_redirect
       end
 
       it 'should not redirect access to page' do
@@ -206,9 +232,10 @@ describe 'App' do
       end
     end
 
-    context 'with continue reading' do
+    describe 'with continue reading' do
       before { create(:post_with_more) }
-      after { Post.destroy }
+      after { Post.delete_all }
+
       describe 'in entries index' do
         it 'should hide texts after <!--more-->' do
           regexp = %r{<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>}
@@ -227,17 +254,33 @@ describe 'App' do
     end
   end
 
+  describe 'Search' do
+    before do
+      create_list(:post, 3, body: 'Udon')
+      create(:post, body: 'Ramen')
+    end
+
+    it 'Should show search result' do
+      get '/search/?query=ramen'
+      expect(last_response.body).to match('Ramen')
+      expect(last_response.body).not_to match('Udon')
+    end
+  end
+
   context 'access tag archive page' do
     before do
-      Factory(:tag, :name => 'lokka')
-      post = Factory(:post)
+      create(:tag, name: 'lokka')
+      post = create(:post)
       post.tag_list << 'lokka'
       post.save
     end
 
-    after { Post.delete_all; Tag.delete_all }
+    after do
+      Post.delete_all
+      Tag.delete_all
+    end
 
-    it "should show lokka tag archive" do
+    it 'should show lokka tag archive' do
       get '/tags/lokka'
       last_response.should be_ok
       last_response.body.should match(/Test Post/)
@@ -262,9 +305,9 @@ describe 'App' do
     before do
       @file = 'public/theme/jarvi/script.coffee'
       content = <<-COFFEE.strip_heredoc
-      console.log "Hello, It's me!"
+        console.log "Hello, It's me!"
       COFFEE
-      open(@file, 'w') do |f|
+      File.open(@file, 'w') do |f|
         f.write content
       end
     end

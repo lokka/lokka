@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
 class Category < ActiveRecord::Base
-  attr_accessible :title, :slug, :description, :parent_id
-
   has_many :entries
 
-  validates :title, presence:   true,
+  validates :title, presence: true,
                     uniqueness: true
   validates :slug,  presence:   true
 
   scope :without_self,
-    ->(id){ self.where("id NOT IN (?)", id) }
+        ->(id) { where('id NOT IN (?)', id) }
 
   def self.get_by_fuzzy_slug(string)
-    ret = where(slug: string).first || where(title: string).first
+    where(slug: string).first || where(title: string).first
   end
 
   def fuzzy_slug
@@ -29,7 +27,7 @@ class Category < ActiveRecord::Base
   end
 
   def parent
-    Category.find(self.parent_id)
+    Category.find(parent_id)
   end
 end
 
