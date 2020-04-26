@@ -54,7 +54,7 @@ module Lokka
     require 'lokka/app/entries.rb'
 
     not_found do
-      if custom_permalink?
+      if Lokka::PermalinkHelper.custom_permalink?
         return redirect(request.path.sub(%r{/$}, '')) if %r{/$} =~ request.path
 
         correct_path = custom_permalink_fix(request.path)

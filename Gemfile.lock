@@ -78,6 +78,9 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
+    kaminari-activerecord (1.2.0)
+      activerecord
+      kaminari-core (= 1.2.0)
     kaminari-core (1.2.0)
     kaminari-sinatra (1.0.1)
       actionview
@@ -203,6 +206,7 @@ DEPENDENCIES
   factory_girl (~> 4.0)
   haml (~> 5.0)
   i18n (~> 0.7)
+  kaminari-activerecord
   kaminari-sinatra
   kramdown
   mimemagic

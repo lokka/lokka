@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby "~> 2.4"
 
 gem 'activerecord'
+gem 'kaminari-activerecord'
 gem 'kaminari-sinatra'
 gem 'activesupport', '~> 5.0'
 gem 'bcrypt'
