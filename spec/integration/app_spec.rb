@@ -151,11 +151,33 @@ describe 'App' do
         @page = FactoryGirl.create(:page)
         FactoryGirl.create(:post_with_slug)
         FactoryGirl.create(:later_post_with_slug)
+        Option.permalink_enabled = 'true'
+        Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
         Comment.delete_all
       end
 
       after do
         Entry.delete_all
+      end
+
+      it "an entry can be accessed by custom permalink" do
+        get '/2011/01/09/welcome-lokka'
+        last_response.body.should match('Welcome to Lokka!')
+        last_response.body.should_not match('mediawiki test')
+        get '/2011/01/10/a-day-later'
+        last_response.body.should match('1 day passed')
+        last_response.body.should_not match('Welcome to Lokka!')
+      end
+
+      it "should redirect to custom permalink when accessed with original permalink" do
+        get '/welcome-lokka'
+        last_response.should be_redirect
+        follow_redirect!
+        last_request.url.should match('/2011/01/09/welcome-lokka')
+
+        Option.permalink_enabled = 'false'
+        get '/welcome-lokka'
+        last_response.should_not be_redirect
       end
 
       it 'should not redirect access to page' do

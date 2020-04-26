@@ -9,7 +9,9 @@ describe Lokka::Helpers do
       gravatar_image_url.should eql('http://www.gravatar.com/avatar/00000000000000000000000000000000')
     end
   end
+end
 
+describe Lokka::PermalinkHelper do
   context 'custom_permalink' do
     before do
       Option.permalink_enabled = true
