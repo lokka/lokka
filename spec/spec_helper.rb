@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'simplecov'
-
-SimpleCov.start do
-  add_filter 'spec/'
-  add_filter 'public/'
-  add_filter 'i18n/'
-  add_filter 'db/'
-  add_filter 'coverage/'
-  add_filter 'tmp/'
-  add_filter 'log/'
-end
+# require 'simplecov'
+#
+# SimpleCov.start do
+#   add_filter 'spec/'
+#   add_filter 'public/'
+#   add_filter 'i18n/'
+#   add_filter 'db/'
+#   add_filter 'coverage/'
+#   add_filter 'tmp/'
+#   add_filter 'log/'
+# end
 
 require File.join(File.dirname(__FILE__), '..', 'init.rb')
 
@@ -19,7 +19,7 @@ require 'sinatra'
 require 'rack/test'
 require 'rspec'
 require 'factory_girl'
-require 'database_cleaner'
+require 'database_cleaner/active_record'
 
 require 'factories'
 

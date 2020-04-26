@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class FieldName < ActiveRecord::Base
-  attr_accessible :name
-
   validates :name, presence: true,
                    uniqueness: true
   validate :validate_if_entry_respond_to

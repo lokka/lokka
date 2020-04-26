@@ -1,17 +1,6 @@
 # frozen_string_literal: true
 
 class Entry < ActiveRecord::Base
-  attr_accessible :user,
-                  :category_id,
-                  :slug,
-                  :title,
-                  :body,
-                  :markup,
-                  :type,
-                  :draft,
-                  :created_at,
-                  :updated_at
-
   has_many :comments
   has_many :tags, through: :taggings
   has_many :taggings, as: :taggable
@@ -21,7 +10,7 @@ class Entry < ActiveRecord::Base
 
   validates :title, presence:   true
   validates :slug, uniqueness: true,
-                   format: %r{^[_/0-9a-zA-Z-]+$}, allow_blank: true
+                   format: %r{\A[_/0-9a-zA-Z-]+\z}, allow_blank: true
 
   validate :validate_confliction
   after_save :update_fields
@@ -35,16 +24,16 @@ class Entry < ActiveRecord::Base
     ->(count = 5){ limit(count) }
   scope :between_a_year,
     ->(time){
-    where(created_at: time.beginning_of_year..time.end_of_year)
-  }
+      where(created_at: time.beginning_of_year..time.end_of_year)
+    }
   scope :between_a_month,
     ->(time){
-    where(created_at: time.beginning_of_month..time.end_of_month)
-  }
+      where(created_at: time.beginning_of_month..time.end_of_month)
+    }
   scope :search,
     ->(word){
       where('title LIKE ?', "#{word}") | where('body LIKE ?', "#{word}")
-  }
+    }
 
   def self.get_by_fuzzy_slug(id_or_slug)
     where(slug: id_or_slug).first || where(id: id_or_slug).first

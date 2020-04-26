@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Option < ActiveRecord::Base
-  attr_accessible :name, :value
-
   validates :name,
     presence:   true,
     uniqueness: true

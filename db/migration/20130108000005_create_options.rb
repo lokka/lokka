@@ -1,4 +1,4 @@
-class CreateOptions < ActiveRecord::Migration
+class CreateOptions < ActiveRecord::Migration[4.2]
   def change
     create_table :options do |t|
       t.string  :name, unique: true, limit: 255, null: false

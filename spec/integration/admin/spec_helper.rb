@@ -6,7 +6,7 @@ shared_context 'admin login' do
   include_context 'in site'
 
   before do
-    Factory(:user, name: 'test')
+    FactoryGirl.create(:user, name: 'test')
     post '/admin/login', { name: 'test', password: 'test'}
     follow_redirect!
   end

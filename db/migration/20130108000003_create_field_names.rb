@@ -1,7 +1,6 @@
-class CreateFieldNames < ActiveRecord::Migration
+class CreateFieldNames < ActiveRecord::Migration[4.2]
   def change
     create_table :field_names do |t|
-      t.integer :id
       t.string  :name, limit: 255
 
       t.timestamps

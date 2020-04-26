@@ -28,7 +28,7 @@ describe 'App' do
       end
 
       context 'number of posts displayed' do
-        before { 11.times { Factory(:post) } }
+        before { 11.times { FactoryGirl.create(:post) } }
         after { Post.delete_all }
 
         let(:regexp) do
@@ -51,7 +51,7 @@ describe 'App' do
     end
 
     context '/:id' do
-      before { @post = Factory(:post) }
+      before { @post = FactoryGirl.create(:post) }
       after { Post.delete_all }
       context "GET" do
         subject { get "/#{@post.id}"; last_response.body }
@@ -80,7 +80,7 @@ describe 'App' do
     end
 
     context '/tags/lokka/' do
-      before { Factory(:tag, :name => 'lokka') }
+      before { FactoryGirl.create(:tag, :name => 'lokka') }
       after { Tag.delete_all }
 
       it 'should show tag index' do
@@ -91,8 +91,8 @@ describe 'App' do
 
     context '/category/:id/' do
       before do
-        @category = Factory(:category)
-        @category_child = Factory(:category_child, :parent_id => @category.id)
+        @category = FactoryGirl.create(:category)
+        @category_child = FactoryGirl.create(:category_child, :parent_id => @category.id)
       end
 
       after do
@@ -148,9 +148,9 @@ describe 'App' do
 
     context 'with custom permalink' do
       before do
-        @page = Factory(:page)
-        Factory(:post_with_slug)
-        Factory(:later_post_with_slug)
+        @page = FactoryGirl.create(:page)
+        FactoryGirl.create(:post_with_slug)
+        FactoryGirl.create(:later_post_with_slug)
         Comment.delete_all
       end
 
@@ -229,8 +229,8 @@ describe 'App' do
 
   context 'access tag archive page' do
     before do
-      Factory(:tag, :name => 'lokka')
-      post = Factory(:post)
+      FactoryGirl.create(:tag, :name => 'lokka')
+      post = FactoryGirl.create(:post)
       post.tag_list << 'lokka'
       post.save
     end

@@ -1,7 +1,6 @@
-class CreateCategories < ActiveRecord::Migration
+class CreateCategories < ActiveRecord::Migration[4.2]
   def change
     create_table :categories do |t|
-      t.integer :id
       t.string  :title,       limit: 255
       t.string  :slug,        limit: 255
       t.text    :description

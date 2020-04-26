@@ -1,7 +1,6 @@
-class CreateSites < ActiveRecord::Migration
+class CreateSites < ActiveRecord::Migration[4.2]
   def change
     create_table :sites do |t|
-      t.integer :id
       t.string  :title,            limit: 255
       t.string  :description,      limit: 255
       t.text    :dashboard

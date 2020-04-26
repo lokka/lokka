@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/field_names' do
   include_context 'admin login'
-  before { @field_name = Factory(:field_name) }
+  before { @field_name = FactoryGirl.create(:field_name) }
   after { FieldName.delete_all }
 
   context 'GET /admin/field_names' do

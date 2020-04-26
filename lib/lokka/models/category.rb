@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Category < ActiveRecord::Base
-  attr_accessible :title, :slug, :description, :parent_id
-
   has_many :entries
 
   validates :title, presence:   true,
@@ -13,7 +11,7 @@ class Category < ActiveRecord::Base
     ->(id){ self.where("id NOT IN (?)", id) }
 
   def self.get_by_fuzzy_slug(string)
-    ret = where(slug: string).first || where(title: string).first
+    where(slug: string).first || where(title: string).first
   end
 
   def fuzzy_slug
