@@ -41,7 +41,7 @@ describe '/admin/posts' do
 
         it "should select #{markup}" do
           get '/admin/posts/new'
-          last_response.body.should match(%Q[value="#{markup}" selected>])
+          last_response.body.should match(%Q[value="#{markup}" selected="selected">])
         end
       end
     end
