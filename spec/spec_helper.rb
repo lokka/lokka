@@ -20,6 +20,7 @@ require 'rack/test'
 require 'rspec'
 require 'factory_girl'
 require 'database_cleaner/active_record'
+require 'pry'
 
 require 'factories'
 

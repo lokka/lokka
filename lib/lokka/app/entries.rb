@@ -10,7 +10,7 @@ module Lokka
       @posts = Post.
         page(params[:page] || 1).
         per(@site.per_page).
-        order(@site.default_order_query_operator)
+        order(@site.default_order)
 
       @title = @site.title
 
@@ -23,7 +23,7 @@ module Lokka
       @posts = Post.
         page(params[:page] || 1).
         per(@site.per_page).
-        order(@site.default_order_query_operator)
+        order(@site.default_order)
 
       content_type 'application/atom+xml', :charset => 'utf-8'
       builder :'lokka/index'
@@ -37,7 +37,7 @@ module Lokka
       @query = params[:query]
       @posts = Post.
         search(@query).
-        order(@site.default_order_query_operator).
+        order(@site.default_order).
         page(params[:page]).
         per(@site.per_page)
 
@@ -58,7 +58,7 @@ module Lokka
       @posts = @category.entries.
         page(params[:page] || 1).
         per(@site.per_page).
-        order(@site.default_order_query_operator)
+        order(@site.default_order)
 
       @title = @category.title
 
@@ -77,7 +77,7 @@ module Lokka
       @posts = @tag.entries.
         page(params[:page]).
         per(@site.per_page).
-        order(@site.default_order_query_operator)
+        order(@site.default_order)
 
       @title = @tag.name
 
@@ -97,7 +97,7 @@ module Lokka
         between_a_month(DateTime.new(year, month)).
         page(params[:page]).
         per(@site.per_page).
-        order(@site.default_order_query_operator)
+        order(@site.default_order)
 
       @title = "#{year}/#{month}"
 
@@ -118,7 +118,7 @@ module Lokka
         between_a_year(DateTime.new(year)).
         page(params[:page]).
         per(@site.per_page).
-        order(@site.default_order_query_operator)
+        order(@site.default_order)
 
       @title = year
 
@@ -165,7 +165,7 @@ module Lokka
     # sitemap
     get '/sitemap.xml' do
       @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 page(params[:page], per_page: @site.per_page, order: @site.default_order)
       @posts = apply_continue_reading(@posts)
       content_type 'application/xml', charset: 'utf-8'
       builder :"lokka/sitemap"
