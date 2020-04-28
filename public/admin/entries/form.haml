@@ -19,7 +19,7 @@
     = f.label :body, caption: t("#{@name}.body")
     %br/
     #editor
-      %textarea.editor{ id: "#{@name}_body", name: "#{@name}[body]", rows: 10, cols: 50 }= @entry.raw_body
+      %textarea.editor{ id: "#{@name}_body", name: "#{@name}[body]", rows: 10, cols: 50 }= @entry.body
     #preview
   .field
     = f.label :slug, caption: t("#{@name}.slug")

@@ -2,8 +2,8 @@
 
 class Entry < ActiveRecord::Base
   has_many :comments
-  has_many :tags, through: :taggings
   has_many :taggings, as: :taggable
+  has_many :tags, through: :taggings
 
   belongs_to :user
   belongs_to :category
