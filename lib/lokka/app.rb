@@ -49,7 +49,7 @@ module Lokka
     end
 
     require 'lokka/app/admin.rb'
-    %w[categories comments entries field_names snippets tags themes users].each do |f|
+    %w[categories comments entries field_names snippets tags themes users file_upload].each do |f|
       require "lokka/app/admin/#{f}"
     end
     require 'lokka/app/entries.rb'
