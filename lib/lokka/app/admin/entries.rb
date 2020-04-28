@@ -52,6 +52,13 @@ module Lokka
           entries_destroy Page, id
         end
       end
+
+      post '/previews' do
+        result = handle_entry_preview(params)
+        content_type :json
+        status result[:status]
+        result.to_json
+      end
     end
 
     private
