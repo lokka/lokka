@@ -132,7 +132,7 @@ module Lokka
     get %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
       @entry = Post.get_by_fuzzy_slug(id_or_slug) || halt(404)
 
-      redirect to(@entry.link) if @entry.type == Post && custom_permalink?
+      redirect to(@entry.link) if @entry.type == 'Post' && custom_permalink?
 
       @comment = @entry.comments.build
 

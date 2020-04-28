@@ -3,20 +3,23 @@
 module Lokka
   module PermalinkHelper
     def custom_permalink?
-      Option.permalink_enabled == 'true'
+      RequestStore[:custom_permalink] ||= Option.permalink_enabled == 'true'
+    end
+
+    def permalink_format
+      RequestStore[:permalink_format] ||= Option.permalink_format
     end
 
     def custom_permalink_format
-      Option.permalink_format.scan(/%(\w+?)%/).flatten
+      permalink_format.scan(/%(\w+?)%/).flatten
     end
 
     def custom_permalink_path(param)
-      Option.permalink_format.gsub(/%(\w+?)%/) { param[$1.to_sym] }
+      permalink_format.gsub(/%(\w+?)%/) { param[$1.to_sym] }
     end
 
     def custom_permalink_parse(path)
-      format = Option.permalink_format
-      regexp = Regexp.compile(Regexp.escape(format).gsub(/\%(\w+?)\%/) { "(?<#{$1}>.+?)" } + "$")
+      regexp = Regexp.compile(Regexp.escape(permalink_format).gsub(/\%(\w+?)\%/) { "(?<#{$1}>.+?)" } + "$")
       match_data = regexp.match(path)
       return nil if match_data.nil?
       match_data.names.inject({}) do |hash, key|
@@ -29,7 +32,7 @@ module Lokka
       match_data = custom_permalink_parse(path)
       return nil if match_data.nil?
 
-      if match_data[:id] or match_data[:slug]
+      if match_data[:id] || match_data[:slug]
         entries = if match_data[:id]
                     Entry.where(id: match_data[:id])
                   elsif match_data[:slug]
@@ -58,15 +61,19 @@ module Lokka
     end
 
     def custom_permalink_fix(path)
-      r = custom_permalink_parse(path)
+      result = custom_permalink_parse(path)
+
       url_changed = false
-      [:year, :month, :day, :hour, :minute, :second].each do |k|
-        i = (k == :year ? 4 : 2)
-        (r[k] = r[k].rjust(i,'0'); url_changed = true) if r[k] && r[k].size < i
+      %i[year month monthnum day hour minute second].each do |key|
+        i = (key == :year ? 4 : 2)
+        if result[key] && result[key].size < i
+          result[key] = result[key].rjust(i, '0')
+          url_changed = true
+        end
       end
 
-      custom_permalink_path(r) if url_changed
-    rescue => e
+      custom_permalink_path(result) if url_changed
+    rescue StandardError => _e
       nil
     end
 

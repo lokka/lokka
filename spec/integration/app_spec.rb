@@ -228,7 +228,7 @@ describe 'App' do
       end
     end
 
-    context 'with continue reading' do
+    describe 'with continue reading' do
       before { create(:post_with_more) }
       after { Post.destroy }
       describe 'in entries index' do
