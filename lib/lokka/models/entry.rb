@@ -85,6 +85,12 @@ class Entry < ActiveRecord::Base
     tag_list.join(',')
   end
 
+  def tag_collection=(values)
+    values.split(',').each do |tag|
+      tags.build(name: tag)
+    end
+  end
+
   def tags_to_html
     html = '<ul class="tags">'
     tags.each do |tag|

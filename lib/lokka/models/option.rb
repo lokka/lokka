@@ -9,12 +9,12 @@ class Option < ActiveRecord::Base
     attribute = method.to_s
     if attribute =~ /=$/
       column = attribute[0, attribute.size - 1]
-      o = where(name: column).first_or_create
-      o.value = args.first.to_s
-      o.save
+      option = where(name: column).first_or_create
+      option.value = args.first.to_s
+      option.save
     else
-      o = where(name: attribute).first_or_create
-      o.value
+      option = where(name: attribute).first_or_create
+      option.value
     end
   end
 end

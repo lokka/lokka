@@ -93,7 +93,7 @@ describe Post do
     let(:entry) { create(:entry) }
     before { entry.tag_collection = 'foo,bar' }
     it 'should update tags' do
-      expect { entry.save }.to change { entry.tags }
+      expect { entry.save }.to change { entry.reload.tags }
     end
   end
 

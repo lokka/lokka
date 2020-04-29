@@ -16,8 +16,8 @@ class Site < ActiveRecord::Base
     if method.to_s =~ /=$/
       super
     else
-      o = Option.where(name: method).first
-      o.value
+      option = Option.where(name: method).first
+      option.value
     end
   end
 end
