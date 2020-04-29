@@ -27,8 +27,8 @@ end
 # FIXME
 desc 'Delete database'
 task 'db:delete' do
-  puts 'Delete Database...'
-  # Lokka::Database.new.connect.migrate!
+   # puts 'Delete Database...'
+#   Lokka::Migrator.delete!
 end
 
 desc 'Reset database'
@@ -41,7 +41,6 @@ desc 'Lokka console'
 task 'console' do
   require 'pry'
   require 'lib/lokka'
-  # Lokka::Database.connect
   Pry.start
 end
 
