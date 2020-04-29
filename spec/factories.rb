@@ -25,7 +25,7 @@ FactoryGirl.define do
   factory :post do
     association :user
     title 'Test Post'
-    body '<p>Welcome to Lokka!</p><p><a href=''/admin/''>Admin login</a> (user / password : test / test)</p>'
+    body '<p>Welcome to Lokka!</p><p><a href="/admin/">Admin login</a> (user / password : test / test)</p>'
     type 'Post'
     created_at create_time
     updated_at update_time

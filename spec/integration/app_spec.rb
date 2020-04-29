@@ -54,7 +54,11 @@ describe 'App' do
       before { @post = FactoryGirl.create(:post) }
       after { Post.delete_all }
       context 'GET' do
-        subject { get "/#{@post.id}"; last_response.body }
+        subject do
+          get "/#{@post.id}"
+          last_response.body
+        end
+
         it { should match('Test Site') }
       end
 
@@ -258,7 +262,10 @@ describe 'App' do
       post.save
     end
 
-    after { Post.delete_all; Tag.delete_all }
+    after do
+      Post.delete_all
+      Tag.delete_all
+    end
 
     it 'should show lokka tag archive' do
       get '/tags/lokka'
@@ -287,7 +294,7 @@ describe 'App' do
       content = <<-COFFEE.strip_heredoc
       console.log "Hello, It's me!"
       COFFEE
-      open(@file, 'w') do |f|
+      File.open(@file, 'w') do |f|
         f.write content
       end
     end

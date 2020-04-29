@@ -49,10 +49,15 @@ module Lokka
     end
 
     require 'lokka/app/admin.rb'
-    %w[categories comments entries field_names snippets tags themes users file_upload].each do |f|
+    %w[
+      categories comments entries posts pages field_names snippets tags themes users file_upload
+    ].each do |f|
       require "lokka/app/admin/#{f}"
     end
     require 'lokka/app/entries.rb'
+    %w[file_upload_handler entry_preview_handler].each do |f|
+      require "lokka/handlers/#{f}"
+    end
 
     not_found do
       if custom_permalink?

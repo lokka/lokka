@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - 'lokka.gemspec'
     - 'db/seeds.rb'
+    - 'db/schema.rb'
     - 'vendor/**/*'
 
 Style/Documentation:
@@ -69,6 +70,8 @@ Metrics/BlockLength:
     - 'lib/lokka/before.rb'
     - 'lib/lokka/app.rb'
     - 'lib/lokka/importer.rb'
+    - 'lib/lokka/app/admin.rb'
+    - 'lib/lokka/app/admin/**/*'
 
 Metrics/LineLength:
   Exclude:

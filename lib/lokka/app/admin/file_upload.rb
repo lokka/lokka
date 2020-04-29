@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# fronzen_string_literal: true
-
 module Lokka
   class App
     namespace '/admin' do
@@ -42,7 +40,7 @@ module Lokka
 
       # attachments
       post '/attachments' do
-        result = handle_file_upload(params)
+        result = FileUploadHandler.new(params, request.scheme).handle
         content_type :json
         status result[:status]
         result.to_json

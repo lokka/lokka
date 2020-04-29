@@ -3,60 +3,8 @@
 module Lokka
   class App
     namespace '/admin' do
-      namespace '/posts' do
-        get do
-          entries_index Post
-        end
-
-        get '/new' do
-          entries_new Post
-        end
-
-        post do
-          entries_create Post
-        end
-
-        get '/:id/edit' do |id|
-          entries_edit Post, id
-        end
-
-        put '/:id' do |id|
-          entries_update Post, id
-        end
-
-        delete '/:id' do |id|
-          entries_destroy Post, id
-        end
-      end
-
-      namespace '/pages' do
-        get do
-          entries_index Page
-        end
-
-        get '/new' do
-          entries_new Page
-        end
-
-        post do
-          entries_create Page
-        end
-
-        get '/:id/edit' do |id|
-          entries_edit Page, id
-        end
-
-        put '/:id' do |id|
-          entries_update Page, id
-        end
-
-        delete '/:id' do |id|
-          entries_destroy Page, id
-        end
-      end
-
       post '/previews' do
-        result = handle_entry_preview(params)
+        result = EntryPreviewHandler.new(params, default_markup: @site.default_markup).handle
         content_type :json
         status result[:status]
         result.to_json
@@ -68,9 +16,7 @@ module Lokka
     def entries_index(entry_class)
       @name = entry_class.name.downcase
       @entries = params[:draft] == 'true' ? entry_class.unpublished : entry_class
-      @entries = @entries.
-                   page(params[:page]).
-                   per(settings.admin_per_page)
+      @entries = @entries.page(params[:page]).per(settings.admin_per_page)
       haml :'admin/entries/index', layout: :'admin/layout'
     end
 
@@ -93,18 +39,16 @@ module Lokka
     def entries_create(entry_class)
       @name = entry_class.name.downcase
       @entry = entry_class.new(params[@name])
-      if params['preview']
-        render_preview @entry
+      return render_preview @entry if params['preview']
+
+      @entry.user = current_user
+      if @entry.save
+        flash[:notice] = t("#{@name}_was_successfully_created")
+        redirect_after_edit(@entry)
       else
-        @entry.user = current_user
-        if @entry.save
-          flash[:notice] = t("#{@name}_was_successfully_created")
-          redirect_after_edit(@entry)
-        else
-          @field_names = FieldName.order('name ASC')
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          haml :'admin/entries/new', layout: :'admin/layout'
-        end
+        @field_names = FieldName.order('name ASC')
+        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
+        haml :'admin/entries/new', layout: :'admin/layout'
       end
     end
 
@@ -113,17 +57,15 @@ module Lokka
       (@entry = entry_class.where(id: id).first) || raise(Sinatra::NotFound)
       tag_collection = params[@name][:tag_collection]
       @entry.tagged_with(tag_collection) if tag_collection
-      if params['preview']
-        render_preview entry_class.new(params[@name])
+      return render_preview entry_class.new(params[@name]) if params['preview']
+
+      if @entry.update_attributes(params[@name])
+        flash[:notice] = t("#{@name}_was_successfully_updated")
+        redirect_after_edit(@entry)
       else
-        if @entry.update_attributes(params[@name])
-          flash[:notice] = t("#{@name}_was_successfully_updated")
-          redirect_after_edit(@entry)
-        else
-          @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          @field_names = FieldName.order('name ASC')
-          haml :'admin/entries/edit', layout: :'admin/layout'
-        end
+        @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
+        @field_names = FieldName.order('name ASC')
+        haml :'admin/entries/edit', layout: :'admin/layout'
       end
     end
 
