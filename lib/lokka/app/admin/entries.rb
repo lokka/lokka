@@ -55,8 +55,6 @@ module Lokka
     def entries_update(entry_class, id)
       @name = entry_class.name.downcase
       (@entry = entry_class.where(id: id).first) || raise(Sinatra::NotFound)
-      tag_collection = params[@name][:tag_collection]
-      @entry.tagged_with(tag_collection) if tag_collection
       return render_preview entry_class.new(params[@name]) if params['preview']
 
       if @entry.update_attributes(params[@name])

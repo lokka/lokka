@@ -73,10 +73,6 @@ class Entry < ActiveRecord::Base
     "/admin/#{self.class.to_s.tableize}/#{id}/edit"
   end
 
-  def tagged_with(string)
-    Tagging.tagged!(self, string)
-  end
-
   def tag_list
     tags.pluck(:name)
   end

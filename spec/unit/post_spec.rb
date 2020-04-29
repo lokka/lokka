@@ -91,9 +91,16 @@ describe Post do
 
   describe '#tag_collection=' do
     let(:entry) { create(:entry) }
-    before { entry.tag_collection = 'foo,bar' }
+
+    subject do
+      -> {
+        entry.tag_collection = 'foo,bar'
+        entry.save
+      }
+    end
+
     it 'should update tags' do
-      expect { entry.save }.to change { entry.reload.tags }
+      is_expected.to change { entry.reload.tags.length }
     end
   end
 
