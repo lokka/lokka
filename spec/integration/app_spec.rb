@@ -22,7 +22,7 @@ describe 'App' do
 
         after { Post.delete_all }
 
-        it "entries should be sorted by created_at in descending" do
+        it 'entries should be sorted by created_at in descending' do
           subject.index(/First Post/).should be > subject.index(/Test Post/)
         end
       end
@@ -53,12 +53,12 @@ describe 'App' do
     context '/:id' do
       before { @post = FactoryGirl.create(:post) }
       after { Post.delete_all }
-      context "GET" do
+      context 'GET' do
         subject { get "/#{@post.id}"; last_response.body }
         it { should match('Test Site') }
       end
 
-      context "POST" do
+      context 'POST' do
         before { Comment.delete_all }
 
         let(:params) do
@@ -80,7 +80,7 @@ describe 'App' do
     end
 
     context '/tags/lokka/' do
-      before { FactoryGirl.create(:tag, :name => 'lokka') }
+      before { FactoryGirl.create(:tag, name: 'lokka') }
       after { Tag.delete_all }
 
       it 'should show tag index' do
@@ -92,7 +92,7 @@ describe 'App' do
     context '/category/:id/' do
       before do
         @category = FactoryGirl.create(:category)
-        @category_child = FactoryGirl.create(:category_child, :parent_id => @category.id)
+        @category_child = FactoryGirl.create(:category_child, parent_id: @category.id)
       end
 
       after do
@@ -113,7 +113,7 @@ describe 'App' do
     describe 'a draft post' do
       before do
         FactoryGirl.create(:draft_post_with_tag_and_category)
-        @post =  Post.unpublished.first
+        @post = Post.unpublished.first
         @post.should_not be_nil # gauntlet
         @post.tag_list.should_not be_empty
         @tag_name = @post.tag_list.first
@@ -152,7 +152,7 @@ describe 'App' do
         FactoryGirl.create(:post_with_slug)
         FactoryGirl.create(:later_post_with_slug)
         Option.permalink_enabled = 'true'
-        Option.permalink_format = "/%year%/%monthnum%/%day%/%slug%"
+        Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
         Comment.delete_all
       end
 
@@ -160,7 +160,7 @@ describe 'App' do
         Entry.delete_all
       end
 
-      it "an entry can be accessed by custom permalink" do
+      it 'an entry can be accessed by custom permalink' do
         get '/2011/01/09/welcome-lokka'
         last_response.body.should match('Welcome to Lokka!')
         last_response.body.should_not match('mediawiki test')
@@ -169,7 +169,7 @@ describe 'App' do
         last_response.body.should_not match('Welcome to Lokka!')
       end
 
-      it "should redirect to custom permalink when accessed with original permalink" do
+      it 'should redirect to custom permalink when accessed with original permalink' do
         get '/welcome-lokka'
         last_response.should be_redirect
         follow_redirect!
@@ -252,7 +252,7 @@ describe 'App' do
 
   context 'access tag archive page' do
     before do
-      FactoryGirl.create(:tag, :name => 'lokka')
+      FactoryGirl.create(:tag, name: 'lokka')
       post = FactoryGirl.create(:post)
       post.tag_list << 'lokka'
       post.save
@@ -260,7 +260,7 @@ describe 'App' do
 
     after { Post.delete_all; Tag.delete_all }
 
-    it "should show lokka tag archive" do
+    it 'should show lokka tag archive' do
       get '/tags/lokka'
       last_response.should be_ok
       last_response.body.should match(/Test Post/)

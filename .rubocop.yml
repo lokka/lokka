@@ -1,10 +1,11 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.4
   Exclude:
     - 'lokka.gemspec'
     - 'db/seeds.rb'
+    - 'vendor/**/*'
 
 Style/Documentation:
   Enabled: false
@@ -13,7 +14,14 @@ Naming/MethodName:
   Exclude:
     - 'lib/lokka/models/**/*'
 
-Style/MethodMissing:
+Style/MethodMissingSuper:
+  Exclude:
+    - 'lib/lokka/models/entry.rb'
+    - 'lib/lokka/models/site.rb'
+    - 'lib/lokka/models/option.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+
+Style/MissingRespondToMissing:
   Exclude:
     - 'lib/lokka/models/entry.rb'
     - 'lib/lokka/models/site.rb'
@@ -26,7 +34,7 @@ Style/StringLiterals:
     - single_quotes
     - double_quotes
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
   SupportedStyles:
     - with_first_parameter

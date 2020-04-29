@@ -10,7 +10,7 @@ describe '/admin/posts' do
     create(:draft_post)
   end
 
-  after { Post.delete_all}
+  after { Post.delete_all }
 
   context 'with no option' do
     it 'should show all posts' do
@@ -36,12 +36,12 @@ describe '/admin/posts' do
 
     Markup.engine_list.map(&:first).each do |markup|
       context "when #{markup} is set a default markup" do
-        before { Site.first.update_attributes(:default_markup => markup) }
-        after { Site.first.update_attributes(:default_markup => nil) }
+        before { Site.first.update_attributes(default_markup: markup) }
+        after { Site.first.update_attributes(default_markup: nil) }
 
         it "should select #{markup}" do
           get '/admin/posts/new'
-          last_response.body.should match(%Q[value="#{markup}" selected="selected">])
+          last_response.body.should match(%(value="#{markup}" selected="selected">))
         end
       end
     end

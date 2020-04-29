@@ -2,20 +2,20 @@
 
 class Tag < ActiveRecord::Base
   has_many :entries,
-    through: :taggings,
-    source: :tag,
-    class_name: 'Entry'
+           through: :taggings,
+           source: :tag,
+           class_name: 'Entry'
   has_many :taggings,
-    dependent: :destroy
+           dependent: :destroy
 
   validates :name,
-    presence:   true,
-    uniqueness: true
+            presence: true,
+            uniqueness: true
 
   scope :any,
-    ->(list){
-      where(list.map { |name| sanitize_sql(['name = ?', name]) }.join(' OR '))
-  }
+        lambda {|list|
+          where(list.map {|name| sanitize_sql(['name = ?', name]) }.join(' OR '))
+        }
 
   def link
     "/tags/#{name}"
@@ -24,10 +24,10 @@ class Tag < ActiveRecord::Base
   def self.where_or_create(str)
     list = str.split(',')
     existing_tags = Tag.any(list)
-    new_tag_names = list.reject { |name|
-      existing_tags.any? { |tag| tag.name == name  }
-    }
-    created_tags = new_tag_names.map { |name| Tag.create(name: name) }
+    new_tag_names = list.reject do |name|
+      existing_tags.any? {|tag| tag.name == name }
+    end
+    created_tags = new_tag_names.map {|name| Tag.create(name: name) }
 
     existing_tags + created_tags
   end

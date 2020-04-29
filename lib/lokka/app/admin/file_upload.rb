@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # fronzen_string_literal: true
 
 module Lokka

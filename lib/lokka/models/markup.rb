@@ -17,8 +17,8 @@ module Markup
     ['kramdown', 'Markdown (Kramdown)',
      lambda do |text|
        Kramdown::Document.new(text,
-         coderay_line_numbers: nil,
-         coderay_css: :class).to_html
+                              coderay_line_numbers: nil,
+                              coderay_css: :class).to_html
      end],
     ['redcloth', 'Textile (Redcloth)',
      ->(text) { RedCloth.new(text).to_html }],

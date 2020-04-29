@@ -7,7 +7,7 @@ shared_context 'admin login' do
 
   before do
     FactoryGirl.create(:user, name: 'test')
-    post '/admin/login', { name: 'test', password: 'test'}
+    post '/admin/login', { name: 'test', password: 'test' }
     follow_redirect!
   end
 

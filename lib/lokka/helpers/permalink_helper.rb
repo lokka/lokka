@@ -15,16 +15,16 @@ module Lokka
     end
 
     def custom_permalink_path(param)
-      permalink_format.gsub(/%(\w+?)%/) { param[$1.to_sym] }
+      permalink_format.gsub(/%(\w+?)%/) { param[Regexp.last_match(1).to_sym] }
     end
 
     def custom_permalink_parse(path)
-      regexp = Regexp.compile(Regexp.escape(permalink_format).gsub(/\%(\w+?)\%/) { "(?<#{$1}>.+?)" } + "$")
+      regexp = Regexp.compile(Regexp.escape(permalink_format).gsub(/\%(\w+?)\%/) { "(?<#{Regexp.last_match(1)}>.+?)" } + '$')
       match_data = regexp.match(path)
       return nil if match_data.nil?
-      match_data.names.inject({}) do |hash, key|
+
+      match_data.names.each_with_object({}) do |key, hash|
         hash[key.to_sym] = match_data[key]
-        hash
       end
     end
 
@@ -48,7 +48,7 @@ module Lokka
           match_data[:minute] || 0,
           match_data[:second] || 0
         )
-        end_date= Time.local(
+        end_date = Time.local(
           match_data[:year],
           match_data[:month]  || 12,
           match_data[:day]    || 31,

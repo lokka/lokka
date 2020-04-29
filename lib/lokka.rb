@@ -28,7 +28,7 @@ module Lokka
     # @return [Hash] DSN (Data Source Name) is configuration for database.
     def dsn
       filename = File.exist?("#{Lokka.root}/db/database.yml") ? 'database.yml' : 'database.default.yml'
-      YAML.load(ERB.new(File.read("#{Lokka.root}/db/#{filename}")).result(binding))[self.env]['database']
+      YAML.safe_load(ERB.new(File.read("#{Lokka.root}/db/#{filename}")).result(binding))[env]['database']
     end
 
     ##
@@ -53,6 +53,7 @@ module Lokka
 
     def parse_http(str)
       return [] if str.nil?
+
       locales = str.split(',')
       locales.map! do |locale|
         locale = locale.split ';q='

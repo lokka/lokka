@@ -55,6 +55,7 @@ module Lokka
     def spam?
       key = akismet_key
       return false unless key
+
       host = "#{key}.rest.akismet.com"
       queries = []
       queries << "blog=#{akismet_blog}"

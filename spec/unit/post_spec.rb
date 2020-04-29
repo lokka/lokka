@@ -45,7 +45,7 @@ describe Post do
   end
 
   context 'markup' do
-    [:kramdown, :redcloth].each do |markup|
+    %i[kramdown redcloth].each do |markup|
       describe "a post using #{markup}" do
         let(:post) { FactoryGirl.create(:post, markup: markup) }
         it { post.body.should_not == post.long_body }

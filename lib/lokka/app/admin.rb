@@ -26,7 +26,7 @@ module Lokka
           end
         else
           @login_failed = true
-          haml :'admin/login', :layout => false
+          haml :'admin/login', layout: false
         end
       end
 
@@ -74,28 +74,28 @@ module Lokka
 
       # permalink
       get '/permalink' do
-        @enabled = (Option.permalink_enabled == "true")
-        @format = Option.permalink_format || ""
+        @enabled = (Option.permalink_enabled == 'true')
+        @format = Option.permalink_format || ''
         haml :'admin/permalink', layout: :'admin/layout'
       end
 
       put '/permalink' do
         errors = []
 
-        if params[:enable] == "1"
+        if params[:enable] == '1'
           format = params[:format]
-          format = "/#{format}" unless /^\// =~ format
+          format = "/#{format}" unless %r{^/} =~ format
 
           errors << t('permalink.error.no_tags') unless /%.+%/ =~ format
-          errors << t('permalink.error.tag_unclosed') unless format.chars.select{|c| c == '%' }.size.even?
+          errors << t('permalink.error.tag_unclosed') unless format.chars.select {|c| c == '%' }.size.even?
         end
 
         if errors.empty?
-          Option.permalink_enabled = (params[:enable] == "1").to_s
-          Option.permalink_format  = params[:format].sub(/\/$/,"")
+          Option.permalink_enabled = (params[:enable] == '1').to_s
+          Option.permalink_format  = params[:format].sub(%r{/$}, '')
           flash[:notice] = t('site_was_successfully_updated')
         else
-          flash[:error] = (["<ul>"] + errors.map{|e| "<li>#{e}</li>" } + ["</ul>"]).join("\n")
+          flash[:error] = (['<ul>'] + errors.map {|e| "<li>#{e}</li>" } + ['</ul>']).join("\n")
           flash[:permalink_format] = format
         end
 

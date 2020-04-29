@@ -13,7 +13,7 @@ module Lokka
     configure do
       enable :method_override, :raise_errors, :static, :sessions
       set :app_file, __FILE__
-      set :root, File.expand_path('../../..', __FILE__)
+      set :root, File.expand_path('../..', __dir__)
       set public_folder: proc { File.join(root, 'public') }
       set views: proc { public_folder }
       set theme: proc { File.join(public_folder, 'theme') }

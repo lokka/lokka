@@ -34,8 +34,8 @@ describe '/admin/comments' do
   context 'POST /admin/comments' do
     it 'should create a new comment' do
       Comment.delete_all
-      sample = FactoryGirl.attributes_for(:comment, :entry_id => @post.id)
-      post '/admin/comments', { :comment => sample }
+      sample = FactoryGirl.attributes_for(:comment, entry_id: @post.id)
+      post '/admin/comments', { comment: sample }
       last_response.should be_redirect
       Post.find(@post.id).comments.should have(1).item
     end

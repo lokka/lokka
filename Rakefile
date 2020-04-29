@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './init'
 require 'yard'
 
@@ -22,11 +24,11 @@ task 'db:seed' do
   Lokka::Migrator.seed!
 end
 
-#FIXME
+# FIXME
 desc 'Delete database'
 task 'db:delete' do
   puts 'Delete Database...'
-  #Lokka::Database.new.connect.migrate!
+  # Lokka::Database.new.connect.migrate!
 end
 
 desc 'Reset database'
@@ -39,7 +41,7 @@ desc 'Lokka console'
 task 'console' do
   require 'pry'
   require 'lib/lokka'
-  #Lokka::Database.connect
+  # Lokka::Database.connect
   Pry.start
 end
 
@@ -64,18 +66,18 @@ end
 begin
   require 'rspec/core/rake_task'
 
-  RSpec::Core::RakeTask.new(:spec => 'spec:setup') do |t|
+  RSpec::Core::RakeTask.new(spec: 'spec:setup') do |t|
     t.pattern = 'spec/**/*_spec.rb'
     t.rspec_opts = ['-cfs']
   end
   namespace :spec do
-    RSpec::Core::RakeTask.new(:unit => 'spec:setup') do |t|
+    RSpec::Core::RakeTask.new(unit: 'spec:setup') do |t|
       t.pattern = 'spec/unit/**/*_spec.rb'
       t.rspec_opts = ['-c']
     end
 
-    RSpec::Core::RakeTask.new(:integration => 'spec:setup') do |t|
-      t.pattern = "spec/integration/**/*_spec.rb"
+    RSpec::Core::RakeTask.new(integration: 'spec:setup') do |t|
+      t.pattern = 'spec/integration/**/*_spec.rb'
       t.rspec_opts = ['-c']
     end
   end
@@ -91,7 +93,7 @@ namespace :admin do
   end
 
   desc 'Build admin js'
-  task :build_js => [:install_deps] do
+  task build_js: [:install_deps] do
     system('cd public/admin && npm run build')
   end
 end

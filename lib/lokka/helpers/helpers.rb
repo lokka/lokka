@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'digest/sha1'
 
 module Lokka
@@ -26,6 +27,7 @@ module Lokka
 
     def login_required
       return true if current_user.class != GuestUser
+
       session[:return_to] = request.fullpath
       redirect to('/admin/login')
       false
@@ -119,10 +121,8 @@ module Lokka
       @title = @entry.title
 
       @bread_crumbs = [{ name: t('home'), link: '/' }]
-      if @entry.category
-        @bread_crumbs << { name: @entry.category.title, link: @entry.category.link }
-      end
-      @bread_crumbs << { name: @entry.title, link: @entry.link}
+      @bread_crumbs << { name: @entry.category.title, link: @entry.category.link } if @entry.category
+      @bread_crumbs << { name: @entry.title, link: @entry.link }
 
       render_detect_with_options [type, :entry]
     end
@@ -184,8 +184,8 @@ module Lokka
 
     def slugs
       tmp = @theme_types
-      tmp << @entry.slug    if @entry && @entry.slug
-      tmp << @category.slug if @category && @category.slug
+      tmp << @entry.slug    if @entry&.slug
+      tmp << @category.slug if @category&.slug
       tmp
     end
 

@@ -60,5 +60,4 @@ describe Lokka::PermalinkHelper do
       described_class.custom_permalink_entry('/no/such/path').should be_nil
     end
   end
-
 end

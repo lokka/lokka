@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Site < ActiveRecord::Base
-  SORT_COLUMNS = %w(id created_at updated_at)
-  ORDERS = %w(asc desc)
+  SORT_COLUMNS = %w[id created_at updated_at].freeze
+  ORDERS = %w[asc desc].freeze
 
   def per_page
     super || '10'

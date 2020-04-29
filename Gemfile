@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
-ruby "~> 2.4"
+ruby '~> 2.4'
 
 gem 'activerecord'
-gem 'kaminari-activerecord'
-gem 'kaminari-sinatra'
 gem 'activesupport', '~> 5.0'
-gem 'bcrypt'
 gem 'aws-sdk-s3'
 gem 'backports', '2.3.0'
+gem 'bcrypt'
 gem 'builder'
 gem 'bundler'
 gem 'coderay', '1.0.5'
@@ -16,6 +16,8 @@ gem 'compass'
 gem 'erubis', '~> 2.7.0'
 gem 'haml', '~> 5.0'
 gem 'i18n', '~> 0.7'
+gem 'kaminari-activerecord'
+gem 'kaminari-sinatra'
 gem 'kramdown'
 gem 'mimemagic'
 gem 'nokogiri'
@@ -42,6 +44,7 @@ end
 
 group :development do
   gem 'pry'
+  gem 'rubocop'
   gem 'sqlite3'
   gem 'tapp', '1.3.0'
 end
