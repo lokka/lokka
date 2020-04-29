@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'Login' do
   include_context 'in site'
-  before { FactoyrGirl.create(:user, name: 'test') }
+  before { FactoryGirl.create(:user, name: 'test') }
   after { User.delete_all }
 
   shared_examples_for 'login failed' do
@@ -13,7 +13,7 @@ describe 'Login' do
     end
 
     it 'should render login screen again' do
-      last_response.body.should match('<body class=\'admin_login\'>')
+      last_response.body.should match('<body class="admin_login">')
     end
 
     it 'should not render dashboard side bar' do
