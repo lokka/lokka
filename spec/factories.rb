@@ -29,6 +29,18 @@ FactoryGirl.define do
     type 'Post'
     created_at create_time
     updated_at update_time
+
+    trait :kramdown do
+      title 'Markdown'
+      body "# hi! \nkramdown test"
+      markup 'kramdown'
+    end
+
+    trait :redcloth do
+      title 'Textile'
+      body "h1. hi!  \n\nredcloth test"
+      markup 'redcloth'
+    end
   end
 
   factory :entry do

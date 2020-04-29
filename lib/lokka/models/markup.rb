@@ -6,6 +6,7 @@ module Markup
 
     def use_engine(name, text)
       return if text.nil?
+
       @engine_list.each do |engine|
         return engine[2].call(text).html_safe if engine[0] == name
       end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Tag < ActiveRecord::Base
+  has_many :taggings,
+           dependent: :destroy
   has_many :entries,
            through: :taggings,
            source: :tag,
            class_name: 'Entry'
-  has_many :taggings,
-           dependent: :destroy
 
   validates :name,
             presence: true,

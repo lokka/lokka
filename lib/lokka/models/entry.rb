@@ -49,8 +49,9 @@ class Entry < ActiveRecord::Base
   alias body long_body
 
   def short_body
-    @short_body ||= long_body. \
-                      sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>").html_safe
+    @short_body ||= long_body.sub(
+      /<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>"
+    ).html_safe
   end
 
   def description

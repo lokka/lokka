@@ -47,8 +47,8 @@ describe Post do
   context 'markup' do
     %i[kramdown redcloth].each do |markup|
       describe "a post using #{markup}" do
-        let(:post) { FactoryGirl.create(:post, markup: markup) }
-        it { post.body.should_not == post.long_body }
+        let(:post) { FactoryGirl.create(:post, markup) }
+        it { post.body.should_not == post.raw_body }
         it { post.long_body.should match('<h1') }
       end
     end
