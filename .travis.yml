@@ -14,6 +14,6 @@ before_script:
   - mysql -e "create database lokka_test;"
   - psql -c "create database lokka_test;" -U postgres
 env:
-  - DATABASE_URL="mysql://0.0.0.0/lokka_test"
+  - DATABASE_URL="mysql://0.0.0.0/lokka_test"; DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL=true
   - DATABASE_URL="postgres://postgres@127.0.0.1/lokka_test"
   - DUMMY=DUMMY # sqlite
