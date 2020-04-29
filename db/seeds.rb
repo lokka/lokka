@@ -35,5 +35,5 @@ Tag.create([
   { name: 'scottie'}
 ]) && puts("tag was successfully created") if Tag.all.blank?
 
-tag_list = Tag.scoped.pluck(:name).join(',')
+tag_list = Tag.pluck(:name).join(',')
 Entry.first.tagged_with(tag_list) && puts("tagging was successfully created") if Tagging.all.blank?
