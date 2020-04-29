@@ -230,7 +230,8 @@ describe 'App' do
 
     describe 'with continue reading' do
       before { create(:post_with_more) }
-      after { Post.destroy }
+      after { Post.delete_all }
+
       describe 'in entries index' do
         it 'should hide texts after <!--more-->' do
           regexp = %r{<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>}

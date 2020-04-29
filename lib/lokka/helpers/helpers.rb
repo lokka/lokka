@@ -165,6 +165,15 @@ module Lokka
     end
     alias t translate_compatibly
 
+    def apply_continue_reading(posts)
+      posts.each do |post|
+        class << post
+          alias_method :body, :short_body
+        end
+      end
+      posts
+    end
+
     class << self
       include Lokka::Helpers
     end

@@ -13,7 +13,6 @@ class Site < ActiveRecord::Base
   end
 
   def method_missing(method, *args)
-    binding.pry
     if method.to_s =~ /=$/
       super
     else

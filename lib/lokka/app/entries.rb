@@ -11,6 +11,7 @@ module Lokka
         page(params[:page] || 1).
         per(@site.per_page).
         order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = @site.title
 
@@ -24,6 +25,7 @@ module Lokka
         page(params[:page] || 1).
         per(@site.per_page).
         order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       content_type 'application/atom+xml', :charset => 'utf-8'
       builder :'lokka/index'
@@ -40,6 +42,7 @@ module Lokka
         order(@site.default_order).
         page(params[:page]).
         per(@site.per_page)
+      @posts = apply_continue_reading(@posts)
 
       @title = "Search by #{@query}"
 
@@ -59,6 +62,7 @@ module Lokka
         page(params[:page] || 1).
         per(@site.per_page).
         order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = @category.title
 
@@ -78,6 +82,7 @@ module Lokka
         page(params[:page]).
         per(@site.per_page).
         order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = @tag.name
 
@@ -98,6 +103,7 @@ module Lokka
         page(params[:page]).
         per(@site.per_page).
         order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = "#{year}/#{month}"
 
@@ -119,6 +125,7 @@ module Lokka
         page(params[:page]).
         per(@site.per_page).
         order(@site.default_order)
+      @posts = apply_continue_reading(@posts)
 
       @title = year
 

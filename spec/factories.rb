@@ -80,6 +80,12 @@ FactoryGirl.define do
     markup 'wikicloth'
   end
 
+  factory :post_with_more, parent: :post do
+    body "a\n\n<!--more-->\n\nb\n\n<!--more-->\n\nc\n"
+    slug 'post-with-more'
+    markup 'kramdown'
+  end
+
   factory :draft_post, :parent => :post do
     title 'Draft Post'
     draft true

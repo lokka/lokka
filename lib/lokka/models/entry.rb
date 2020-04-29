@@ -39,8 +39,25 @@ class Entry < ActiveRecord::Base
     where(slug: id_or_slug).first || where(id: id_or_slug).first
   end
 
+  def raw_body
+    attributes['body']
+  end
+
   def long_body
-    Markup.use_engine(markup, self.body)
+    @long_body ||= Markup.use_engine(markup, raw_body)
+  end
+  alias body long_body
+
+  def short_body
+    @short_body ||= long_body \
+      .sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>").html_safe
+  end
+
+  def description
+    src = long_body.tr("\n", '')
+    desc = src =~ %r{<p[^>]*>(.+?)</p>}i ? Regexp.last_match(1) : src[0..50]
+
+    desc.gsub(%r{<[^/]+/>}, ' ').gsub(%r{</[^/]+>}, ' ').gsub(/<[^>]+>/, '').html_safe
   end
 
   def fuzzy_slug
@@ -93,13 +110,6 @@ class Entry < ActiveRecord::Base
     else
       return [false, "The entry is updated while you were editing"]
     end
-  end
-
-  def description
-    src = long_body.tr("\n", '')
-    desc = src =~ %r{<p[^>]*>(.+?)</p>}i ? Regexp.last_match(1) : src[0..50]
-
-    desc.gsub(%r{<[^/]+/>}, ' ').gsub(%r{</[^/]+>}, ' ').gsub(/<[^>]+>/, '').html_safe
   end
 
   def method_missing(method, *args)
