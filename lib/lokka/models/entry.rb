@@ -82,8 +82,10 @@ class Entry < ActiveRecord::Base
   end
 
   def tag_collection=(values)
-    values.split(',').each do |tag|
-      tags.build(name: tag)
+    regexp = /[^\p{Word}._]/iu
+    values.to_s.split(',').map do |name|
+      name.force_encoding(Encoding.default_external).gsub(regexp, '').strip
+      tags.build(name: name)
     end
   end
 
