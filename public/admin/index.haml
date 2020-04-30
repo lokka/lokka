@@ -54,3 +54,6 @@
       %li.list= link_to t('sites'), url('/admin/site/edit')
       %li.list= link_to t('permalink.title'), url('/admin/permalink')
       %li.list= link_to t('import'), url('/admin/import')
+
+- if @snippet.present?
+  %div= @snippet.body

@@ -7,9 +7,10 @@ module Lokka
       @theme_types << :index
       @theme_types << :entries
 
-      @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
-      @posts = apply_continue_reading(@posts)
+      @posts = Post.
+        page(params[:page] || 1).
+        per(@site.per_page).
+        order(@site.default_order)
 
       @title = @site.title
 
@@ -19,22 +20,26 @@ module Lokka
     end
 
     get '/index.atom' do
-      @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
-      @posts = apply_continue_reading(@posts)
-      content_type 'application/atom+xml', charset: 'utf-8'
-      builder :"lokka/index"
+      @posts = Post.
+        page(params[:page] || 1).
+        per(@site.per_page).
+        order(@site.default_order)
+
+      content_type 'application/atom+xml', :charset => 'utf-8'
+      builder :'lokka/index'
     end
 
     # search
-    get '/search/' do
+    get '/search/:query' do
       @theme_types << :search
       @theme_types << :entries
 
       @query = params[:query]
-      @posts = Post.published.search(@query).
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
-      @posts = apply_continue_reading(@posts)
+      @posts = Post.
+        search(@query).
+        order(@site.default_order).
+        page(params[:page]).
+        per(@site.per_page)
 
       @title = "Search by #{@query}"
 
@@ -45,7 +50,7 @@ module Lokka
     end
 
     # category
-    get '/category/*/' do |path|
+    get '/category/:slug' do
       @theme_types << :category
       @theme_types << :entries
 
@@ -59,25 +64,21 @@ module Lokka
       @title = @category.title
 
       @bread_crumbs = [{ name: t('home'), link: '/' }]
-      @category.ancestors.each do |cat|
-        @bread_crumbs << { name: cat.title, link: cat.link }
-      end
+
       @bread_crumbs << { name: @category.title, link: @category.link }
 
       render_detect :category, :entries
     end
 
-    # tag
-    get '/tags/:tag/' do |tag|
+    get '/tags/:name' do
       @theme_types << :tag
       @theme_types << :entries
 
-      @tag = Tag.first(name: tag)
-      return 404 if @tag.nil?
-      @posts = Post.all(id: @tag.taggings.map(&:taggable_id)).
-                 published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
-      @posts = apply_continue_reading(@posts)
+      @tag = Tag.where(name: params[:name]).first || halt(404)
+      @posts = @tag.entries.
+        page(params[:page]).
+        per(@site.per_page).
+        order(@site.default_order)
 
       @title = @tag.name
 
@@ -92,18 +93,17 @@ module Lokka
       @theme_types << :monthly
       @theme_types << :entries
 
-      year = year.to_i
-      month = month.to_i
-      @posts = Post.all(:created_at.gte => Time.local(year, month)).
-                 all(:created_at.lt => Time.local(year, month) >> 1).
-                 published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
-      @posts = apply_continue_reading(@posts)
+      year, month = year.to_i, month.to_i
+      @posts = Post.
+        between_a_month(DateTime.new(year, month)).
+        page(params[:page]).
+        per(@site.per_page).
+        order(@site.default_order)
 
       @title = "#{year}/#{month}"
 
       @bread_crumbs = [{ name: t('home'), link: '/' },
-                       { name: year.to_s, link: "/#{year}/" },
+                       { name: "#{year}", link: "/#{year}/" },
                        { name: "#{year}/#{month}", link: "/#{year}/#{month}/" }]
 
       render_detect :monthly, :entries
@@ -115,28 +115,27 @@ module Lokka
       @theme_types << :entries
 
       year = year.to_i
-      @posts = Post.all(:created_at.gte => Time.local(year)).
-                 all(:created_at.lt => Time.local(year + 1)).
-                 published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
-      @posts = apply_continue_reading(@posts)
+      @posts = Post.
+        between_a_year(DateTime.new(year)).
+        page(params[:page]).
+        per(@site.per_page).
+        order(@site.default_order)
 
       @title = year
 
       @bread_crumbs = [{ name: t('home'), link: '/' },
-                       { name: year.to_s, link: "/#{year}/" }]
+                       { name: "#{year}", link: "/#{year}/" }]
 
       render_detect :yearly, :entries
     end
 
     # entry
     get %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
+      @entry = Post.get_by_fuzzy_slug(id_or_slug) || halt(404)
 
-      return 404 if @entry.blank?
       redirect to(@entry.link) if @entry.type == Post && custom_permalink?
 
-      @comment = @entry.comments.new
+      @comment = @entry.comments.build
 
       setup_and_render_entry
     end
@@ -145,17 +144,17 @@ module Lokka
     post %r{^/([_/0-9a-zA-Z-]+)$} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || (custom_permalink? && custom_permalink_entry('/' + id_or_slug))
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug)
       return 404 if !@entry || @entry.blank?
       return 404 if params[:check] != 'check'
 
-      @comment = @entry.comments.new(params['comment'])
+      @comment = @entry.comments.build(params['comment'])
 
-      @comment[:status] = if params['comment']['status']
-                            params['comment']['status']
-                          else # unless status value is overridden by plugins
-                            logged_in? ? Comment::APPROVED : Comment::MODERATED
-                          end
+      unless params['comment']['status'] # unless status value is overridden by plugins
+        @comment[:status] = logged_in? ? Comment::APPROVED : Comment::MODERATED
+      else
+        @comment[:status] = params['comment']['status']
+      end
 
       if @comment.save
         redirect to(@entry.link)

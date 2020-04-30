@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/categories' do
   include_context 'admin login'
-  before { @category = create(:category) }
-  after { Category.destroy }
+  before { @category = Factory(:category) }
+  after { Category.delete_all }
 
   context 'GET /admin/categories' do
     it 'should show index' do
@@ -24,12 +24,14 @@ describe '/admin/categories' do
 
   context 'POST /admin/categories' do
     it 'should create a new category' do
-      sample = { title: 'Created Category',
-                 description: 'This is created in spec',
-                 slug: 'created-category' }
-      post '/admin/categories', category: sample
+      sample = {
+        title: 'Created Category',
+        description: 'This is created in spec',
+        slug: 'created-category'
+      }
+      post '/admin/categories', { category: sample }
       last_response.should be_redirect
-      Category('created-category').should_not be_nil
+      Category.where(slug: 'created-category').should_not be_nil
     end
   end
 
@@ -45,7 +47,7 @@ describe '/admin/categories' do
     it 'should update the category"s description' do
       put "/admin/categories/#{@category.id}", category: { description: 'updated' }
       last_response.should be_redirect
-      Category(@category.id).description.should eq('updated')
+      Category.where(id: @category.id).first.description.should == 'updated'
     end
   end
 
@@ -53,7 +55,7 @@ describe '/admin/categories' do
     it 'should delete the category' do
       delete "/admin/categories/#{@category.id}"
       last_response.should be_redirect
-      Category(@category.id).should be_nil
+      Category.where(id: @category.id).first.should be_nil
     end
   end
 
@@ -74,7 +76,7 @@ describe '/admin/categories' do
   end
 
   context 'when the category does not exist' do
-    before { Category.destroy }
+    before { Category.delete_all }
 
     context 'GET' do
       before { get '/admin/categories/9999/edit' }

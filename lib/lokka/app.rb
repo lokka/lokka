@@ -12,8 +12,6 @@ module Lokka
 
     configure do
       enable :method_override, :raise_errors, :static, :sessions
-      YAML::ENGINE.yamler = 'syck' if YAML.const_defined?(:ENGINE)
-      register Padrino::Helpers
       set :app_file, __FILE__
       set :root, File.expand_path('../../..', __FILE__)
       set public_folder: proc { File.join(root, 'public') }
@@ -29,36 +27,36 @@ module Lokka
       set :default_locale, 'en'
       set :haml, attr_wrapper: '"'
       set :protect_from_csrf, true
+      set :session_secret, 'development' if development?
       supported_stylesheet_templates.each do |style|
         set style, style: :expanded
       end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
       helpers Lokka::RenderHelper
+      helpers Kaminari::Helpers::SinatraHelpers
       use Rack::Session::Cookie,
         expire_after: 60 * 60 * 24 * 12,
         secret: SecureRandom.hex(30)
       use RequestStore::Middleware
       register Sinatra::Flash
+      register Padrino::Helpers
+      register Sinatra::Namespace
       Lokka.load_plugin(self)
-      Lokka::Database.new.connect
+      Lokka::Database.connect
     end
 
     require 'lokka/app/admin.rb'
+    %w[categories comments entries field_names snippets tags themes users].each do |f|
+      require "lokka/app/admin/#{f}"
+    end
     require 'lokka/app/entries.rb'
 
     not_found do
-      if custom_permalink?
-        return redirect(request.path.sub(%r{/$}, '')) if %r{/$} =~ request.path
-
-        correct_path = custom_permalink_fix(request.path)
-        return redirect(correct_path) if correct_path
-
-        @entry = custom_permalink_entry(request.path)
-        status 200
-        return setup_and_render_entry if @entry
-
-        status 404
+      if output = render_any(:'404', :layout => false)
+        output
+      else
+        haml :'404', :views => 'public/lokka', :layout => false
       end
 
       render404 = render_any('404', layout: false)

@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 ruby "~> 2.4"
 
+gem 'activerecord'
 gem 'activesupport', '~> 5.0'
+gem 'bcrypt-ruby'
 gem 'aws-sdk-s3'
 gem 'backports', '2.3.0'
 gem 'builder'
@@ -49,17 +51,17 @@ end
 
 group :development, :test do
   gem 'tapp', '1.3.0'
+  gem 'pry'
 end
 
 group :development do
-  gem 'dm-sqlite-adapter', '1.2.0'
+  gem 'sqlite3'
   gem 'haml-lint'
   gem 'rubocop'
 end
 
 group :test do
   gem 'database_cleaner', '0.7.1'
-  gem 'dm-transactions', '~> 1.2.0'
   gem 'factory_girl', '~> 4.0'
   gem 'rack-test', '0.6.1', require: 'rack/test'
   gem 'rspec', '~> 2.0'
@@ -67,9 +69,9 @@ group :test do
 end
 
 group :mysql do
-  gem 'dm-mysql-adapter', '1.2.0'
+  gem 'mysql2'
 end
 
 group :postgresql do
-  gem 'dm-postgres-adapter', '1.2.0'
+  gem 'pg'
 end
