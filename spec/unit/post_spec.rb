@@ -93,7 +93,7 @@ describe Post do
     let(:entry) { create(:entry) }
 
     subject do
-      -> {
+      lambda {
         entry.tag_collection = 'foo,bar'
         entry.save
       }

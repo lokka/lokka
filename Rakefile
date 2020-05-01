@@ -27,8 +27,8 @@ end
 # FIXME
 desc 'Delete database'
 task 'db:delete' do
-   # puts 'Delete Database...'
-#   Lokka::Migrator.delete!
+  # puts 'Delete Database...'
+  # Lokka::Migrator.delete!
 end
 
 desc 'Reset database'
