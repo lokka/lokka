@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    RedCloth (4.2.9)
+    RedCloth (4.3.2)
     actionview (5.2.4.2)
       activesupport (= 5.2.4.2)
       builder (~> 3.1)
@@ -22,7 +22,7 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     aws-eventstream (1.1.0)
-    aws-partitions (1.303.0)
+    aws-partitions (1.307.0)
     aws-sdk-core (3.94.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -35,14 +35,14 @@ GEM
       aws-sdk-core (~> 3, >= 3.83.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.1.2)
+    aws-sigv4 (1.1.3)
       aws-eventstream (~> 1.0, >= 1.0.2)
-    backports (2.3.0)
+    backports (3.17.1)
     bcrypt (3.1.13)
     bond (0.5.1)
     builder (3.2.4)
     chunky_png (1.3.11)
-    coderay (1.0.5)
+    coderay (1.1.2)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -94,7 +94,7 @@ GEM
     loofah (2.5.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    method_source (0.9.2)
+    method_source (1.0.0)
     mimemagic (0.3.4)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
@@ -102,34 +102,33 @@ GEM
     mysql2 (0.5.3)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    padrino-helpers (0.14.1.1)
+    padrino-helpers (0.14.4)
       i18n (~> 0.6, >= 0.6.7)
-      padrino-support (= 0.14.1.1)
+      padrino-support (= 0.14.4)
       tilt (>= 1.4.1, < 3)
-    padrino-support (0.14.1.1)
+    padrino-support (0.14.4)
     parallel (1.19.1)
-    parser (2.7.1.1)
+    parser (2.7.1.2)
       ast (~> 2.4.0)
     pg (1.2.3)
-    pry (0.9.12.6)
-      coderay (~> 1.0)
-      method_source (~> 0.8)
-      slop (~> 3.4)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     rack (1.6.13)
     rack-flash (0.1.2)
       rack
     rack-protection (1.5.5)
       rack
-    rack-test (0.6.1)
-      rack (>= 1.0)
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
     rainbow (3.0.0)
-    rake (12.3.3)
-    rb-fsevent (0.10.3)
+    rake (13.0.1)
+    rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redcarpet (3.5.0)
@@ -179,12 +178,11 @@ GEM
       tilt (>= 1.3, < 3)
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
-    slim (3.0.9)
+    slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
-      tilt (>= 1.3.3, < 2.1)
-    slop (3.6.0)
+      tilt (>= 2.0.6, < 2.1)
     sqlite3 (1.4.2)
-    tapp (1.3.0)
+    tapp (1.5.1)
       thor
     temple (0.8.2)
     thor (1.0.1)
@@ -206,50 +204,50 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth (= 4.2.9)
+  RedCloth
   activerecord
   activesupport (~> 5.0)
   aws-sdk-s3
-  backports (= 2.3.0)
+  backports
   bcrypt
   builder
   bundler
-  coderay (= 1.0.5)
+  coderay
   coffee-script
   compass
   database_cleaner-active_record
-  erubis (~> 2.7.0)
+  erubis
   factory_girl (~> 4.0)
-  haml (~> 5.0)
-  i18n (~> 0.7)
+  haml
+  i18n
   kaminari-activerecord
   kaminari-sinatra
   kramdown
   mimemagic
   mysql2
   nokogiri
-  padrino-helpers (~> 0.14.1.1)
+  padrino-helpers
   pg
   pry
   rack
-  rack-flash (~> 0.1.2)
-  rack-test (= 0.6.1)
-  rake (~> 12.3)
+  rack-flash
+  rack-test
+  rake
   redcarpet
   request_store
   rspec (~> 2.99)
   rubocop
   sass (< 3.5)
   simplecov
-  sinatra (~> 1.4.2)
-  sinatra-contrib (~> 1.4.0)
-  sinatra-flash (~> 0.3.0)
-  slim (~> 3.0.7)
+  sinatra (~> 1.4)
+  sinatra-contrib
+  sinatra-flash
+  slim
   sqlite3
-  tapp (= 1.3.0)
-  tilt (~> 2.0)
+  tapp
+  tilt
   tux
-  yard-sinatra (= 1.0.0)
+  yard-sinatra
 
 RUBY VERSION
    ruby 2.7.0p0
