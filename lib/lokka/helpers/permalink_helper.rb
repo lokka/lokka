@@ -26,9 +26,7 @@ module Lokka
       match_data = regexp.match(path)
       return nil if match_data.nil?
 
-      match_data.names.each_with_object({}) do |key, hash|
-        hash[key.to_sym] = match_data[key]
-      end
+      match_data.named_captures.transform_keys(&:to_sym)
     end
 
     def custom_permalink_entry(path)
