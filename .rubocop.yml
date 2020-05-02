@@ -9,12 +9,15 @@ AllCops:
     - 'vendor/**/*'
     - 'bin/*'
 
-Style/Documentation:
-  Enabled: false
-
 Naming/MethodName:
   Exclude:
     - 'lib/lokka/models/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
 
 Style/MethodMissingSuper:
   Exclude:

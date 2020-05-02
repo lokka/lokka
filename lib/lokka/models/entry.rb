@@ -23,15 +23,15 @@ class Entry < ActiveRecord::Base
   scope :recent,
         ->(count = 5) { limit(count) }
   scope :between_a_year,
-        lambda {|time|
+        ->(time) {
           where(created_at: time.beginning_of_year..time.end_of_year)
         }
   scope :between_a_month,
-        lambda {|time|
+        ->(time) {
           where(created_at: time.beginning_of_month..time.end_of_month)
         }
   scope :search,
-        lambda {|word|
+        ->(word) {
           where('title LIKE ?', word.to_s) | where('body LIKE ?', word.to_s)
         }
 

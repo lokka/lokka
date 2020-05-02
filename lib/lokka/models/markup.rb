@@ -17,7 +17,7 @@ module Markup
   @engine_list = [
     ['html', 'HTML', ->(text) { text }],
     ['kramdown', 'Markdown (Kramdown)',
-     lambda do |text|
+     ->(text) do
        Kramdown::Document.new(text,
                               coderay_line_numbers: nil,
                               coderay_css: :class).to_html
@@ -25,7 +25,7 @@ module Markup
     ['redcloth', 'Textile (Redcloth)',
      ->(text) { RedCloth.new(text).to_html }],
     ['redcarpet', 'Markdown (redcarpet)',
-     lambda do |text|
+     ->(text) do
        Redcarpet::Markdown.new(
          Redcarpet::Render::HTML,
          no_intra_emphasis: true,

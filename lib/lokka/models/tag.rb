@@ -13,7 +13,7 @@ class Tag < ActiveRecord::Base
             uniqueness: true
 
   scope :any,
-        lambda {|list|
+        ->(list) {
           where(list.map {|name| sanitize_sql(['name = ?', name]) }.join(' OR '))
         }
 
