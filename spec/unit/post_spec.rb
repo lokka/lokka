@@ -90,17 +90,34 @@ describe Post do
   end
 
   describe '#tag_collection=' do
-    let(:entry) { create(:entry) }
+    context 'Assign new tags' do
+      let(:entry) { create(:entry) }
 
-    subject do
-      lambda {
-        entry.tag_collection = 'foo,bar'
-        entry.save
-      }
+      subject do
+        -> {
+          entry.tag_collection = 'foo,bar'
+          entry.save
+        }
+      end
+
+      it 'should update tags' do
+        is_expected.to change { entry.reload.tags.length }.from(0).to(2)
+      end
     end
 
-    it 'should update tags' do
-      is_expected.to change { entry.reload.tags.length }
+    context 'Update tag assignment' do
+      let(:entry) { create(:entry, tag_collection: 'a, b, c') }
+
+      subject do
+        -> {
+          entry.tag_collection = 'foo,bar'
+          entry.save
+        }
+      end
+
+      it 'should update tags' do
+        is_expected.to change { entry.reload.tags.length }.from(3).to(2)
+      end
     end
   end
 

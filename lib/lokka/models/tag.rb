@@ -20,17 +20,6 @@ class Tag < ActiveRecord::Base
   def link
     "/tags/#{name}"
   end
-
-  def self.where_or_create(str)
-    list = str.split(',')
-    existing_tags = Tag.any(list)
-    new_tag_names = list.reject do |name|
-      existing_tags.any? {|tag| tag.name == name }
-    end
-    created_tags = new_tag_names.map {|name| Tag.create(name: name) }
-
-    existing_tags + created_tags
-  end
 end
 
 def Tag(name)

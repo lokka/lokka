@@ -49,15 +49,16 @@ class Entry < ActiveRecord::Base
   alias body long_body
 
   def short_body
-    @short_body ||= long_body.sub(
-      /<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>"
-    ).html_safe
+    @short_body ||= long_body&.sub(
+      /<!-- ?more ?-->.*/m, %(<a href="#{link}">#{I18n.t('continue_reading')}</a>)
+    )&.html_safe
   end
 
   def description
-    src = long_body.tr("\n", '')
-    desc = src =~ %r{<p[^>]*>(.+?)</p>}i ? Regexp.last_match(1) : src[0..50]
+    src = long_body&.tr("\n", '')
+    return if src.nil?
 
+    desc = src =~ %r{<p[^>]*>(.+?)</p>}i ? Regexp.last_match(1) : src[0..50]
     desc.gsub(%r{<[^/]+/>}, ' ').gsub(%r{</[^/]+>}, ' ').gsub(/<[^>]+>/, '').html_safe
   end
 
@@ -74,19 +75,19 @@ class Entry < ActiveRecord::Base
   end
 
   def tag_list
-    tags.pluck(:name)
+    @tag_list ||= tags.pluck(:name)
   end
 
   def tag_collection
-    tag_list.join(',')
+    tag_list.join(', ')
   end
 
   def tag_collection=(values)
-    regexp = /[^\p{Word}._]/iu
-    values.to_s.split(',').map do |name|
+    regexp = /[^\p{Word}]/iu
+    new_tag_list = values.to_s.split(',').map do |name|
       name.force_encoding(Encoding.default_external).gsub(regexp, '').strip
-      tags.build(name: name)
     end
+    self.tags = new_tag_list.uniq.map {|name| Tag.find_or_create_by(name: name) }
   end
 
   def tags_to_html
