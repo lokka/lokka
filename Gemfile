@@ -39,19 +39,17 @@ gem 'yard-sinatra'
 
 Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }
 
-group :production do
-end
-
 group :development do
-  gem 'pry'
   gem 'rubocop'
   gem 'sqlite3'
   gem 'tapp'
 end
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'database_cleaner-active_record'
   gem 'factory_girl', '~> 4.0'
+  gem 'pry'
   gem 'rack-test', require: 'rack/test'
   gem 'rspec', '~> 2.99'
   gem 'simplecov', require: false
