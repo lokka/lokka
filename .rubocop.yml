@@ -39,6 +39,32 @@ Style/StringLiterals:
     - single_quotes
     - double_quotes
 
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Layout/LineLength:
+  Exclude:
+    - 'lokka.gemspec'
+    - 'Gemfile'
+    - 'public/**/*'
+  IgnoredPatterns:
+    - '%r'
+    - '%q'
+    - '%Q'
+    - '/\/.+\//'
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
   SupportedStyles:
@@ -62,6 +88,12 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
 Lint/UselessAssignment:
   Exclude:
     - 'lib/lokka/helpers/helpers.rb'
@@ -76,17 +108,6 @@ Metrics/BlockLength:
     - 'lib/lokka/importer.rb'
     - 'lib/lokka/app/admin.rb'
     - 'lib/lokka/app/admin/**/*'
-
-Metrics/LineLength:
-  Exclude:
-    - 'lokka.gemspec'
-    - 'Gemfile'
-    - 'public/**/*'
-  IgnoredPatterns:
-    - '%r'
-    - '%q'
-    - '%Q'
-    - '/\/.+\//'
 
 Metrics/PerceivedComplexity:
   Exclude:
