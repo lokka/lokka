@@ -6,6 +6,7 @@ module Lokka
   module Database
     def self.connect
       ActiveRecord::Base.logger = Logger.new(STDERR) if Lokka.env == 'development'
+      ActiveRecord::Base.logger = Logger.new(File.join(Lokka.root, 'log', 'test.log')) if Lokka.env == 'test'
       ActiveRecord::Base.establish_connection(Lokka.dsn)
     end
   end
