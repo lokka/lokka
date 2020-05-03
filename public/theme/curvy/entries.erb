@@ -1,4 +1,4 @@
-<% @posts.each do |post| %>	
+<% @posts.each do |post| %>
 	<%= partial "article", locals: {entry: post} %>
 <% end %>
 <%= paginate @posts %>
