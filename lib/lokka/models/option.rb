@@ -13,7 +13,7 @@ class Option < ActiveRecord::Base
       option.value = args.first.to_s
       option.save
     else
-      option = where(name: attribute).first_or_create
+      option = where(name: attribute).first_or_initialize
       option.value
     end
   end
