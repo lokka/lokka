@@ -16,25 +16,22 @@
 #  dsn: <%= ENV['DATABASE_URL'] || "sqlite3://#{root}/db/test.sqlite3" %>
 
 development:
-  database:
-    adapter: sqlite3
-    database: db/development.sqlite3
-    pool: 5
-    timeout: 5000
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
 
 test:
-  database:
-    adapter: sqlite3
-    database: db/test.sqlite3
-    pool: 5
-    timeout: 5000
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
 
 production:
-  database:
-    adapter: mysql2
-    encoding: utf8
-    database: lokka
-    pool: 5
-    username: hoge
-    password: hoge
-    socket: /tmp/mysql.sock
+  adapter: mysql2
+  encoding: utf8
+  database: lokka
+  pool: 5
+  username: hoge
+  password: hoge
+  socket: /tmp/mysql.sock

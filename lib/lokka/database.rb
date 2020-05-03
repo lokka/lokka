@@ -5,9 +5,14 @@ require 'logger'
 module Lokka
   module Database
     def self.connect
-      ActiveRecord::Base.logger = Logger.new(STDERR) if Lokka.env == 'development'
-      ActiveRecord::Base.logger = Logger.new(File.join(Lokka.root, 'log', 'test.log')) if Lokka.env == 'test'
+      ActiveRecord::Base.logger = Logger.new(STDERR) if Lokka.development?
+      ActiveRecord::Base.logger = Logger.new(File.join(Lokka.root, 'log', 'test.log')) if Lokka.test?
       ActiveRecord::Base.establish_connection(Lokka.dsn)
+    end
+
+    def self.delete!
+      ActiveRecord::Base.configurations = Lokka.database_config
+      ActiveRecord::Tasks::DatabaseTasks.drop_current(Lokka.env)
     end
   end
 

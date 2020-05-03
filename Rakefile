@@ -24,12 +24,14 @@ task 'db:seed' do
   Lokka::Migrator.seed!
 end
 
-# FIXME
 desc 'Delete database'
 task 'db:delete' do
-  # puts 'Delete Database...'
-  # Lokka::Migrator.delete!
+  puts 'Delete Database...'
+  Lokka::Database.delete!
 end
+
+desc 'Alias for db:delete'
+task 'db:drop' => [:'db:delete']
 
 desc 'Reset database'
 task 'db:reset' => %w[db:delete db:seed]

@@ -27,8 +27,15 @@ module Lokka
     #
     # @return [Hash] DSN (Data Source Name) is configuration for database.
     def dsn
-      filename = File.exist?("#{Lokka.root}/db/database.yml") ? 'database.yml' : 'database.default.yml'
-      YAML.safe_load(ERB.new(File.read("#{Lokka.root}/db/#{filename}")).result(binding))[env]['database']
+      database_config[env]
+    end
+
+    def database_config
+      @database_config ||= YAML.safe_load(ERB.new(File.read("#{Lokka.root}/db/#{database_config_file}")).result(binding))
+    end
+
+    def database_config_file
+      @database_config_file ||= File.exist?("#{Lokka.root}/db/database.yml") ? 'database.yml' : 'database.default.yml'
     end
 
     ##
@@ -100,6 +107,12 @@ module Lokka
       end
       app.set :plugins, plugins
     end
+  end
+end
+
+module Rails
+  def self.root
+    Lokka.root
   end
 end
 
