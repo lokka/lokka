@@ -142,7 +142,7 @@ module Lokka
 
       redirect to(@entry.link) if @entry.type == 'Post' && custom_permalink?
 
-      @comment = @entry.comments.build
+      @comment = @entry.comments.new
 
       setup_and_render_entry
     end
