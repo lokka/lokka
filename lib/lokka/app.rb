@@ -32,10 +32,6 @@ module Lokka
         set style, style: :expanded
       end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
-      helpers Lokka::Helpers
-      helpers Lokka::PermalinkHelper
-      helpers Lokka::RenderHelper
-      helpers Kaminari::Helpers::SinatraHelpers
       use Rack::Session::Cookie, {
         expire_after: 60 * 60 * 24 * 12,
         secret: SecureRandom.hex(30)
@@ -44,6 +40,10 @@ module Lokka
       register Sinatra::Flash
       register Padrino::Helpers
       register Sinatra::Namespace
+      helpers Kaminari::Helpers::SinatraHelpers
+      helpers Lokka::Helpers
+      helpers Lokka::PermalinkHelper
+      helpers Lokka::RenderHelper
       Lokka.load_plugin(self)
       Lokka::Database.connect
     end
