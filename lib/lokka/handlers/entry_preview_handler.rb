@@ -23,6 +23,8 @@ module Lokka
       }
     end
 
+    private
+
     def markup
       @markup = params[:markup] || default_markup
     end
