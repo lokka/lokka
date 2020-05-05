@@ -5,6 +5,7 @@ ruby '~> 2.4'
 
 gem 'activerecord'
 gem 'activesupport', '~> 5.0'
+gem 'awesome_print'
 gem 'aws-sdk-s3'
 gem 'backports'
 gem 'bcrypt'
@@ -22,6 +23,7 @@ gem 'kramdown'
 gem 'mimemagic'
 gem 'nokogiri'
 gem 'padrino-helpers'
+gem 'pry'
 gem 'rack'
 gem 'rack-flash'
 gem 'rake'
@@ -45,10 +47,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'awesome_print'
   gem 'database_cleaner-active_record'
   gem 'factory_girl', '~> 4.0'
-  gem 'pry'
   gem 'rack-test', require: 'rack/test'
   gem 'rspec', '~> 2.99'
   gem 'simplecov', require: false
