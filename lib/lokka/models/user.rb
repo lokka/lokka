@@ -35,6 +35,16 @@ class User < ActiveRecord::Base
   def admin?
     permission_level == 1
   end
+
+  def authenticate(password)
+    return hashed_password == Digest::SHA1.hexdigest(password + salt) if aged_user?
+
+    super
+  end
+
+  def aged_user?
+    respond_to?(:hashed_password) && respond_to?(:salt)
+  end
 end
 
 class GuestUser
