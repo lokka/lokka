@@ -28,7 +28,7 @@ describe 'App' do
       end
 
       context 'number of posts displayed' do
-        before { 11.times { FactoryGirl.create(:post) } }
+        before { 11.times { create(:post) } }
         after { Post.delete_all }
 
         let(:regexp) do
@@ -51,7 +51,7 @@ describe 'App' do
     end
 
     context '/:id' do
-      before { @post = FactoryGirl.create(:post) }
+      before { @post = create(:post) }
       after { Post.delete_all }
       context 'GET' do
         subject do
@@ -84,7 +84,7 @@ describe 'App' do
     end
 
     context '/tags/lokka/' do
-      before { FactoryGirl.create(:tag, name: 'lokka') }
+      before { create(:tag, name: 'lokka') }
       after { Tag.delete_all }
 
       it 'should show tag index' do
@@ -95,8 +95,8 @@ describe 'App' do
 
     context '/category/:id/' do
       before do
-        @category = FactoryGirl.create(:category)
-        @category_child = FactoryGirl.create(:category_child, parent_id: @category.id)
+        @category = create(:category)
+        @category_child = create(:category_child, parent_id: @category.id)
       end
 
       after do
@@ -116,7 +116,7 @@ describe 'App' do
 
     describe 'a draft post' do
       before do
-        FactoryGirl.create(:draft_post_with_tag_and_category)
+        create(:draft_post_with_tag_and_category)
         @post = Post.unpublished.first
         @post.should_not be_nil # gauntlet
         @post.tag_list.should_not be_empty
@@ -152,9 +152,9 @@ describe 'App' do
 
     context 'with custom permalink' do
       before do
-        @page = FactoryGirl.create(:page)
-        FactoryGirl.create(:post_with_slug)
-        FactoryGirl.create(:later_post_with_slug)
+        @page = create(:page)
+        create(:post_with_slug)
+        create(:later_post_with_slug)
         Option.permalink_enabled = 'true'
         Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
         Comment.delete_all
@@ -256,8 +256,8 @@ describe 'App' do
 
   context 'access tag archive page' do
     before do
-      FactoryGirl.create(:tag, name: 'lokka')
-      post = FactoryGirl.create(:post)
+      create(:tag, name: 'lokka')
+      post = create(:post)
       post.tag_list << 'lokka'
       post.save
     end

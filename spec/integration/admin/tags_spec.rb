@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/tags' do
   include_context 'admin login'
-  before { @tag = FactoryGirl.create(:tag) }
+  before { @tag = create(:tag) }
   after { Tag.delete_all }
 
   context 'GET /admin/tags' do

@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/snippets' do
   include_context 'admin login'
-  before { @snippet = FactoryGirl.create(:snippet) }
+  before { @snippet = create(:snippet) }
   after { Snippet.delete_all }
 
   context 'GET /admin/snippets' do

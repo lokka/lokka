@@ -8,7 +8,7 @@ end
 
 shared_context 'in site' do
   before do
-    FactoryGirl.create(:site)
+    create(:site)
   end
 
   after do

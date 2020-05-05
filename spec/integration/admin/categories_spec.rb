@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/categories' do
   include_context 'admin login'
-  before { @category = FactoryGirl.create(:category) }
+  before { @category = create(:category) }
   after { Category.delete_all }
 
   context 'GET /admin/categories' do

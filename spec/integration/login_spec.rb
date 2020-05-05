@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'Login' do
   include_context 'in site'
-  before { FactoryGirl.create(:user, name: 'test') }
+  before { create(:user, name: 'test') }
   after { User.delete_all }
 
   shared_examples_for 'login failed' do

@@ -65,7 +65,7 @@ describe '/admin/users' do
   end
 
   context 'DELETE /admin/users/:id' do
-    let(:another_user) { FactoryGirl.create(:user) }
+    let(:another_user) { create(:user) }
 
     it 'should delete the another user' do
       delete "/admin/users/#{another_user.id}"
