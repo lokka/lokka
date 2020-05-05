@@ -254,6 +254,19 @@ describe 'App' do
     end
   end
 
+  describe 'Search' do
+    before do
+      create_list(:post, 3, body: 'Udon')
+      create(:post, body: 'Ramen')
+    end
+
+    it 'Should show search result' do
+      get '/search/?query=ramen'
+      expect(last_response.body).to match('Ramen')
+      expect(last_response.body).not_to match('Udon')
+    end
+  end
+
   context 'access tag archive page' do
     before do
       create(:tag, name: 'lokka')
@@ -292,7 +305,7 @@ describe 'App' do
     before do
       @file = 'public/theme/jarvi/script.coffee'
       content = <<-COFFEE.strip_heredoc
-      console.log "Hello, It's me!"
+        console.log "Hello, It's me!"
       COFFEE
       File.open(@file, 'w') do |f|
         f.write content

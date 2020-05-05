@@ -32,7 +32,7 @@ class Entry < ActiveRecord::Base
         }
   scope :search,
         ->(word) {
-          where('title LIKE ?', word.to_s) | where('body LIKE ?', word.to_s)
+          where('title LIKE ?', "%#{word}%").or(where('body LIKE ?', "%#{word}%"))
         }
 
   def self.get_by_fuzzy_slug(id_or_slug)
