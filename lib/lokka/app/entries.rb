@@ -7,7 +7,7 @@ module Lokka
       @theme_types << :index
       @theme_types << :entries
 
-      @posts = Post.
+      @posts = Post.published.
                  page(params[:page] || 1).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -21,7 +21,7 @@ module Lokka
     end
 
     get '/index.atom' do
-      @posts = Post.
+      @posts = Post.published.
                  page(params[:page] || 1).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -37,7 +37,7 @@ module Lokka
       @theme_types << :entries
 
       @query = params[:query]
-      @posts = Post.
+      @posts = Post.published.
                  search(@query).
                  page(params[:page || 1]).
                  per(@site.per_page).
@@ -58,7 +58,7 @@ module Lokka
       @theme_types << :entries
 
       @category = Category.get_by_fuzzy_slug(params[:slug]) || halt(404)
-      @posts = @category.entries.
+      @posts = @category.entries.published.
                  page(params[:page] || 1).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -78,7 +78,7 @@ module Lokka
       @theme_types << :entries
 
       @tag = Tag.where(name: params[:name]).first || halt(404)
-      @posts = @tag.entries.
+      @posts = @tag.entries.published.
                  page(params[:page]).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -99,7 +99,7 @@ module Lokka
 
       year = year.to_i
       month = month.to_i
-      @posts = Post.
+      @posts = Post.published.
                  between_a_month(DateTime.new(year, month)).
                  page(params[:page]).
                  per(@site.per_page).
@@ -121,7 +121,7 @@ module Lokka
       @theme_types << :entries
 
       year = year.to_i
-      @posts = Post.
+      @posts = Post.published.
                  between_a_year(DateTime.new(year)).
                  page(params[:page]).
                  per(@site.per_page).
