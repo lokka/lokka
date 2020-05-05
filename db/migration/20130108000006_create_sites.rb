@@ -2,6 +2,8 @@
 
 class CreateSites < ActiveRecord::Migration[4.2]
   def change
+    return if table_exists? :sites
+
     create_table :sites do |t|
       t.string  :title,            limit: 255
       t.string  :description,      limit: 255

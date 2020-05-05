@@ -2,6 +2,8 @@
 
 class CreateComments < ActiveRecord::Migration[4.2]
   def change
+    return if table_exists? :comments
+
     create_table :comments do |t|
       t.integer :entry_id
       t.integer :status

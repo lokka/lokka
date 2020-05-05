@@ -2,6 +2,8 @@
 
 class CreateEntries < ActiveRecord::Migration[4.2]
   def change
+    return if table_exists? :entries
+
     create_table :entries do |t|
       t.integer :user_id
       t.integer :category_id
