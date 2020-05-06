@@ -15,7 +15,7 @@ class Entry < ActiveRecord::Base
   validate :validate_confliction
   after_save :update_fields
 
-  default_scope { order('created_at DESC') }
+  default_scope { order(created_at: :desc) }
   scope :published,   -> { where(draft: false) }
   scope :unpublished, -> { where(draft: true) }
   scope :posts,       -> { where(type: 'Post') }
