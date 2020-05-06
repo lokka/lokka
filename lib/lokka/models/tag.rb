@@ -5,8 +5,8 @@ class Tag < ActiveRecord::Base
            dependent: :destroy
   has_many :entries,
            through: :taggings,
-           source: :tag,
-           class_name: 'Entry'
+           source: :taggable,
+           source_type: 'Entry'
 
   validates :name,
             presence: true,
