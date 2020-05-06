@@ -31,11 +31,12 @@ module Lokka
     end
 
     def database_config
-      @database_config ||= YAML.safe_load(ERB.new(File.read("#{Lokka.root}/db/#{database_config_file}")).result(binding))
+      YAML.safe_load(ERB.new(File.read(database_config_file)).result(binding), [], [], true)
     end
 
     def database_config_file
-      @database_config_file ||= File.exist?("#{Lokka.root}/db/database.yml") ? 'database.yml' : 'database.default.yml'
+      dir = "#{root}/db"
+      File.exist?("#{dir}/database.yml") ? "#{dir}/database.yml" : "#{dir}/database.default.yml"
     end
 
     ##

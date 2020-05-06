@@ -1,37 +1,52 @@
 # DSN (Data Source Name) examples
 #
 # sqlite3:
-#   sqlite3://<%= root %>/db/development.sqlite3
+#   adapter: sqlite3
+#   databsae <%= root %>/db/development.sqlite3
 # mysql:
-#   mysql://user:pass@host/database
+#   adapter: mysql2
+#   host: host
+#   username: user
+#   password: password
+#   database: database
+#   encoding: utf8mb4
+#   pool: 5
+#   timeout: 5000
 # postgres:
-#   postgres://user:pass@host/database
+#   adapter: postgres
+#   host: host
+#   username: user
+#   password: password
+#   databse: database
+#   pool: 5
+#   timeout: 5000
 # heroku:
 #   <%= ENV['DATABASE_URL'] %>
-#production:
-#  dsn: <%= ENV['DATABASE_URL'] %>
-#development:
-#  dsn: sqlite3://<%= root %>/db/development.sqlite3
-#test:
-#  dsn: <%= ENV['DATABASE_URL'] || "sqlite3://#{root}/db/test.sqlite3" %>
+#
+# production:
+#   url: <%= ENV['DATABASE_URL'] %>
+# development:
+#   url: sqlite3://<%= root %>/db/development.sqlite3
+# test:
+#   url: <%= ENV['DATABASE_URL'] || "sqlite3://#{root}/db/test.sqlite3" %>
+
+default: &default
+  pool: 5
+  timeout: 5000
 
 development:
   adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  database: <%= root %>/db/development.sqlite3
 
 test:
   adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  database: <%= root %>/db/test.sqlite3
 
 production:
+  <<: &default
   adapter: mysql2
   encoding: utf8
   database: lokka
-  pool: 5
-  username: hoge
-  password: hoge
+  username: user
+  password: password
   socket: /tmp/mysql.sock
