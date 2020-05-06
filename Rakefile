@@ -41,6 +41,7 @@ task 'db:setup' => %w[db:migrate db:seed]
 
 desc 'Lokka console'
 task 'console' do
+  require 'awesome_print'
   require 'pry'
   require 'lib/lokka'
   Pry.start
