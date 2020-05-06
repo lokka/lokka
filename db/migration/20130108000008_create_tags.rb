@@ -10,7 +10,11 @@ class CreateTags < ActiveRecord::Migration[4.2]
       end
     end
 
-    unless table_exists?(:taggings)
+    if table_exists?(:taggings)
+      change_table :taggings do |t|
+        t.remove :tag_context
+      end
+    else
       create_table :taggings do |t|
         t.integer :tag_id,        null: false
         t.string  :taggable_type, null: false
