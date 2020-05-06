@@ -8,6 +8,7 @@ module Lokka
       ActiveRecord::Base.logger = Logger.new(STDERR) if Lokka.development?
       ActiveRecord::Base.logger = Logger.new(File.join(Lokka.root, 'log', 'test.log')) if Lokka.test?
       ActiveRecord::Base.establish_connection(Lokka.dsn)
+      ActiveRecord::Base.default_timezone = :local
     end
 
     def self.delete!
