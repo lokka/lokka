@@ -173,7 +173,9 @@ module Lokka
     # sitemap
     get '/sitemap.xml' do
       @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order)
+                 page(params[:page]).
+                 per(@site.per_page).
+                 order(@site.default_order)
       @posts = apply_continue_reading(@posts)
       content_type 'application/xml', charset: 'utf-8'
       builder :"lokka/sitemap"
