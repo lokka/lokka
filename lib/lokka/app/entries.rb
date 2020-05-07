@@ -8,6 +8,7 @@ module Lokka
       @theme_types << :entries
 
       @posts = Post.published.
+                 includes(:category, :tags, :user).
                  page(params[:page] || 1).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -22,6 +23,7 @@ module Lokka
 
     get '/index.atom' do
       @posts = Post.published.
+                 includes(:category, :tags, :user).
                  page(params[:page] || 1).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -38,6 +40,7 @@ module Lokka
 
       @query = params[:query]
       @posts = Post.published.
+                 includes(:category, :tags, :user).
                  search(@query).
                  page(params[:page || 1]).
                  per(@site.per_page).
@@ -59,6 +62,7 @@ module Lokka
 
       @category = Category.get_by_fuzzy_slug(params[:slug]) || halt(404)
       @posts = @category.entries.published.
+                 includes(:category, :tags, :user).
                  page(params[:page] || 1).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -79,6 +83,7 @@ module Lokka
 
       @tag = Tag.where(name: params[:name]).first || halt(404)
       @posts = @tag.entries.published.
+                 includes(:category, :tags, :user).
                  page(params[:page]).
                  per(@site.per_page).
                  order(@site.default_order)
@@ -100,6 +105,7 @@ module Lokka
       year = year.to_i
       month = month.to_i
       @posts = Post.published.
+                 includes(:category, :tags, :user).
                  between_a_month(DateTime.new(year, month)).
                  page(params[:page]).
                  per(@site.per_page).
@@ -122,6 +128,7 @@ module Lokka
 
       year = year.to_i
       @posts = Post.published.
+                 includes(:category, :tags, :user).
                  between_a_year(DateTime.new(year)).
                  page(params[:page]).
                  per(@site.per_page).
@@ -173,6 +180,7 @@ module Lokka
     # sitemap
     get '/sitemap.xml' do
       @posts = Post.published.
+                 includes(:category, :tags, :user).
                  page(params[:page]).
                  per(@site.per_page).
                  order(@site.default_order)

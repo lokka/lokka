@@ -16,7 +16,7 @@ module Lokka
     def entries_index(entry_class)
       @name = entry_class.name.downcase
       @entries = params[:draft] == 'true' ? entry_class.unpublished : entry_class
-      @entries = @entries.page(params[:page]).per(settings.admin_per_page)
+      @entries = @entries.includes(:user).page(params[:page]).per(settings.admin_per_page)
       haml :'admin/entries/index', layout: :'admin/layout'
     end
 
