@@ -65,27 +65,29 @@ task 'spec:setup' do
   ENV['RACK_ENV'] = ENV['LOKKA_ENV'] = 'test'
 end
 
-begin
-  require 'rspec/core/rake_task'
+unless Lokka.production?
+  begin
+    require 'rspec/core/rake_task'
 
-  RSpec::Core::RakeTask.new(spec: 'spec:setup') do |t|
-    t.pattern = 'spec/**/*_spec.rb'
-    t.rspec_opts = ['-cfs']
-  end
-  namespace :spec do
-    RSpec::Core::RakeTask.new(unit: 'spec:setup') do |t|
-      t.pattern = 'spec/unit/**/*_spec.rb'
-      t.rspec_opts = ['-c']
+    RSpec::Core::RakeTask.new(spec: 'spec:setup') do |t|
+      t.pattern = 'spec/**/*_spec.rb'
+      t.rspec_opts = ['-cfs']
     end
+    namespace :spec do
+      RSpec::Core::RakeTask.new(unit: 'spec:setup') do |t|
+        t.pattern = 'spec/unit/**/*_spec.rb'
+        t.rspec_opts = ['-c']
+      end
 
-    RSpec::Core::RakeTask.new(integration: 'spec:setup') do |t|
-      t.pattern = 'spec/integration/**/*_spec.rb'
-      t.rspec_opts = ['-c']
+      RSpec::Core::RakeTask.new(integration: 'spec:setup') do |t|
+        t.pattern = 'spec/integration/**/*_spec.rb'
+        t.rspec_opts = ['-c']
+      end
     end
+  rescue LoadError => e
+    puts e.message
+    puts e.backtrace
   end
-rescue LoadError => e
-  puts e.message
-  puts e.backtrace
 end
 
 namespace :admin do
