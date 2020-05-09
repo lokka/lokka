@@ -25,10 +25,10 @@ class Post < Entry
   end
 
   def next
-    Post.where('id > ?', id).order('id').limit(1).first
+    @next ||= Post.published.where('created_at > ?', created_at).last
   end
 
   def prev
-    Post.where('id < ?', id).order('id desc').limit(1).first
+    @prev ||= Post.published.where('created_at < ?', created_at).first
   end
 end

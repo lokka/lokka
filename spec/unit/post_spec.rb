@@ -139,4 +139,50 @@ describe Post do
       it { post.description.should eq('Hi! ') }
     end
   end
+
+  describe '#next' do
+    subject do
+      @post.next
+    end
+
+    before do
+      @latest_post, @next_post, @post, @prev_post, @oldest_post =
+        1.upto(5).map {|time| create(:post, created_at: time.hour.ago) }
+    end
+
+    context 'When all posts are published' do
+      it { is_expected.to eq(@next_post) }
+    end
+
+    context 'When next post is not published' do
+      before do
+        @next_post.update(draft: true)
+      end
+
+      it { is_expected.to eq(@latest_post) }
+    end
+  end
+
+  describe '#prev' do
+    before do
+      @latest_post, @next_post, @post, @prev_post, @oldest_post =
+        1.upto(5).map {|time| create(:post, created_at: time.hour.ago) }
+    end
+
+    subject do
+      @post.prev
+    end
+
+    context 'When all posts are published' do
+      it { is_expected.to eq(@prev_post) }
+    end
+
+    context 'When prev post is not published' do
+      before do
+        @prev_post.update(draft: true)
+      end
+
+      it { is_expected.to eq(@oldest_post) }
+    end
+  end
 end
