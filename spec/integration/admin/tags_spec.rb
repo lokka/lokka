@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/tags' do
   include_context 'admin login'
-  before { @tag = Factory(:tag) }
+  before { @tag = create(:tag) }
   after { Tag.delete_all }
 
   context 'GET /admin/tags' do
@@ -22,7 +24,7 @@ describe '/admin/tags' do
 
   context 'PUT /admin/tags/:id' do
     it 'should change the name' do
-      put "/admin/tags/#{@tag.id}", { :tag => { :name => 'changed' } }
+      put "/admin/tags/#{@tag.id}", tag: { name: 'changed' }
       last_response.should be_redirect
       Tag.find(@tag.id).name.should == 'changed'
     end

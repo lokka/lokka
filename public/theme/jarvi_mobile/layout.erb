@@ -66,7 +66,7 @@
           <dd>
     		    <ul>
 		          <% Comment.recent.each do |comment| %>
-			          <li><%= link_to truncate(strip_tags(comment.body), :length => 16), (comment.link) %></li>				
+			          <li><%= link_to truncate(strip_tags(comment.body), length: 16), (comment.link) %></li>				
 		          <% end %>
 	          </ul>
           </dd>

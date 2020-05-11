@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/field_names' do
   include_context 'admin login'
-  before { @field_name = Factory(:field_name) }
+  before { @field_name = create(:field_name) }
   after { FieldName.delete_all }
 
   context 'GET /admin/field_names' do
@@ -23,7 +25,7 @@ describe '/admin/field_names' do
 
   context 'POST /admin/field_names' do
     it 'should create a new field_name' do
-      post '/admin/field_names', { :field_name => { :name => 'new field'} }
+      post '/admin/field_names', field_name: { name: 'new field' }
       last_response.should be_redirect
       FieldName.where(name: 'new field').first.should_not be_nil
     end

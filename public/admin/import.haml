@@ -1,9 +1,9 @@
 %h2= t('import')
 %h3= t('import_from_wordpress')
-%form{'action' => url("/admin/import"), 'method' => "post", 'enctype' => "multipart/form-data"}
+%form{ action: url('/admin/import'), method: :post, enctype: 'multipart/form-data' }
   %p
-    %label(for="import_file")= t('import_file')
+    %label{ for: :import_file }= t('import_file')
     %br
-    %input(type="file" id="import_file" name="import[file]" value="")
+    %input{ type: :file, id: :import_file, name: 'import[file]', value: '' }
   %p
-    %input(type="submit" value="#{t('import_from_wordpress')}")
+    %input{ type: :submit, value: t('import_from_wordpress') }

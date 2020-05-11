@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/users' do
@@ -63,7 +65,7 @@ describe '/admin/users' do
   end
 
   context 'DELETE /admin/users/:id' do
-    let(:another_user) { Factory(:user) }
+    let(:another_user) { create(:user) }
 
     it 'should delete the another user' do
       delete "/admin/users/#{another_user.id}"

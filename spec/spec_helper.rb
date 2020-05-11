@@ -1,3 +1,17 @@
+# frozen_string_literal: true
+
+require 'simplecov'
+
+SimpleCov.start do
+  add_filter 'spec/'
+  add_filter 'public/'
+  add_filter 'i18n/'
+  add_filter 'db/'
+  add_filter 'coverage/'
+  add_filter 'tmp/'
+  add_filter 'log/'
+end
+
 require File.join(File.dirname(__FILE__), '..', 'init.rb')
 
 require 'rubygems'
@@ -5,10 +19,10 @@ require 'sinatra'
 require 'rack/test'
 require 'rspec'
 require 'factory_girl'
-require 'database_cleaner'
+require 'database_cleaner/active_record'
+require 'pry'
 
 require 'factories'
-
 
 set :environment, :test
 Lokka::Database.connect
@@ -28,14 +42,17 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before(:each) do
-    DatabaseCleaner.start
+    RequestStore.clear!
   end
 
-  config.after(:each) do
-    DatabaseCleaner.clean
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 end

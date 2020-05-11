@@ -1,4 +1,5 @@
-# encoding: utf-8
+# frozen_string_literal: true
+
 require 'rubygems'
 require 'pathname'
 require 'erb'
@@ -18,7 +19,7 @@ module Lokka
     end
 
     def admin_theme_dir
-      File.expand_path("#{self.root}/public/admin")
+      File.expand_path("#{root}/public/admin")
     end
 
     ##
@@ -26,8 +27,16 @@ module Lokka
     #
     # @return [Hash] DSN (Data Source Name) is configuration for database.
     def dsn
-      filename = File.exist?("#{Lokka.root}/db/database.yml") ? 'database.yml' : 'database.default.yml'
-      YAML.load(ERB.new(File.read("#{Lokka.root}/db/#{filename}")).result(binding))[self.env]['database']
+      database_config[env]
+    end
+
+    def database_config
+      YAML.safe_load(ERB.new(File.read(database_config_file)).result(binding), [], [], true)
+    end
+
+    def database_config_file
+      dir = "#{root}/db"
+      File.exist?("#{dir}/database.yml") ? "#{dir}/database.yml" : "#{dir}/database.default.yml"
     end
 
     ##
@@ -35,16 +44,16 @@ module Lokka
     #
     # @return [String] `production`, `development` or `test`
     def env
-      if ENV['LOKKA_ENV'] == 'production' or ENV['RACK_ENV'] == 'production'
+      if ENV['LOKKA_ENV'] == 'production' || ENV['RACK_ENV'] == 'production'
         'production'
-      elsif ENV['LOKKA_ENV'] == 'test' or ENV['RACK_ENV'] == 'test'
+      elsif ENV['LOKKA_ENV'] == 'test' || ENV['RACK_ENV'] == 'test'
         'test'
       else
         'development'
       end
     end
 
-    %w(production development test).each do |name|
+    %w[production development test].each do |name|
       define_method("#{name}?") do
         env == name
       end
@@ -52,17 +61,18 @@ module Lokka
 
     def parse_http(str)
       return [] if str.nil?
+
       locales = str.split(',')
       locales.map! do |locale|
         locale = locale.split ';q='
-        if 1 == locale.size
+        if locale.size == 1
           [locale[0], 1.0]
         else
           [locale[0], locale[1].to_f]
         end
       end
-      locales.sort! { |a, b| b[1] <=> a[1] }
-      locales.map! { |i| i[0] }
+      locales.sort! {|a, b| b[1] <=> a[1] }
+      locales.map! {|i| i[0] }
     end
 
     def load_plugin(app)
@@ -71,7 +81,7 @@ module Lokka
         path = Pathname.new(path)
         lib = path.parent.parent
         root = lib.parent
-        $:.push lib
+        $LOAD_PATH.push lib
         i18n = File.join(root, 'i18n')
         I18n.load_path += Dir["#{i18n}/*.yml"] if File.exist? i18n
         name = path.basename.to_s.split('.').first
@@ -91,8 +101,9 @@ module Lokka
         matchers = app.routes['GET'].map(&:first)
         names.map do |name|
           plugins << OpenStruct.new(
-            :name => name,
-            :have_admin_page => matchers.any? {|m| m =~ "/admin/plugins/#{name}" })
+            name: name,
+            have_admin_page: matchers.any? {|m| m =~ "/admin/plugins/#{name}" }
+          )
         end
       end
       app.set :plugins, plugins
@@ -100,31 +111,42 @@ module Lokka
   end
 end
 
-require 'active_support/all'
+module Rails
+  def self.root
+    Lokka.root
+  end
+end
+
 require 'active_record'
+require 'active_support/all'
+require 'aws-sdk-s3'
+require 'builder'
+require 'coderay'
+require 'coffee-script'
+require 'compass'
+require 'haml'
+require 'kaminari/activerecord'
+require 'kaminari/sinatra'
+require 'kramdown'
+require 'mimemagic'
+require 'nokogiri'
+require 'padrino-helpers'
+require 'redcarpet'
+require 'redcloth'
+require 'request_store'
+require 'sass'
+require 'securerandom'
 require 'sinatra/base'
-require 'sinatra/reloader'
 require 'sinatra/flash'
 require 'sinatra/namespace'
-require 'kaminari/sinatra'
-require 'padrino-helpers'
-require 'coderay'
-require 'kramdown'
-require 'redcloth'
-require 'wikicloth'
-require 'redcarpet'
-require 'haml'
-require 'sass'
-require 'compass'
+require 'sinatra/reloader'
 require 'slim'
-require 'builder'
-require 'nokogiri'
 require 'lokka/helpers/helpers'
+require 'lokka/helpers/permalink_helper'
 require 'lokka/helpers/render_helper'
 require 'lokka/database'
 require 'lokka/models'
 require 'lokka/importer'
 require 'lokka/before'
-require 'lokka/app'
-require 'securerandom'
 require 'lokka/version'
+require 'lokka/app'

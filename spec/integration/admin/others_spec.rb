@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'access admin page' do
   include_context 'admin login'
 
   context '/admin/' do
-    it "should show index" do
+    it 'should show index' do
       get '/admin/'
       last_response.should be_ok
     end
@@ -27,9 +29,9 @@ describe 'access admin page' do
 
   context 'PUT /admin/site' do
     it 'should update site information' do
-      put '/admin/site', { :site => { :description => 'new' } }
+      put '/admin/site', site: { description: 'new' }
       last_response.should be_redirect
-      Site.first.description.should == 'new'
+      Site.first.description.should eq('new')
     end
   end
 

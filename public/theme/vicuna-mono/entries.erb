@@ -7,7 +7,7 @@
     <div class="header">
       <h3><a href="<%= url(post.link) %>"><%= post.title %></a></h3>
       <ul class="info">
-        <li class="date"><%= l post.created_at, :format => :long %></li>
+        <li class="date"><%= l post.created_at, format: :long %></li>
         <% unless post.category.nil? %>
         <li class="category"><a href="<%= url(post.category.link) %>"><%= post.category.title %></a></li>
         <% end %>
@@ -28,13 +28,6 @@
   </div>
 <% end %>
   <div class="pager">
-    <ul>
-      <% if @posts.pager.previous_page %>
-      <li class="previous"><a href="?page=<%= @posts.pager.previous_page %>">Newer</a></li>
-      <% end %>
-      <% if @posts.pager.next_page %>
-      <li class="next"><a href="?page=<%= @posts.pager.next_page %>">Older</a></li>
-      <% end %>
-    </ul>
+    <%= paginate @posts %>
   </div>
 </div>

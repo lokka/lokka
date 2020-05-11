@@ -5,18 +5,18 @@
       - @user.errors.each do |error|
         %li= error
 %p
-  %label(for="user_name")= t('user.name')
+  %label{ for: :user_name }= t('user.name')
   %br
-  %input(type="text" id="user_name" name="user[name]" value="#{@user.name}")
+  %input{ type: :text, id: :user_name, name: 'user[name]', value: @user.name }
 %p
-  %label(for="user_email")= t('user.email')
+  %label{ for: :user_email }= t('user.email')
   %br
-  %input(type="text" id="user_email" name="user[email]" value="#{@user.email}")
+  %input{ type: :text, id: :user_email, name: 'user[email]', value: @user.email }
 %p
-  %label(for="user_password")= t('user.password')
+  %label{ for: :user_password }= t('user.password')
   %br
-  %input(type="password" id="user_password" name="user[password]" value="#{@user.password}")
+  %input{ type: :password, id: :user_password, name: 'user[password]', value: @user.password }
 %p
-  %label(for="user_password_confirmation")= t('user.password_confirmation')
+  %label{ for: :user_password_confirmation }= t('user.password_confirmation')
   %br
-  %input(type="password" id="user_password_confirmation" name="user[password_confirmation]" value="#{@user.password_confirmation}")
+  %input{ type: :password, id: :user_password_confirmation, name: 'user[password_confirmation]', value: @user.password_confirmation }

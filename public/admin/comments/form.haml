@@ -1,4 +1,4 @@
-- form_for @comment, action, :method => method do |f|
+= form_for @comment, action, method: method do |f|
   - unless @comment.errors.empty?
     #error
       .title= t('error')
@@ -6,28 +6,28 @@
         - @comment.errors.full_messages.each do |error|
           %li= error
   .field
-    = f.label :entry, :caption => t('comment.entry')
+    = f.label :entry, caption: t('comment.entry')
     %br/
-    = f.select :entry_id, :collection => Entry.all, :fields => [:title, :id], :include_blank => t('not_select')
+    = f.select :entry_id, collection: Entry.all, fields: %i[title id], include_blank: t('not_select')
   .field
-    = f.label :name, :caption => t('comment.name')
+    = f.label :name, caption: t('comment.name')
     %br/
     = f.text_field :name
   .field
-    = f.label :body, :caption => t('comment.body')
+    = f.label :body, caption: t('comment.body')
     %br/
-    ~ f.text_area :body, :rows => 10, :cols => 50
+    ~ f.text_area :body, rows: 10, cols: 50
   .field
-    = f.label :homepage, :caption => t('comment.homepage')
+    = f.label :homepage, caption: t('comment.homepage')
     %br/
     = f.text_field :homepage
   .field
-    = f.label :created_at, :caption => t('comment.created_at')
+    = f.label :created_at, caption: t('comment.created_at')
     %br/
     = f.text_field :created_at
   .field
-    = f.label :status, :caption => t('comment_status')
+    = f.label :status, caption: t('comment_status')
     %br/
     - opts = [[t('comment_approved'), Comment::APPROVED], [t('comment_moderated'), Comment::MODERATED], [t('comment_spam'), Comment::SPAM]]
-    = f.select :status, :options => opts
+    = f.select :status, options: opts
   %p= f.submit label

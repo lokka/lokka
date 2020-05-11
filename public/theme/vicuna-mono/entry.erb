@@ -2,7 +2,7 @@
   <div class="header">
     <h2><%= @entry.title %></h2>
     <ul class="info">
-      <li class="date"><%= l @entry.created_at, :format => :long %></li>
+      <li class="date"><%= l @entry.created_at, format: :long %></li>
       <% unless @entry.category.nil? %>
       <li class="category"><a href="<%= url(@entry.category.link) %>"><%= @entry.category.title %></a></li>
       <% end %>

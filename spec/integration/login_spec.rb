@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe 'Login' do
   include_context 'in site'
-  before { Factory(:user, name: 'test') }
+  before { create(:user, name: 'test') }
   after { User.delete_all }
 
   shared_examples_for 'login failed' do
@@ -11,7 +13,7 @@ describe 'Login' do
     end
 
     it 'should render login screen again' do
-      last_response.body.should match('<body class=\'admin_login\'>')
+      last_response.body.should match('<body class="admin_login">')
     end
 
     it 'should not render dashboard side bar' do
@@ -24,7 +26,7 @@ describe 'Login' do
       post '/admin/login', { name: 'test', password: 'test' }
       last_response.should be_redirect
       follow_redirect!
-      last_request.env['PATH_INFO'].should == '/admin/'
+      last_request.env['PATH_INFO'].should eq('/admin/')
     end
   end
 

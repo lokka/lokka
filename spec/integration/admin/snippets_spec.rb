@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/snippets' do
   include_context 'admin login'
-  before { @snippet = Factory(:snippet) }
+  before { @snippet = create(:snippet) }
   after { Snippet.delete_all }
 
   context 'GET /admin/snippets' do
@@ -22,8 +24,8 @@ describe '/admin/snippets' do
 
   context 'POST /admin/snippets' do
     it 'should create a new snippet' do
-      sample = Factory.attributes_for(:snippet, :name => 'Created Snippet')
-      post '/admin/snippets', { :snippet => sample }
+      sample = attributes_for(:snippet, name: 'Created Snippet')
+      post '/admin/snippets', snippet: sample
       last_response.should be_redirect
       Snippet.where(name: 'Created Snippet').first.should_not be_nil
     end
@@ -38,8 +40,8 @@ describe '/admin/snippets' do
   end
 
   context 'PUT /admin/snippets/:id' do
-    it 'should update the snippet\'s body ' do
-      put "/admin/snippets/#{@snippet.id}", { :snippet => { :body => 'updated' } }
+    it 'should update the snippet"s body ' do
+      put "/admin/snippets/#{@snippet.id}", snippet: { body: 'updated' }
       last_response.should be_redirect
       Snippet.find(@snippet.id).body.should == 'updated'
     end

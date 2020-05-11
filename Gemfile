@@ -1,51 +1,58 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
+ruby '~> 2.4'
 
 gem 'activerecord'
-gem 'backports', '2.3.0'
-gem 'bcrypt-ruby'
-gem 'builder', '3.0.0'
+gem 'activesupport', '~> 5.0'
+gem 'awesome_print'
+gem 'aws-sdk-s3'
+gem 'backports'
+gem 'bcrypt'
+gem 'builder'
 gem 'bundler'
-gem 'coderay', '1.0.5'
+gem 'coderay'
+gem 'coffee-script'
 gem 'compass'
-gem 'erubis', '~> 2.7.0'
-gem 'haml', '~> 3.1.1'
+gem 'erubis'
+gem 'haml'
 gem 'i18n'
-gem 'kaminari', '~> 0.14.0'
+gem 'kaminari-activerecord'
+gem 'kaminari-sinatra'
 gem 'kramdown'
-gem 'nokogiri', '~> 1.5.2'
+gem 'mimemagic'
+gem 'nokogiri'
+gem 'padrino-helpers'
+gem 'pry'
 gem 'rack'
 gem 'rack-flash'
-gem 'rake', '~> 0.9.2'
-gem 'padrino-helpers', '~> 0.10.5'
+gem 'rake'
 gem 'redcarpet'
-gem 'RedCloth', '4.2.9'
-gem 'sass', '~> 3.1.1'
-gem 'sinatra'
+gem 'RedCloth'
+gem 'request_store'
+gem 'sass', '< 3.5'
+gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib'
 gem 'sinatra-flash'
-gem 'slim', '~> 0.9.2'
-gem 'stringex', '1.3.2'
+gem 'slim'
+gem 'tilt'
 gem 'tux'
-gem 'wikicloth', '0.7.1'
-gem 'yard-sinatra', '1.0.0'
+gem 'yard-sinatra'
 
-Dir["public/plugin/lokka-*/Gemfile"].each {|path| eval(open(path) {|f| f.read }) }
-
-group :production do
-end
+Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }
 
 group :development do
-  gem 'pry'
+  gem 'rubocop'
   gem 'sqlite3'
-  gem 'tapp', '1.3.0'
+  gem 'tapp'
 end
 
 group :development, :test do
-  gem 'database_cleaner', '0.7.1'
-  gem 'factory_girl',     '2.6.1'
-  gem 'rack-test',        '0.6.1', require: 'rack/test'
-  gem 'rspec',            '2.8.0'
-  gem 'simplecov',        require: false
+  gem 'database_cleaner-active_record'
+  gem 'factory_girl', '~> 4.0'
+  gem 'rack-test', require: 'rack/test'
+  gem 'rspec', '~> 2.99'
+  gem 'simplecov', require: false
 end
 
 group :mysql do

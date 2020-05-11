@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Lokka
   class App
     namespace '/admin' do
       namespace '/field_names' do
         get do
           @field_names = FieldName.
-            page(params[:page]).
-            per(settings.admin_per_page)
+                           page(params[:page]).
+                           per(settings.admin_per_page)
           haml :'admin/field_names/index', layout: :'admin/layout'
         end
 
@@ -25,7 +27,7 @@ module Lokka
         end
 
         delete '/:id' do |id|
-          field_name = FieldName.where(id: id).first or raise Sinatra::NotFound
+          (field_name = FieldName.where(id: id).first) || raise(Sinatra::NotFound)
           field_name.destroy
           flash[:notice] = t('field_name_was_successfully_deleted')
           redirect to('/admin/field_names')

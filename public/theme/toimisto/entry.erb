@@ -42,10 +42,10 @@
         </p>
         <div class="commenter">
           <div class="name">
-            <%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %>
+            <%= link_to comment.name, comment.homepage, unless: comment.homepage.blank? %>
           </div>
           <div class="date">
-            <%= l comment.created_at, :format => :long %>
+            <%= l comment.created_at, format: :long %>
           </div>
         </div>
       </li>

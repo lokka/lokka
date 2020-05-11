@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comment < ActiveRecord::Base
   MODERATED = 0
   APPROVED  = 1
@@ -7,17 +9,17 @@ class Comment < ActiveRecord::Base
 
   validates :name, presence: true
   validates :body, presence: true
-  validates_length_of :email, in: (0..40), if: ->(record){ record.email.present? }
+  validates_length_of :email, in: (0..40), if: ->(record) { record.email.present? }
 
-  default_scope order('created_at DESC')
+  default_scope -> { order(created_at: :desc) }
 
-  scope :moderated, ->{ where(status: MODERATED) }
-  scope :approved,  ->{ where(status: APPROVED) }
-  scope :spam,      ->{ where(status: SPAM) }
+  scope :moderated, -> { where(status: MODERATED) }
+  scope :approved,  -> { where(status: APPROVED) }
+  scope :spam,      -> { where(status: SPAM) }
   scope :recent,
-    ->(count = 5){ where(status: APPROVED).limit(count) }
+        ->(count = 5) { where(status: APPROVED).limit(count) }
 
   def link
-    (entry) ? "#{self.entry.link}#comment-#{id}" : '#'
+    (entry ? "#{entry.link}#comment-#{id}" : '#')
   end
 end

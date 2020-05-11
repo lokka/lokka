@@ -1,7 +1,10 @@
-class CreateComments < ActiveRecord::Migration
+# frozen_string_literal: true
+
+class CreateComments < ActiveRecord::Migration[4.2]
   def change
+    return if table_exists? :comments
+
     create_table :comments do |t|
-      t.integer :id
       t.integer :entry_id
       t.integer :status
       t.string  :name,     limit: 50

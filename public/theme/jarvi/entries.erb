@@ -4,10 +4,10 @@
     <h2 class="title"><a href="<%= url(post.link) %>"><%= post.title %></a></h2>
   </div>
   <div class="body">
-    <%= post.long_body %>
+    <%= post.body %>
   </div>
   <div class="footer">
-    <div class="created_at"><%= l(post.created_at, :format => :long) %></div>
+    <div class="created_at"><%= l(post.created_at, format: :long) %></div>
 <% if logged_in? %>
     <p><a href="<%= url(post.edit_link) %>"><%= t('edit') %></a></p>
 <% end %>
@@ -15,5 +15,5 @@
 </div>
 <% end %>
 <div class="pager">
-    <%= paginate @posts %>
+  <%= paginate @posts %>
 </div>

@@ -1,6 +1,6 @@
 %h2= t('edit_snippet')
-%form{'action' => url("/admin/snippets/#{@snippet.id}"), 'method' => "post"}
-  %input(type="hidden" name="_method" value="put")
-  = haml :'admin/snippets/form', :layout => false
+%form{ action: url("/admin/snippets/#{@snippet.id}"), method: :post }
+  %input{ type: :hidden, name: :_method, value: :put }
+  = haml :'admin/snippets/form', layout: false
   %p
-    %input(type="submit" value="#{t('save')}")
+    %input{ type: :submit, value: t('save') }

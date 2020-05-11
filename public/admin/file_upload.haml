@@ -1,0 +1,24 @@
+%h2= t('file_upload.name')
+- if flash[:error]
+  #error
+    %p= flash[:error]
+%form{ action: url('/admin/file_upload'), method: :post, 'data-method': :put }
+  %input{ name: :_method, type: :hidden, value: :put }
+  %p= t('file_upload.description')
+  %p
+    %label= t('file_upload.aws_access_key_id')
+    %input{ name: :aws_access_key_id, type: :text, value: @aws_access_key_id }
+  %p
+    %label= t('file_upload.aws_secret_access_key')
+    %input{ name: :aws_secret_access_key, type: :text, value: @aws_secret_access_key }
+  %p
+    %label= t('file_upload.s3_region')
+    %input{ name: :s3_region, type: :text, value: @s3_region }
+  %p
+    %label= t('file_upload.s3_bucket_name')
+    %input{ name: :s3_bucket_name, type: :text, value: @s3_bucket_name }
+  %p
+    %label= t('file_upload.s3_domain_name')
+    %input{ name: :s3_domain_name, type: :text, value: @s3_domain_name }
+  %p
+    %input{ type: :submit, value: t('save') }

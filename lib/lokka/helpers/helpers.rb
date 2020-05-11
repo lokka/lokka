@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'digest/sha1'
 
 module Lokka
   module Helpers
     include Rack::Utils
 
-    alias :h :escape_html
+    alias h escape_html
 
     %w[index search category tag yearly monthly daily post page entry entries].each do |name|
       define_method("#{name}?") do
@@ -13,24 +15,22 @@ module Lokka
     end
 
     def base_url
-      default_port = (request.scheme == "http") ? 80 : 443
-      port = (request.port == default_port) ? "" : ":#{request.port.to_s}"
+      default_port = request.scheme == 'http' ? 80 : 443
+      port = request.port == default_port ? '' : ":#{request.port}"
       "#{request.scheme}://#{request.host}#{port}"
     end
 
     # h + n2br
     def hbr(str)
-      h(str).gsub(/\r\n|\r|\n/, "<br />\n")
+      h(str).gsub(/\r\n|\r|\n/, "<br />\n").html_safe
     end
 
     def login_required
-      if current_user.class != GuestUser
-        return true
-      else
-        session[:return_to] = request.fullpath
-        redirect to('/admin/login')
-        return false
-      end
+      return true if current_user.class != GuestUser
+
+      session[:return_to] = request.fullpath
+      redirect to('/admin/login')
+      false
     end
 
     def current_user
@@ -38,22 +38,24 @@ module Lokka
     end
 
     def logged_in?
-      !!session[:user]
+      session[:user].present?
     end
 
     def bread_crumb
-      @bread_crumbs[0..-2].inject('<ol>') do |html,bread|
-        html += "<li><a href=\"#{bread[:link]}\">#{bread[:name]}</a></li>"
-      end + "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
+      bread_crumb = @bread_crumbs[0..-2].inject('<ol>') do |html, bread|
+        html += %(<li><a href="#{bread[:link]}">#{bread[:name]}</a></li>)
+      end
+      bread_crumb += "<li>#{@bread_crumbs[-1][:name]}</li></ol>"
+      bread_crumb.html_safe
     end
 
     def comment_form
-      haml :'lokka/comments/form', :layout => false
+      haml :"lokka/comments/form", layout: false
     end
 
     def months
       ms = {}
-      Post.all.each do |post|
+      Post.published.each do |post|
         m = post.created_at.strftime('%Y-%m')
         if ms[m].nil?
           ms[m] = 1
@@ -65,29 +67,31 @@ module Lokka
       months = []
       ms.each do |m, count|
         year, month = m.split('-')
-        months << OpenStruct.new({:year => year, :month => month, :count => count})
+        months << OpenStruct.new(year: year, month: month, count: count)
       end
       months.sort {|x, y| y.year + y.month <=> x.year + x.month }
     end
 
     def header
       s = yield_content :header
-      s unless s.blank?
+      mark_safe(s) unless s.blank?
     end
 
     def footer
       s = yield_content :footer
-      s unless s.blank?
+      mark_safe(s) unless s.blank?
     end
 
     # example: /foo/bar?buz=aaa
     def request_path
       path = '/' + request.url.split('/')[3..-1].join('/')
-      path += '/' if path != '/' and request.url =~ /\/$/
+      path += '/' if path != '/' && request.url =~ %r{/$}
       path
     end
 
-    def locale; I18n.locale end
+    def locale
+      I18n.locale
+    end
 
     def redirect_after_edit(entry)
       name = entry.class.name.downcase.pluralize
@@ -102,7 +106,7 @@ module Lokka
       @entry = entry
       @entry.user = current_user
       @entry.title << ' - Preview'
-      @entry.updated_at = DateTime.now
+      @entry.updated_at = Time.current
       @comment = @entry.comments.new
       setup_and_render_entry
     end
@@ -117,10 +121,8 @@ module Lokka
       @title = @entry.title
 
       @bread_crumbs = [{ name: t('home'), link: '/' }]
-      if @entry.category
-        @bread_crumbs << { name: @entry.category.title, link: @entry.category.link }
-      end
-      @bread_crumbs << { name: @entry.title, link: @entry.link}
+      @bread_crumbs << { name: @entry.category.title, link: @entry.category.link } if @entry.category
+      @bread_crumbs << { name: @entry.title, link: @entry.link }
 
       render_detect_with_options [type, :entry]
     end
@@ -135,10 +137,10 @@ module Lokka
     def gravatar_image_url(email = nil, size = nil)
       url = 'http://www.gravatar.com/avatar/'
       url += if email
-        Digest::MD5.hexdigest(email)
-      else
-        '0' * 32
-      end
+               Digest::MD5.hexdigest(email)
+             else
+               '0' * 32
+             end
       size ? "#{url}?size=#{size}" : url
     end
 
@@ -146,21 +148,31 @@ module Lokka
       def initialize(logger)
         @logger = logger
       end
-      def method_missing(name, *args)
+
+      def method_missing(name, *)
         name = name.to_s
-        @logger.warn %|"t.#{name}" translate style is obsolete. use "t('#{name}')".| # FIXME
+        @logger.warn %|"t.#{name}" translate style is obsolete. use "t("#{name}")".| # FIXME
         I18n.translate(name)
       end
     end
 
     def translate_compatibly(*args)
-      if args.length == 0
+      if args.empty?
         TranslateProxy.new(logger)
       else
         I18n.translate(*args)
       end
     end
-    alias_method :t, :translate_compatibly
+    alias t translate_compatibly
+
+    def apply_continue_reading(posts)
+      posts.each do |post|
+        class << post
+          alias_method :body, :short_body
+        end
+      end
+      posts
+    end
 
     class << self
       include Lokka::Helpers
@@ -172,13 +184,13 @@ module Lokka
 
     def slugs
       tmp = @theme_types
-      tmp << @entry.slug    if @entry and @entry.slug
-      tmp << @category.slug if @category and @category.slug
+      tmp << @entry.slug    if @entry&.slug
+      tmp << @category.slug if @category&.slug
       tmp
     end
 
     def body_attrs
-      {:class => slugs.join(' ')}
+      { class: slugs.join(' ') }
     end
   end
 end

@@ -1,5 +1,5 @@
 <div id="entry">
-  <%= partial "article", :locals => {:entry => @entry}, :theme => "curvy" %>
+  <%= partial "article", locals: {entry: @entry}, theme: "curvy" %>
 </div>
 
 <div id="comment_wrapper">
@@ -9,14 +9,14 @@
     <%= t('comments') %>
   </h3>
   <ul id="comments">
-    <% @entry.comments.reverse.each do |comment| %>
+    <% @entry.comments.approved.reverse.each do |comment| %>
       <li id="comment-<%= comment.id %>" class="comment">
         <div class="body">
           <%= hbr comment.body %>
         </div>
         <div class="footer">
           <span class="name">
-            <%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %>
+            <%= link_to comment.name, comment.homepage, unless: comment.homepage.blank? %>
           </span>
           <span class="date">
             <%= l(comment.created_at) %>

@@ -33,7 +33,7 @@
           </div>
           <div class="footer">
             <span class="name">
-              <%= link_to comment.name, comment.homepage, :unless => comment.homepage.blank? %>
+              <%= link_to comment.name, comment.homepage, unless: comment.homepage.blank? %>
             </span>
             <span class="date">
               <%= l(comment.created_at) %>

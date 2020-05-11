@@ -22,7 +22,7 @@
     <div id="wrapper">
        <div id="tagline">
         <%= @site.description %>
-        <%= partial "admin_menu", :theme => "curvy" %>
+        <%= partial "admin_menu", theme: "curvy" %>
       </div>
 
       <div id="content_wrapper">
@@ -41,12 +41,12 @@
         </div>
 
         <div id="sub_cont">
-          <%= partial "side", :theme => "curvy" %>
+          <%= partial "side", theme: "curvy" %>
         </div>
       </div>
 
       <div id="footer">
-        Copyright© <%= @site.title %> All Rights Reserved　-　Powered by <%= link_to "Lokka", "http://lokka.org/", :id => "lokka_link" %>
+        Copyright© <%= @site.title %> All Rights Reserved　-　Powered by <%= link_to "Lokka", "http://lokka.org/", id: "lokka_link" %>
       <div>
     </div>
 

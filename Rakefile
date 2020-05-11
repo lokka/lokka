@@ -1,8 +1,16 @@
+# frozen_string_literal: true
+
 require './init'
 require 'yard'
-include Rake::DSL if defined? Rake::DSL
 
-task :default => ['spec:setup', 'db:delete', :spec]
+task default: ['spec:setup', 'db:delete', :spec]
+
+module TempFixForRakeLastComment
+  def last_comment
+    last_description
+  end
+end
+Rake::Application.include(TempFixForRakeLastComment)
 
 desc 'Migrate the Lokka database'
 task 'db:migrate' do
@@ -16,24 +24,26 @@ task 'db:seed' do
   Lokka::Migrator.seed!
 end
 
-#FIXME
 desc 'Delete database'
 task 'db:delete' do
   puts 'Delete Database...'
-  #Lokka::Database.new.connect.migrate!
+  Lokka::Database.delete!
 end
 
+desc 'Alias for db:delete'
+task 'db:drop' => [:'db:delete']
+
 desc 'Reset database'
-task 'db:reset' => %w(db:delete db:seed)
+task 'db:reset' => %w[db:delete db:seed]
 
 desc 'Set up database'
-task 'db:setup' => %w(db:migrate db:seed)
+task 'db:setup' => %w[db:migrate db:seed]
 
 desc 'Lokka console'
 task 'console' do
+  require 'awesome_print'
   require 'pry'
   require 'lib/lokka'
-  #Lokka::Database.connect
   Pry.start
 end
 
@@ -43,7 +53,7 @@ task :bundle do
 end
 
 desc 'Install'
-task :install => %w(bundle db:setup)
+task install: %w[bundle db:setup]
 
 desc 'Generate documentation for Lokka'
 task :doc do
@@ -55,23 +65,39 @@ task 'spec:setup' do
   ENV['RACK_ENV'] = ENV['LOKKA_ENV'] = 'test'
 end
 
-begin
-  require 'rspec/core/rake_task'
+unless Lokka.production?
+  begin
+    require 'rspec/core/rake_task'
 
-  RSpec::Core::RakeTask.new(:spec => 'spec:setup') do |t|
-    t.pattern = 'spec/**/*_spec.rb'
-    t.rspec_opts = ['-cfs']
-  end
-  namespace :spec do
-    RSpec::Core::RakeTask.new(:unit => 'spec:setup') do |t|
-      t.pattern = 'spec/unit/**/*_spec.rb'
-      t.rspec_opts = ['-c']
+    RSpec::Core::RakeTask.new(spec: 'spec:setup') do |t|
+      t.pattern = 'spec/**/*_spec.rb'
+      t.rspec_opts = ['-cfs']
     end
+    namespace :spec do
+      RSpec::Core::RakeTask.new(unit: 'spec:setup') do |t|
+        t.pattern = 'spec/unit/**/*_spec.rb'
+        t.rspec_opts = ['-c']
+      end
 
-    RSpec::Core::RakeTask.new(:integration => 'spec:setup') do |t|
-      t.pattern = "spec/integration/**/*_spec.rb"
-      t.rspec_opts = ['-c']
+      RSpec::Core::RakeTask.new(integration: 'spec:setup') do |t|
+        t.pattern = 'spec/integration/**/*_spec.rb'
+        t.rspec_opts = ['-c']
+      end
     end
+  rescue LoadError => e
+    puts e.message
+    puts e.backtrace
   end
-rescue LoadError => e
+end
+
+namespace :admin do
+  desc 'Install dependencies for admin JavaScript'
+  task :install_deps do
+    system('cd public/admin && npm install')
+  end
+
+  desc 'Build admin js'
+  task build_js: [:install_deps] do
+    system('cd public/admin && npm run build')
+  end
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/categories' do
   include_context 'admin login'
-  before { @category = Factory(:category) }
+  before { @category = create(:category) }
   after { Category.delete_all }
 
   context 'GET /admin/categories' do
@@ -42,8 +44,8 @@ describe '/admin/categories' do
   end
 
   context 'PUT /admin/categories/:id' do
-    it 'should update the category\'s description' do
-      put "/admin/categories/#{@category.id}", { :category => { :description => 'updated' } }
+    it 'should update the category"s description' do
+      put "/admin/categories/#{@category.id}", category: { description: 'updated' }
       last_response.should be_redirect
       Category.where(id: @category.id).first.description.should == 'updated'
     end
@@ -60,15 +62,15 @@ describe '/admin/categories' do
   context 'when a child category exists' do
     context 'POST /admin/categories' do
       it 'should create a new child category' do
-        sample = { :title => 'Child Category',
-          :description => 'This is created in spec',
-          :slug => 'child-category',
-          :parent_id => @category.id }
-        post '/admin/categories', { :category => sample }
+        sample = { title: 'Child Category',
+                   description: 'This is created in spec',
+                   slug: 'child-category',
+                   parent_id: @category.id }
+        post '/admin/categories', category: sample
         last_response.should be_redirect
         child = Category('child-category')
         child.should_not be_nil
-        child.parent.should == @category
+        child.parent.should eq(@category)
       end
     end
   end

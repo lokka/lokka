@@ -1,2 +1,2 @@
 %h2= t('edit_category')
-= haml :'admin/categories/form', :layout => false, :locals => {:action => url("/admin/categories/#{@category.id}"), :method => 'put', :label => t('save')}
+= haml :"admin/categories/form", layout: false, locals: { action: url("/admin/categories/#{@category.id}"), method: 'put', label: t('save') }

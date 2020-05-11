@@ -1,4 +1,4 @@
-- form_for @field_name, action, :method => method do |f|
+= form_for @field_name, action, method: method do |f|
   - unless @field_name.errors.empty?
     #error
       .title= t('error')
@@ -6,7 +6,7 @@
         - @field_name.errors.each do |error|
           %li= error
   .field
-    = f.label :name, :caption => t('field_name.name')
+    = f.label :name, caption: t('field_name.name')
     %br/
     = f.text_field :name
   %p= f.submit label
