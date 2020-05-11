@@ -39,7 +39,6 @@ gem 'tilt'
 gem 'tux'
 gem 'yard-sinatra'
 
-
 group :development do
   gem 'rubocop'
   gem 'sqlite3'
