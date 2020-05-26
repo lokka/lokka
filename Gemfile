@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "~> 2.4"
 
-gem 'activesupport', '~> 5.0'
+gem 'activesupport', '~> 5.2'
 gem 'aws-sdk-s3'
 gem 'backports', '2.3.0'
 gem 'builder'
