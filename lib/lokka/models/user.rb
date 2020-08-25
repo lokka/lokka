@@ -43,7 +43,17 @@ class User < ActiveRecord::Base
   end
 
   def aged_user?
-    (respond_to?(:hashed_password) && hashed_password?) && (respond_to?(:salt) && salt?)
+    password_digest.nil? && hashed_password_present? && salt_present?
+  end
+
+  private
+
+  def hashed_password_present?
+    respond_to?(:hashed_password) && hashed_password?
+  end
+
+  def salt_present?
+    respond_to?(:salt) && salt?
   end
 end
 
