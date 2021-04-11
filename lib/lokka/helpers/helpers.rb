@@ -403,7 +403,7 @@ module Lokka
       digest = Digest::MD5.file(tempfile.path).to_s
       extname = File.extname(tempfile.path)
       filename = digest + extname
-      content_type = MimeMagic.by_magic(tempfile).type
+      content_type = Marcel::MimeType.for(tempfile)
       if bucket.object(filename).upload_file(tempfile.path, content_type: content_type)
         {
           message: 'File upload success',

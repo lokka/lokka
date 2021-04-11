@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
+ruby "~> 2.4"
 
-gem 'activesupport', '~> 4.2'
+gem 'activesupport', '~> 5.2'
 gem 'aws-sdk-s3'
 gem 'backports', '2.3.0'
 gem 'builder'
@@ -23,12 +24,12 @@ gem 'erubis', '~> 2.7.0'
 gem 'haml', '~> 5.0'
 gem 'i18n', '~> 0.7'
 gem 'kramdown'
-gem 'mimemagic'
+gem 'marcel'
 gem 'nokogiri'
 gem 'padrino-helpers', '~> 0.14.1.1'
 gem 'rack'
 gem 'rack-flash', '~> 0.1.2'
-gem 'rake', '~> 11.0'
+gem 'rake', '~> 12.3'
 gem 'redcarpet'
 gem 'RedCloth', '4.2.9'
 gem 'request_store'
@@ -60,7 +61,7 @@ group :test do
   gem 'dm-transactions', '~> 1.2.0'
   gem 'factory_girl', '~> 4.0'
   gem 'rack-test', '0.6.1', require: 'rack/test'
-  gem 'rspec', '2.14.1'
+  gem 'rspec', '~> 2.0'
   gem 'simplecov', require: false
 end
 
