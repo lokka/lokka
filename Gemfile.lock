@@ -79,6 +79,7 @@ GEM
       tilt
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+<<<<<<< HEAD
     jaro_winkler (1.5.4)
     jmespath (1.4.0)
     kaminari-activerecord (1.2.0)
@@ -97,6 +98,12 @@ GEM
       nokogiri (>= 1.5.9)
     method_source (1.0.0)
     mimemagic (0.3.4)
+=======
+    jmespath (1.3.1)
+    json (1.8.6)
+    kramdown (1.15.0)
+    marcel (1.0.1)
+>>>>>>> 0706230b (Merge pull request #274 from lokka/drop-mimemagic)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
     multi_json (1.14.1)
@@ -225,8 +232,12 @@ DEPENDENCIES
   kaminari-activerecord
   kaminari-sinatra
   kramdown
+<<<<<<< HEAD
   mimemagic
   mysql2
+=======
+  marcel
+>>>>>>> 0706230b (Merge pull request #274 from lokka/drop-mimemagic)
   nokogiri
   padrino-helpers
   pg

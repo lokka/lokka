@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+<<<<<<< HEAD
 ruby '~> 2.4'
 
 gem 'activerecord'
 gem 'activesupport', '~> 5.0'
 gem 'awesome_print'
+=======
+ruby "~> 2.4"
+
+gem 'activesupport', '~> 5.2'
+>>>>>>> 0706230b (Merge pull request #274 from lokka/drop-mimemagic)
 gem 'aws-sdk-s3'
 gem 'backports'
 gem 'bcrypt'
@@ -20,13 +26,18 @@ gem 'i18n'
 gem 'kaminari-activerecord'
 gem 'kaminari-sinatra'
 gem 'kramdown'
-gem 'mimemagic'
+gem 'marcel'
 gem 'nokogiri'
 gem 'padrino-helpers'
 gem 'pry'
 gem 'rack'
+<<<<<<< HEAD
 gem 'rack-flash'
 gem 'rake'
+=======
+gem 'rack-flash', '~> 0.1.2'
+gem 'rake', '~> 12.3'
+>>>>>>> 0706230b (Merge pull request #274 from lokka/drop-mimemagic)
 gem 'redcarpet'
 gem 'RedCloth'
 gem 'request_store'
@@ -48,8 +59,13 @@ end
 group :development, :test do
   gem 'database_cleaner-active_record'
   gem 'factory_girl', '~> 4.0'
+<<<<<<< HEAD
   gem 'rack-test', require: 'rack/test'
   gem 'rspec', '~> 2.99'
+=======
+  gem 'rack-test', '0.6.1', require: 'rack/test'
+  gem 'rspec', '~> 2.0'
+>>>>>>> 0706230b (Merge pull request #274 from lokka/drop-mimemagic)
   gem 'simplecov', require: false
 end
 

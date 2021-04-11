@@ -84,7 +84,7 @@ module Lokka
     end
 
     def content_type
-      @content_type ||= MimeMagic.by_magic(tempfile).type
+      @content_type ||= Marcel::MimeType.for(tempfile)
     end
   end
 end
