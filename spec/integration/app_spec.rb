@@ -208,9 +208,10 @@ describe 'App' do
         last_response.status.should eq(200)
       end
 
-      it 'should return status code 404 if entry not found' do
+      it 'should return status code 404 and show 404 view if entry not found' do
         get '/2011/01/09/welcome-wordpress'
         last_response.status.should eq(404)
+        last_response.body.should match(/404 page was not found\./)
       end
 
       it 'should return status code 404 to path with wrong structure' do
