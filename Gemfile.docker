@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '~> 2.4'
+ruby "~> 2.6"
 
 gem 'activerecord'
-gem 'activesupport', '~> 5.0'
+gem 'activesupport', '~> 5.2'
 gem 'awesome_print'
 gem 'aws-sdk-s3'
 gem 'backports'

@@ -214,7 +214,7 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   activerecord
-  activesupport (~> 5.0)
+  activesupport (~> 5.2)
   awesome_print
   aws-sdk-s3
   backports

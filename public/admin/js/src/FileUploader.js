@@ -56,10 +56,12 @@ class FileUploader {
           return;
         }
         droppedItems = source.items;
-        for (const item of droppedItems) {
-          const file = item.getAsFile();
+        let needLineBreak;
+        for (const index in droppedItems) {
+          const file = droppedItems[index].getAsFile();
+          needLineBreak = index !== droppedItems.length;
           if (file && /^image\//.test(file.type)) {
-            self.upload(file);
+            self.upload(file, needLineBreak);
           }
         }
         droppedItems = null;
@@ -70,52 +72,45 @@ class FileUploader {
     this.editor.dataset.uploadObserved = true;
   };
 
-  upload(file) {
+  upload(file, needLineBreak) {
     const editor = this.editor;
     const textarea = editor.querySelector('textarea');
     const ajaxData = new FormData();
     const self = this;
     ajaxData.append('file', file);
-    let promise = new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      let response;
-      xhr.open('POST', '/admin/attachments');
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState != 4) {
+    fetch('/admin/attachments', {
+      method: 'POST',
+      body: ajaxData
+    })
+      .then(response => {
+        if (textarea) {
           editor.classList.add('is-uploading');
           if (textarea) {
             textarea.setAttribute('disabled', true);
           }
-        } else if (xhr.status != 201) {
-          response = JSON.parse(xhr.response);
-          editor.classList.add('is-error');
-          reject(response);
-        } else {
-          response = JSON.parse(xhr.response);
-          editor.classList.add('is-success');
-          resolve(response);
         }
-      }
-      xhr.send(ajaxData);
+        response.json()
+          .then(data => {
+            console.log(data.message);
+            editor.classList.add('is-success');
+            if (textarea) {
+              textarea.removeAttribute('disabled');
+              const imageTag = self.detectImageTag(file, data.url);
+              self.insertImage(imageTag, needLineBreak);
+            }
+          })
+          .catch(data => {
+            editor.classList.add('is-error');
+            textarea.removeAttribute('disabled');
+            console.error(data.message);
+          })
+          .finally(() => {
+            editor.classList.remove('is-uploading');
+          });
     });
-    promise.then(response => {
-      console.log(response.message);
-      editor.classList.remove('is-uploading');
-      if (textarea) {
-        textarea.removeAttribute('disabled');
-        const imageTag = self.detectImageTag(file, response.url);
-        self.insertImage(imageTag);
-      }
-    }).catch(response => {
-      if (textarea) {
-        textarea.removeAttribute('disabled');
-        console.error(response.message);
-      }
-    });
-    return promise;
   };
 
-  insertImage(imageTag) {
+  insertImage(imageTag, needLineBreak) {
     const textarea = this.editor.querySelector('textarea');
 
     if (!textarea) {
@@ -124,7 +119,13 @@ class FileUploader {
 
     let beforeSelect = textarea.value.substr(0, textarea.selectionStart);
     let afterSelect = textarea.value.substr(textarea.selectionStart, textarea.value.length - 1);
-    textarea.value = `${beforeSelect}${imageTag}${afterSelect}`;
+    if (needLineBreak) {
+      textarea.value = `${beforeSelect}${imageTag}\n${afterSelect}`;
+    } else {
+      textarea.value = `${beforeSelect}${imageTag}${afterSelect}`;
+    }
+    let position = textarea.value.indexOf(afterSelect);
+    textarea.setSelectionRange(position, position);
   };
 
   detectImageTag(file, url) {
