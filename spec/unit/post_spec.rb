@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Post do
   context 'with slug' do
-    subject { build :post_with_slug }
+    subject { create :post_with_slug }
 
     its(:link) { should eq('/welcome-lokka') }
 
@@ -45,18 +45,17 @@ describe Post do
   end
 
   context 'markup' do
-    [:kramdown, :redcloth].each do |markup|
+    %i[kramdown redcloth].each do |markup|
       describe "a post using #{markup}" do
-        let(:post) { create(markup) }
-        let(:regexp) { %r{<h1.*>(<a name.+</a><span .+>)*hi!(</span>)*</h1>\s*<p>#{markup} test</p>} }
-        it { post.body.should_not eq(post.raw_body) }
-        it { post.body.tr("\n", '').should match(regexp) }
+        let(:post) { create(:post, markup) }
+        it { post.body.should_not == post.raw_body }
+        it { post.long_body.should match('<h1') }
       end
     end
 
     context 'default' do
       let(:post) { build :post }
-      it { post.body.should eq(post.raw_body) }
+      it { post.body.should == post.long_body }
     end
   end
 
@@ -91,10 +90,34 @@ describe Post do
   end
 
   describe '#tag_collection=' do
-    let(:entry) { create(:entry) }
-    before { entry.tag_collection = 'foo,bar' }
-    it 'should update tags' do
-      expect { entry.save }.to change { entry.tags }
+    context 'Assign new tags' do
+      let(:entry) { create(:entry) }
+
+      subject do
+        -> {
+          entry.tag_collection = 'foo,bar'
+          entry.save
+        }
+      end
+
+      it 'should update tags' do
+        is_expected.to change { entry.reload.tags.length }.from(0).to(2)
+      end
+    end
+
+    context 'Update tag assignment' do
+      let(:entry) { create(:entry, tag_collection: 'a, b, c') }
+
+      subject do
+        -> {
+          entry.tag_collection = 'foo,bar'
+          entry.save
+        }
+      end
+
+      it 'should update tags' do
+        is_expected.to change { entry.reload.tags.length }.from(3).to(2)
+      end
     end
   end
 
@@ -114,6 +137,52 @@ describe Post do
     describe 'body does not have <p> tag.' do
       let(:post) { build :post, body: '<h1>Hi!</h1>' }
       it { post.description.should eq('Hi! ') }
+    end
+  end
+
+  describe '#next' do
+    subject do
+      @post.next
+    end
+
+    before do
+      @latest_post, @next_post, @post, @prev_post, @oldest_post =
+        1.upto(5).map {|time| create(:post, created_at: time.hour.ago) }
+    end
+
+    context 'When all posts are published' do
+      it { is_expected.to eq(@next_post) }
+    end
+
+    context 'When next post is not published' do
+      before do
+        @next_post.update(draft: true)
+      end
+
+      it { is_expected.to eq(@latest_post) }
+    end
+  end
+
+  describe '#prev' do
+    before do
+      @latest_post, @next_post, @post, @prev_post, @oldest_post =
+        1.upto(5).map {|time| create(:post, created_at: time.hour.ago) }
+    end
+
+    subject do
+      @post.prev
+    end
+
+    context 'When all posts are published' do
+      it { is_expected.to eq(@prev_post) }
+    end
+
+    context 'When prev post is not published' do
+      before do
+        @prev_post.update(draft: true)
+      end
+
+      it { is_expected.to eq(@oldest_post) }
     end
   end
 end

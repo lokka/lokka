@@ -10,8 +10,4 @@
         %td= link_to t('edit'), url("/admin/tags/#{tag.id}/edit"), class: 'button'
         %td= link_to t('delete'), url("/admin/tags/#{tag.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete
 .pager
-  %ul
-    - if @tags.pager.previous_page
-      %li.previous= link_to t('previous'), "?page=#{@tags.pager.previous_page}"
-    - if @tags.pager.next_page
-      %li.next= link_to t('next'), "?page=#{@tags.pager.next_page}"
+  = paginate @tags

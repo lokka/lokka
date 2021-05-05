@@ -14,8 +14,4 @@
       %td
         = link_to t('delete'), url("/admin/field_names/#{field_name.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete
 .pager
-  %ul
-    - if @field_names.pager.previous_page
-      %li.previous= link_to t('previous'), "?page=#{@field_names.pager.previous_page}"
-    - if @field_names.pager.next_page
-      %li.next= link_to t('next'), "?page=#{@field_names.pager.next_page}"
+  = paginate @field_names

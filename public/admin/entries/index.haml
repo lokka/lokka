@@ -20,8 +20,4 @@
         %td= link_to t('edit'), url(entry.edit_link), class: :button
         %td= link_to t('delete'), url("/admin/#{@name.pluralize}/#{entry.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete
 .pager
-  %ul
-    - if @entries.pager.previous_page
-      %li.previous= link_to t('previous'), "?page=#{@entries.pager.previous_page}"
-    - if @entries.pager.next_page
-      %li.next= link_to t('next'), "?page=#{@entries.pager.next_page}"
+  = paginate @entries

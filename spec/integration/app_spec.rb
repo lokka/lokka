@@ -20,16 +20,16 @@ describe 'App' do
           create(:newyear_post)
         end
 
-        after { Post.destroy }
+        after { Post.delete_all }
 
         it 'entries should be sorted by created_at in descending' do
-          subject.index(/First Post/).should be > subject.index(/Test Post \d+/)
+          subject.index(/First Post/).should be > subject.index(/Test Post/)
         end
       end
 
       context 'number of posts displayed' do
         before { 11.times { create(:post) } }
-        after { Post.destroy }
+        after { Post.delete_all }
 
         let(:regexp) do
           %r{<h2 class="title"><a href=".*\/[^"]*">Test Post.*<\/a><\/h2>}
@@ -40,8 +40,8 @@ describe 'App' do
         end
 
         context 'change the number displayed on 5' do
-          before { Site.first.update(per_page: 5) }
-          after { Site.first.update(per_page: 10) }
+          before { Site.first.update_attributes(per_page: 5) }
+          after { Site.first.update_attributes(per_page: 10) }
 
           it 'should displayed 5' do
             subject.scan(regexp).size.should eq(5)
@@ -52,7 +52,7 @@ describe 'App' do
 
     context '/:id' do
       before { @post = create(:post) }
-      after { Post.destroy }
+      after { Post.delete_all }
       context 'GET' do
         subject do
           get "/#{@post.id}"
@@ -63,7 +63,7 @@ describe 'App' do
       end
 
       context 'POST' do
-        before { Comment.destroy }
+        before { Comment.delete_all }
 
         let(:params) do
           {
@@ -85,7 +85,7 @@ describe 'App' do
 
     context '/tags/lokka/' do
       before { create(:tag, name: 'lokka') }
-      after { Tag.destroy }
+      after { Tag.delete_all }
 
       it 'should show tag index' do
         get '/tags/lokka/'
@@ -96,11 +96,11 @@ describe 'App' do
     context '/category/:id/' do
       before do
         @category = create(:category)
-        @category_child = create(:category_child, parent: @category)
+        @category_child = create(:category_child, parent_id: @category.id)
       end
 
       after do
-        Category.destroy
+        Category.delete_all
       end
 
       it 'should show category index' do
@@ -117,7 +117,7 @@ describe 'App' do
     describe 'a draft post' do
       before do
         create(:draft_post_with_tag_and_category)
-        @post = Post.first(draft: true)
+        @post = Post.unpublished.first
         @post.should_not be_nil # gauntlet
         @post.tag_list.should_not be_empty
         @tag_name = @post.tag_list.first
@@ -125,15 +125,8 @@ describe 'App' do
       end
 
       after do
-        Post.destroy
-        Category.destroy
-      end
-
-      it 'the entry page should return 404' do
-        get '/test-draft-post'
-        last_response.status.should eq(404)
-        get "/#{@post.id}"
-        last_response.status.should eq(404)
+        Post.delete_all
+        Category.delete_all
       end
 
       it 'index page should not show the post' do
@@ -162,14 +155,13 @@ describe 'App' do
         @page = create(:page)
         create(:post_with_slug)
         create(:later_post_with_slug)
-        Option.permalink_enabled = true
+        Option.permalink_enabled = 'true'
         Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
-        Comment.destroy
+        Comment.delete_all
       end
 
       after do
-        Option.permalink_enabled = false
-        Entry.destroy
+        Entry.delete_all
       end
 
       it 'an entry can be accessed by custom permalink' do
@@ -186,10 +178,8 @@ describe 'App' do
         last_response.should be_redirect
         follow_redirect!
         last_request.url.should match('/2011/01/09/welcome-lokka')
-      end
 
-      it do
-        Option.permalink_enabled = false
+        Option.permalink_enabled = 'false'
         get '/welcome-lokka'
         last_response.should_not be_redirect
       end
@@ -218,9 +208,10 @@ describe 'App' do
         last_response.status.should eq(200)
       end
 
-      it 'should return status code 404 if entry not found' do
+      it 'should return status code 404 and show 404 view if entry not found' do
         get '/2011/01/09/welcome-wordpress'
         last_response.status.should eq(404)
+        last_response.body.should match(/404 page was not found\./)
       end
 
       it 'should return status code 404 to path with wrong structure' do
@@ -242,9 +233,10 @@ describe 'App' do
       end
     end
 
-    context 'with continue reading' do
+    describe 'with continue reading' do
       before { create(:post_with_more) }
-      after { Post.destroy }
+      after { Post.delete_all }
+
       describe 'in entries index' do
         it 'should hide texts after <!--more-->' do
           regexp = %r{<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>}
@@ -263,23 +255,36 @@ describe 'App' do
     end
   end
 
+  describe 'Search' do
+    before do
+      create_list(:post, 3, body: 'Udon')
+      create(:post, body: 'Ramen')
+    end
+
+    it 'Should show search result' do
+      get '/search/?query=ramen'
+      expect(last_response.body).to match('Ramen')
+      expect(last_response.body).not_to match('Udon')
+    end
+  end
+
   context 'access tag archive page' do
     before do
       create(:tag, name: 'lokka')
       post = create(:post)
-      post.tag_list = 'lokka'
+      post.tag_list << 'lokka'
       post.save
     end
 
     after do
-      Post.destroy
-      Tag.destroy
+      Post.delete_all
+      Tag.delete_all
     end
 
     it 'should show lokka tag archive' do
-      get '/tags/lokka/'
+      get '/tags/lokka'
       last_response.should be_ok
-      last_response.body.should match(/Test Post \d+/)
+      last_response.body.should match(/Test Post/)
     end
   end
 
@@ -301,9 +306,9 @@ describe 'App' do
     before do
       @file = 'public/theme/jarvi/script.coffee'
       content = <<-COFFEE.strip_heredoc
-      console.log "Hello, It's me!"
+        console.log "Hello, It's me!"
       COFFEE
-      open(@file, 'w') do |f|
+      File.open(@file, 'w') do |f|
         f.write content
       end
     end

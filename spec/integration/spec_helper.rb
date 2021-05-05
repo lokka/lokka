@@ -12,7 +12,7 @@ shared_context 'in site' do
   end
 
   after do
-    Site.destroy
-    User.destroy
+    Site.delete_all
+    User.delete_all
   end
 end

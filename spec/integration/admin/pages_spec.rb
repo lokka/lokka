@@ -10,7 +10,7 @@ describe '/admin/pages' do
     create(:draft_page)
   end
 
-  after { Page.destroy }
+  after { Page.delete_all }
 
   context 'with no option' do
     it 'should show all pages' do
@@ -40,7 +40,7 @@ describe '/admin/pages' do
       sample = attributes_for(:page, slug: 'dekitate')
       post '/admin/pages', page: sample
       last_response.should be_redirect
-      Page('dekitate').should_not be_nil
+      Page.where(slug: 'dekitate').first.should_not be_nil
     end
   end
 
@@ -56,7 +56,7 @@ describe '/admin/pages' do
     it 'should update the page"s body ' do
       put "/admin/pages/#{@page.id}", page: { body: 'updated' }
       last_response.should be_redirect
-      Page(@page.id).body.should eq('updated')
+      Page.find(@page.id).body.should == 'updated'
     end
   end
 
@@ -64,12 +64,12 @@ describe '/admin/pages' do
     it 'should delete the page' do
       delete "/admin/pages/#{@page.id}"
       last_response.should be_redirect
-      Page(@page.id).should be_nil
+      Page.where(id: @page.id).first.should be_nil
     end
   end
 
   context 'when the page does not exist' do
-    before { Page.destroy }
+    before { Page.delete_all }
 
     context 'GET' do
       before { get '/admin/pages/9999/edit' }

@@ -1,19 +1,32 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.4
   Exclude:
     - 'lokka.gemspec'
     - 'db/seeds.rb'
-
-Style/Documentation:
-  Enabled: false
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - 'bin/*'
 
 Naming/MethodName:
   Exclude:
     - 'lib/lokka/models/**/*'
 
-Style/MethodMissing:
+Style/Documentation:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/MethodMissingSuper:
+  Exclude:
+    - 'lib/lokka/models/entry.rb'
+    - 'lib/lokka/models/site.rb'
+    - 'lib/lokka/models/option.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+
+Style/MissingRespondToMissing:
   Exclude:
     - 'lib/lokka/models/entry.rb'
     - 'lib/lokka/models/site.rb'
@@ -26,7 +39,33 @@ Style/StringLiterals:
     - single_quotes
     - double_quotes
 
-Layout/AlignParameters:
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Layout/LineLength:
+  Exclude:
+    - 'lokka.gemspec'
+    - 'Gemfile'
+    - 'public/**/*'
+  IgnoredPatterns:
+    - '%r'
+    - '%q'
+    - '%Q'
+    - '/\/.+\//'
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
   SupportedStyles:
     - with_first_parameter
@@ -49,6 +88,12 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
 Lint/UselessAssignment:
   Exclude:
     - 'lib/lokka/helpers/helpers.rb'
@@ -61,17 +106,8 @@ Metrics/BlockLength:
     - 'lib/lokka/before.rb'
     - 'lib/lokka/app.rb'
     - 'lib/lokka/importer.rb'
-
-Metrics/LineLength:
-  Exclude:
-    - 'lokka.gemspec'
-    - 'Gemfile'
-    - 'public/**/*'
-  IgnoredPatterns:
-    - '%r'
-    - '%q'
-    - '%Q'
-    - '/\/.+\//'
+    - 'lib/lokka/app/admin.rb'
+    - 'lib/lokka/app/admin/**/*'
 
 Metrics/PerceivedComplexity:
   Exclude:

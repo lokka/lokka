@@ -5,6 +5,8 @@ module Markup
     attr_accessor :engine_list
 
     def use_engine(name, text)
+      return if text.nil?
+
       @engine_list.each do |engine|
         return engine[2].call(text).html_safe if engine[0] == name
       end
@@ -15,15 +17,15 @@ module Markup
   @engine_list = [
     ['html', 'HTML', ->(text) { text }],
     ['kramdown', 'Markdown (Kramdown)',
-     lambda do |text|
+     ->(text) do
        Kramdown::Document.new(text,
-         coderay_line_numbers: nil,
-         coderay_css: :class).to_html
+                              coderay_line_numbers: nil,
+                              coderay_css: :class).to_html
      end],
     ['redcloth', 'Textile (Redcloth)',
      ->(text) { RedCloth.new(text).to_html }],
     ['redcarpet', 'Markdown (redcarpet)',
-     lambda do |text|
+     ->(text) do
        Redcarpet::Markdown.new(
          Redcarpet::Render::HTML,
          no_intra_emphasis: true,

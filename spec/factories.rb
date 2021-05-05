@@ -16,20 +16,31 @@ FactoryGirl.define do
 
   factory :user do
     sequence(:name) {|n| "testuser#{n}" }
-    hashed_password '6338db2314bba79531444996b780fa7036480733'
-    salt '2Z4H4DzATC'
+    sequence(:email) {|n| "test_#{n}@test.com" }
+    password 'test'
+    password_confirmation 'test'
     permission_level 1
-    created_at create_time
-    updated_at update_time
   end
 
   factory :post do
     association :user
-    sequence(:title) {|n| "Test Post #{n}" }
+    title 'Test Post'
     body '<p>Welcome to Lokka!</p><p><a href="/admin/">Admin login</a> (user / password : test / test)</p>'
     type 'Post'
     created_at create_time
     updated_at update_time
+
+    trait :kramdown do
+      title 'Markdown'
+      body "# hi! \nkramdown test"
+      markup 'kramdown'
+    end
+
+    trait :redcloth do
+      title 'Textile'
+      body "h1. hi!  \n\nredcloth test"
+      markup 'redcloth'
+    end
   end
 
   factory :entry do
@@ -75,6 +86,12 @@ FactoryGirl.define do
     markup 'redcloth'
   end
 
+  factory :wikicloth, parent: :post do
+    title 'MediaWiki'
+    body "= hi! = \nmediawiki test"
+    markup 'wikicloth'
+  end
+
   factory :post_with_more, parent: :post do
     body "a\n\n<!--more-->\n\nb\n\n<!--more-->\n\nc\n"
     slug 'post-with-more'
@@ -90,6 +107,15 @@ FactoryGirl.define do
   factory :draft_post_with_tag_and_category, parent: :draft_post do
     association :category
     after(:create) {|p| create(:tagging, taggable_id: p.id) }
+  end
+
+  factory :tag do
+    sequence(:name) {|n| "sample-tag-#{n}" }
+  end
+
+  factory :tagging do
+    association :tag
+    taggable_type 'Entry'
   end
 
   factory :snippet do
@@ -114,25 +140,16 @@ FactoryGirl.define do
   end
 
   factory :category do
-    title 'Test Category'
-    created_at create_time
-    updated_at update_time
+    sequence(:title) {|n| "Test Category #{n}" }
+    sequence(:slug)  {|n| "category-slug-#{n}" }
+    # created_at create_time
+    # updated_at update_time
   end
 
   factory :category_child, parent: :category do
     title 'Test Child Category'
     created_at create_time
     updated_at update_time
-  end
-
-  factory :tag do
-    sequence(:name) {|n| "sample-tag-#{n}" }
-  end
-
-  factory :tagging do
-    association :tag
-    tag_context 'tags'
-    taggable_type Entry
   end
 
   # Comment has no association to entry by default

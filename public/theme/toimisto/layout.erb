@@ -21,12 +21,12 @@
     <body class="<%= @theme_types.join(' ') %>">
   <% end %>
     <div id="header">
-    
+
       <div class="wrap">
       <p class="title"><a href="<%= url('/') %>"><%= @site.title %></a></p>
       <p class="catchcopy"><%= @site.description %></p>
       </div><!-- .wrap -->
-      
+
       <div class="breadcrumbs">
         <%= bread_crumb %>
       </div>
@@ -48,12 +48,12 @@
         <div class="categories nav">
           <h2>Categories</h2>
           <ul>
-            <% Post.recent(5).each do |post| %>
-              <li><%= category_tree %></li>
-            <% end %>
+            <%- Category.all.each do |category| %>
+              <li><%= link_to category.link, catgory.title %></li>
+            <%- end %>
           </ul>
         </div><!-- .nav -->
-        
+
         <div class="tags nav">
           <h2>Tags</h2>
           <ul>
@@ -62,7 +62,7 @@
             <% end %>
           </ul>
         </div><!-- .nav -->
-        
+
         <div class="archives nav">
           <h2>Archives</h2>
           <ul>
@@ -71,7 +71,7 @@
             <% end %>
           </ul>
         </div><!-- .nav -->
-        
+
         <div class="search">
           <h2>Search</h2>
           <form action="<%= url('/search/') %>" method="get">

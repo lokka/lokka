@@ -18,6 +18,7 @@ module Lokka
       end
 
       return ret if ret.present?
+
       raise Lokka::NoTemplateError, "Template not found. #{[names.join(', ')]}"
     end
 
@@ -32,7 +33,7 @@ module Lokka
         settings.supported_javascript_templates
       templates.each do |ext|
         out = rendering(ext, name, options)
-        out.force_encoding(Encoding.default_external) unless out.nil?
+        out&.force_encoding(Encoding.default_external)
         unless out.blank?
           ret = out
           break

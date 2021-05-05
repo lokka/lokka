@@ -250,3 +250,10 @@ ja:
   comment_spam_successfuly: コメントはSPAM判定されました
   continue_reading: 続きを読む
   delete_spam: スパムを削除
+  views:
+     pagination:
+       first: "&laquo; 最初のページ"
+       last: "最後のページ &raquo;"
+       previous: "&lsaquo; 前のページ"
+       next: "次のページ &rsaquo;"
+       truncate: "..."

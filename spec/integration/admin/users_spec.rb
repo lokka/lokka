@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe '/admin/users' do
   include_context 'admin login'
-  before { @user = User.first }
+  let(:user) { User.first }
 
   context 'GET /admin/users' do
     it 'should show index' do
@@ -23,34 +23,34 @@ describe '/admin/users' do
 
   context 'POST /admin/users' do
     it 'should create a new user' do
-      user = {
+      user_params = {
         name: 'lokka tarou',
         email: 'tarou@example.com',
         password: 'test',
         password_confirmation: 'test'
       }
-      post '/admin/users', user: user
+      post '/admin/users', { user: user_params }
       last_response.should be_redirect
-      User.first(name: 'lokka tarou').should_not be_nil
+      User.where(name: 'lokka tarou').first.should_not be_nil
     end
 
     it 'should not create a user when two password does not match' do
-      user = {
+      user_params = {
         name: 'lokka tarou',
         email: 'tarou@example.com',
         password: 'test',
         password_confirmation: 'wrong'
       }
-      post '/admin/users', user: user
+      post '/admin/users', { user: user_params }
       last_response.should be_ok
-      User.first(name: 'lokka tarou').should be_nil
+      User.where(name: 'lokka tarou').first.should be_nil
       last_response.body.should match('<form')
     end
   end
 
   context '/admin/users/:id/edit' do
     it 'should show form for edit users' do
-      get "/admin/users/#{@user.id}/edit"
+      get "/admin/users/#{user.id}/edit"
       last_response.should be_ok
       last_response.body.should match('<form')
     end
@@ -58,30 +58,30 @@ describe '/admin/users' do
 
   context 'PUT /admin/users/:id' do
     it 'should update the name' do
-      put "/admin/users/#{@user.id}", user: { name: 'newbie' }
+      put "/admin/users/#{user.id}", { user: { name: 'newbie' } }
       last_response.should be_redirect
-      User.get(@user.id).name.should eq('newbie')
+      User.find(user.id).name.should == 'newbie'
     end
   end
 
   context 'DELETE /admin/users/:id' do
-    before { @another_user = create(:user) }
+    let(:another_user) { create(:user) }
 
     it 'should delete the another user' do
-      delete "/admin/users/#{@another_user.id}"
+      delete "/admin/users/#{another_user.id}"
       last_response.should be_redirect
-      User.get(@another_user.id).should be_nil
+      User.where(id: another_user.id).first.should be_nil
     end
 
     it 'should not delete the current user' do
-      delete "/admin/users/#{@user.id}"
+      delete "/admin/users/#{user.id}"
       last_response.should be_redirect
-      User.get(@user.id).should_not be_nil
+      User.find(user.id).should_not be_nil
     end
   end
 
   context 'when the user does not exist' do
-    before { User.destroy }
+    before { User.delete_all }
 
     context 'GET' do
       before { get '/admin/users/9999/edit' }

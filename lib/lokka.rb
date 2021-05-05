@@ -4,7 +4,6 @@ require 'rubygems'
 require 'pathname'
 require 'erb'
 require 'ostruct'
-require 'digest/sha1'
 require 'csv'
 
 module Lokka
@@ -26,22 +25,18 @@ module Lokka
     ##
     # Data Source Name
     #
-    # @return [String] DSN (Data Source Name) is configuration for database.
+    # @return [Hash] DSN (Data Source Name) is configuration for database.
     def dsn
-      database_config['dsn']
-    end
-
-    ##
-    # Data Source Hash
-    #
-    # @return [Hash] DSH (Data Source Hash) is configuration for database.
-    def dsh
-      database_config.dup.delete_if {|key, _| key == 'dsn' }
+      database_config[env]
     end
 
     def database_config
-      filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
-      YAML.safe_load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[env]
+      YAML.safe_load(ERB.new(File.read(database_config_file)).result(binding), [], [], true)
+    end
+
+    def database_config_file
+      dir = "#{root}/db"
+      File.exist?("#{dir}/database.yml") ? "#{dir}/database.yml" : "#{dir}/database.default.yml"
     end
 
     ##
@@ -66,6 +61,7 @@ module Lokka
 
     def parse_http(str)
       return [] if str.nil?
+
       locales = str.split(',')
       locales.map! do |locale|
         locale = locale.split ';q='
@@ -115,49 +111,42 @@ module Lokka
   end
 end
 
+module Rails
+  def self.root
+    Lokka.root
+  end
+end
+
+require 'active_record'
 require 'active_support/all'
-require 'sinatra/base'
-require 'sinatra/reloader'
-require 'sinatra/flash'
-require 'padrino-helpers'
-require 'dm-core'
-require 'dm-timestamps'
-require 'dm-migrations'
-require 'dm-validations'
-require 'dm-types'
-require 'dm-is-tree'
-require 'dm-tags'
-require 'dm-pager'
-require 'coderay'
-require 'kramdown'
-require 'redcloth'
-require 'redcarpet'
-require 'haml'
-require 'sass'
-require 'compass'
-require 'slim'
-require 'coffee-script'
-require 'builder'
-require 'nokogiri'
-require 'request_store'
-require 'securerandom'
 require 'aws-sdk-s3'
+require 'builder'
+require 'coderay'
+require 'coffee-script'
+require 'compass'
+require 'haml'
+require 'kaminari/activerecord'
+require 'kaminari/sinatra'
+require 'kramdown'
 require 'marcel'
+require 'nokogiri'
+require 'padrino-helpers'
+require 'redcarpet'
+require 'redcloth'
+require 'request_store'
+require 'sass'
+require 'securerandom'
+require 'sinatra/base'
+require 'sinatra/flash'
+require 'sinatra/namespace'
+require 'sinatra/reloader'
+require 'slim'
+require 'lokka/helpers/helpers'
+require 'lokka/helpers/permalink_helper'
+require 'lokka/helpers/render_helper'
 require 'lokka/database'
-require 'lokka/models/theme'
-require 'lokka/models/user'
-require 'lokka/models/site'
-require 'lokka/models/option'
-require 'lokka/models/entry'
-require 'lokka/models/category'
-require 'lokka/models/comment'
-require 'lokka/models/field_name'
-require 'lokka/models/field'
-require 'lokka/models/snippet'
-require 'lokka/models/tag'
-require 'lokka/models/markup'
+require 'lokka/models'
 require 'lokka/importer'
 require 'lokka/before'
-require 'lokka/helpers/helpers'
-require 'lokka/helpers/render_helper'
+require 'lokka/version'
 require 'lokka/app'

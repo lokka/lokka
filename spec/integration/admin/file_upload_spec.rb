@@ -5,7 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe '/admin/file_upload' do
   include_context 'admin login'
 
-  it 'GET should show form for custom permalink' do
+  it 'GET should show form for file_upload form' do
     get '/admin/file_upload'
     last_response.should be_ok
     last_response.body.should match('<form')
@@ -13,11 +13,17 @@ describe '/admin/file_upload' do
 
   describe 'PUT /admin/file_upload' do
     context 'With valid params' do
+      let(:params) do
+        {
+          aws_access_key_id: 'foo',
+          aws_secret_access_key: 'bar',
+          s3_region: 'ap-northeast-1',
+          s3_bucket_name: 'example'
+        }
+      end
+
       it 'should be success' do
-        put '/admin/file_upload',           aws_access_key_id: 'foo',
-                                            aws_secret_access_key: 'bar',
-                                            s3_region: 'ap-northeast-1',
-                                            s3_bucket_name: 'example'
+        put '/admin/file_upload', params
         follow_redirect!
         last_response.body.should match(I18n.t('file_upload.successfully_updated'))
       end
