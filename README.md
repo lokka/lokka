@@ -23,6 +23,7 @@ $ bundle exec rackup
 View at: http://localhost:9292/
 
 ## Deploy to Heroku
+You can also use container stack. If you want to use it, run `heroku stack:set container` and then run git push.
 
 ```sh
 $ git clone git://github.com/lokka/lokka.git
