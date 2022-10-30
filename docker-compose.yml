@@ -7,6 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    platform: linux/amd64
     volumes:
       - data-volume:/var/lib/mysql
   app:
@@ -17,7 +18,6 @@ services:
     command: ["bundle", "exec", "rackup", "-o", "0.0.0.0"]
     volumes:
       - .:/app
-      - bundle:/usr/local/bundle
       - app_bundle:/app/.bundle
       - vendor:/app/vendor
     ports:
