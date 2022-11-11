@@ -23,6 +23,6 @@
     "core-js": "3.6.4",
     "jquery-ujs": "1.2.2",
     "webpack": "4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   }
 }
