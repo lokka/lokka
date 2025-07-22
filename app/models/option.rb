@@ -1,0 +1,2 @@
+class Option < ApplicationRecord
+end

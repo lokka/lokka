@@ -1,75 +1,72 @@
-source 'https://rubygems.org'
-ruby "~> 2.6"
+source "https://rubygems.org"
 
-gem 'activesupport', '~> 5.2'
-gem 'aws-sdk-s3'
-gem 'backports', '2.3.0'
-gem 'builder'
-gem 'bundler'
-gem 'coderay', '1.0.5'
-gem 'coffee-script'
-gem 'compass'
-gem 'data_objects',     '0.10.17'
-gem 'dm-aggregates',    '~> 1.2.0'
-gem 'dm-core',          '~> 1.2.1'
-gem 'dm-is-searchable', '~> 1.2.0'
-gem 'dm-is-tree',       '~> 1.2.0'
-gem 'dm-migrations',    '~> 1.2.0'
-gem 'dm-pager',         git: 'https://github.com/lokka/dm-pagination'
-gem 'dm-tags',          '~> 1.2.0'
-gem 'dm-timestamps',    '~> 1.2.0'
-gem 'dm-types',         '~> 1.2.2'
-gem 'dm-validations',   '~> 1.2.0'
-gem 'erubis', '~> 2.7.0'
-gem 'haml', '~> 5.0'
-gem 'i18n', '~> 0.7'
-gem 'kramdown'
-gem 'marcel'
-gem 'nokogiri'
-gem 'padrino-helpers', '~> 0.14.1.1'
-gem 'rack'
-gem 'rack-flash', '~> 0.1.2'
-gem 'rake', '~> 12.3'
-gem 'redcarpet'
-gem 'RedCloth', '4.2.9'
-gem 'request_store'
-gem 'sass'
-gem 'sinatra', '~> 1.4.2'
-gem 'sinatra-contrib', '~> 1.4.0'
-gem 'sinatra-flash', '~> 0.3.0'
-gem 'slim', '~> 3.0.7'
-gem 'tilt', '~> 2.0'
-gem 'tux'
-gem 'yard-sinatra', '1.0.0'
+ruby "3.4.3"
 
-Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.0.2"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
+# Use sqlite3 as the database for Active Record
+gem "sqlite3", ">= 2.1"
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
 
-group :production do
-end
+# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "bcrypt", "~> 3.1.7"
+
+# Template engines
+gem "haml-rails", "~> 2.1"
+gem "slim-rails", "~> 3.6"
+
+# Markdown support
+gem "redcarpet", "~> 3.6"
+gem "kramdown", "~> 2.4"
+
+# Pagination
+gem "pagy", "~> 9.0"
+
+# Slug generation
+gem "friendly_id", "~> 5.5"
+
+# Tags - using gutentag for Rails 8 compatibility
+gem "gutentag", "~> 2.6"
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+# Use the database-backed adapters for Rails.cache and Active Job
+gem "solid_cache"
+gem "solid_queue"
+
+# Reduces boot times through caching; required in config/boot.rb
+gem "bootsnap", require: false
+
+# Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
+gem "kamal", require: false
+
+# Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
+gem "thruster", require: false
 
 group :development, :test do
-  gem 'tapp', '1.3.0'
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop-rails-omakase", require: false
 end
 
 group :development do
-  gem 'dm-sqlite-adapter', '1.2.0'
-  gem 'haml-lint'
-  gem 'rubocop'
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
 end
 
 group :test do
-  gem 'database_cleaner', '0.7.1'
-  gem 'dm-transactions', '~> 1.2.0'
-  gem 'factory_girl', '~> 4.0'
-  gem 'rack-test', '0.6.1', require: 'rack/test'
-  gem 'rspec', '~> 2.0'
-  gem 'simplecov', require: false
-end
-
-group :mysql do
-  gem 'dm-mysql-adapter', '1.2.0'
-end
-
-group :postgresql do
-  gem 'dm-postgres-adapter', '1.2.0'
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
 end

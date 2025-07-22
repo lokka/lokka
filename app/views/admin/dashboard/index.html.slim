@@ -1,0 +1,57 @@
+- content_for :title, "Dashboard"
+
+h1 Dashboard
+
+.stats
+  .stat-card
+    .stat-number = @posts_count
+    div Posts
+  .stat-card
+    .stat-number = @pages_count  
+    div Pages
+  .stat-card
+    .stat-number = @comments_count
+    div Comments
+
+.row
+  .col-md-6
+    h3 Recent Posts
+    - if @recent_posts.any?
+      table
+        thead
+          tr
+            th Title
+            th Date
+            th Actions
+        tbody
+          - @recent_posts.each do |post|
+            tr
+              td = post.title
+              td = post.created_at.strftime("%Y-%m-%d")
+              td
+                = link_to "Edit", edit_admin_post_path(post), class: "btn btn-sm"
+    - else
+      p No posts yet.
+  
+  .col-md-6
+    h3 Recent Comments
+    - if @recent_comments.any?
+      table
+        thead
+          tr
+            th Name
+            th Post
+            th Status
+            th Actions
+        tbody
+          - @recent_comments.each do |comment|
+            tr
+              td = comment.name
+              td = link_to comment.entry.title, admin_post_path(comment.entry)
+              td = comment.status.humanize
+              td
+                - if comment.pending?
+                  = link_to "Approve", approve_admin_comment_path(comment), method: :patch, class: "btn btn-success btn-sm"
+                = link_to "Edit", edit_admin_comment_path(comment), class: "btn btn-sm"
+    - else
+      p No comments yet.

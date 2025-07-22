@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  category: one
+  slug: MyString
+  title: MyString
+  body: MyText
+  markup: MyString
+  type: 
+  draft: false
+
+two:
+  user: two
+  category: two
+  slug: MyString
+  title: MyString
+  body: MyText
+  markup: MyString
+  type: 
+  draft: false

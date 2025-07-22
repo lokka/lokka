@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Lokka Rails" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app %>
+    
+    <style>
+      body { 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        line-height: 1.6; 
+        margin: 0; 
+        background: #f5f5f5;
+      }
+      
+      header {
+        background: white;
+        border-bottom: 1px solid #ddd;
+        padding: 1rem 0;
+      }
+      
+      header nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      
+      header a {
+        color: #333;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+      
+      header a:hover {
+        background: #f0f0f0;
+      }
+      
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        background: white;
+        min-height: 80vh;
+        border-radius: 8px;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .posts-index h1 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+      
+      .post {
+        border-bottom: 1px solid #eee;
+        padding: 20px 0;
+      }
+      
+      .post:last-child {
+        border-bottom: none;
+      }
+      
+      .post h2 {
+        margin: 0 0 10px 0;
+      }
+      
+      .post h2 a {
+        color: #2c3e50;
+        text-decoration: none;
+      }
+      
+      .post h2 a:hover {
+        color: #3498db;
+      }
+      
+      .meta {
+        color: #666;
+        font-size: 0.9em;
+        margin-bottom: 15px;
+      }
+      
+      .meta span {
+        margin-right: 15px;
+      }
+      
+      .post-content img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <%= link_to "Home", root_path %>
+        <% if logged_in? %>
+          <%= link_to "Admin", admin_root_path %>
+          <%= link_to "Logout", logout_path, method: :delete %>
+        <% else %>
+          <%= link_to "Login", login_path %>
+        <% end %>
+      </nav>
+    </header>
+    
+    <main>
+      <% if flash[:notice] %>
+        <div class="alert alert-success"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="alert alert-danger"><%= flash[:alert] %></div>
+      <% end %>
+      
+      <%= yield %>
+    </main>
+  </body>
+</html>

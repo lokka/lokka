@@ -1,0 +1,34 @@
+- content_for :title, "Posts"
+
+.page-header
+  h1 Posts
+  = link_to "New Post", new_admin_post_path, class: "btn btn-success"
+
+- if @posts.any?
+  table
+    thead
+      tr
+        th Title
+        th Category
+        th Author
+        th Status
+        th Date
+        th Actions
+    tbody
+      - @posts.each do |post|
+        tr
+          td = post.title
+          td = post.category&.name || "-"
+          td = post.user.name
+          td = post.draft? ? "Draft" : "Published"
+          td = post.created_at.strftime("%Y-%m-%d")
+          td
+            = link_to "Edit", edit_admin_post_path(post), class: "btn btn-sm"
+            = link_to "View", post_path(post), class: "btn btn-sm", target: "_blank"
+            = link_to "Delete", admin_post_path(post), method: :delete,
+                      data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm"
+
+  == pagy_nav(@pagy) if @pagy.pages > 1
+- else
+  p No posts found.
+  p = link_to "Create your first post", new_admin_post_path, class: "btn btn-primary"

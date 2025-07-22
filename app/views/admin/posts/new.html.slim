@@ -1,0 +1,44 @@
+- content_for :title, "New Post"
+
+h1 New Post
+
+= form_with model: [:admin, @post], local: true do |f|
+  - if @post.errors.any?
+    .alert.alert-danger
+      h4 = pluralize(@post.errors.count, "error") + " prohibited this post from being saved:"
+      ul
+        - @post.errors.full_messages.each do |message|
+          li = message
+
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: "form-control", required: true
+
+  .form-group
+    = f.label :category_id, "Category"
+    = f.collection_select :category_id, @categories, :id, :name, 
+                          { prompt: "Select a category" }, { class: "form-control" }
+
+  .form-group
+    = f.label :markup, "Markup"
+    = f.select :markup, options_for_select([
+        ["HTML", "html"],
+        ["Markdown (Kramdown)", "markdown"], 
+        ["Markdown (Redcarpet)", "redcarpet"]
+      ], @post.markup), {}, { class: "form-control" }
+
+  .form-group
+    = f.label :body, "Content"
+    = f.text_area :body, rows: 20, class: "form-control", required: true
+
+  .form-group
+    = f.label :tag_names, "Tags (comma separated)"
+    = f.text_field :tag_names, value: @post.tag_names.join(", "), class: "form-control"
+
+  .form-group
+    = f.check_box :draft
+    = f.label :draft, "Save as draft"
+
+  .form-actions
+    = f.submit "Create Post", class: "btn btn-primary"
+    = link_to "Cancel", admin_posts_path, class: "btn btn-secondary"

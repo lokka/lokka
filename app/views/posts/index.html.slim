@@ -1,0 +1,22 @@
+- content_for :title, @site.title
+
+.posts-index
+  h1 = @site.title
+  p = @site.description
+  
+  - if @posts.any?
+    .posts
+      - @posts.each do |post|
+        article.post
+          h2
+            = link_to post.title, post_path(post)
+          .meta
+            span.date = post.created_at.strftime("%Y-%m-%d")
+            - if post.category
+              span.category = link_to post.category.name, category_path(post.category)
+          .body
+            = raw post.short_body
+  - else
+    p No posts found.
+    
+  == pagy_nav(@pagy) if @pagy.pages > 1

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lokka Admin - <%= content_for(:title) || "Dashboard" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag :app %>
+    <style>
+      .admin-container {
+        display: flex;
+        min-height: 100vh;
+      }
+      
+      .admin-sidebar {
+        width: 250px;
+        background: #2c3e50;
+        color: white;
+        padding: 20px;
+      }
+      
+      .admin-sidebar a {
+        color: #ecf0f1;
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+      }
+      
+      .admin-sidebar a:hover {
+        background: #34495e;
+      }
+      
+      .admin-content {
+        flex: 1;
+        padding: 20px;
+      }
+      
+      .stats {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .stat-card {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        flex: 1;
+        text-align: center;
+      }
+      
+      .stat-number {
+        font-size: 2em;
+        font-weight: bold;
+        color: #3498db;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      th {
+        background: #f8f9fa;
+        font-weight: 600;
+      }
+      
+      .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .btn:hover {
+        background: #2980b9;
+      }
+      
+      .btn-success { background: #27ae60; }
+      .btn-success:hover { background: #229954; }
+      
+      .btn-danger { background: #e74c3c; }
+      .btn-danger:hover { background: #c0392b; }
+      
+      .alert {
+        padding: 10px 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      
+      .alert-success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      
+      .alert-danger {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+      
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .form-group {
+        margin-bottom: 20px;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      
+      .form-control:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+      }
+      
+      textarea.form-control {
+        resize: vertical;
+        font-family: monospace;
+      }
+      
+      .btn-secondary {
+        background: #6c757d;
+        margin-left: 10px;
+      }
+      
+      .btn-secondary:hover {
+        background: #5a6268;
+      }
+      
+      .btn-info {
+        background: #17a2b8;
+        margin-left: 10px;
+      }
+      
+      .btn-info:hover {
+        background: #138496;
+      }
+      
+      .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
+      }
+      
+      .form-actions {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="admin-container">
+      <nav class="admin-sidebar">
+        <h2>Lokka Admin</h2>
+        <p>Welcome, <%= current_user.name %></p>
+        
+        <%= link_to "Dashboard", admin_root_path %>
+        <%= link_to "Posts", admin_posts_path %>
+        <%= link_to "Pages", admin_pages_path %>
+        <%= link_to "Categories", admin_categories_path %>
+        <%= link_to "Comments", admin_comments_path %>
+        <%= link_to "Users", admin_users_path %>
+        <%= link_to "Site Settings", edit_admin_site_path %>
+        
+        <hr style="border-color: #34495e; margin: 20px 0;">
+        
+        <%= link_to "View Site", root_path, target: "_blank" %>
+        <%= link_to "Logout", logout_path, method: :delete %>
+      </nav>
+      
+      <main class="admin-content">
+        <% if flash[:notice] %>
+          <div class="alert alert-success"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:alert] %>
+          <div class="alert alert-danger"><%= flash[:alert] %></div>
+        <% end %>
+        
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

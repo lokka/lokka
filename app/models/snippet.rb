@@ -1,0 +1,2 @@
+class Snippet < ApplicationRecord
+end

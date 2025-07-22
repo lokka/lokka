@@ -1,0 +1,232 @@
+@charset "shift_jis"; 
+
+
+/* ã§í 
+---------------------------------------------------------------------- */
+
+body {
+	background:#ffffff;
+	font-size:12px;
+	line-height:1.5em;
+	color:#444444;
+/*
+	font-family: "ÉqÉâÉMÉmñæí© Pro W3","Hiragino Mincho Pro W3","ïΩê¨ñæí©",serif;
+	_font-family: "ÇlÇr Çoñæí©",serif;
+*/
+}
+
+/* a
+---------------------------------------------------------------------- */
+
+a {
+	color:#1111cc;
+}
+a:hover {
+	text-decoration:none;
+}
+
+a:hover img.ro {
+	opacity:0.8;
+	filter:alpha(opacity=80);
+}
+
+
+/* font
+---------------------------------------------------------------------- */
+
+/*color*/
+
+.gray {
+	color:#777777;
+}
+
+.pink {
+	color:#EA96A6;
+}
+
+.blue {
+	color: #1111cc;
+}
+.gray {
+	color: #666666;
+}
+
+/*size*/
+
+.f10 {
+	font-size:10px;
+}
+
+.f12 {
+	font-size:12px;
+}
+
+/*decoration*/
+
+.bold {
+	font-weight: bold;
+}
+
+.small {
+	font-size: 9px;
+	vertical-align: bottom;
+}
+
+.underline {
+	border-bottom: 1px solid  #1111cc;
+}
+
+
+/* margin, padding
+---------------------------------------------------------------------- */
+.m5 {
+	margin:5px;
+}
+
+.m10 {
+	margin:10px;
+}
+
+.ml10 {
+	margin-left:10px;
+}
+
+.m20 {
+	margin:20px;
+}
+
+.p5 {
+	padding:5px;
+}
+
+.p10 {
+	padding:10px;
+}
+
+.pl10 {
+	padding-left:10px;
+}
+
+.p20 {
+	padding:20px;
+}
+
+
+/* à íuä÷òA
+---------------------------------------------------------------------- */
+
+.r {
+	float:right;
+}
+.l {
+	float:left;
+}
+.c {
+	height:0;
+	clear:both;
+}
+
+/* line
+---------------------------------------------------------------------- */
+.line {
+	clear:both;
+	margin:10px 0 10px 0;
+	display:block;
+	height:1px;
+	background:url(../images/pattern.png) repeat 0px 0px;
+}
+
+/* list
+---------------------------------------------------------------------- */
+ul.arw {
+	list-style: none;
+}
+ul.arw li {
+	padding: 0px 0px 0px 10px;
+	background: url(../images/arw.gif) no-repeat 0px 5px;
+	text-indent: 0px;
+}
+
+ul.bullet{
+	margin-left:10px;
+	list-style:none;
+}
+ul.bullet li{
+	text-indent:-10px;
+}
+
+
+ul.breadlist{
+}
+ul.breadlist li{
+	font-size:10px;
+	float:left;
+	padding:0 2px 0 0;
+}
+ul.breadlist li a{
+	padding:0 10px 0 0;
+	background: url(../images/tri.gif) no-repeat right 3px;
+}
+
+/* lineTable
+---------------------------------------------------------------------- */
+.linetable td.cline0 {
+	padding:0px;
+	background-color:#999999;
+}
+.linetable td {
+	padding:10px;
+}
+.linetable td.cbg0 {
+	background-color:#dddddd;
+}
+.linetable td.cbg1 {
+	background-color:#eeeeee;
+}
+.linetable td.cbg2 {
+	background-color:#ffffff;
+}
+
+
+/* stripe
+----------------------------------------------------------------------*/
+
+table.stripe tr td {
+	background: #ffffff;
+}
+
+table.stripe tr.alt td {
+	background: #f5f5f5;
+}
+
+ul.stripe li {
+	background: #ffffff;
+	list-style:none;
+}
+
+ul.stripe li.alt {
+	background: #f5f5f5;
+}
+
+
+
+/* background use flash
+---------------------------------------------------------------------- 
+#container{
+	position:absolute;
+	width:100%;
+	left:0px;
+	top:0px;
+	text-align:left;
+	z-index:1;
+}
+#background{
+	width:100%;
+	height:100%;
+	padding:0px 0px 0px 0px;
+	margin:0px auto 0px auto;
+	z-index:2;
+}
+*/
+
+

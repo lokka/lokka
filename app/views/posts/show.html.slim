@@ -1,0 +1,60 @@
+- content_for :title, @post.title
+
+article.post-detail
+  header.post-header
+    h1 = @post.title
+    .meta
+      span.date = @post.created_at.strftime("%Y-%m-%d %H:%M")
+      - if @post.category
+        span.category 
+          | in 
+          = link_to @post.category.name, category_path(@post.category)
+      span.author 
+        | by 
+        = @post.user.name
+      - if @post.tag_names.any?
+        .tags
+          | Tags: 
+          - @post.tag_names.each_with_index do |tag, index|
+            = link_to tag, tag_path(tag)
+            = "," if index < @post.tag_names.length - 1
+
+  .post-content
+    = raw @post.long_body
+
+- if @post.approved_comments.any?
+  section.comments
+    h3 = "Comments (#{@post.approved_comments.count})"
+    
+    - @post.approved_comments.each do |comment|
+      .comment
+        .comment-header
+          strong = comment.name
+          - if comment.url.present?
+            | 
+            = link_to comment.url, comment.url, target: "_blank", rel: "nofollow"
+          span.comment-date = comment.created_at.strftime("%Y-%m-%d %H:%M")
+        .comment-body
+          = simple_format(comment.body)
+
+section.comment-form
+  h3 Leave a Comment
+  
+  = form_with model: [@post, Comment.new], local: true do |f|
+    .form-group
+      = f.label :name
+      = f.text_field :name, required: true, class: "form-control"
+    
+    .form-group  
+      = f.label :email
+      = f.email_field :email, class: "form-control"
+    
+    .form-group
+      = f.label :url, "Website"
+      = f.url_field :url, class: "form-control"
+    
+    .form-group
+      = f.label :body, "Comment"
+      = f.text_area :body, required: true, rows: 5, class: "form-control"
+    
+    = f.submit "Post Comment", class: "btn btn-primary"
