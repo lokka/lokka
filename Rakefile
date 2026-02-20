@@ -1,15 +1,6 @@
 require './init'
-require 'yard'
-require 'sinatra/activerecord/rake'
 
 task default: ['spec:setup', 'db:delete', :spec]
-
-module TempFixForRakeLastComment
-  def last_comment
-    last_description
-  end
-end
-Rake::Application.include(TempFixForRakeLastComment)
 
 desc 'Migrate the Lokka database'
 task 'db:migrate' do
@@ -43,11 +34,6 @@ end
 desc 'Install'
 task install: %w[bundle db:setup]
 
-desc 'Generate documentation for Lokka'
-task :doc do
-  YARD::CLI::Yardoc.new.run
-end
-
 desc 'set ENV'
 task 'spec:setup' do
   ENV['RACK_ENV'] = ENV['LOKKA_ENV'] = 'test'
@@ -57,7 +43,7 @@ begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(spec: 'spec:setup') do |spec|
     spec.pattern = 'spec/**/*_spec.rb'
-    spec.rspec_opts = ['-cfs']
+    spec.rspec_opts = ['-cfd']
   end
 rescue LoadError => e
   puts e.message

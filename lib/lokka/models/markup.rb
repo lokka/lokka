@@ -20,8 +20,6 @@ module Markup
          coderay_line_numbers: nil,
          coderay_css: :class).to_html
      end],
-    ['redcloth', 'Textile (Redcloth)',
-     ->(text) { RedCloth.new(text).to_html }],
     ['redcarpet', 'Markdown (redcarpet)',
      lambda do |text|
        Redcarpet::Markdown.new(

@@ -1,49 +1,40 @@
 source 'https://rubygems.org'
-ruby "~> 2.6"
+ruby "~> 3.3"
 
-gem 'activesupport', '~> 5.2'
-gem 'activerecord', '~> 5.2'
+gem 'activerecord', '~> 7.2'
+gem 'activesupport', '~> 7.2'
+gem 'sinatra', '~> 4.0'
+gem 'sinatra-contrib', '~> 4.0'
 gem 'sinatra-activerecord', '~> 2.0'
+gem 'sinatra-flash', '~> 0.3.0'
 gem 'kaminari', '~> 1.2'
 gem 'kaminari-activerecord'
 gem 'aws-sdk-s3'
-gem 'backports', '2.3.0'
 gem 'builder'
 gem 'bundler'
-gem 'coderay', '1.0.5'
-gem 'coffee-script'
-gem 'compass'
-gem 'erubis', '~> 2.7.0'
-gem 'haml', '~> 5.0'
-gem 'i18n', '~> 0.7'
+gem 'coderay'
+gem 'haml', '~> 6.0'
 gem 'kramdown'
 gem 'marcel'
 gem 'nokogiri'
-gem 'padrino-helpers', '~> 0.14.1.1'
+gem 'padrino-helpers', '~> 0.16'
 gem 'rack'
-gem 'rack-flash', '~> 0.1.2'
-gem 'rake', '~> 12.3'
+gem 'rack-session'
+gem 'rake', '~> 13.0'
 gem 'redcarpet'
-gem 'RedCloth', '4.2.9'
+gem 'RedCloth'
 gem 'request_store'
-gem 'sass'
-gem 'sinatra', '~> 1.4.2'
-gem 'sinatra-contrib', '~> 1.4.0'
-gem 'sinatra-flash', '~> 0.3.0'
-gem 'slim', '~> 3.0.7'
+gem 'slim', '~> 5.0'
 gem 'tilt', '~> 2.0'
-gem 'tux'
-gem 'yard-sinatra', '1.0.0'
 
 Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }
 
 group :production do
-  gem 'pg', '~> 1.0'
+  gem 'pg', '~> 1.5'
 end
 
 group :development, :test do
-  gem 'tapp', '1.3.0'
-  gem 'sqlite3', '~> 1.4'
+  gem 'sqlite3', '~> 2.0'
 end
 
 group :development do
@@ -52,9 +43,9 @@ group :development do
 end
 
 group :test do
-  gem 'database_cleaner', '0.7.1'
-  gem 'factory_girl', '~> 4.0'
-  gem 'rack-test', '0.6.1', require: 'rack/test'
-  gem 'rspec', '~> 2.0'
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot', '~> 6.0'
+  gem 'rack-test', '~> 2.0', require: 'rack/test'
+  gem 'rspec', '~> 3.0'
   gem 'simplecov', require: false
 end

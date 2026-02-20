@@ -26,7 +26,7 @@ module Lokka
     def database_config
       filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
       root = Lokka.root
-      YAML.safe_load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[env]
+      YAML.safe_load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding), permitted_classes: [Symbol])[env]
     end
 
     ##
@@ -114,10 +114,7 @@ require 'kramdown'
 require 'redcloth'
 require 'redcarpet'
 require 'haml'
-require 'sass'
-require 'compass'
 require 'slim'
-require 'coffee-script'
 require 'builder'
 require 'nokogiri'
 require 'request_store'

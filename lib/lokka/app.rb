@@ -12,25 +12,21 @@ module Lokka
 
     configure do
       enable :method_override, :raise_errors, :static, :sessions
-      YAML::ENGINE.yamler = 'syck' if YAML.const_defined?(:ENGINE)
       register Padrino::Helpers
       set :app_file, __FILE__
       set :root, File.expand_path('../../..', __FILE__)
       set public_folder: proc { File.join(root, 'public') }
       set views: proc { public_folder }
       set theme: proc { File.join(public_folder, 'theme') }
-      set supported_templates: %w[erb haml :slim erubis]
-      set supported_stylesheet_templates: %w[scss sass]
-      set supported_javascript_templates: %w[coffee]
-      set :scss, Compass.sass_engine_options
-      set :sass, Compass.sass_engine_options
+      set supported_templates: %w[erb haml slim]
+      set supported_stylesheet_templates: %w[scss]
+      set supported_javascript_templates: []
       set :per_page, 10
       set :admin_per_page, 200
       set :default_locale, 'en'
-      set :haml, attr_wrapper: '"'
-      set :protect_from_csrf, true
+      set :haml, escape_html: false
       supported_stylesheet_templates.each do |style|
-        set style, style: :expanded
+        set style.to_sym, style: :expanded
       end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
@@ -73,11 +69,6 @@ module Lokka
 
     get '/*.css' do |path|
       content_type 'text/css', charset: 'utf-8'
-      render_any path.to_sym, views: settings.views
-    end
-
-    get '/*.js' do |path|
-      content_type 'text/javascript', charset: 'utf-8'
       render_any path.to_sym, views: settings.views
     end
 
