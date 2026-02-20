@@ -8,7 +8,8 @@ module Lokka
       @theme_types << :entries
 
       @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
 
       @title = @site.title
@@ -20,7 +21,8 @@ module Lokka
 
     get '/index.atom' do
       @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
       content_type 'application/atom+xml', charset: 'utf-8'
       builder :"lokka/index"
@@ -33,7 +35,8 @@ module Lokka
 
       @query = params[:query]
       @posts = Post.published.search(@query).
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
 
       @title = "Search by #{@query}"
@@ -52,8 +55,9 @@ module Lokka
       category_title = path.split('/').last
       @category = Category.get_by_fuzzy_slug(category_title)
       return 404 if @category.nil?
-      @posts = Post.all(category: @category).published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+      @posts = Post.where(category: @category).published.
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
 
       @title = @category.title
@@ -72,11 +76,12 @@ module Lokka
       @theme_types << :tag
       @theme_types << :entries
 
-      @tag = Tag.first(name: tag)
+      @tag = Tag.find_by(name: tag)
       return 404 if @tag.nil?
-      @posts = Post.all(id: @tag.taggings.map(&:taggable_id)).
+      @posts = Post.where(id: @tag.taggings.where(taggable_type: 'Entry').pluck(:taggable_id)).
                  published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
 
       @title = @tag.name
@@ -94,10 +99,12 @@ module Lokka
 
       year = year.to_i
       month = month.to_i
-      @posts = Post.all(:created_at.gte => Time.local(year, month)).
-                 all(:created_at.lt => Time.local(year, month) >> 1).
+      start_time = Time.local(year, month)
+      end_time = start_time >> 1
+      @posts = Post.where(created_at: start_time...end_time).
                  published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
 
       @title = "#{year}/#{month}"
@@ -115,10 +122,10 @@ module Lokka
       @theme_types << :entries
 
       year = year.to_i
-      @posts = Post.all(:created_at.gte => Time.local(year)).
-                 all(:created_at.lt => Time.local(year + 1)).
+      @posts = Post.where(created_at: Time.local(year)...Time.local(year + 1)).
                  published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
 
       @title = year
@@ -134,9 +141,9 @@ module Lokka
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
 
       return 404 if @entry.blank?
-      redirect to(@entry.link) if @entry.type == Post && custom_permalink?
+      redirect to(@entry.link) if @entry.type == 'Post' && custom_permalink?
 
-      @comment = @entry.comments.new
+      @comment = Comment.new(entry: @entry)
 
       setup_and_render_entry
     end
@@ -149,7 +156,8 @@ module Lokka
       return 404 if !@entry || @entry.blank?
       return 404 if params[:check] != 'check'
 
-      @comment = @entry.comments.new(params['comment'])
+      @comment = Comment.new(params['comment'])
+      @comment.entry = @entry
 
       @comment[:status] = if params['comment']['status']
                             params['comment']['status']
@@ -167,7 +175,8 @@ module Lokka
     # sitemap
     get '/sitemap.xml' do
       @posts = Post.published.
-                 page(params[:page], per_page: @site.per_page, order: @site.default_order_query_operator)
+                 order(@site.default_order_query_operator).
+                 page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
       content_type 'application/xml', charset: 'utf-8'
       builder :"lokka/sitemap"

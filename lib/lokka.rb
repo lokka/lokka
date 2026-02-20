@@ -23,24 +23,9 @@ module Lokka
       File.expand_path("#{root}/public/admin")
     end
 
-    ##
-    # Data Source Name
-    #
-    # @return [String] DSN (Data Source Name) is configuration for database.
-    def dsn
-      database_config['dsn']
-    end
-
-    ##
-    # Data Source Hash
-    #
-    # @return [Hash] DSH (Data Source Hash) is configuration for database.
-    def dsh
-      database_config.dup.delete_if {|key, _| key == 'dsn' }
-    end
-
     def database_config
       filename = File.exist?("#{Lokka.root}/database.yml") ? 'database.yml' : 'database.default.yml'
+      root = Lokka.root
       YAML.safe_load(ERB.new(File.read("#{Lokka.root}/#{filename}")).result(binding))[env]
     end
 
@@ -120,14 +105,10 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/flash'
 require 'padrino-helpers'
-require 'dm-core'
-require 'dm-timestamps'
-require 'dm-migrations'
-require 'dm-validations'
-require 'dm-types'
-require 'dm-is-tree'
-require 'dm-tags'
-require 'dm-pager'
+require 'active_record'
+require 'sinatra/activerecord'
+require 'kaminari'
+require 'kaminari/activerecord'
 require 'coderay'
 require 'kramdown'
 require 'redcloth'
@@ -155,6 +136,7 @@ require 'lokka/models/field_name'
 require 'lokka/models/field'
 require 'lokka/models/snippet'
 require 'lokka/models/tag'
+require 'lokka/models/tagging'
 require 'lokka/models/markup'
 require 'lokka/importer'
 require 'lokka/before'

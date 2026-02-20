@@ -66,8 +66,8 @@ module Lokka
 
     # comment
     get '/admin/comments' do
-      @comments = Comment.all(order: :created_at.desc).
-                    page(params[:page], per_page: settings.admin_per_page)
+      @comments = Comment.order(created_at: :desc).
+                    page(params[:page]).per(settings.admin_per_page)
       haml :'admin/comments/index', layout: :'admin/layout'
     end
 
@@ -102,7 +102,7 @@ module Lokka
     end
 
     delete '/admin/comments/spam' do
-      Comment.spam.destroy
+      Comment.spam.destroy_all
       flash[:notice] = t('comment_was_successfully_deleted')
       redirect to('/admin/comments')
     end
@@ -117,7 +117,7 @@ module Lokka
     # category
     get '/admin/categories' do
       @categories = Category.all.
-                      page(params[:page], per_page: settings.admin_per_page)
+                      page(params[:page]).per(settings.admin_per_page)
       haml :'admin/categories/index', layout: :'admin/layout'
     end
 
@@ -129,7 +129,6 @@ module Lokka
     post '/admin/categories' do
       params['category'].delete('parent_id') if params['category']['parent_id'].blank?
       @category = Category.new(params['category'])
-      # @category.user = current_user
       if @category.save
         flash[:notice] = t('category_was_successfully_created')
         redirect to("/admin/categories/#{@category.id}/edit")
@@ -164,17 +163,17 @@ module Lokka
     # tag
     get '/admin/tags' do
       @tags = Tag.all.
-                page(params[:page], per_page: settings.admin_per_page)
+                page(params[:page]).per(settings.admin_per_page)
       haml :'admin/tags/index', layout: :'admin/layout'
     end
 
     get '/admin/tags/:id/edit' do |id|
-      (@tag = Tag.get(id)) || raise(Sinatra::NotFound)
+      (@tag = Tag.find_by(id: id)) || raise(Sinatra::NotFound)
       haml :'admin/tags/edit', layout: :'admin/layout'
     end
 
     put '/admin/tags/:id' do |id|
-      (@tag = Tag.get(id)) || raise(Sinatra::NotFound)
+      (@tag = Tag.find_by(id: id)) || raise(Sinatra::NotFound)
       if @tag.update(params['tag'])
         flash[:notice] = t('tag_was_successfully_updated')
         redirect to("/admin/tags/#{@tag.id}/edit")
@@ -184,7 +183,7 @@ module Lokka
     end
 
     delete '/admin/tags/:id' do |id|
-      (tag = Tag.get(id)) || raise(Sinatra::NotFound)
+      (tag = Tag.find_by(id: id)) || raise(Sinatra::NotFound)
       tag.destroy
       flash[:notice] = t('tag_was_successfully_deleted')
       redirect to('/admin/tags')
@@ -192,8 +191,8 @@ module Lokka
 
     # users
     get '/admin/users' do
-      @users = User.all(order: :created_at.desc).
-                 page(params[:page], per_page: settings.admin_per_page)
+      @users = User.order(created_at: :desc).
+                 page(params[:page]).per(settings.admin_per_page)
       haml :'admin/users/index', layout: :'admin/layout'
     end
 
@@ -240,8 +239,8 @@ module Lokka
 
     # snippets
     get '/admin/snippets' do
-      @snippets = Snippet.all(order: :created_at.desc).
-                    page(params[:page], per_page: settings.admin_per_page)
+      @snippets = Snippet.order(created_at: :desc).
+                    page(params[:page]).per(settings.admin_per_page)
       haml :'admin/snippets/index', layout: :'admin/layout'
     end
 
@@ -264,12 +263,12 @@ module Lokka
     end
 
     get '/admin/snippets/:id/edit' do |id|
-      (@snippet = Snippet.get(id)) || raise(Sinatra::NotFound)
+      (@snippet = Snippet.find_by(id: id)) || raise(Sinatra::NotFound)
       haml :'admin/snippets/edit', layout: :'admin/layout'
     end
 
     put '/admin/snippets/:id' do |id|
-      (@snippet = Snippet.get(id)) || raise(Sinatra::NotFound)
+      (@snippet = Snippet.find_by(id: id)) || raise(Sinatra::NotFound)
       if @snippet.update(params['snippet'])
         flash[:notice] = t('snippet_was_successfully_updated')
         redirect to("/admin/snippets/#{@snippet.id}/edit")
@@ -279,7 +278,7 @@ module Lokka
     end
 
     delete '/admin/snippets/:id' do |id|
-      (snippet = Snippet.get(id)) || raise(Sinatra::NotFound)
+      (snippet = Snippet.find_by(id: id)) || raise(Sinatra::NotFound)
       snippet.destroy
       flash[:notice] = t('snippet_was_successfully_deleted')
       redirect to('/admin/snippets')
@@ -428,8 +427,8 @@ module Lokka
 
     # field names
     get '/admin/field_names' do
-      @field_names = FieldName.all.
-                       page(params[:page], per_page: settings.admin_per_page, order: :name.asc)
+      @field_names = FieldName.order(name: :asc).
+                       page(params[:page]).per(settings.admin_per_page)
       haml :'admin/field_names/index', layout: :'admin/layout'
     end
 

@@ -1,21 +1,19 @@
 # frozen_string_literal: true
 
-class FieldName
-  include DataMapper::Resource
+class FieldName < ActiveRecord::Base
+  validates :name, presence: true, uniqueness: true
+  validate :validate_if_entry_respond_to
 
-  property :id, Serial
-  property :name, String, length: 255
-  property :created_at, DateTime
-  property :updated_at, DateTime
+  def self.get(id)
+    find_by(id: id)
+  end
 
-  validates_uniqueness_of :name
-  validates_presence_of :name
-  validates_with_method :validate_if_entry_respond_to
+  private
 
   def validate_if_entry_respond_to
     entry = Entry.new
-    return true unless entry.respond_to?(name, true)
-    [false, "'#{name}' cannot be used because Entry has a method of the same name"]
+    return unless entry.respond_to?(name, true)
+    errors.add(:name, "'#{name}' cannot be used because Entry has a method of the same name")
   end
 end
 

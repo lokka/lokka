@@ -5,13 +5,8 @@ module Lokka
     MODELS = %w[site option user entry category comment snippet tag tagging field_name field].freeze
 
     def connect
-      DataMapper.finalize
-      config = if Lokka.dsn.present?
-                 Lokka.dsn
-               else
-                 Lokka.dsh
-               end
-      DataMapper.setup(:default, config)
+      config = Lokka.database_config
+      ActiveRecord::Base.establish_connection(config)
       self
     end
 
@@ -22,16 +17,17 @@ module Lokka
     end
 
     def migrate
-      MODELS.each do |model|
-        model.camelize.constantize.auto_upgrade!
-      end
+      migration_dir = File.join(Lokka.root, 'db', 'migrate')
+      ActiveRecord::MigrationContext.new(migration_dir).migrate
       self
     end
 
     def migrate!
-      MODELS.each do |model|
-        model.camelize.constantize.auto_migrate!
+      # Drop all tables and re-migrate
+      ActiveRecord::Base.connection.tables.each do |table|
+        ActiveRecord::Base.connection.drop_table(table, if_exists: true)
       end
+      migrate
       self
     end
 

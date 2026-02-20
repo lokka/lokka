@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 ruby "~> 2.6"
 
 gem 'activesupport', '~> 5.2'
+gem 'activerecord', '~> 5.2'
+gem 'sinatra-activerecord', '~> 2.0'
+gem 'kaminari', '~> 1.2'
+gem 'kaminari-activerecord'
 gem 'aws-sdk-s3'
 gem 'backports', '2.3.0'
 gem 'builder'
@@ -9,17 +13,6 @@ gem 'bundler'
 gem 'coderay', '1.0.5'
 gem 'coffee-script'
 gem 'compass'
-gem 'data_objects',     '0.10.17'
-gem 'dm-aggregates',    '~> 1.2.0'
-gem 'dm-core',          '~> 1.2.1'
-gem 'dm-is-searchable', '~> 1.2.0'
-gem 'dm-is-tree',       '~> 1.2.0'
-gem 'dm-migrations',    '~> 1.2.0'
-gem 'dm-pager',         git: 'https://github.com/lokka/dm-pagination'
-gem 'dm-tags',          '~> 1.2.0'
-gem 'dm-timestamps',    '~> 1.2.0'
-gem 'dm-types',         '~> 1.2.2'
-gem 'dm-validations',   '~> 1.2.0'
 gem 'erubis', '~> 2.7.0'
 gem 'haml', '~> 5.0'
 gem 'i18n', '~> 0.7'
@@ -45,31 +38,23 @@ gem 'yard-sinatra', '1.0.0'
 Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }
 
 group :production do
+  gem 'pg', '~> 1.0'
 end
 
 group :development, :test do
   gem 'tapp', '1.3.0'
+  gem 'sqlite3', '~> 1.4'
 end
 
 group :development do
-  gem 'dm-sqlite-adapter', '1.2.0'
   gem 'haml-lint'
   gem 'rubocop'
 end
 
 group :test do
   gem 'database_cleaner', '0.7.1'
-  gem 'dm-transactions', '~> 1.2.0'
   gem 'factory_girl', '~> 4.0'
   gem 'rack-test', '0.6.1', require: 'rack/test'
   gem 'rspec', '~> 2.0'
   gem 'simplecov', require: false
-end
-
-group :mysql do
-  gem 'dm-mysql-adapter', '1.2.0'
-end
-
-group :postgresql do
-  gem 'dm-postgres-adapter', '1.2.0'
 end

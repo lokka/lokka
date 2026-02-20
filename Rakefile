@@ -1,5 +1,6 @@
 require './init'
 require 'yard'
+require 'sinatra/activerecord/rake'
 
 task default: ['spec:setup', 'db:delete', :spec]
 
@@ -19,8 +20,6 @@ end
 desc 'Execute seed script'
 task 'db:seed' do
   puts 'Initializing Database...'
-  DataMapper::Logger.new(STDOUT, :debug)
-  DataMapper.logger.set_log STDERR, :debug, 'SQL: ', true
   Lokka::Database.new.connect.seed
 end
 
