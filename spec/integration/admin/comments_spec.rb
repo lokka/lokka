@@ -19,15 +19,15 @@ describe '/admin/comments' do
   context 'GET /admin/comments' do
     it 'should show index' do
       get '/admin/comments'
-      last_response.should be_ok
+      expect(last_response).to be_ok
     end
   end
 
   context 'GET /admin/comments/new' do
     it 'should show form for new comment' do
       get '/admin/comments/new'
-      last_response.should be_ok
-      last_response.body.should match('<form')
+      expect(last_response).to be_ok
+      expect(last_response.body).to match('<form')
     end
   end
 
@@ -36,40 +36,40 @@ describe '/admin/comments' do
       Comment.destroy
       sample = attributes_for(:comment, entry_id: @post.id)
       post '/admin/comments', comment: sample
-      last_response.should be_redirect
-      Post(@post.id).comments.should have(1).item
+      expect(last_response).to be_redirect
+      expect(Post(@post.id).comments).to have(1).item
     end
   end
 
   context 'GET /admin/comments/:id/edit' do
     it 'should show edit comment' do
       get "/admin/comments/#{@comment.id}/edit"
-      last_response.body.should match('<form')
-      last_response.body.should match('Test Comment')
+      expect(last_response.body).to match('<form')
+      expect(last_response.body).to match('Test Comment')
     end
   end
 
   context 'PUT /admin/comments/:id' do
     it 'should update the comment"s body ' do
       put "/admin/comments/#{@comment.id}", comment: { body: 'updated' }
-      last_response.should be_redirect
-      Comment(@comment.id).body.should eq('updated')
+      expect(last_response).to be_redirect
+      expect(Comment(@comment.id).body).to eq('updated')
     end
   end
 
   context 'DELETE /admin/comments/:id' do
     it 'should delete the comment' do
       delete "/admin/comments/#{@comment.id}"
-      last_response.should be_redirect
-      Comment(@comment.id).should be_nil
+      expect(last_response).to be_redirect
+      expect(Comment(@comment.id)).to be_nil
     end
   end
 
   context 'delete /admin/comments/spam' do
     it 'should delete spam comments' do
       delete '/admin/comments/spam'
-      last_response.should be_redirect
-      Comment.spam.size.should eq(0)
+      expect(last_response).to be_redirect
+      expect(Comment.spam.size).to eq(0)
     end
   end
 
@@ -100,7 +100,7 @@ describe '/admin/comments' do
     context 'GET /admin/comments' do
       it 'should escape html tag' do
         get '/admin/comments'
-        last_response.body.should match(/&lt;xmp&gt;/)
+        expect(last_response.body).to match(/&lt;xmp&gt;/)
       end
     end
   end

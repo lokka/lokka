@@ -10,15 +10,15 @@ describe '/admin/categories' do
   context 'GET /admin/categories' do
     it 'should show index' do
       get '/admin/categories'
-      last_response.should be_ok
+      expect(last_response).to be_ok
     end
   end
 
   context '/admin/categories/new' do
     it 'should show form for new categories' do
       get '/admin/categories/new'
-      last_response.should be_ok
-      last_response.body.should match('<form')
+      expect(last_response).to be_ok
+      expect(last_response.body).to match('<form')
     end
   end
 
@@ -28,32 +28,32 @@ describe '/admin/categories' do
                  description: 'This is created in spec',
                  slug: 'created-category' }
       post '/admin/categories', category: sample
-      last_response.should be_redirect
-      Category('created-category').should_not be_nil
+      expect(last_response).to be_redirect
+      expect(Category('created-category')).not_to be_nil
     end
   end
 
   context '/admin/categories/:id/edit' do
     it 'should show form for edit categories' do
       get "/admin/categories/#{@category.id}/edit"
-      last_response.should be_ok
-      last_response.body.should match('<form')
+      expect(last_response).to be_ok
+      expect(last_response.body).to match('<form')
     end
   end
 
   context 'PUT /admin/categories/:id' do
     it 'should update the category"s description' do
       put "/admin/categories/#{@category.id}", category: { description: 'updated' }
-      last_response.should be_redirect
-      Category(@category.id).description.should eq('updated')
+      expect(last_response).to be_redirect
+      expect(Category(@category.id).description).to eq('updated')
     end
   end
 
   context 'DELETE /admin/categories/:id' do
     it 'should delete the category' do
       delete "/admin/categories/#{@category.id}"
-      last_response.should be_redirect
-      Category(@category.id).should be_nil
+      expect(last_response).to be_redirect
+      expect(Category(@category.id)).to be_nil
     end
   end
 
@@ -65,10 +65,10 @@ describe '/admin/categories' do
                    slug: 'child-category',
                    parent_id: @category.id }
         post '/admin/categories', category: sample
-        last_response.should be_redirect
+        expect(last_response).to be_redirect
         child = Category('child-category')
-        child.should_not be_nil
-        child.parent.should eq(@category)
+        expect(child).not_to be_nil
+        expect(child.parent).to eq(@category)
       end
     end
   end

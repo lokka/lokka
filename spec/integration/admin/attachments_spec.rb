@@ -22,7 +22,7 @@ describe '/admin/attachments' do
 
       it 'should be success' do
         post '/admin/attachments', file: Rack::Test::UploadedFile.new(File.join(fixture_path, '1px.gif'))
-        last_response.status.should eq(201)
+        expect(last_response.status).to eq(201)
       end
     end
 
@@ -42,14 +42,14 @@ describe '/admin/attachments' do
 
       it 'should be failure' do
         post '/admin/attachments', foo: 'bar'
-        last_response.status.should eq(400)
+        expect(last_response.status).to eq(400)
       end
     end
 
     context 'Without S3 configuration' do
       it 'should be failure' do
         post '/admin/attachments', file: Rack::Test::UploadedFile.new(File.join(fixture_path, '1px.gif'))
-        last_response.status.should eq(400)
+        expect(last_response.status).to eq(400)
         expect(JSON.parse(last_response.body)['message']).to eq('AWS Credentials are not set')
       end
     end
