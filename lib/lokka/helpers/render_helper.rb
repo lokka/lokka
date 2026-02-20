@@ -45,7 +45,13 @@ module Lokka
       options[:views] ||= "#{settings.views}/theme/#{@theme.name}"
       path = "#{options[:views]}/#{name}"
 
-      send(ext.to_sym, name.to_sym, options) if File.exist?("#{path}.#{ext}")
+      if File.exist?("#{path}.#{ext}")
+        if ext == 'css' || ext == 'js'
+          File.read("#{path}.#{ext}")
+        else
+          send(ext.to_sym, name.to_sym, options)
+        end
+      end
     end
   end
 end

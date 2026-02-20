@@ -19,15 +19,13 @@ module Lokka
       set views: proc { public_folder }
       set theme: proc { File.join(public_folder, 'theme') }
       set supported_templates: %w[erb haml slim]
-      set supported_stylesheet_templates: %w[scss]
-      set supported_javascript_templates: []
+      set supported_stylesheet_templates: %w[css]
+      set supported_javascript_templates: %w[js]
       set :per_page, 10
       set :admin_per_page, 200
       set :default_locale, 'en'
-      set :haml, escape_html: false
-      supported_stylesheet_templates.each do |style|
-        set style.to_sym, style: :expanded
-      end
+      set :haml, {}
+      set :protect_from_csrf, true
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
       helpers Lokka::RenderHelper
@@ -69,6 +67,11 @@ module Lokka
 
     get '/*.css' do |path|
       content_type 'text/css', charset: 'utf-8'
+      render_any path.to_sym, views: settings.views
+    end
+
+    get '/*.js' do |path|
+      content_type 'text/javascript', charset: 'utf-8'
       render_any path.to_sym, views: settings.views
     end
 

@@ -18,12 +18,10 @@ require 'rubygems'
 require 'sinatra'
 require 'rack/test'
 require 'rspec'
-require 'factory_girl'
-require 'database_cleaner'
+require 'factory_bot'
+require 'database_cleaner/active_record'
 
 require 'factories'
-require 'dm-core'
-require 'dm-transactions'
 
 set :environment, :test
 Lokka::Database.new.connect
@@ -40,7 +38,7 @@ RSpec.configure do |config|
   config.include LokkaTestMethods
   config.include Lokka::Helpers
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
