@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
+require 'json'
+
 module Lokka
   # Migrates data from a legacy DataMapper-based Lokka database
-  # to the new ActiveRecord schema.
+  # to the new ActiveRecord schema using a two-step dump/import approach.
   #
-  # Usage:
-  #   rake db:migrate_from_dm SOURCE=path/to/old/database.sqlite3
-  #   rake db:migrate_from_dm SOURCE=postgres://user:pass@host/old_db
+  # Step 1 - Dump (run on old environment):
+  #   rake db:dump_dm SOURCE=path/to/old/database.sqlite3
+  #   Produces db/dm_dump.json
+  #
+  # Step 2 - Import (run on new environment):
+  #   rake db:import_dm
+  #   Reads db/dm_dump.json and imports into the new schema
   #
   class DMMigrator
+    DUMP_FILE = File.expand_path('../../db/dm_dump.json', __dir__).freeze
+
     TABLES_IN_ORDER = %w[
       sites users categories entries comments snippets
       tags taggings field_names fields options
@@ -26,94 +34,110 @@ module Lokka
       'sites' => %w[mobile_theme]
     }.freeze
 
-    def initialize(source_dsn)
-      @source_dsn = source_dsn
+    # --- Dump phase (old environment) ---
+
+    def self.dump!(source_dsn)
+      new.dump!(source_dsn)
     end
 
-    def migrate!
-      puts "=== Lokka DataMapper → ActiveRecord Migration ==="
-      puts "Source: #{@source_dsn}"
+    def dump!(source_dsn)
+      puts "=== Lokka DataMapper Dump ==="
+      puts "Source: #{source_dsn}"
       puts
 
-      establish_source_connection!
-      counts = {}
+      source_config = parse_source_dsn(source_dsn)
+      ActiveRecord::Base.establish_connection(source_config)
 
-      TABLES_IN_ORDER.each do |table|
-        count = migrate_table(table)
-        counts[table] = count
-        puts "  ✓ #{table}: #{count} records"
-      end
-
-      reset_sequences!
-
-      puts
-      puts "=== Migration Complete ==="
-      counts.each { |t, c| puts "  #{t}: #{c} records" }
-      puts
-      puts "Total: #{counts.values.sum} records migrated"
-    end
-
-    private
-
-    def establish_source_connection!
-      # Set up a secondary connection to the old DB
-      ActiveRecord::Base.connection_pool.disconnect!
-
-      @source_config = parse_source_dsn(@source_dsn)
-      ActiveRecord::Base.establish_connection(@source_config)
-
-      # Verify we can read from it
       tables = ActiveRecord::Base.connection.tables
       puts "Source tables found: #{tables.join(', ')}"
       puts
 
-      # Read all data first, then reconnect to target
-      @source_data = {}
+      data = {}
       TABLES_IN_ORDER.each do |table|
         if tables.include?(table)
-          @source_data[table] = read_table(table)
+          rows = read_table(table)
+          data[table] = rows
+          puts "  ✓ #{table}: #{rows.size} records"
         else
           puts "  ⚠ Table '#{table}' not found in source, skipping"
-          @source_data[table] = []
+          data[table] = []
         end
       end
 
-      # Reconnect to the target (new) database
-      ActiveRecord::Base.connection_pool.disconnect!
-      target_config = Lokka.database_config
-      ActiveRecord::Base.establish_connection(target_config)
+      File.write(DUMP_FILE, JSON.pretty_generate(data))
+      puts
+      puts "Dump written to #{DUMP_FILE}"
+      puts "Total: #{data.values.sum(&:size)} records dumped"
     end
+
+    # --- Import phase (new environment) ---
+
+    def self.import!
+      new.import!
+    end
+
+    def import!
+      puts "=== Lokka DataMapper Import ==="
+      puts "Reading #{DUMP_FILE}"
+      puts
+
+      unless File.exist?(DUMP_FILE)
+        puts "ERROR: #{DUMP_FILE} not found."
+        puts "Run 'rake db:dump_dm SOURCE=...' on the old environment first."
+        exit 1
+      end
+
+      data = JSON.parse(File.read(DUMP_FILE))
+      conn = ActiveRecord::Base.connection
+      target_tables = conn.tables
+      counts = {}
+
+      TABLES_IN_ORDER.each do |table|
+        rows = data[table] || []
+        if rows.empty?
+          counts[table] = 0
+          next
+        end
+
+        unless target_tables.include?(table)
+          puts "  ⚠ Target table '#{table}' doesn't exist, skipping"
+          counts[table] = 0
+          next
+        end
+
+        count = import_table(conn, table, rows)
+        counts[table] = count
+        puts "  ✓ #{table}: #{count} records"
+      end
+
+      reset_sequences!(conn)
+
+      puts
+      puts "=== Import Complete ==="
+      counts.each { |t, c| puts "  #{t}: #{c} records" }
+      puts
+      puts "Total: #{counts.values.sum} records imported"
+    end
+
+    private
 
     def read_table(table)
       conn = ActiveRecord::Base.connection
-      rows = conn.select_all("SELECT * FROM #{conn.quote_table_name(table)}")
-      rows.to_a
+      conn.select_all("SELECT * FROM #{conn.quote_table_name(table)}").to_a
     end
 
-    def migrate_table(table)
-      rows = @source_data[table]
-      return 0 if rows.empty?
-
-      conn = ActiveRecord::Base.connection
-      target_tables = conn.tables
-      unless target_tables.include?(table)
-        puts "  ⚠ Target table '#{table}' doesn't exist, skipping"
-        return 0
-      end
-
+    def import_table(conn, table, rows)
       target_columns = conn.columns(table).map(&:name)
       skip_cols = SKIP_COLUMNS[table] || []
 
       count = 0
       rows.each do |row|
-        # Filter to only columns that exist in the target schema
         filtered = row.select { |k, _v| target_columns.include?(k) && !skip_cols.include?(k) }
         next if filtered.empty?
 
         columns = filtered.keys
         values = filtered.values
 
-        # Handle the options table (no auto-increment id)
         placeholders = values.map { '?' }.join(', ')
         quoted_columns = columns.map { |c| conn.quote_column_name(c) }.join(', ')
 
@@ -134,14 +158,13 @@ module Lokka
       count
     end
 
-    def reset_sequences!
-      conn = ActiveRecord::Base.connection
+    def reset_sequences!(conn)
       return unless conn.adapter_name =~ /PostgreSQL/i
 
       puts
       puts "Resetting PostgreSQL sequences..."
       TABLES_IN_ORDER.each do |table|
-        next if table == 'options' # no serial id
+        next if table == 'options'
         next unless conn.tables.include?(table)
 
         begin
@@ -164,7 +187,6 @@ module Lokka
       elsif dsn =~ /\Amysql2?:\/\//
         { adapter: 'mysql2', url: dsn }
       elsif File.exist?(dsn)
-        # Assume it's a SQLite file path
         { adapter: 'sqlite3', database: File.expand_path(dsn) }
       else
         raise "Unknown source DSN format: #{dsn}. Use sqlite3://path, postgres://..., mysql://..., or a file path."
