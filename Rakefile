@@ -26,6 +26,19 @@ task 'db:reset' => %w[db:delete db:seed]
 desc 'Set up database'
 task 'db:setup' => %w[db:migrate db:seed]
 
+desc 'Migrate data from legacy DataMapper database (SOURCE=path_or_dsn)'
+task 'db:migrate_from_dm' do
+  source = ENV['SOURCE']
+  unless source
+    puts 'Usage: rake db:migrate_from_dm SOURCE=path/to/old/database.sqlite3'
+    puts '       rake db:migrate_from_dm SOURCE=postgres://user:pass@host/old_db'
+    exit 1
+  end
+  require 'lokka/migrator'
+  Lokka::Database.new.connect
+  Lokka::DMMigrator.new(source).migrate!
+end
+
 desc 'Install gems'
 task :bundle do
   `bundle install --path vendor/bundle --without production test`
