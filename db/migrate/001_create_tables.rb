@@ -1,4 +1,4 @@
-class CreateTables < ActiveRecord::Migration[5.2]
+class CreateTables < ActiveRecord::Migration[8.1]
   def change
     create_table :sites do |t|
       t.string :title, limit: 255

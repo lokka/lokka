@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 ruby ">= 4.0"
 
-gem 'activerecord', '~> 8.0'
-gem 'activesupport', '~> 8.0'
+gem 'activerecord', '~> 8.1'
+gem 'activesupport', '~> 8.1'
 gem 'sinatra', '~> 4.0'
 gem 'sinatra-contrib', '~> 4.0'
 gem 'sinatra-activerecord', '~> 2.0'
