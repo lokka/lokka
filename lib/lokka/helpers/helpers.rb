@@ -366,10 +366,6 @@ module Lokka
       include Lokka::Helpers
     end
 
-    def mobile?
-      request.user_agent =~ /iPhone|Android/
-    end
-
     def slugs
       tmp = @theme_types
       tmp << @entry.slug    if @entry && @entry.slug

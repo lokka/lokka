@@ -22,16 +22,9 @@ module Lokka
           I18n.locale = locales.first
         end
 
-        theme = request.cookies['theme']
-        if params[:theme]
-          theme = params[:theme]
-          response.set_cookie('theme', params[:theme])
-        end
-
         @theme = RequestStore[:theme] ||= Theme.new(
           settings.theme,
-          request.script_name,
-          theme != 'pc' && request.user_agent =~ /iPhone|Android/
+          request.script_name
         )
 
         @theme_types ||= []

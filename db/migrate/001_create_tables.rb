@@ -5,7 +5,6 @@ class CreateTables < ActiveRecord::Migration[8.1]
       t.string :description, limit: 255
       t.text :dashboard
       t.string :theme, limit: 64
-      t.string :mobile_theme, limit: 64
       t.integer :per_page
       t.string :default_sort, limit: 255
       t.string :default_order, limit: 255
