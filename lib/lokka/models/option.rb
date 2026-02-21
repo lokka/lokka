@@ -7,18 +7,25 @@ class Option < ActiveRecord::Base
 
   def self.method_missing(method, *args)
     attribute = method.to_s
-    if attribute =~ /=$/
-      column = attribute[0, attribute.size - 1]
-      option = find_or_initialize_by(name: column)
+
+    # Only handle simple option names; delegate everything else to super
+    return super unless attribute =~ /\A[a-z][a-z0-9_]*=?\z/
+
+    if attribute.end_with?('=')
+      column = attribute.chomp('=')
+      option = where(name: column).first_or_initialize
       option.value = args.first.to_s
       option.save
     else
-      option = find_or_initialize_by(name: method.to_s)
-      option.value
+      # Use raw SQL to avoid triggering AR method_missing recursion
+      result = connection.select_value(
+        "SELECT value FROM options WHERE name = #{connection.quote(attribute)}"
+      )
+      result
     end
   end
 
-  def self.respond_to_missing?(_method, _include_private = false)
-    true
+  def self.respond_to_missing?(method, include_private = false)
+    method.to_s =~ /\A[a-z][a-z0-9_]*=?\z/ ? true : super
   end
 end

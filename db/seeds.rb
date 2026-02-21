@@ -8,8 +8,11 @@ Site.create!(title: 'Test Site',
              updated_at: updated_at) && puts('site was successfully created') if Site.count == 0
 
 User.create!(name: 'test',
+             email: 'test@example.com',
              hashed_password: '6338db2314bba79531444996b780fa7036480733',
              salt: '2Z4H4DzATC',
+             password: 'test',
+             password_confirmation: 'test',
              permission_level: 1,
              created_at: created_at,
              updated_at: updated_at) && puts('user was successfully created') if User.count == 0

@@ -31,7 +31,7 @@ module Lokka
       helpers Lokka::RenderHelper
       use Rack::Session::Cookie,
         expire_after: 60 * 60 * 24 * 12,
-        secret: SecureRandom.hex(30)
+        secret: SecureRandom.hex(64)
       use RequestStore::Middleware
       register Sinatra::Flash
       Lokka.load_plugin(self)

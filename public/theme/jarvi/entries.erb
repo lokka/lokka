@@ -16,11 +16,11 @@
 <% end %>
 <div class="pager">
   <ul>
-<% if @posts.pager.previous_page %>
-    <li class="previous"><a href="?page=<%= @posts.pager.previous_page %>"><%= t('newer') %></a></li>
+<% if @posts.current_page > 1 %>
+    <li class="previous"><a href="?page=<%= @posts.current_page - 1 %>"><%= t('newer') %></a></li>
 <% end %>
-<% if @posts.pager.next_page %>
-    <li class="next"><a href="?page=<%= @posts.pager.next_page %>"><%= t('older') %></a></li>
+<% if @posts.current_page < @posts.total_pages %>
+    <li class="next"><a href="?page=<%= @posts.current_page + 1 %>"><%= t('older') %></a></li>
 <% end %>
   </ul>
 </div>

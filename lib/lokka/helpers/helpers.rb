@@ -4,6 +4,12 @@ module Lokka
   module Helpers
     include Rack::Utils
 
+    # Override padrino's localize to work with i18n 1.14+ keyword args
+    def localize(object, **options)
+      I18n.localize(object, **options)
+    end
+    alias l localize
+
     alias h escape_html
 
     %w[index search category tag yearly monthly daily post page entry entries].each do |name|

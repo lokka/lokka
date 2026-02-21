@@ -31,7 +31,7 @@ module Lokka
         ::I18n.load_path += Dir["#{@theme.i18n_dir}/*.yml"] if @theme.exist_i18n?
       end
 
-      app.before %r{(?!^/admin/login$)^/admin/.*$} do
+      app.before %r{(?!/admin/login)/admin/.*} do
         login_required
       end
     end

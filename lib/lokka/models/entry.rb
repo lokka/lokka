@@ -20,7 +20,9 @@ class Entry < ActiveRecord::Base
   scope :published, -> { where(draft: false) }
   scope :unpublished, -> { where(draft: true) }
 
-  alias raw_body body
+  def raw_body
+    read_attribute(:body)
+  end
 
   def long_body
     Markup.use_engine(markup, raw_body.to_s)

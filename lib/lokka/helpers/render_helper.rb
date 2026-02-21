@@ -32,7 +32,7 @@ module Lokka
         settings.supported_javascript_templates
       templates.each do |ext|
         out = rendering(ext, name, options)
-        out.force_encoding(Encoding.default_external) unless out.nil?
+        out.force_encoding(Encoding::UTF_8) unless out.nil?
         unless out.blank?
           ret = out
           break

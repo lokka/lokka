@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby ">= 4.0"
+ruby ">= 3.2"
 
 gem 'activerecord', '~> 8.1'
 gem 'activesupport', '~> 8.1'
@@ -49,3 +49,7 @@ group :test do
   gem 'rspec', '~> 3.0'
   gem 'simplecov', require: false
 end
+gem 'csv'
+gem 'ostruct'
+gem 'rackup'
+gem 'puma'
