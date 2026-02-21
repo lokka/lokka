@@ -1,0 +1,33 @@
+<h2><%= t('file_upload.name') %></h2>
+<% if flash[:error] %>
+  <div id="error">
+    <p><%= flash[:error] %></p>
+  </div>
+<% end %>
+<form action="<%= url('/admin/file_upload') %>" method="post" data-method="put">
+  <input name="_method" type="hidden" value="put">
+  <p><%= t('file_upload.description') %></p>
+  <p>
+    <label><%= t('file_upload.aws_access_key_id') %></label>
+    <input name="aws_access_key_id" type="text" value="<%= @aws_access_key_id %>">
+  </p>
+  <p>
+    <label><%= t('file_upload.aws_secret_access_key') %></label>
+    <input name="aws_secret_access_key" type="text" value="<%= @aws_secret_access_key %>">
+  </p>
+  <p>
+    <label><%= t('file_upload.s3_region') %></label>
+    <input name="s3_region" type="text" value="<%= @s3_region %>">
+  </p>
+  <p>
+    <label><%= t('file_upload.s3_bucket_name') %></label>
+    <input name="s3_bucket_name" type="text" value="<%= @s3_bucket_name %>">
+  </p>
+  <p>
+    <label><%= t('file_upload.s3_domain_name') %></label>
+    <input name="s3_domain_name" type="text" value="<%= @s3_domain_name %>">
+  </p>
+  <p>
+    <input type="submit" value="<%= t('save') %>">
+  </p>
+</form>

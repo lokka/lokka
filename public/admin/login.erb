@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta name="viewport" content="width=device-width">
+    <title><%= @site.title %> - Lokka</title>
+    <%= favicon_tag url('/favicon.ico') %>
+    <%= stylesheet_link_tag url('/admin/css/style.css') %>
+    <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min' %>
+  </head>
+  <body class="admin_login">
+    <div id="header">
+      <h1><%= link_to @site.title, url('/') %></h1>
+      <div id="nav">
+        <ul>
+          <% if logged_in? %>
+            <li><%= link_to current_user.name, url("/admin/users/#{current_user.id}/edit") %></li>
+            <li><%= link_to t('logout'), url('/admin/logout') %></li>
+          <% else %>
+            <li><%= link_to t('login'), url('/admin/login') %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div id="content">
+      <div id="main">
+        <h2><%= t('login') %></h2>
+        <form action="<%= url('/admin/login') %>" method="post">
+          <% if @login_failed %>
+            <div id="error"><%= t('your_name_or_password_is_incorrect') %></div>
+          <% end %>
+          <div class="field">
+            <label for="user_name"><%= t('user.name') %></label>
+            <br/>
+            <input id="user_name" name="name" type="text">
+          </div>
+          <div class="field">
+            <label for="user_password"><%= t('user.password') %></label>
+            <br/>
+            <input id="user_password" name="password" type="password">
+          </div>
+          <div class="field">
+            <input id="login" type="submit" value="<%= t('login') %>">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="footer"><%= link_to 'Lokka', 'http://lokka.org' %></div>
+  </body>
+</html>

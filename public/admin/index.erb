@@ -1,0 +1,77 @@
+<h2><%= t('dashboard') %></h2>
+<%= raw @site.dashboard %>
+
+<ul id="dashboard">
+  <li class="post parent">
+    <h3 class="title"><%= t('posts') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/posts') %></li>
+      <li class="new"><%= link_to t('new'), url('/admin/posts/new') %></li>
+    </ul>
+  </li>
+  <li class="page parent">
+    <h3 class="title"><%= t('pages') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/pages') %></li>
+      <li class="new"><%= link_to t('new'), url('/admin/pages/new') %></li>
+    </ul>
+  </li>
+  <li class="comment parent">
+    <h3 class="title"><%= t('comments') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/comments') %></li>
+      <li class="new"><%= link_to t('new'), url('/admin/comments/new') %></li>
+    </ul>
+  </li>
+  <li class="category parent">
+    <h3 class="title"><%= t('categories') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/categories') %></li>
+      <li class="new"><%= link_to t('new'), url('/admin/categories/new') %></li>
+    </ul>
+  </li>
+  <li class="tag parent">
+    <h3 class="title"><%= t('tags') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/tags') %></li>
+    </ul>
+  </li>
+  <li class="user parent">
+    <h3 class="title"><%= t('users') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/users') %></li>
+      <li class="new"><%= link_to t('new'), url('/admin/users/new') %></li>
+    </ul>
+  </li>
+  <li class="snippet parent">
+    <h3 class="title"><%= t('snippets') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/snippets') %></li>
+      <li class="new"><%= link_to t('new'), url('/admin/snippets/new') %></li>
+    </ul>
+  </li>
+  <li class="theme parent">
+    <h3 class="title"><%= t('themes') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('default_themes'), url('/admin/themes') %></li>
+    </ul>
+  </li>
+  <li class="plugin parent">
+    <h3><%= link_to t('plugins'), url('/admin/plugins') %></h3>
+  </li>
+  <li class="field_names parent">
+    <h3 class="title"><%= t('field_names') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('list'), url('/admin/field_names') %></li>
+      <li class="list"><%= link_to t('new'), url('/admin/field_names/new') %></li>
+    </ul>
+  </li>
+  <li class="setting parent">
+    <h3 class="title"><%= t('settings') %></h3>
+    <ul>
+      <li class="list"><%= link_to t('sites'), url('/admin/site/edit') %></li>
+      <li class="list"><%= link_to t('permalink.title'), url('/admin/permalink') %></li>
+      <li class="list"><%= link_to t('import'), url('/admin/import') %></li>
+    </ul>
+  </li>
+</ul>

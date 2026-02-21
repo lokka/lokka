@@ -1,0 +1,8 @@
+<h2><%= t('edit_tag') %></h2>
+<form action="<%= url("/admin/tags/#{@tag.id}") %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <%= erb :'admin/tags/form', layout: false %>
+  <p>
+    <input type="submit" value="<%= t('save') %>">
+  </p>
+</form>

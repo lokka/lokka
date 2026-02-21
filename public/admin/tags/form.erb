@@ -1,0 +1,15 @@
+<% unless @tag.errors.empty? %>
+  <div id="error">
+    <div class="title"><%= t('error') %></div>
+    <ul>
+      <% @tag.errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="field">
+  <label for="tag_name"><%= t('tag.name') %></label>
+  <br>
+  <input type="text" id="tag_name" name="tag[name]" value="<%= @tag.name %>">
+</div>

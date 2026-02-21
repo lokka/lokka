@@ -1,0 +1,16 @@
+<h2><%= t('listing_categories') %></h2>
+<table>
+  <tr>
+    <th><%= t('category.title') %></th>
+    <th><%= t('category.created_at') %></th>
+    <th colspan="2"></th>
+  </tr>
+  <% @categories.each do |category| %>
+    <tr>
+      <td><%= link_to category.title, url("/admin/categories/#{category.id}/edit") %></td>
+      <td><%= l(category.created_at, format: :long) %></td>
+      <td><%= link_to t('edit'), url("/admin/categories/#{category.id}/edit"), class: 'button' %></td>
+      <td><%= link_to t('delete'), url("/admin/categories/#{category.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete %></td>
+    </tr>
+  <% end %>
+</table>

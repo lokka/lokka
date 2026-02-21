@@ -1,0 +1,7 @@
+<h2><%= t('new_user') %></h2>
+<form action="<%= url('/admin/users') %>" method="post">
+  <%= erb :'admin/users/form', layout: false %>
+  <p>
+    <input type="submit" value="<%= t('new') %>">
+  </p>
+</form>

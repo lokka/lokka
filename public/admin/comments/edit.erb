@@ -1,0 +1,2 @@
+<h2><%= t('edit_comment') %></h2>
+<%= erb :'admin/comments/form', layout: false, locals: { action: url("/admin/comments/#{@comment.id}"), method: 'put', label: t('save') } %>

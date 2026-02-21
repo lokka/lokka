@@ -65,7 +65,7 @@ module Lokka
     end
 
     def comment_form
-      haml :"lokka/comments/form", layout: false
+      erb :"lokka/comments/form", layout: false
     end
 
     def months
@@ -151,7 +151,7 @@ module Lokka
       @name = entry_class.name.downcase
       @entries = params[:draft] == 'true' ? entry_class.unpublished : entry_class.all
       @entries = @entries.page(params[:page]).per(settings.admin_per_page)
-      haml :"admin/entries/index", layout: :"admin/layout"
+      erb :"admin/entries/index", layout: :"admin/layout"
     end
 
     def get_admin_entry_new(entry_class)
@@ -159,7 +159,7 @@ module Lokka
       @entry = entry_class.new(markup: Site.first.default_markup, created_at: Time.current, updated_at: Time.current)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.order(name: :asc)
-      haml :"admin/entries/new", layout: :"admin/layout"
+      erb :"admin/entries/new", layout: :"admin/layout"
     end
 
     def get_admin_entry_edit(entry_class, id)
@@ -167,7 +167,7 @@ module Lokka
       (@entry = entry_class.find_by(id: id)) || raise(Sinatra::NotFound)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.order(name: :asc)
-      haml :"admin/entries/edit", layout: :"admin/layout"
+      erb :"admin/entries/edit", layout: :"admin/layout"
     end
 
     def post_admin_entry(entry_class)
@@ -183,7 +183,7 @@ module Lokka
         else
           @field_names = FieldName.order(name: :asc)
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          haml :"admin/entries/new", layout: :"admin/layout"
+          erb :"admin/entries/new", layout: :"admin/layout"
         end
       end
     end
@@ -199,7 +199,7 @@ module Lokka
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
         @field_names = FieldName.order(name: :asc)
-        haml :"admin/entries/edit", layout: :"admin/layout"
+        erb :"admin/entries/edit", layout: :"admin/layout"
       end
     end
 

@@ -1,0 +1,37 @@
+<%= form_for @category, action, method: method do |f| %>
+  <% unless @category.errors.empty? %>
+    <div id="error">
+      <div class="title"><%= t('error') %></div>
+      <ul>
+        <% @category.errors.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :title, caption: t('category.title') %>
+    <br/>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description, caption: t('category.description') %>
+    <br/>
+    <div id="editor"><%= f.text_area :description %></div>
+  </div>
+  <div class="field">
+    <%= f.label :parent, caption: t('category.parent') %>
+    <br/>
+    <% if (categories_without_self = Category.all(:id.not => @category.id)).count > 0 %>
+      <%= f.select :parent_id, collection: categories_without_self, fields: %i[title id], include_blank: t('not_select') %>
+    <% else %>
+      <%= t('no_category') %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :slug, caption: t('category.slug') %>
+    <br/>
+    <%= f.text_field :slug %>
+  </div>
+  <p><%= f.submit label %></p>
+<% end %>

@@ -1,0 +1,2 @@
+<h2><%= t('new_category') %></h2>
+<%= erb :'admin/categories/form', layout: false, locals: { action: url('/admin/categories'), method: 'post', label: t('new') } %>

@@ -1,0 +1,68 @@
+<h2><%= t('permalink.title') %></h2>
+<% if flash[:error] %>
+  <div id="error">
+    <p><%= flash[:error] %></p>
+  </div>
+<% end %>
+<form action="<%= url('/admin/permalink') %>" method="post" data-method="put">
+  <input name="_method" type="hidden" value="put">
+  <p>
+    <%= t('permalink.description') %>
+  </p>
+  <p>
+    <input name="enable" type="hidden" value="0">
+    <input id="permalink_enable" name="enable" type="checkbox" value="1"<%= ' checked' if @enabled %>>
+    <label for="permalink_enable"><%= t('permalink.enable') %></label>
+  </p>
+  <p>
+    <label for="permalink_format"><%= t('permalink.format') %></label>
+    <br/>
+    <input id="permalink_format" name="format" type="text" value="<%= flash[:permalink_format] || @format %>">
+  </p>
+  <p>
+    <input type="submit" value="<%= t('edit') %>">
+  </p>
+</form>
+<h3><%= t('permalink.tags') %></h3>
+<ul>
+  <li>
+    <code>%year%</code>
+    -
+    <%= t('permalink.tag.year') %>
+  </li>
+  <li>
+    <code>%month%</code>
+    -
+    <%= t('permalink.tag.month') %>
+  </li>
+  <li>
+    <code>%day%</code>
+    -
+    <%= t('permalink.tag.day') %>
+  </li>
+  <li>
+    <code>%hour%</code>
+    -
+    <%= t('permalink.tag.hour') %>
+  </li>
+  <li>
+    <code>%minute%</code>
+    -
+    <%= t('permalink.tag.minute') %>
+  </li>
+  <li>
+    <code>%second%</code>
+    -
+    <%= t('permalink.tag.second') %>
+  </li>
+  <li>
+    <code>%id%</code>
+    -
+    <%= t('permalink.tag.id') %>
+  </li>
+  <li>
+    <code>%slug%</code>
+    -
+    <%= t('permalink.tag.slug') %>
+  </li>
+</ul>
