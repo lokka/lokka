@@ -1,2 +1,0 @@
-[   20693ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:9292/6405:0
-[   20743ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:9292/favicon.ico:0
