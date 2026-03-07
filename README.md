@@ -65,35 +65,40 @@ Make a directory for theme in public/theme and you need to create entries.erb an
 
 ### Index page
 
-public/theme/example/entries.haml:
+public/theme/example/entries.erb:
 
-```haml
-!!! XML
-!!!
-%html
-  %head
-    %title Example
-  %body
-    %h1= @site.title
-    - @entries.each do |entry|
-      %h2= entry.title
-      .body= entry.body
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+  </head>
+  <body>
+    <h1><%= @site.title %></h1>
+    <% @entries.each do |entry| %>
+      <h2><%= entry.title %></h2>
+      <div class="body"><%= entry.body %></div>
+    <% end %>
+  </body>
+</html>
 ```
 
 ### Individual page
 
-public/theme/example/entry.haml:
+public/theme/example/entry.erb:
 
-```haml
-!!! XML
-!!!
-%html
-  %head
-    %title Example
-  %body
-    %h1= @site.title
-    %h2= @entry.title
-    .body= @entry.body
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example</title>
+  </head>
+  <body>
+    <h1><%= @site.title %></h1>
+    <h2><%= @entry.title %></h2>
+    <div class="body"><%= @entry.body %></div>
+  </body>
+</html>
 ```
 
 ## How to make a plugin
