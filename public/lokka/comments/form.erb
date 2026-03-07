@@ -1,0 +1,31 @@
+<h4 class="comment"><%= t('comments') %></h4>
+<% if @comment && !@comment.errors.empty? %>
+  <div id="error">
+    <div class="title"><%= t('error') %></div>
+    <ul>
+      <% @comment.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<form id="comment_form" action="<%= request.path_info %>" method="post">
+  <script>document.write('<input type="hidden" name="check" value="check" />');</script>
+  <p>
+    <label for="comment_name"><%= t('comment.name') %></label>
+    <br>
+    <input type="text" id="comment_name" name="comment[name]" value="<%= h(@comment.name) %>">
+  </p>
+  <p>
+    <label for="comment_homepage"><%= t('comment.homepage') %></label>
+    <%= t('option') %>
+    <br>
+    <input type="text" id="comment_homepage" name="comment[homepage]" value="<%= h(@comment.homepage) %>">
+  </p>
+  <p>
+    <label for="comment_body"><%= t('comment.body') %></label>
+    <br>
+    <textarea id="comment_body" name="comment[body]" rows="10" cols="40"><%= h(@comment.body) %></textarea>
+  </p>
+  <input type="submit" value="<%= t('post_comment') %>" class="button">
+</form>
