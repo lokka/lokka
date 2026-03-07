@@ -1,0 +1,10 @@
+.articles.section
+  - @posts.each do |post|
+    == partial :article, locals: {post: post}
+  ul.pager
+    - if @posts.current_page > 1
+      li
+        a href="?page=#{@posts.current_page - 1}" #{t.newer}
+    - if @posts.current_page < @posts.total_pages
+      li
+        a href="?page=#{@posts.current_page + 1}" #{t.older}

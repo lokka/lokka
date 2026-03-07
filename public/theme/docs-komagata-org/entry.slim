@@ -1,0 +1,14 @@
+- if @comment.errors.present?
+  = @comment.errors.to_h
+  ul
+    - @comment.errors.to_h.each do |name, error|
+      li= error.first
+== partial :article, locals: {post: @entry}
+ul.comments
+  - @entry.comments.reverse.each do |comment|
+    li.comment[id="comment-#{comment.id}"]
+      .body== hbr comment.body
+      .footer
+        .name= link_to comment.name, comment.homepage, if: comment.homepage.present?
+        .created_at= l comment.created_at.to_time
+== comment_form

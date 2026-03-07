@@ -138,12 +138,12 @@ module Lokka
     end
 
     get '/admin/categories/:id/edit' do |id|
-      (@category = Category.get(id)) || raise(Sinatra::NotFound)
+      (@category = Category.find_by(id: id)) || raise(Sinatra::NotFound)
       erb :'admin/categories/edit', layout: :'admin/layout'
     end
 
     put '/admin/categories/:id' do |id|
-      (@category = Category.get(id)) || raise(Sinatra::NotFound)
+      (@category = Category.find_by(id: id)) || raise(Sinatra::NotFound)
       params['category'].delete('parent_id') if params['category']['parent_id'].blank?
       if @category.update(params['category'])
         flash[:notice] = t('category_was_successfully_updated')
@@ -154,7 +154,7 @@ module Lokka
     end
 
     delete '/admin/categories/:id' do |id|
-      (category = Category.get(id)) || raise(Sinatra::NotFound)
+      (category = Category.find_by(id: id)) || raise(Sinatra::NotFound)
       category.destroy
       flash[:notice] = t('category_was_successfully_deleted')
       redirect to('/admin/categories')

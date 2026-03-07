@@ -10,10 +10,6 @@ class Category < ActiveRecord::Base
 
   scope :roots, -> { where(parent_id: nil) }
 
-  def self.get(id)
-    find_by(id: id)
-  end
-
   def self.get_by_fuzzy_slug(str)
     ret = find_by(slug: str)
     ret.blank? ? find_by(id: str) : ret

@@ -1,0 +1,2 @@
+[    6042ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:9292/admin/posts/new:0
+[41378950ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:9292/admin/posts/new:0
