@@ -23,7 +23,7 @@ describe 'App' do
         after { Post.destroy }
 
         it 'entries should be sorted by created_at in descending' do
-          subject.index(/First Post/).should be > subject.index(/Test Post \d+/)
+          subject.index(/First expect(Post/)).to be > subject.index(/Test Post \d+/)
         end
       end
 
@@ -36,7 +36,7 @@ describe 'App' do
         end
 
         it 'should displayed 10' do
-          subject.scan(regexp).size.should eq(10)
+          expect(subject.scan(regexp).size).to eq(10)
         end
 
         context 'change the number displayed on 5' do
@@ -44,7 +44,7 @@ describe 'App' do
           after { Site.first.update(per_page: 10) }
 
           it 'should displayed 5' do
-            subject.scan(regexp).size.should eq(5)
+            expect(subject.scan(regexp).size).to eq(5)
           end
         end
       end
@@ -78,7 +78,7 @@ describe 'App' do
 
         it 'should add a comment to an article' do
           post "/#{@post.id}", params
-          Comment.should have(1).item
+          expect(Comment).to have(1).item
         end
       end
     end
@@ -89,7 +89,7 @@ describe 'App' do
 
       it 'should show tag index' do
         get '/tags/lokka/'
-        last_response.body.should match('Test Site')
+        expect(last_response.body).to match('Test Site')
       end
     end
 
@@ -105,12 +105,12 @@ describe 'App' do
 
       it 'should show category index' do
         get "/category/#{@category.id}/"
-        last_response.body.should match('Test Site')
+        expect(last_response.body).to match('Test Site')
       end
 
       it 'should show child category index' do
         get "/category/#{@category.id}/#{@category_child.id}/"
-        last_response.body.should match('Test Site')
+        expect(last_response.body).to match('Test Site')
       end
     end
 
@@ -118,8 +118,8 @@ describe 'App' do
       before do
         create(:draft_post_with_tag_and_category)
         @post = Post.first(draft: true)
-        @post.should_not be_nil # gauntlet
-        @post.tag_list.should_not be_empty
+        expect(@post).not_to be_nil # gauntlet
+        expect(@post.tag_list).not_to be_empty
         @tag_name = @post.tag_list.first
         @category_id = @post.category.id
       end
@@ -131,29 +131,29 @@ describe 'App' do
 
       it 'the entry page should return 404' do
         get '/test-draft-post'
-        last_response.status.should eq(404)
+        expect(last_response.status).to eq(404)
         get "/#{@post.id}"
-        last_response.status.should eq(404)
+        expect(last_response.status).to eq(404)
       end
 
       it 'index page should not show the post' do
         get '/'
-        last_response.body.should_not match('Draft post')
+        expect(last_response.body).not_to match('Draft post')
       end
 
       it 'tags page should not show the post' do
         get "/tags/#{@tag_name}/"
-        last_response.body.should_not match('Draft post')
+        expect(last_response.body).not_to match('Draft post')
       end
 
       it 'category page should not show the post' do
         get "/category/#{@category_id}/"
-        last_response.body.should_not match('Draft post')
+        expect(last_response.body).not_to match('Draft post')
       end
 
       it 'search result should not show the post' do
         get '/search/?query=post'
-        last_response.body.should_not match('Draft post')
+        expect(last_response.body).not_to match('Draft post')
       end
     end
 
@@ -174,58 +174,58 @@ describe 'App' do
 
       it 'an entry can be accessed by custom permalink' do
         get '/2011/01/09/welcome-lokka'
-        last_response.body.should match('Welcome to Lokka!')
-        last_response.body.should_not match('mediawiki test')
+        expect(last_response.body).to match('Welcome to Lokka!')
+        expect(last_response.body).not_to match('mediawiki test')
         get '/2011/01/10/a-day-later'
-        last_response.body.should match('1 day passed')
-        last_response.body.should_not match('Welcome to Lokka!')
+        expect(last_response.body).to match('1 day passed')
+        expect(last_response.body).not_to match('Welcome to Lokka!')
       end
 
       it 'should redirect to custom permalink when accessed with original permalink' do
         get '/welcome-lokka'
-        last_response.should be_redirect
+        expect(last_response).to be_redirect
         follow_redirect!
-        last_request.url.should match('/2011/01/09/welcome-lokka')
+        expect(last_request.url).to match('/2011/01/09/welcome-lokka')
       end
 
       it do
         Option.permalink_enabled = false
         get '/welcome-lokka'
-        last_response.should_not be_redirect
+        expect(last_response).not_to be_redirect
       end
 
       it 'should not redirect access to page' do
         get "/#{@page.id}"
-        last_response.should_not be_redirect
+        expect(last_response).not_to be_redirect
       end
 
       it 'should redirect to 0 filled url when accessed to non-0 prepended url in day/month' do
         get '/2011/1/9/welcome-lokka'
-        last_response.should be_redirect
+        expect(last_response).to be_redirect
         follow_redirect!
-        last_request.url.should match('/2011/01/09/welcome-lokka')
+        expect(last_request.url).to match('/2011/01/09/welcome-lokka')
       end
 
       it 'should remove trailing / of url by redirection' do
         get '/2011/01/09/welcome-lokka/'
-        last_response.should be_redirect
+        expect(last_response).to be_redirect
         follow_redirect!
-        last_request.url.should match('/2011/01/09/welcome-lokka')
+        expect(last_request.url).to match('/2011/01/09/welcome-lokka')
       end
 
       it 'should return status code 200 if entry found by custom permalink' do
         get '/2011/01/09/welcome-lokka'
-        last_response.status.should eq(200)
+        expect(last_response.status).to eq(200)
       end
 
       it 'should return status code 404 if entry not found' do
         get '/2011/01/09/welcome-wordpress'
-        last_response.status.should eq(404)
+        expect(last_response.status).to eq(404)
       end
 
       it 'should return status code 404 to path with wrong structure' do
         get '/obviously/not/existing/path'
-        last_response.status.should eq(404)
+        expect(last_response.status).to eq(404)
       end
 
       it 'POST request should add a comment to an article' do
@@ -238,7 +238,7 @@ describe 'App' do
           }
         }
         post '/2011/01/09/welcome-lokka', params
-        Comment.should have(1).item
+        expect(Comment).to have(1).item
       end
     end
 
@@ -249,7 +249,7 @@ describe 'App' do
         it 'should hide texts after <!--more-->' do
           regexp = %r{<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>}
           get '/'
-          last_response.body.should match(regexp)
+          expect(last_response.body).to match(regexp)
         end
       end
 
@@ -257,7 +257,7 @@ describe 'App' do
         it 'should not hide after <!--more-->' do
           regexp = %r{<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>}
           get '/post-with-more'
-          last_response.body.should_not match(regexp)
+          expect(last_response.body).not_to match(regexp)
         end
       end
     end
@@ -278,8 +278,8 @@ describe 'App' do
 
     it 'should show lokka tag archive' do
       get '/tags/lokka/'
-      last_response.should be_ok
-      last_response.body.should match(/Test Post \d+/)
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/Test Post \d+/)
     end
   end
 
@@ -293,7 +293,7 @@ describe 'App' do
 
     it 'should be success' do
       get '/'
-      last_response.status.should eq(200)
+      expect(last_response.status).to eq(200)
     end
   end
 
@@ -318,7 +318,7 @@ describe 'App' do
 
     it 'should return compiled javascript' do
       get '/theme/jarvi/script.js'
-      last_response.body.should eq(expectation)
+      expect(last_response.body).to eq(expectation)
     end
   end
 end

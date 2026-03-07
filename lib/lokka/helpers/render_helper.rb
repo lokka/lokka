@@ -32,7 +32,7 @@ module Lokka
         settings.supported_javascript_templates
       templates.each do |ext|
         out = rendering(ext, name, options)
-        out.force_encoding(Encoding.default_external) unless out.nil?
+        out.force_encoding(Encoding::UTF_8) unless out.nil?
         unless out.blank?
           ret = out
           break
@@ -45,7 +45,13 @@ module Lokka
       options[:views] ||= "#{settings.views}/theme/#{@theme.name}"
       path = "#{options[:views]}/#{name}"
 
-      send(ext.to_sym, name.to_sym, options) if File.exist?("#{path}.#{ext}")
+      if File.exist?("#{path}.#{ext}")
+        if ext == 'css' || ext == 'js'
+          File.read("#{path}.#{ext}")
+        else
+          send(ext.to_sym, name.to_sym, options)
+        end
+      end
     end
   end
 end

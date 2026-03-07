@@ -1,0 +1,43 @@
+<h2><%= t('listing_comments') %></h2>
+<p class="spam"><%= link_to t('delete_spam'), url('/admin/comments/spam'), class: 'button', confirm: t('are_you_sure'), method: :delete %></p>
+<div id="table_wrapper">
+  <table class="comments">
+    <tr>
+      <th><%= t('comment_status') %></th>
+      <th><%= t('comment.body') %></th>
+      <th><%= t('comment.name') %></th>
+      <th><%= t('comment.created_at') %></th>
+      <th colspan="2"></th>
+    </tr>
+    <% @comments.each_with_index do |comment, i| %>
+      <tr class="<%= (i + 1).odd? ? 'odd' : 'even' %>">
+        <%
+          status = case comment.status
+                   when Comment::APPROVED
+                     t('comment_approved')
+                   when Comment::MODERATED
+                     t('comment_moderated')
+                   when Comment::SPAM
+                     t('comment_spam')
+                   end
+        %>
+        <td><%= status %></td>
+        <td class="body"><%= link_to truncate(strip_tags(comment.body)), url(comment.link) %></td>
+        <td><%= comment.name %></td>
+        <td><%= l(comment.created_at, format: :long) %></td>
+        <td><%= link_to t('edit'), url("/admin/comments/#{comment.id}/edit"), class: :button %></td>
+        <td><%= link_to t('delete'), url("/admin/comments/#{comment.id}"), class: :button, confirm: t('are_you_sure'), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<div class="pager">
+  <ul>
+    <% if @comments.pager.previous_page %>
+      <li class="previous"><%= link_to t('previous'), "?page=#{@comments.pager.previous_page}" %></li>
+    <% end %>
+    <% if @comments.pager.next_page %>
+      <li class="next"><%= link_to t('next'), "?page=#{@comments.pager.next_page}" %></li>
+    <% end %>
+  </ul>
+</div>

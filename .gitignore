@@ -1,5 +1,6 @@
 config.yml
 /db/*.sqlite3
+/db/dm_dump.json
 /bundle
 /vendor/bundle
 /vendor/gem

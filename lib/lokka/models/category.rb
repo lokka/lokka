@@ -1,28 +1,28 @@
 # frozen_string_literal: true
 
-class Category
-  include DataMapper::Resource
+class Category < ActiveRecord::Base
+  belongs_to :parent, class_name: 'Category', optional: true
+  has_many :children, class_name: 'Category', foreign_key: :parent_id, dependent: :nullify
+  has_many :entries
 
-  property :id, Serial
-  property :slug, Slug, length: 255
-  property :title, String, length: 255
-  property :description, Text
-  property :type, Discriminator
-  property :created_at, DateTime
-  property :updated_at, DateTime
-  property :parent_id, Integer
+  validates :title, presence: true, uniqueness: true
+  validates :slug, uniqueness: true, allow_blank: true
 
-  validates_presence_of :title
-  validates_uniqueness_of :slug
-  validates_uniqueness_of :title
-
-  is :tree, order: :title
-
-  has n, :entries
+  scope :roots, -> { where(parent_id: nil) }
 
   def self.get_by_fuzzy_slug(str)
-    ret = first(slug: str)
-    ret.blank? ? get(str) : ret
+    ret = find_by(slug: str)
+    ret.blank? ? find_by(id: str) : ret
+  end
+
+  def ancestors
+    result = []
+    current = parent
+    while current
+      result.unshift(current)
+      current = current.parent
+    end
+    result
   end
 
   def fuzzy_slug

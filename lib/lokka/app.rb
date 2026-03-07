@@ -12,32 +12,26 @@ module Lokka
 
     configure do
       enable :method_override, :raise_errors, :static, :sessions
-      YAML::ENGINE.yamler = 'syck' if YAML.const_defined?(:ENGINE)
       register Padrino::Helpers
       set :app_file, __FILE__
       set :root, File.expand_path('../../..', __FILE__)
       set public_folder: proc { File.join(root, 'public') }
       set views: proc { public_folder }
       set theme: proc { File.join(public_folder, 'theme') }
-      set supported_templates: %w[erb haml :slim erubis]
-      set supported_stylesheet_templates: %w[scss sass]
-      set supported_javascript_templates: %w[coffee]
-      set :scss, Compass.sass_engine_options
-      set :sass, Compass.sass_engine_options
+      set supported_templates: %w[erb haml slim]
+      set supported_stylesheet_templates: %w[css]
+      set supported_javascript_templates: %w[js]
       set :per_page, 10
       set :admin_per_page, 200
       set :default_locale, 'en'
-      set :haml, attr_wrapper: '"'
+      set :haml, {}
       set :protect_from_csrf, true
-      supported_stylesheet_templates.each do |style|
-        set style, style: :expanded
-      end
       ::I18n.load_path += Dir["#{root}/i18n/*.yml"]
       helpers Lokka::Helpers
       helpers Lokka::RenderHelper
       use Rack::Session::Cookie,
         expire_after: 60 * 60 * 24 * 12,
-        secret: SecureRandom.hex(30)
+        secret: SecureRandom.hex(64)
       use RequestStore::Middleware
       register Sinatra::Flash
       Lokka.load_plugin(self)

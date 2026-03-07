@@ -1,25 +1,31 @@
 # frozen_string_literal: true
 
-class Option
-  include DataMapper::Resource
+class Option < ActiveRecord::Base
+  self.primary_key = 'name'
 
-  property :name, String, length: 255, key: true
-  property :value, Text
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
-  validates_presence_of :name
+  validates :name, presence: true
 
   def self.method_missing(method, *args)
     attribute = method.to_s
-    if attribute =~ /=$/
-      column = attribute[0, attribute.size - 1]
-      option = first_or_new(name: column)
+
+    # Only handle simple option names; delegate everything else to super
+    return super unless attribute =~ /\A[a-z][a-z0-9_]*=?\z/
+
+    if attribute.end_with?('=')
+      column = attribute.chomp('=')
+      option = where(name: column).first_or_initialize
       option.value = args.first.to_s
       option.save
     else
-      option = first_or_new(name: method.to_s)
-      option.value
+      # Use raw SQL to avoid triggering AR method_missing recursion
+      result = connection.select_value(
+        "SELECT value FROM options WHERE name = #{connection.quote(attribute)}"
+      )
+      result
     end
+  end
+
+  def self.respond_to_missing?(method, include_private = false)
+    method.to_s =~ /\A[a-z][a-z0-9_]*=?\z/ ? true : super
   end
 end

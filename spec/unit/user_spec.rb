@@ -7,14 +7,14 @@ describe User do
 
   shared_examples 'user with validation' do
     it 'saves successfully' do
-      subject.save.should be_true
+      expect(subject.save).to be_truthy
     end
 
     context 'with blank name' do
       before { user.name = '' }
 
       it 'fails to save' do
-        subject.save.should_not be_true
+        expect(subject.save).to be_falsey
       end
     end
 
@@ -22,7 +22,7 @@ describe User do
       before { user.email = '' }
 
       it 'fails to save' do
-        subject.save.should_not be_true
+        expect(subject.save).to be_falsey
       end
     end
 
@@ -33,7 +33,7 @@ describe User do
 
       it 'trims whitespace after save' do
         subject.save
-        subject.name.should eq 'Johnny Depp'
+        expect(subject.name).to eq 'Johnny Depp'
       end
     end
   end
@@ -56,6 +56,7 @@ describe User do
 end
 
 describe GuestUser do
-  it { should_not be_admin }
-  its(:permission_level) { should eq 0 }
+  subject { GuestUser.new }
+  it { expect(subject).not_to be_admin }
+  it { expect(subject.permission_level).to eq 0 }
 end

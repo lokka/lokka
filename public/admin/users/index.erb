@@ -1,0 +1,34 @@
+<h2><%= t('listing_users') %></h2>
+<div id="table_wrapper">
+  <table class="users">
+    <tr>
+      <th><%= t('user.name') %></th>
+      <th><%= t('user.email') %></th>
+      <th><%= t('user.created_at') %></th>
+      <th colspan="2"></th>
+    </tr>
+    <% @users.each_with_index do |user, i| %>
+      <tr class="<%= (i + 1).odd? ? 'odd' : 'even' %>">
+        <td class="name"><%= link_to user.name, url("/admin/users/#{user.id}/edit") %></td>
+        <td><%= user.email %></td>
+        <td><%= l(user.created_at, format: :long) %></td>
+        <td><%= link_to t('edit'), url("/admin/users/#{user.id}/edit"), class: 'button' %></td>
+        <td>
+          <% unless user == current_user %>
+            <%= link_to t('delete'), url("/admin/users/#{user.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<div class="pager">
+  <ul>
+    <% if @users.pager.previous_page %>
+      <li class="previous"><%= link_to t('previous'), "?page=#{@users.pager.previous_page}" %></li>
+    <% end %>
+    <% if @users.pager.next_page %>
+      <li class="next"><%= link_to t('next'), "?page=#{@users.pager.next_page}" %></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+<h2><%= t('listing_tags') %></h2>
+<div id="table_wrapper">
+  <table class="tags">
+    <tr>
+      <th><%= t('tag.name') %></th>
+      <th colspan="2"></th>
+    </tr>
+    <% @tags.each_with_index do |tag, i| %>
+      <tr class="<%= (i + 1).odd? ? 'odd' : 'even' %>">
+        <td class="title"><%= link_to "#{tag.name}(#{tag.taggings.count})", url(tag.link) %></td>
+        <td><%= link_to t('edit'), url("/admin/tags/#{tag.id}/edit"), class: 'button' %></td>
+        <td><%= link_to t('delete'), url("/admin/tags/#{tag.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<div class="pager">
+  <ul>
+    <% if @tags.pager.previous_page %>
+      <li class="previous"><%= link_to t('previous'), "?page=#{@tags.pager.previous_page}" %></li>
+    <% end %>
+    <% if @tags.pager.next_page %>
+      <li class="next"><%= link_to t('next'), "?page=#{@tags.pager.next_page}" %></li>
+    <% end %>
+  </ul>
+</div>

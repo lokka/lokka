@@ -9,24 +9,24 @@ describe 'Login' do
 
   shared_examples_for 'login failed' do
     it 'should not redirect' do
-      last_response.should_not be_redirect
+      expect(last_response).not_to be_redirect
     end
 
     it 'should render login screen again' do
-      last_response.body.should match('<body class="admin_login">')
+      expect(last_response.body).to match('<body class="admin_login">')
     end
 
     it 'should not render dashboard side bar' do
-      last_response.body.should_not match('<div id="aside">')
+      expect(last_response.body).not_to match('<div id="aside">')
     end
   end
 
   context 'when valid username and password' do
     it 'should redirect to /admin/' do
       post '/admin/login', name: 'test', password: 'test'
-      last_response.should be_redirect
+      expect(last_response).to be_redirect
       follow_redirect!
-      last_request.env['PATH_INFO'].should eq('/admin/')
+      expect(last_request.env['PATH_INFO']).to eq('/admin/')
     end
   end
 

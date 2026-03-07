@@ -1,0 +1,18 @@
+<%= form_for @field_name, action, method: method do |f| %>
+  <% unless @field_name.errors.empty? %>
+    <div id="error">
+      <div class="title"><%= t('error') %></div>
+      <ul>
+        <% @field_name.errors.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :name, caption: t('field_name.name') %>
+    <br/>
+    <%= f.text_field :name %>
+  </div>
+  <p><%= f.submit label %></p>
+<% end %>

@@ -1,0 +1,38 @@
+<% if params[:draft] == 'true' %>
+  <h2><%= t("listing_draft_#{@name.pluralize}") %></h2>
+<% else %>
+  <h2><%= t("listing_#{@name.pluralize}") %></h2>
+<% end %>
+<ul class="conditions">
+  <li><%= link_to t('all'), url("/admin/#{@name.pluralize}") %></li>
+  <li><%= link_to t('draft'), url("/admin/#{@name.pluralize}?draft=true") %></li>
+</ul>
+<div id="table_wrapper">
+  <table class="<%= @name.pluralize %>">
+    <tr>
+      <th><%= t("#{@name}.title") %></th>
+      <th><%= t("#{@name}.user") %></th>
+      <th><%= t("#{@name}.created_at") %></th>
+      <th colspan="2"></th>
+    </tr>
+    <% @entries.each_with_index do |entry, i| %>
+      <tr class="<%= (i + 1).odd? ? 'odd' : 'even' %>">
+        <td class="title"><%= link_to entry.title, url(entry.link) %></td>
+        <td><%= entry.user.nil? ? '' : entry.user.name %></td>
+        <td><%= l(entry.created_at, format: :long) %></td>
+        <td><%= link_to t('edit'), url(entry.edit_link), class: :button %></td>
+        <td><%= link_to t('delete'), url("/admin/#{@name.pluralize}/#{entry.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<div class="pager">
+  <ul>
+    <% if @entries.pager.previous_page %>
+      <li class="previous"><%= link_to t('previous'), "?page=#{@entries.pager.previous_page}" %></li>
+    <% end %>
+    <% if @entries.pager.next_page %>
+      <li class="next"><%= link_to t('next'), "?page=#{@entries.pager.next_page}" %></li>
+    <% end %>
+  </ul>
+</div>

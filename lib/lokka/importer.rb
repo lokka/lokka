@@ -10,7 +10,7 @@ module Lokka
       end
 
       def import
-        doc = Nokogiri::XML(@file.read.gsub(//, ''))
+        doc = Nokogiri::XML(@file.read.gsub(//, ''))
         doc.xpath('/rss/channel',
           'content' => 'http://purl.org/rss/1.0/modules/content/',
           'wp' => 'http://wordpress.org/export/1.1/',
@@ -22,7 +22,7 @@ module Lokka
 
           channel.xpath('wp:author').each do |author|
             name = author.xpath('wp:author_login').text
-            user = User.first(name: name)
+            user = User.find_by(name: name)
 
             user ||= User.new(
               name: name,
@@ -35,7 +35,7 @@ module Lokka
           end
 
           channel.xpath('wp:category').each do |category|
-            Category.first_or_create(
+            Category.find_or_create_by(
               slug: category.xpath('wp:cat_name').text,
               title: category.xpath('wp:category_nicename').text
             )
@@ -56,7 +56,6 @@ module Lokka
             next if item.xpath('wp:post_date_gmt').text == '0000-00-00 00:00:00'
 
             attrs = {
-              id: item.xpath('wp:post_id').text.to_i,
               title: item.xpath('title').text,
               body: item.xpath('content:encoded').text,
               draft: item.xpath('wp:status').text != 'publish',
@@ -65,38 +64,39 @@ module Lokka
               updated_at: Time.parse(item.xpath('wp:post_date_gmt').text)
             }
 
-            entry = model.first_or_create(id: attrs[:id])
-            entry.attributes = attrs
+            post_id = item.xpath('wp:post_id').text.to_i
+            entry = model.find_or_initialize_by(id: post_id)
+            entry.assign_attributes(attrs)
 
             # author
             item.xpath('dc:creator').each do |creator|
-              entry.user = User.first(name: creator.text)
+              entry.user = User.find_by(name: creator.text)
               break
             end
 
             # tag
             item.xpath('category[@domain="post_tag"]').each do |tag|
-              entry.tag_list << tag.text
+              tag_obj = Tag.find_or_create_by(name: tag.text)
+              entry.taggings.build(tag: tag_obj, tag_context: 'tags') unless entry.tags.include?(tag_obj)
             end
 
             # category
             item.xpath('category[@domain="category"]').each do |category|
-              entry.category = Category.first(title: category.text)
+              entry.category = Category.find_by(title: category.text)
             end
 
             entry.save
 
             # comment
-            entry.comments.destroy
+            entry.comments.destroy_all
             item.xpath('wp:comment').each do |comment|
-              comment = entry.comments.new(
+              entry.comments.create(
                 name: comment.xpath('wp:comment_author').text,
                 email: comment.xpath('wp:comment_email').text,
                 body: comment.xpath('wp:comment_content').text,
                 created_at: comment.xpath('wp:comment_date').text,
                 status: comment.xpath('wp:comment_approvied').text == '1' ? 1 : 0
               )
-              comment.save
             end
           end
         end

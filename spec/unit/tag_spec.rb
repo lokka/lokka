@@ -2,15 +2,14 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe 'Tag' do
-  context 'with name lokka' do
-    let!(:tag) { create :tag, name: 'lokka' }
-    subject { tag }
+describe Tag do
+  let(:tag) { create :tag, name: 'lokka' }
 
-    its(:link) { should eq('/tags/lokka/') }
+  describe '#link' do
+    it { expect(tag.link).to eq('/tags/lokka/') }
+  end
 
-    it 'Tag(name) should return the instance' do
-      Tag('lokka').should eql(tag)
-    end
+  it 'Tag(name) should return the instance' do
+    expect(Tag('lokka')).to eql(tag)
   end
 end

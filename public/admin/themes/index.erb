@@ -1,0 +1,20 @@
+<h2><%= t('listing_themes') %></h2>
+<ul class="themes">
+  <% @themes.each do |theme| %>
+    <% class_for_theme = theme.title == Site.first.theme ? 'theme selected' : 'theme' %>
+    <li class="<%= class_for_theme %>">
+      <div class="title">
+        <%= link_to theme.title, url("/admin/themes?title=#{theme.title}"), confirm: t('are_you_sure'), method: :put %>
+      </div>
+      <% if theme.screenshot %>
+        <div class="screenshot">
+          <%= link_to image_tag(theme.screenshot), url("/admin/themes?title=#{theme.title}"), confirm: t('may_i_change_the_theme'), method: :put %>
+        </div>
+      <% else %>
+        <div class="screenshot">
+          <span>no screenshot</span>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,30 @@
+<h2><%= t('listing_field_names') %></h2>
+<div id="table_wrapper">
+  <table class="field_names">
+    <tr>
+      <th><%= t('field_name.name') %></th>
+      <th><%= t('field_name.created_at') %></th>
+      <th><%= t('field_name.updated_at') %></th>
+      <th></th>
+    </tr>
+    <% @field_names.each_with_index do |field_name, i| %>
+      <tr class="<%= (i + 1).odd? ? 'odd' : 'even' %>">
+      <td><%= field_name.name %></td>
+      <td><%= l field_name.created_at.to_time %></td>
+      <td><%= l field_name.updated_at.to_time %></td>
+      <td>
+        <%= link_to t('delete'), url("/admin/field_names/#{field_name.id}"), class: 'button', confirm: t('are_you_sure'), method: :delete %>
+      </td>
+    <% end %>
+  </table>
+</div>
+<div class="pager">
+  <ul>
+    <% if @field_names.pager.previous_page %>
+      <li class="previous"><%= link_to t('previous'), "?page=#{@field_names.pager.previous_page}" %></li>
+    <% end %>
+    <% if @field_names.pager.next_page %>
+      <li class="next"><%= link_to t('next'), "?page=#{@field_names.pager.next_page}" %></li>
+    <% end %>
+  </ul>
+</div>

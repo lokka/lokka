@@ -15,23 +15,23 @@ describe '/admin/pages' do
   context 'with no option' do
     it 'should show all pages' do
       get '/admin/pages'
-      last_response.body.should match('Test Page')
-      last_response.body.should match('Draft Page')
+      expect(last_response.body).to match('Test Page')
+      expect(last_response.body).to match('Draft Page')
     end
   end
 
   context 'with draft option' do
     it 'should show only draft pages' do
       get '/admin/pages', draft: 'true'
-      last_response.body.should_not match('Test Page')
-      last_response.body.should match('Draft Page')
+      expect(last_response.body).not_to match('Test Page')
+      expect(last_response.body).to match('Draft Page')
     end
   end
 
   context '/admin/pages/new' do
     it 'should show edit page' do
       get '/admin/pages/new'
-      last_response.body.should match('<form')
+      expect(last_response.body).to match('<form')
     end
   end
 
@@ -39,32 +39,32 @@ describe '/admin/pages' do
     it 'should create a new page' do
       sample = attributes_for(:page, slug: 'dekitate')
       post '/admin/pages', page: sample
-      last_response.should be_redirect
-      Page('dekitate').should_not be_nil
+      expect(last_response).to be_redirect
+      expect(Page('dekitate')).not_to be_nil
     end
   end
 
   context '/admin/pages/:id/edit' do
     it 'should show edit page' do
       get "/admin/pages/#{@page.id}/edit"
-      last_response.body.should match('<form')
-      last_response.body.should match('Test Page')
+      expect(last_response.body).to match('<form')
+      expect(last_response.body).to match('Test Page')
     end
   end
 
   context 'PUT /admin/pages/:id' do
     it 'should update the page"s body ' do
       put "/admin/pages/#{@page.id}", page: { body: 'updated' }
-      last_response.should be_redirect
-      Page(@page.id).body.should eq('updated')
+      expect(last_response).to be_redirect
+      expect(Page(@page.id).body).to eq('updated')
     end
   end
 
   context 'DELETE /admin/pages/:id' do
     it 'should delete the page' do
       delete "/admin/pages/#{@page.id}"
-      last_response.should be_redirect
-      Page(@page.id).should be_nil
+      expect(last_response).to be_redirect
+      expect(Page(@page.id)).to be_nil
     end
   end
 

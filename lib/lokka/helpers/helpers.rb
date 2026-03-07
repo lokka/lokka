@@ -4,6 +4,12 @@ module Lokka
   module Helpers
     include Rack::Utils
 
+    # Override padrino's localize to work with i18n 1.14+ keyword args
+    def localize(object, **options)
+      I18n.localize(object, **options)
+    end
+    alias l localize
+
     alias h escape_html
 
     %w[index search category tag yearly monthly daily post page entry entries].each do |name|
@@ -31,7 +37,7 @@ module Lokka
     end
 
     def current_user
-      logged_in? ? User.get(session[:user]) : GuestUser.new
+      logged_in? ? User.find_by(id: session[:user]) || GuestUser.new : GuestUser.new
     end
 
     def logged_in?
@@ -59,7 +65,7 @@ module Lokka
     end
 
     def comment_form
-      haml :"lokka/comments/form", layout: false
+      erb :"lokka/comments/form", layout: false
     end
 
     def months
@@ -116,7 +122,7 @@ module Lokka
       @entry.user = current_user
       @entry.title << ' - Preview'
       @entry.updated_at = Time.current
-      @comment = @entry.comments.new
+      @comment = Comment.new(entry: @entry)
       setup_and_render_entry
     end
 
@@ -143,25 +149,25 @@ module Lokka
 
     def get_admin_entries(entry_class)
       @name = entry_class.name.downcase
-      @entries = params[:draft] == 'true' ? entry_class.unpublished.all : entry_class.all
-      @entries = @entries.page(params[:page], per_page: settings.admin_per_page)
-      haml :"admin/entries/index", layout: :"admin/layout"
+      @entries = params[:draft] == 'true' ? entry_class.unpublished : entry_class.all
+      @entries = @entries.page(params[:page]).per(settings.admin_per_page)
+      erb :"admin/entries/index", layout: :"admin/layout"
     end
 
     def get_admin_entry_new(entry_class)
       @name = entry_class.name.downcase
       @entry = entry_class.new(markup: Site.first.default_markup, created_at: Time.current, updated_at: Time.current)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-      @field_names = FieldName.all(order: :name.asc)
-      haml :"admin/entries/new", layout: :"admin/layout"
+      @field_names = FieldName.order(name: :asc)
+      erb :"admin/entries/new", layout: :"admin/layout"
     end
 
     def get_admin_entry_edit(entry_class, id)
       @name = entry_class.name.downcase
-      (@entry = entry_class.get(id)) || raise(Sinatra::NotFound)
+      (@entry = entry_class.find_by(id: id)) || raise(Sinatra::NotFound)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-      @field_names = FieldName.all(order: :name.asc)
-      haml :"admin/entries/edit", layout: :"admin/layout"
+      @field_names = FieldName.order(name: :asc)
+      erb :"admin/entries/edit", layout: :"admin/layout"
     end
 
     def post_admin_entry(entry_class)
@@ -175,16 +181,16 @@ module Lokka
           flash[:notice] = t("#{@name}_was_successfully_created")
           redirect_after_edit(@entry)
         else
-          @field_names = FieldName.all(order: :name.asc)
+          @field_names = FieldName.order(name: :asc)
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          haml :"admin/entries/new", layout: :"admin/layout"
+          erb :"admin/entries/new", layout: :"admin/layout"
         end
       end
     end
 
     def put_admin_entry(entry_class, id)
       @name = entry_class.name.downcase
-      (@entry = entry_class.get(id)) || raise(Sinatra::NotFound)
+      (@entry = entry_class.find_by(id: id)) || raise(Sinatra::NotFound)
       if params['preview']
         render_preview entry_class.new(params[@name])
       elsif @entry.update(params[@name])
@@ -192,14 +198,14 @@ module Lokka
         redirect_after_edit(@entry)
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-        @field_names = FieldName.all(order: :name.asc)
-        haml :"admin/entries/edit", layout: :"admin/layout"
+        @field_names = FieldName.order(name: :asc)
+        erb :"admin/entries/edit", layout: :"admin/layout"
       end
     end
 
     def delete_admin_entry(entry_class, id)
       name = entry_class.name.downcase
-      (entry = entry_class.get(id)) || raise(Sinatra::NotFound)
+      (entry = entry_class.find_by(id: id)) || raise(Sinatra::NotFound)
       entry.destroy
       flash[:notice] = t("#{name}_was_successfully_deleted")
       if entry.draft
@@ -321,14 +327,16 @@ module Lokka
           [result << flags[key], nil]
         end
         args = [0, 1, 1, 0, 0, 0].each_with_index.map {|default, i| args[i] || default }
-        conditions[:created_at.gte] = Time.local(*args)
+        start_time = Time.local(*args)
         day_end = { hour: 23, minute: 59, second: 59 }
         day_end.each_pair do |key, value|
           args[time_order.index(key)] = value.to_i
         end
-        conditions[:created_at.lt] = Time.local(*args)
+        end_time = Time.local(*args)
+        Entry.where(conditions).where(created_at: start_time..end_time).first
+      else
+        Entry.find_by(conditions)
       end
-      Entry.first(conditions)
     rescue StandardError => _e
       nil
     end
@@ -362,10 +370,6 @@ module Lokka
 
     class << self
       include Lokka::Helpers
-    end
-
-    def mobile?
-      request.user_agent =~ /iPhone|Android/
     end
 
     def slugs

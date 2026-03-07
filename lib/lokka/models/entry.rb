@@ -1,51 +1,41 @@
 # frozen_string_literal: true
 
-class Entry
-  include DataMapper::Resource
-
-  property :id, Serial
-  property :user_id, Integer
-  property :category_id, Integer
-  property :slug, Slug, length: 255
-  property :title, String, length: 255
-  property :body, Text
-  property :markup, String, length: 255
-  property :type, Discriminator
-  property :draft, Boolean, default: false
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
+class Entry < ActiveRecord::Base
   belongs_to :user
-  belongs_to :category, required: false
-  has n, :comments, :status
+  belongs_to :category, optional: true
+  has_many :comments, dependent: :destroy
+  has_many :taggings, as: :taggable, dependent: :destroy
+  has_many :tags, through: :taggings
+  has_many :fields, dependent: :destroy
 
-  has_tags
+  validates :title, presence: true, uniqueness: true
+  validates :slug, uniqueness: true, format: { with: %r{\A[_/0-9a-zA-Z-]+\z} }, allow_blank: true
+  validate :validate_confliction
 
-  validates_presence_of :title
-  validates_uniqueness_of :slug
-  validates_uniqueness_of :title
-  validates_with_method :updated_at, method: :validate_confliction
-  validates_format_of :slug, with: %r{^[_/0-9a-zA-Z-]+$}
+  before_validation :clear_blank_category_id
+  after_save :update_fields
 
-  before :valid? do
-    self.category_id = nil if category_id == ''
+  default_scope { order(created_at: :desc) }
+
+  scope :published, -> { where(draft: false) }
+  scope :unpublished, -> { where(draft: true) }
+
+  def raw_body
+    read_attribute(:body)
   end
 
-  after :save, :update_fields
-
-  alias raw_body body
   def long_body
-    Markup.use_engine(markup, raw_body)
+    Markup.use_engine(markup, raw_body.to_s)
   end
-  alias body long_body
+  alias_method :rendered_body, :long_body
 
   def short_body
     @short_body ||= long_body. \
                       sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>").html_safe
   end
 
-  def comments
-    @comment = Comment.all(status: Comment::APPROVED, entry_id: id)
+  def approved_comments
+    Comment.where(status: Comment::APPROVED, entry_id: id)
   end
 
   def tag_collection=(string)
@@ -56,6 +46,19 @@ class Entry
     @tag_list = @tag_list.reject(&:blank?).uniq.sort
 
     update_tags
+  end
+
+  def tag_list
+    tags.map(&:name)
+  end
+
+  def update_tags
+    return unless @tag_list
+    self.taggings.destroy_all
+    @tag_list.each do |tag_name|
+      tag = Tag.find_or_create_by(name: tag_name)
+      self.taggings.find_or_create_by(tag: tag, tag_context: 'tags')
+    end
   end
 
   def fuzzy_slug
@@ -80,91 +83,78 @@ class Entry
   end
 
   # custom fields
-  attr_writer :fields
+  attr_writer :fields_hash
 
   def update_fields
-    return unless @fields
-    @fields.each do |k, v|
+    return unless @fields_hash
+    @fields_hash.each do |k, v|
       send("#{k}=", v)
     end
   end
 
   def validate_confliction
-    return true unless id
-    return true if @updated_at == self.class.get(id).updated_at
-    [false, 'The entry is updated while you were editing']
+    return unless id && @updated_at_before_edit
+    current = self.class.find_by(id: id)
+    return unless current
+    return if @updated_at_before_edit == current.updated_at
+    errors.add(:updated_at, 'The entry is updated while you were editing')
   end
 
   def method_missing(method, *args)
     attribute = method.to_s
     if attribute =~ /=$/
       column = attribute[0, attribute.size - 1]
-      field_name = fieldname.first(name: column)
-      field = field.first(entry_id: id, field_name_id: field_name.id)
+      field_name = FieldName.find_by(name: column)
+      return super unless field_name
+      field = Field.find_by(entry_id: id, field_name_id: field_name.id)
       if field
-        field.value = args.first
+        field.update(value: args.first)
       else
-        field = Field.new(entry_id: id, field_name_id: field_name.id, value: args.first)
+        Field.create(entry_id: id, field_name_id: field_name.id, value: args.first)
       end
-      field.save
     else
-      field_name = FieldName.first(name: attribute)
-      field = Field.first(entry_id: id, field_name_id: field_name.id)
+      field_name = FieldName.find_by(name: attribute)
+      return super unless field_name
+      field = Field.find_by(entry_id: id, field_name_id: field_name.id)
       field.try(:value)
     end
+  end
+
+  def respond_to_missing?(method, include_private = false)
+    attribute = method.to_s.sub(/=$/, '')
+    FieldName.exists?(name: attribute) || super
   end
 
   def description
     src = long_body.tr("\n", '')
     desc = src =~ %r{<p[^>]*>(.+?)</p>}i ? Regexp.last_match(1) : src[0..50]
-
-    desc.gsub(%r{<[^/]+/>}, ' ').gsub(%r{</[^/]+>}, ' ').gsub(/<[^>]+>/, '').html_safe
-  end
-
-  module FinderstWithScope
-    def _default_scope
-      { order: :created_at.desc }
-    end
-
-    def first(limit = 1, query = DataMapper::Undefined)
-      query = limit unless limit.is_a? Integer
-      query = _default_scope.update(query) if query.is_a? Hash
-      query = _default_scope if query == DataMapper::Undefined
-      super(query)
-    end
-
-    def all(query = DataMapper::Undefined)
-      query = _default_scope.update(query) if query.is_a? Hash
-      query = _default_scope if query == DataMapper::Undefined
-      super(query)
-    end
+    desc.to_s.gsub(%r{<[^/]+/>}, ' ').gsub(%r{</[^/]+>}, ' ').gsub(/<[^>]+>/, '').html_safe
   end
 
   class << self
-    prepend FinderstWithScope
+    def get(id)
+      find_by(id: id)
+    end
 
     def get_by_fuzzy_slug(str, query = {})
-      query = { draft: false }.update(query)
-      ret = first({ slug: str }.update(query))
-      ret.blank? ? first({ id: str }.update(query)) : ret
+      query = { draft: false }.merge(query)
+      ret = find_by({ slug: str }.merge(query))
+      ret.blank? ? find_by({ id: str }.merge(query)) : ret
     end
 
     def search(str)
-      all(:title.like => "%#{str}%") |
-        all(:body.like => "%#{str}%")
+      where('title LIKE ? OR body LIKE ?', "%#{str}%", "%#{str}%")
     end
 
     def recent(count = 5)
-      all(draft: false, limit: count)
+      published.limit(count)
     end
+  end
 
-    def published
-      all(draft: false)
-    end
+  private
 
-    def unpublished
-      all(draft: true)
-    end
+  def clear_blank_category_id
+    self.category_id = nil if category_id.to_s == ''
   end
 end
 
@@ -194,19 +184,11 @@ class Post < Entry
   end
 
   def next
-    @next ||= self.class.first(
-      draft: false,
-      :created_at.gt => created_at,
-      order: [:created_at.asc]
-    )
+    @next ||= self.class.unscoped.where(draft: false).where('created_at > ?', created_at).order(created_at: :asc).first
   end
 
   def prev
-    @prev ||= self.class.first(
-      draft: false,
-      :created_at.lt => created_at,
-      order: [:created_at.desc]
-    )
+    @prev ||= self.class.unscoped.where(draft: false).where('created_at < ?', created_at).order(created_at: :desc).first
   end
 end
 

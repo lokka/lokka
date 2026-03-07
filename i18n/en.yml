@@ -28,7 +28,6 @@ en:
   snippets: Snippets
   themes: Themes
   default_themes: Default Themes
-  mobile_themes: Mobile Themes
   plugins: Plugins
   settings: Settings
   sites: Site
@@ -58,7 +57,6 @@ en:
   listing_snippets: Listing Snippets
   listing_users: Listing Users
   listing_themes: Listing Themes
-  listing_mobile_themes: Listing Mobile Themes
   listing_plugins: Listing Plugins
   listing_field_names: Listing Field Names
   new_post: New Post

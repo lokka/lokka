@@ -10,31 +10,31 @@ describe '/admin/tags' do
   context 'GET /admin/tags' do
     it 'should show index' do
       get '/admin/tags'
-      last_response.should be_ok
+      expect(last_response).to be_ok
     end
   end
 
   context 'GET /admin/tags/:id/edit' do
     it 'should show form' do
       get "/admin/tags/#{@tag.id}/edit"
-      last_response.should be_ok
-      last_response.body.should match('<form')
+      expect(last_response).to be_ok
+      expect(last_response.body).to match('<form')
     end
   end
 
   context 'PUT /admin/tags/:id' do
     it 'should change the name' do
       put "/admin/tags/#{@tag.id}", tag: { name: 'changed' }
-      last_response.should be_redirect
-      Tag.get(@tag.id).name.should eq('changed')
+      expect(last_response).to be_redirect
+      expect(Tag.get(@tag.id).name).to eq('changed')
     end
   end
 
   context 'DELETE /admin/tags' do
     it 'should delete the tag' do
       delete "/admin/tags/#{@tag.id}"
-      last_response.should be_redirect
-      Tag.get(@tag.id).should be_nil
+      expect(last_response).to be_redirect
+      expect(Tag.get(@tag.id)).to be_nil
     end
   end
 

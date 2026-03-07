@@ -1,14 +1,6 @@
 require './init'
-require 'yard'
 
 task default: ['spec:setup', 'db:delete', :spec]
-
-module TempFixForRakeLastComment
-  def last_comment
-    last_description
-  end
-end
-Rake::Application.include(TempFixForRakeLastComment)
 
 desc 'Migrate the Lokka database'
 task 'db:migrate' do
@@ -19,8 +11,6 @@ end
 desc 'Execute seed script'
 task 'db:seed' do
   puts 'Initializing Database...'
-  DataMapper::Logger.new(STDOUT, :debug)
-  DataMapper.logger.set_log STDERR, :debug, 'SQL: ', true
   Lokka::Database.new.connect.seed
 end
 
@@ -36,6 +26,25 @@ task 'db:reset' => %w[db:delete db:seed]
 desc 'Set up database'
 task 'db:setup' => %w[db:migrate db:seed]
 
+desc 'Dump data from legacy DataMapper database to db/dm_dump.json (SOURCE=path_or_dsn)'
+task 'db:dump_dm' do
+  source = ENV['SOURCE']
+  unless source
+    puts 'Usage: rake db:dump_dm SOURCE=path/to/old/database.sqlite3'
+    puts '       rake db:dump_dm SOURCE=postgres://user:pass@host/old_db'
+    exit 1
+  end
+  require 'lokka/migrator'
+  Lokka::DMMigrator.dump!(source)
+end
+
+desc 'Import dumped DataMapper data from db/dm_dump.json into the new database'
+task 'db:import_dm' do
+  require 'lokka/migrator'
+  Lokka::Database.new.connect
+  Lokka::DMMigrator.import!
+end
+
 desc 'Install gems'
 task :bundle do
   `bundle install --path vendor/bundle --without production test`
@@ -43,11 +52,6 @@ end
 
 desc 'Install'
 task install: %w[bundle db:setup]
-
-desc 'Generate documentation for Lokka'
-task :doc do
-  YARD::CLI::Yardoc.new.run
-end
 
 desc 'set ENV'
 task 'spec:setup' do
@@ -58,7 +62,7 @@ begin
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(spec: 'spec:setup') do |spec|
     spec.pattern = 'spec/**/*_spec.rb'
-    spec.rspec_opts = ['-cfs']
+    spec.rspec_opts = ['-cfd']
   end
 rescue LoadError => e
   puts e.message

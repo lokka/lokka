@@ -5,8 +5,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Lokka::Helpers do
   context 'gravatar_image_url' do
     it 'should return image url' do
-      gravatar_image_url('test@example.com').should eql('http://www.gravatar.com/avatar/55502f40dc8b7c769880b10874abc9d0')
-      gravatar_image_url.should eql('http://www.gravatar.com/avatar/00000000000000000000000000000000')
+      expect(gravatar_image_url('test@example.com')).to eql('http://www.gravatar.com/avatar/55502f40dc8b7c769880b10874abc9d0')
+      expect(gravatar_image_url).to eql('http://www.gravatar.com/avatar/00000000000000000000000000000000')
     end
   end
 
@@ -21,22 +21,22 @@ describe Lokka::Helpers do
     end
 
     it 'custom_permalink_parse split path valid and return Hash' do
-      custom_permalink_parse('/2011/01/09/welcome').should \
+      expect(custom_permalink_parse('/2011/01/09/welcome')).to \
         eq(year: '2011', monthnum: '01', day: '09', slug: 'welcome')
     end
 
     describe 'custom_permalink_fix' do
       it 'should return corrected URL by padding zero' do
-        custom_permalink_fix('/2011/1/9/welcome').should eq('/2011/01/09/welcome')
+        expect(custom_permalink_fix('/2011/1/9/welcome')).to eq('/2011/01/09/welcome')
       end
 
       it 'should return nil for correct URL' do
-        custom_permalink_fix('/2011/01/09/welcome').should be_nil
+        expect(custom_permalink_fix('/2011/01/09/welcome')).to be_nil
       end
 
       it 'should return nil when any error is raised' do
         Option.permalink_format = '/%year' # wrong format to raise error
-        custom_permalink_fix('/2011').should be_nil
+        expect(custom_permalink_fix('/2011')).to be_nil
       end
     end
 
@@ -47,7 +47,7 @@ describe Lokka::Helpers do
       end
 
       it 'should return nil when any error is raised' do
-        custom_permalink_entry('/no/such/path').should be_nil
+        expect(custom_permalink_entry('/no/such/path')).to be_nil
       end
     end
   end
@@ -56,6 +56,6 @@ describe Lokka::Helpers do
     subject { months }
     before  { create(:post, draft: true) }
 
-    it { subject.count.should eq(0) }
+    it { expect(subject.count).to eq(0) }
   end
 end

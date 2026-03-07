@@ -16,29 +16,29 @@ describe '/admin/permalink' do
 
   it 'GET should show form for custom permalink' do
     get '/admin/permalink'
-    last_response.should be_ok
-    last_response.body.should match('<form')
+    expect(last_response).to be_ok
+    expect(last_response.body).to match('<form')
   end
 
   it 'PUT should change Option' do
     put '/admin/permalink', enable: '1', format: '/%year%/%slug%'
-    Option.permalink_format.should eq('/%year%/%slug%')
-    Option.permalink_enabled.should eq('true')
+    expect(Option.permalink_format).to eq('/%year%/%slug%')
+    expect(Option.permalink_enabled).to eq('true')
   end
 
   it 'should show error when format including incomplete tag' do
     put '/admin/permalink', enable: '1', format: '/%year%/%slug'
     follow_redirect!
-    last_response.body.should match('not closed')
-    Option.permalink_format.should eq('/%year%/%id%')
-    Option.permalink_enabled.should eq('false')
+    expect(last_response.body).to match('not closed')
+    expect(Option.permalink_format).to eq('/%year%/%id%')
+    expect(Option.permalink_enabled).to eq('false')
   end
 
   it "should show error when format doesn't include any tags" do
     put '/admin/permalink', enable: '1', format: '/'
     follow_redirect!
-    last_response.body.should match('should include')
-    Option.permalink_format.should eq('/%year%/%id%')
-    Option.permalink_enabled.should eq('false')
+    expect(last_response.body).to match('should include')
+    expect(Option.permalink_format).to eq('/%year%/%id%')
+    expect(Option.permalink_enabled).to eq('false')
   end
 end

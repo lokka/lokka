@@ -1,0 +1,7 @@
+<h2><%= t('new_snippet') %></h2>
+<form action="<%= url('/admin/snippets') %>" method="post">
+  <%= erb :'admin/snippets/form', layout: false %>
+  <p>
+    <input type="submit" value="<%= t('new') %>">
+  </p>
+</form>

@@ -1,31 +1,19 @@
 # frozen_string_literal: true
 
-class User
-  include DataMapper::Resource
+class User < ActiveRecord::Base
+  has_many :entries
 
-  property :id, Serial
-  property :name, String, length: (3..40), unique: true
-  property :email, String, length: (5..40), unique: true, format: :email_address
-  property :hashed_password, String
-  property :salt, String
-  property :created_at, DateTime
-  property :updated_at, DateTime
-  property :permission_level, Integer, default: 1
-
-  has n, :entries
+  validates :name, presence: true, uniqueness: true, length: { in: 3..40 }
+  validates :email, presence: true, uniqueness: true, length: { in: 5..40 },
+                    format: { with: /\A[^@\s]+@[^@\s]+\z/ }
+  validates :password, length: { minimum: 4 }, if: :password_require?
+  validates :password_confirmation, presence: true, if: :password_require?
+  validates_confirmation_of :password
 
   attr_accessor :password_confirmation
   attr_reader :password
 
-  validates_uniqueness_of :name
-  validates_uniqueness_of :email
-  validates_length_of :password, minimum: 4, if: :password_require?
-  validates_presence_of :password_confirmation, if: :password_require?
-  validates_confirmation_of :password
-
-  before :valid? do
-    self.name = name.strip
-  end
+  before_validation :strip_name
 
   def password=(pass)
     @password = pass
@@ -34,10 +22,14 @@ class User
   end
 
   def self.authenticate(name, pass)
-    current_user = first(name: name)
+    current_user = find_by(name: name)
     return nil if current_user.nil?
     return current_user if User.encrypt(pass, current_user.salt) == current_user.hashed_password
     nil
+  end
+
+  def self.get(id)
+    find_by(id: id)
   end
 
   def admin?
@@ -45,7 +37,7 @@ class User
   end
 
   def password_require?
-    new? || (!new? && !password.blank?)
+    new_record? || !password.blank?
   end
 
   def self.encrypt(pass, salt)
@@ -54,6 +46,12 @@ class User
 
   def self.random_string(len)
     Array.new(len) { ['a'..'z', 'A'..'Z', '0'..'9'].map(&:to_a).flatten[rand(62)] }.join
+  end
+
+  private
+
+  def strip_name
+    self.name = name.strip if name
   end
 end
 

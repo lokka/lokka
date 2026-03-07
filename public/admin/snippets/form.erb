@@ -1,0 +1,30 @@
+<% unless @snippet.errors.empty? %>
+  <div id="error">
+    <div class="title"><%= t('error') %></div>
+    <ul>
+      <% @snippet.errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="field">
+  <label for="snippet_name"><%= t('snippet.name') %></label>
+  <br/>
+  <input type="text" id="snippet_name" name="snippet[name]" value="<%= @snippet.name %>">
+</div>
+<div class="field">
+  <label for="snippet_body"><%= t('snippet.body') %></label>
+  <br/>
+  <textarea class="editor" id="snippet_body" name="snippet[body]" rows="10" cols="50"><%= @snippet.body %></textarea>
+</div>
+<div class="field">
+  <label for="snippet_created_at"><%= t('snippet.created_at') %></label>
+  <br/>
+  <input type="text" id="snippet_created_at" name="snippet[created_at]" value="<%= @snippet.created_at %>">
+</div>
+<div class="field">
+  <label for="snippet_updated_at"><%= t('snippet.updated_at') %></label>
+  <br/>
+  <input type="text" id="snippet_updated_at" name="snippet[updated_at]" value="<%= @snippet.updated_at %>">
+</div>

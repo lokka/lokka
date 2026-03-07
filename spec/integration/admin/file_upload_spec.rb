@@ -7,8 +7,8 @@ describe '/admin/file_upload' do
 
   it 'GET should show form for custom permalink' do
     get '/admin/file_upload'
-    last_response.should be_ok
-    last_response.body.should match('<form')
+    expect(last_response).to be_ok
+    expect(last_response.body).to match('<form')
   end
 
   describe 'PUT /admin/file_upload' do
@@ -19,14 +19,14 @@ describe '/admin/file_upload' do
                                             s3_region: 'ap-northeast-1',
                                             s3_bucket_name: 'example'
         follow_redirect!
-        last_response.body.should match(I18n.t('file_upload.successfully_updated'))
+        expect(last_response.body).to match(I18n.t('file_upload.successfully_updated'))
       end
     end
 
     context 'With invalid params' do
       it 'should be failure' do
         put '/admin/file_upload', bar: 'buzz'
-        last_response.status.should eq(400)
+        expect(last_response.status).to eq(400)
       end
     end
   end

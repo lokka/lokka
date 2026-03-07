@@ -1,43 +1,25 @@
 # frozen_string_literal: true
 
-class Comment
-  include DataMapper::Resource
-
+class Comment < ActiveRecord::Base
   MODERATED = 0
   APPROVED  = 1
   SPAM      = 2
 
-  property :id, Serial
-  property :entry_id, Integer
-  property :status, Integer # 0: moderated, 1 => approved
-  property :name, String
-  property :email, String, length: (0..40), format: :email_address
-  property :homepage, String
-  property :body, Text
-  property :created_at, DateTime
-  property :updated_at, DateTime
-
   belongs_to :entry
 
-  default_scope(:default).update(order: :created_at.desc)
+  default_scope { order(created_at: :desc) }
 
-  validates_presence_of :name
-  validates_presence_of :body
+  validates :name, presence: true
+  validates :body, presence: true
+  validates :email, format: { with: /\A[^@\s]*@?[^@\s]*\z/ }, allow_blank: true
 
-  def self.recent(count = 5)
-    all(status: APPROVED, limit: count, order: [:created_at.desc])
-  end
+  scope :recent, ->(count = 5) { where(status: APPROVED).limit(count) }
+  scope :moderated, -> { where(status: MODERATED) }
+  scope :approved, -> { where(status: APPROVED) }
+  scope :spam, -> { where(status: SPAM) }
 
-  def self.moderated
-    all(status: MODERATED)
-  end
-
-  def self.approved
-    all(status: APPROVED)
-  end
-
-  def self.spam
-    all(status: SPAM)
+  def self.get(id)
+    find_by(id: id)
   end
 
   def link
