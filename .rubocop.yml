@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
@@ -45,18 +43,24 @@ Style/OpenStructUse:
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
-  SupportedStyles:
-    - single_quotes
-    - double_quotes
 
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
-  SupportedStyles:
-    - with_first_parameter
-    - with_fixed_indentation
 
 Layout/DotPosition:
   EnforcedStyle: trailing
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'lokka.gemspec'
+    - 'Gemfile'
+    - 'public/**/*'
+  AllowedPatterns:
+    - '%r'
+    - '%q'
+    - '%Q'
+    - '/\/.+\//'
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
@@ -77,6 +81,12 @@ Lint/UselessAssignment:
     - 'lib/lokka/helpers/helpers.rb'
     - 'public/theme/Farikal/config.rb'
 
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'lokka.gemspec'
@@ -93,6 +103,10 @@ Metrics/ClassLength:
     - 'lib/lokka/migrator.rb'
     - 'test/**/*'
 
+Metrics/ModuleLength:
+  Exclude:
+    - 'lib/lokka/helpers/helpers.rb'
+
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'lib/lokka.rb'
@@ -101,17 +115,6 @@ Metrics/CyclomaticComplexity:
     - 'lib/lokka/before.rb'
     - 'lib/lokka/migrator.rb'
     - 'public/plugin/**/*'
-
-Layout/LineLength:
-  Exclude:
-    - 'lokka.gemspec'
-    - 'Gemfile'
-    - 'public/**/*'
-  AllowedPatterns:
-    - '%r'
-    - '%q'
-    - '%Q'
-    - '/\/.+\//'
 
 Metrics/PerceivedComplexity:
   Exclude:
