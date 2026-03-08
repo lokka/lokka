@@ -45,8 +45,8 @@ end
 group :test do
   gem 'database_cleaner-active_record'
   gem 'factory_bot', '~> 6.0'
+  gem 'minitest', '~> 5.0'
   gem 'rack-test', '~> 2.0', require: 'rack/test'
-  gem 'rspec', '~> 3.0'
   gem 'simplecov', require: false
 end
 gem 'csv'
