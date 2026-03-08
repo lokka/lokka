@@ -1,17 +1,15 @@
 # Lokka
 
+> **Note**
+> Lokka 2.0 has migrated from DataMapper to **ActiveRecord**.
+> If you are upgrading from an older version, please see the [Migration Guide](https://github.com/lokka/lokka/wiki/Migration-Guide-DataMapper-to-ActiveRecord).
+
 CMS written in Ruby for cloud computing.
 
 ## Requirements
 
 - Ruby 3.2 or later
 - SQLite (development) / PostgreSQL (production)
-
-## Architecture
-
-Lokka uses **ActiveRecord** as its ORM since version 2.0 (previously DataMapper).
-
-If you are upgrading from a DataMapper-based version, please see the [Migration Guide](https://github.com/lokka/lokka/wiki/Migration-Guide-DataMapper-to-ActiveRecord).
 
 ## Features
 
