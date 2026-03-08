@@ -1,7 +1,9 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'lokka.gemspec'
     - 'db/seeds.rb'
@@ -13,11 +15,32 @@ Naming/MethodName:
   Exclude:
     - 'lib/lokka/models/**/*'
 
-Style/MethodMissing:
+Naming/PredicateMethod:
+  Exclude:
+    - 'lib/lokka/helpers/helpers.rb'
+
+Lint/MissingSuper:
   Exclude:
     - 'lib/lokka/models/entry.rb'
     - 'lib/lokka/models/site.rb'
     - 'lib/lokka/models/option.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+
+Lint/UnreachableLoop:
+  Exclude:
+    - 'lib/lokka/importer.rb'
+
+Style/MissingRespondToMissing:
+  Exclude:
+    - 'lib/lokka/models/entry.rb'
+    - 'lib/lokka/models/site.rb'
+    - 'lib/lokka/models/option.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+
+Style/OpenStructUse:
+  Exclude:
+    - 'lib/lokka.rb'
+    - 'lib/lokka/app/admin.rb'
     - 'lib/lokka/helpers/helpers.rb'
 
 Style/StringLiterals:
@@ -26,7 +49,7 @@ Style/StringLiterals:
     - single_quotes
     - double_quotes
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
   SupportedStyles:
     - with_first_parameter
@@ -47,7 +70,7 @@ Layout/SpaceInsideBlockBraces:
 
 Lint/AmbiguousBlockAssociation:
   Exclude:
-    - 'spec/**/*'
+    - 'test/**/*'
 
 Lint/UselessAssignment:
   Exclude:
@@ -57,17 +80,34 @@ Lint/UselessAssignment:
 Metrics/BlockLength:
   Exclude:
     - 'lokka.gemspec'
-    - 'spec/**/*'
+    - 'test/**/*'
     - 'lib/lokka/before.rb'
     - 'lib/lokka/app.rb'
     - 'lib/lokka/importer.rb'
 
-Metrics/LineLength:
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/lokka/app/entries.rb'
+    - 'lib/lokka/app/admin.rb'
+    - 'lib/lokka/models/entry.rb'
+    - 'lib/lokka/migrator.rb'
+    - 'test/**/*'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'lib/lokka.rb'
+    - 'lib/lokka/importer.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+    - 'lib/lokka/before.rb'
+    - 'lib/lokka/migrator.rb'
+    - 'public/plugin/**/*'
+
+Layout/LineLength:
   Exclude:
     - 'lokka.gemspec'
     - 'Gemfile'
     - 'public/**/*'
-  IgnoredPatterns:
+  AllowedPatterns:
     - '%r'
     - '%q'
     - '%Q'
@@ -75,6 +115,9 @@ Metrics/LineLength:
 
 Metrics/PerceivedComplexity:
   Exclude:
+    - 'lib/lokka.rb'
     - 'lib/lokka/before.rb'
     - 'lib/lokka/importer.rb'
+    - 'lib/lokka/helpers/helpers.rb'
+    - 'lib/lokka/migrator.rb'
     - 'public/plugin/**/*'

@@ -16,7 +16,7 @@ module KaminariPagerAdapter
       @relation.prev_page
     end
 
-    def to_html(url)
+    def to_html(_url)
       # Not implemented - templates should use Kaminari helpers directly
       ''
     end

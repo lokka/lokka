@@ -13,6 +13,7 @@ class FieldName < ActiveRecord::Base
   def validate_if_entry_respond_to
     entry = Entry.new
     return unless entry.respond_to?(name, true)
+
     errors.add(:name, "'#{name}' cannot be used because Entry has a method of the same name")
   end
 end

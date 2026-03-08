@@ -4,7 +4,7 @@ module Lokka
   module GoogleAnalytics
     def self.registered(app)
       app.get '/admin/plugins/google_analytics' do
-        haml :"plugin/lokka-google_analytics/views/index", layout: :"admin/layout"
+        haml :'plugin/lokka-google_analytics/views/index', layout: :'admin/layout'
       end
 
       app.put '/admin/plugins/google_analytics' do

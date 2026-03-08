@@ -1,6 +1,15 @@
 # Lokka
 
+> **Note**
+> Lokka 1.0.0 has migrated from DataMapper to **ActiveRecord**.
+> If you are upgrading from an older version, please see the [Migration Guide](https://github.com/lokka/lokka/wiki/Migration-Guide-DataMapper-to-ActiveRecord).
+
 CMS written in Ruby for cloud computing.
+
+## Requirements
+
+- Ruby 3.2 or later
+- SQLite (development) / PostgreSQL (production)
 
 ## Features
 
@@ -28,9 +37,9 @@ View at: http://localhost:9292/
 $ git clone git://github.com/lokka/lokka.git
 $ cd lokka
 $ heroku create
-$ git push heroku master
-$ heroku addons:add heroku-postgresql:hobby-dev
-$ heroku rake db:setup
+$ git push heroku main
+$ heroku addons:create heroku-postgresql:essential-0
+$ heroku run rake db:setup
 $ heroku open
 ```
 
@@ -45,7 +54,6 @@ to your terminal
 ## Docker
 
 ```sh
-$ bin/docker_gemfile
 $ docker-compose build
 $ docker-compose run --rm app bundle exec rake db:setup
 $ docker-compose up
@@ -56,7 +64,7 @@ open http://localhost:9292 on your browser.
 ## Test
 
 ```sh
-rake spec
+rake test
 ```
 
 ## How to make a theme

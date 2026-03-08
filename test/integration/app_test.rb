@@ -30,19 +30,19 @@ class AppTest < LokkaTestCase
     11.times { create(:post) }
 
     get '/'
-    regexp = %r{<h2 class="title"><a href=".*\/[^"]*">Test Post.*<\/a><\/h2>}
+    regexp = %r{<h2 class="title"><a href=".*/[^"]*">Test Post.*</a></h2>}
 
     assert_equal 10, last_response.body.scan(regexp).size
   ensure
     Post.destroy_all
   end
 
-  def test_index_displays_5_posts_when_per_page_is_5
+  def test_index_displays_five_posts_when_per_page_is_five
     11.times { create(:post) }
     Site.first.update(per_page: 5)
 
     get '/'
-    regexp = %r{<h2 class="title"><a href=".*\/[^"]*">Test Post.*<\/a><\/h2>}
+    regexp = %r{<h2 class="title"><a href=".*/[^"]*">Test Post.*</a></h2>}
 
     assert_equal 5, last_response.body.scan(regexp).size
   ensure
@@ -106,7 +106,7 @@ class AppTest < LokkaTestCase
     Category.destroy_all
   end
 
-  def test_draft_post_entry_page_returns_404
+  def test_draft_post_entry_page_returns_not_found
     create(:draft_post_with_tag_and_category)
     post_record = Post.find_by(draft: true)
 
@@ -245,7 +245,7 @@ class AppTest < LokkaTestCase
     Entry.destroy_all
   end
 
-  def test_custom_permalink_returns_200
+  def test_custom_permalink_succeeds
     create(:post_with_slug)
     Option.permalink_enabled = true
     Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
@@ -257,7 +257,7 @@ class AppTest < LokkaTestCase
     Entry.destroy_all
   end
 
-  def test_custom_permalink_not_found_returns_404
+  def test_custom_permalink_not_found_returns_not_found
     Option.permalink_enabled = true
     Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
 
@@ -267,7 +267,7 @@ class AppTest < LokkaTestCase
     Option.permalink_enabled = false
   end
 
-  def test_wrong_path_structure_returns_404
+  def test_wrong_path_structure_returns_not_found
     Option.permalink_enabled = true
     Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
 
@@ -302,7 +302,7 @@ class AppTest < LokkaTestCase
   def test_continue_reading_hidden_on_index
     create(:post_with_more)
 
-    regexp = %r{<p>a<\/p>\n\n<a href="\/[^"]*">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>}
+    regexp = %r{<p>a</p>\n\n<a href="/[^"]*">Continue reading\.\.\.</a>\n*[ \t]+</div>}
     get '/'
     assert_match regexp, last_response.body
   ensure
@@ -312,7 +312,7 @@ class AppTest < LokkaTestCase
   def test_continue_reading_not_hidden_on_entry_page
     create(:post_with_more)
 
-    regexp = %r{<a href="\/9">Continue reading\.\.\.<\/a>\n*[ \t]+<\/div>}
+    regexp = %r{<a href="/9">Continue reading\.\.\.</a>\n*[ \t]+</div>}
     get '/post-with-more'
     refute_match regexp, last_response.body
   ensure

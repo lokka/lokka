@@ -14,7 +14,7 @@ module Lokka
       enable :method_override, :raise_errors, :static, :sessions
       register Padrino::Helpers
       set :app_file, __FILE__
-      set :root, File.expand_path('../../..', __FILE__)
+      set :root, File.expand_path('../..', __dir__)
       set public_folder: proc { File.join(root, 'public') }
       set views: proc { public_folder }
       set theme: proc { File.join(public_folder, 'theme') }
@@ -30,16 +30,16 @@ module Lokka
       helpers Lokka::Helpers
       helpers Lokka::RenderHelper
       use Rack::Session::Cookie,
-        expire_after: 60 * 60 * 24 * 12,
-        secret: SecureRandom.hex(64)
+          expire_after: 60 * 60 * 24 * 12,
+          secret: SecureRandom.hex(64)
       use RequestStore::Middleware
       register Sinatra::Flash
       Lokka.load_plugin(self)
       Lokka::Database.new.connect
     end
 
-    require 'lokka/app/admin.rb'
-    require 'lokka/app/entries.rb'
+    require 'lokka/app/admin'
+    require 'lokka/app/entries'
 
     not_found do
       if custom_permalink?
@@ -58,11 +58,11 @@ module Lokka
       render404 = render_any('404', layout: false)
       return render404 if render404
 
-      haml :"404", views: 'public/lokka', layout: false
+      haml :'404', views: 'public/lokka', layout: false
     end
 
     error do
-      'Error: ' + env['sinatra.error'].name
+      "Error: #{env['sinatra.error'].name}"
     end
 
     get '/*.css' do |path|

@@ -31,10 +31,10 @@ class Entry < ActiveRecord::Base
   def long_body
     Markup.use_engine(markup, raw_body.to_s)
   end
-  alias_method :rendered_body, :long_body
+  alias rendered_body long_body
 
   def short_body
-    @short_body ||= long_body. \
+    @short_body ||= long_body.
                       sub(/<!-- ?more ?-->.*/m, "<a href=\"#{link}\">#{I18n.t('continue_reading')}</a>").html_safe
   end
 
@@ -58,10 +58,11 @@ class Entry < ActiveRecord::Base
 
   def update_tags
     return unless @tag_list
-    self.taggings.destroy_all
+
+    taggings.destroy_all
     @tag_list.each do |tag_name|
       tag = Tag.find_or_create_by(name: tag_name)
-      self.taggings.find_or_create_by(tag: tag, tag_context: 'tags')
+      taggings.find_or_create_by(tag: tag, tag_context: 'tags')
     end
   end
 
@@ -91,6 +92,7 @@ class Entry < ActiveRecord::Base
 
   def update_fields
     return unless @fields_hash
+
     @fields_hash.each do |k, v|
       send("#{k}=", v)
     end
@@ -98,9 +100,11 @@ class Entry < ActiveRecord::Base
 
   def validate_confliction
     return unless id && @updated_at_before_edit
+
     current = self.class.find_by(id: id)
     return unless current
     return if @updated_at_before_edit == current.updated_at
+
     errors.add(:updated_at, 'The entry is updated while you were editing')
   end
 
@@ -110,6 +114,7 @@ class Entry < ActiveRecord::Base
       column = attribute[0, attribute.size - 1]
       field_name = FieldName.find_by(name: column)
       return super unless field_name
+
       field = Field.find_by(entry_id: id, field_name_id: field_name.id)
       if field
         field.update(value: args.first)
@@ -119,6 +124,7 @@ class Entry < ActiveRecord::Base
     else
       field_name = FieldName.find_by(name: attribute)
       return super unless field_name
+
       field = Field.find_by(entry_id: id, field_name_id: field_name.id)
       field.try(:value)
     end

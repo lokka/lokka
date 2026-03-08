@@ -23,7 +23,7 @@ module Lokka
       app.get '/admin/plugins/akismet' do
         login_required
         @akismet = akismet_key
-        haml :"#{akismet_view}index", layout: :"admin/layout"
+        haml :"#{akismet_view}index", layout: :'admin/layout'
       end
 
       app.put '/admin/plugins/akismet' do
@@ -36,7 +36,7 @@ module Lokka
         else
           flash[:notice] = t('akismet.api_key_db_error')
         end
-        haml :"#{akismet_view}index", layout: :"admin/layout"
+        haml :"#{akismet_view}index", layout: :'admin/layout'
       end
     end
   end
@@ -55,6 +55,7 @@ module Lokka
     def spam?
       key = akismet_key
       return false unless key
+
       host = "#{key}.rest.akismet.com"
       queries = []
       queries << "blog=#{akismet_blog}"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './init'
 require 'rake/testtask'
 
@@ -29,7 +31,7 @@ task 'db:setup' => %w[db:migrate db:seed]
 
 desc 'Dump data from legacy DataMapper database to db/dm_dump.json (SOURCE=path_or_dsn)'
 task 'db:dump_dm' do
-  source = ENV['SOURCE']
+  source = ENV.fetch('SOURCE', nil)
   unless source
     puts 'Usage: rake db:dump_dm SOURCE=path/to/old/database.sqlite3'
     puts '       rake db:dump_dm SOURCE=postgres://user:pass@host/old_db'
@@ -73,7 +75,7 @@ namespace :admin do
   end
 
   desc 'Build admin js'
-  task :build_js => [:install_deps] do
+  task build_js: [:install_deps] do
     system('cd public/admin && npm run build')
   end
 end

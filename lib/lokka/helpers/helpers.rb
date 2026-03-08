@@ -5,8 +5,8 @@ module Lokka
     include Rack::Utils
 
     # Override padrino's localize to work with i18n 1.14+ keyword args
-    def localize(object, **options)
-      I18n.localize(object, **options)
+    def localize(object, **)
+      I18n.localize(object, **)
     end
     alias l localize
 
@@ -36,6 +36,7 @@ module Lokka
 
     def login_required
       return true if current_user.class != GuestUser
+
       session[:return_to] = request.fullpath
       redirect to('/admin/login')
       false
@@ -62,7 +63,7 @@ module Lokka
       categories.each do |category|
         html += '<li>'
         html += "<a href=\"#{category.link}\">#{category.title}</a>"
-        html += category_tree(category.children) if category.children.count > 0
+        html += category_tree(category.children) if category.children.any?
         html += '</li>'
       end
       html += '</ul>'
@@ -70,7 +71,7 @@ module Lokka
     end
 
     def comment_form
-      erb :"lokka/comments/form", layout: false
+      erb :'lokka/comments/form', layout: false
     end
 
     def months
@@ -104,7 +105,7 @@ module Lokka
 
     # example: /foo/bar?buz=aaa
     def request_path
-      path = '/' + request.url.split('/')[3..-1].join('/')
+      path = "/#{request.url.split('/')[3..].join('/')}"
       path += '/' if path != '/' && request.url =~ %r{/$}
       path
     end
@@ -156,7 +157,7 @@ module Lokka
       @name = entry_class.name.downcase
       @entries = params[:draft] == 'true' ? entry_class.unpublished : entry_class.all
       @entries = @entries.page(params[:page]).per(settings.admin_per_page)
-      erb :"admin/entries/index", layout: :"admin/layout"
+      erb :'admin/entries/index', layout: :'admin/layout'
     end
 
     def get_admin_entry_new(entry_class)
@@ -164,7 +165,7 @@ module Lokka
       @entry = entry_class.new(markup: Site.first.default_markup, created_at: Time.current, updated_at: Time.current)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.order(name: :asc)
-      erb :"admin/entries/new", layout: :"admin/layout"
+      erb :'admin/entries/new', layout: :'admin/layout'
     end
 
     def get_admin_entry_edit(entry_class, id)
@@ -172,7 +173,7 @@ module Lokka
       (@entry = entry_class.find_by(id: id)) || raise(Sinatra::NotFound)
       @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
       @field_names = FieldName.order(name: :asc)
-      erb :"admin/entries/edit", layout: :"admin/layout"
+      erb :'admin/entries/edit', layout: :'admin/layout'
     end
 
     def post_admin_entry(entry_class)
@@ -188,7 +189,7 @@ module Lokka
         else
           @field_names = FieldName.order(name: :asc)
           @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
-          erb :"admin/entries/new", layout: :"admin/layout"
+          erb :'admin/entries/new', layout: :'admin/layout'
         end
       end
     end
@@ -204,7 +205,7 @@ module Lokka
       else
         @categories = Category.all.map {|c| [c.id, c.title] }.unshift([nil, t('not_select')])
         @field_names = FieldName.order(name: :asc)
-        erb :"admin/entries/edit", layout: :"admin/layout"
+        erb :'admin/entries/edit', layout: :'admin/layout'
       end
     end
 
@@ -283,7 +284,7 @@ module Lokka
       chars = path.chars.to_a
       custom_permalink_format.each_with_object({}) do |pattern, result|
         if pattern.start_with?('%')
-          next_char = pattern[-1..-1]
+          next_char = pattern[-1..]
           next_char = nil if next_char == '%'
           name = pattern.match(/^%(.+)%.?$/)[1].to_sym
           c = nil
@@ -329,6 +330,7 @@ module Lokka
         time_order = %i[year month day hour minute second]
         args, _last = time_order.inject([[], nil]) do |(result, _last), key|
           break [result, key] unless flags[key]
+
           [result << flags[key], nil]
         end
         args = [0, 1, 1, 0, 0, 0].each_with_index.map {|default, i| args[i] || default }
@@ -379,8 +381,8 @@ module Lokka
 
     def slugs
       tmp = @theme_types
-      tmp << @entry.slug    if @entry && @entry.slug
-      tmp << @category.slug if @category && @category.slug
+      tmp << @entry.slug    if @entry&.slug
+      tmp << @category.slug if @category&.slug
       tmp
     end
 

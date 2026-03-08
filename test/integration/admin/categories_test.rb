@@ -68,19 +68,19 @@ class AdminCategoriesTest < LokkaTestCase
     assert_equal @category, child.parent
   end
 
-  def test_get_nonexistent_category_returns_404
+  def test_get_nonexistent_category_returns_not_found
     Category.destroy_all
     get '/admin/categories/9999/edit'
     assert_not_found_page
   end
 
-  def test_put_nonexistent_category_returns_404
+  def test_put_nonexistent_category_returns_not_found
     Category.destroy_all
     put '/admin/categories/9999'
     assert_not_found_page
   end
 
-  def test_delete_nonexistent_category_returns_404
+  def test_delete_nonexistent_category_returns_not_found
     Category.destroy_all
     delete '/admin/categories/9999'
     assert_not_found_page

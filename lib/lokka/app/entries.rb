@@ -25,7 +25,7 @@ module Lokka
                  page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
       content_type 'application/atom+xml', charset: 'utf-8'
-      builder :"lokka/index"
+      builder :'lokka/index'
     end
 
     # search
@@ -55,6 +55,7 @@ module Lokka
       category_title = path.split('/').last
       @category = Category.get_by_fuzzy_slug(category_title)
       return 404 if @category.nil?
+
       @posts = Post.where(category: @category).published.
                  order(@site.default_order_query_operator).
                  page(params[:page]).per(@site.per_page)
@@ -78,6 +79,7 @@ module Lokka
 
       @tag = Tag.find_by(name: tag)
       return 404 if @tag.nil?
+
       @posts = Post.where(id: @tag.taggings.where(taggable_type: 'Entry').pluck(:taggable_id)).
                  published.
                  order(@site.default_order_query_operator).
@@ -93,7 +95,7 @@ module Lokka
     end
 
     # monthly
-    get %r{/([\d]{4})/([\d]{2})/} do |year, month|
+    get %r{/(\d{4})/(\d{2})/} do |year, month|
       @theme_types << :monthly
       @theme_types << :entries
 
@@ -117,7 +119,7 @@ module Lokka
     end
 
     # yearly
-    get %r{/([\d]{4})/} do |year|
+    get %r{/(\d{4})/} do |year|
       @theme_types << :yearly
       @theme_types << :entries
 
@@ -141,6 +143,7 @@ module Lokka
       @entry = Entry.get_by_fuzzy_slug(id_or_slug)
 
       return 404 if @entry.blank?
+
       redirect to(@entry.link) if @entry.type == 'Post' && custom_permalink?
 
       @comment = Comment.new(entry: @entry)
@@ -152,7 +155,7 @@ module Lokka
     post %r{/([_/0-9a-zA-Z-]+)} do |id_or_slug|
       @theme_types << :entry
 
-      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || (custom_permalink? && custom_permalink_entry('/' + id_or_slug))
+      @entry = Entry.get_by_fuzzy_slug(id_or_slug) || (custom_permalink? && custom_permalink_entry("/#{id_or_slug}"))
       return 404 if !@entry || @entry.blank?
       return 404 if params[:check] != 'check'
 
@@ -179,7 +182,7 @@ module Lokka
                  page(params[:page]).per(@site.per_page)
       @posts = apply_continue_reading(@posts)
       content_type 'application/xml', charset: 'utf-8'
-      builder :"lokka/sitemap"
+      builder :'lokka/sitemap'
     end
   end
 end

@@ -61,19 +61,19 @@ class AdminPostsTest < LokkaTestCase
     assert_nil Post(@post.id)
   end
 
-  def test_get_nonexistent_post_returns_404
+  def test_get_nonexistent_post_returns_not_found
     Post.destroy_all
     get '/admin/posts/9999/edit'
     assert_not_found_page
   end
 
-  def test_put_nonexistent_post_returns_404
+  def test_put_nonexistent_post_returns_not_found
     Post.destroy_all
     put '/admin/posts/9999'
     assert_not_found_page
   end
 
-  def test_delete_nonexistent_post_returns_404
+  def test_delete_nonexistent_post_returns_not_found
     Post.destroy_all
     delete '/admin/posts/9999'
     assert_not_found_page

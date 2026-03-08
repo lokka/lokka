@@ -43,7 +43,7 @@ class AdminFieldNamesTest < LokkaTestCase
     assert_nil FieldName.find_by(id: @field_name.id)
   end
 
-  def test_delete_nonexistent_field_name_returns_404
+  def test_delete_nonexistent_field_name_returns_not_found
     FieldName.destroy_all
     delete '/admin/field_names/9999'
     assert_not_found_page

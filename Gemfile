@@ -1,19 +1,17 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
-ruby ">= 3.2"
+ruby '>= 3.2'
 
 gem 'activerecord', '~> 8.1'
 gem 'activesupport', '~> 8.1'
-gem 'sinatra', '~> 4.0'
-gem 'sinatra-contrib', '~> 4.0'
-gem 'sinatra-activerecord', '~> 2.0'
-gem 'sinatra-flash', '~> 0.3.0'
-gem 'kaminari', '~> 1.2'
-gem 'kaminari-activerecord'
 gem 'aws-sdk-s3'
 gem 'builder'
 gem 'bundler'
 gem 'coderay'
 gem 'haml', '~> 6.0'
+gem 'kaminari', '~> 1.2'
+gem 'kaminari-activerecord'
 gem 'kramdown'
 gem 'marcel'
 gem 'nokogiri'
@@ -24,6 +22,10 @@ gem 'rake', '~> 13.0'
 gem 'redcarpet'
 gem 'RedCloth'
 gem 'request_store'
+gem 'sinatra', '~> 4.0'
+gem 'sinatra-activerecord', '~> 2.0'
+gem 'sinatra-contrib', '~> 4.0'
+gem 'sinatra-flash', '~> 0.3.0'
 gem 'slim', '~> 5.0'
 gem 'tilt', '~> 2.0'
 
@@ -50,5 +52,5 @@ group :test do
 end
 gem 'csv'
 gem 'ostruct'
-gem 'rackup'
 gem 'puma'
+gem 'rackup'

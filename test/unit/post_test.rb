@@ -38,7 +38,7 @@ class PostTest < LokkaTestCase
   end
 
   # with id 1
-  def test_edit_link_with_id_1
+  def test_edit_link_with_id_one
     post = build(:post, id: 1)
     assert_equal '/admin/posts/1/edit', post.edit_link
   end
