@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SharedExamples
+module CustomAssertions
   module NotFoundPage
     def assert_not_found_page
       assert_equal 404, last_response.status
@@ -15,7 +15,7 @@ module SharedExamples
     end
   end
 
-  module UserWithValidation
+  module UserValidation
     def assert_user_validation(user)
       assert user.save, 'User should save successfully'
 

@@ -2,11 +2,11 @@
 
 require_relative '../../test_helper'
 require_relative '../../support/admin_helper'
-require_relative '../../support/shared_examples'
+require_relative '../../support/custom_assertions'
 
 class AdminTagsTest < LokkaTestCase
   include AdminLoginContext
-  include SharedExamples::NotFoundPage
+  include CustomAssertions::NotFoundPage
 
   def setup
     super
