@@ -12,6 +12,11 @@ module Lokka
 
     alias h escape_html
 
+    # Mark string as safe for HTML output (no escaping)
+    def raw(value)
+      value.to_s.html_safe
+    end
+
     %w[index search category tag yearly monthly daily post page entry entries].each do |name|
       define_method("#{name}?") do
         @theme_types.include?(name.to_sym)

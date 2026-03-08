@@ -322,7 +322,7 @@ class AppTest < LokkaTestCase
   def test_tag_archive_page
     create(:tag, name: 'lokka')
     post_record = create(:post)
-    post_record.tag_list = 'lokka'
+    post_record.tag_collection = 'lokka'
     post_record.save
 
     get '/tags/lokka/'

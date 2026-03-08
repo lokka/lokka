@@ -54,8 +54,11 @@ class HelpersTest < LokkaTestCase
     Option.permalink_enabled = true
     Option.permalink_format = '/%year%/%monthnum%/%day%/%slug%'
 
-    entry = create(:entry, created_at: '2011-01-09T23:45:45', slug: 'slug')
-    assert_equal entry, custom_permalink_entry('/2011/01/09/slug')
+    # Use local time to match the Time.local used in custom_permalink_entry
+    entry = create(:entry, created_at: Time.local(2011, 1, 9, 12, 0, 0), slug: 'slug')
+    result = custom_permalink_entry('/2011/01/09/slug')
+    # Entry factory creates a Post (STI), so compare by id
+    assert_equal entry.id, result.id
   ensure
     Option.permalink_enabled = false
   end

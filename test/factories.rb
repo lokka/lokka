@@ -115,7 +115,7 @@ FactoryBot.define do
   end
 
   factory :category do
-    title { 'Test Category' }
+    sequence(:title) {|n| "Test Category #{n}" }
     created_at { create_time }
     updated_at { update_time }
   end

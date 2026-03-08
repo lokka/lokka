@@ -9,7 +9,8 @@ class AdminAttachmentsTest < LokkaTestCase
   def setup_s3_stub
     Aws.config[:s3] = {
       stub_responses: {
-        list_buckets: {}
+        list_buckets: {},
+        put_object: {}
       }
     }
     Option.aws_access_key_id = 'foo'
@@ -20,18 +21,14 @@ class AdminAttachmentsTest < LokkaTestCase
 
   def test_post_admin_attachments_with_valid_params_succeeds
     setup_s3_stub
-    Aws::S3::Bucket.any_instance.stub(:upload_file, true) do
-      post '/admin/attachments', file: Rack::Test::UploadedFile.new(File.join(fixture_path, '1px.gif'))
-      assert_equal 201, last_response.status
-    end
+    post '/admin/attachments', file: Rack::Test::UploadedFile.new(File.join(fixture_path, '1px.gif'))
+    assert_equal 201, last_response.status
   end
 
   def test_post_admin_attachments_without_file_fails
     setup_s3_stub
-    Aws::S3::Bucket.any_instance.stub(:upload_file, true) do
-      post '/admin/attachments', foo: 'bar'
-      assert_equal 400, last_response.status
-    end
+    post '/admin/attachments', foo: 'bar'
+    assert_equal 400, last_response.status
   end
 
   def test_post_admin_attachments_without_s3_config_fails

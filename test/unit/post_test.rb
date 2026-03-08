@@ -115,6 +115,7 @@ class PostTest < LokkaTestCase
 
     entry.tag_collection = 'foo,bar'
     entry.save
+    entry.reload
 
     refute_equal original_tags, entry.tags.to_a
   end

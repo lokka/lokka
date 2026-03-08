@@ -24,6 +24,10 @@ class Entry < ActiveRecord::Base
     read_attribute(:body)
   end
 
+  def body
+    long_body
+  end
+
   def long_body
     Markup.use_engine(markup, raw_body.to_s)
   end

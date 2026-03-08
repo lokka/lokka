@@ -75,19 +75,16 @@ class AdminUsersTest < LokkaTestCase
   end
 
   def test_get_nonexistent_user_returns_404
-    User.destroy_all
     get '/admin/users/9999/edit'
     assert_not_found_page
   end
 
   def test_put_nonexistent_user_returns_404
-    User.destroy_all
     put '/admin/users/9999'
     assert_not_found_page
   end
 
   def test_delete_nonexistent_user_returns_404
-    User.destroy_all
     delete '/admin/users/9999'
     assert_not_found_page
   end
