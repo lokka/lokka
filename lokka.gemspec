@@ -32,7 +32,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'sinatra-activerecord', '~> 2.0'
   s.add_runtime_dependency 'sinatra-contrib', '~> 4.0'
   s.add_runtime_dependency 'sinatra-flash', '~> 0.3.0'
-  s.add_runtime_dependency 'slim', '~> 5.0'
   s.add_runtime_dependency 'tilt', '~> 2.0'
 
   s.add_development_dependency 'minitest', '~> 5.0'

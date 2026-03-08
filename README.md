@@ -69,7 +69,7 @@ rake test
 
 ## How to make a theme
 
-Make a directory for theme in public/theme and you need to create entries.erb and entry.erb at least. (erb, haml and slim is available.)
+Make a directory for theme in public/theme and you need to create entries.erb and entry.erb at least. (erb and haml are available.)
 
 ### Index page
 

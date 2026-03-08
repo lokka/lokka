@@ -18,7 +18,7 @@ module Lokka
       set public_folder: proc { File.join(root, 'public') }
       set views: proc { public_folder }
       set theme: proc { File.join(public_folder, 'theme') }
-      set supported_templates: %w[erb haml slim]
+      set supported_templates: %w[erb haml]
       set supported_stylesheet_templates: %w[css]
       set supported_javascript_templates: %w[js]
       set :per_page, 10
