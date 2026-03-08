@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'lokka'
-  s.version = '0.2.0'
+  s.version = '1.0.0'
   s.required_ruby_version = '>= 3.3'
 
   s.authors = ['Masaki KOMAGATA', 'Teppei Machida']
@@ -35,6 +35,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'slim', '~> 5.0'
   s.add_runtime_dependency 'tilt', '~> 2.0'
 
-  s.add_development_dependency 'rspec', '~> 3.0'
+  s.add_development_dependency 'minitest', '~> 5.0'
   s.add_development_dependency 'sqlite3', '~> 2.0'
 end
