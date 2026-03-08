@@ -1,6 +1,7 @@
 require './init'
+require 'rake/testtask'
 
-task default: ['spec:setup', 'db:delete', :spec]
+task default: ['test:setup', 'db:delete', :test]
 
 desc 'Migrate the Lokka database'
 task 'db:migrate' do
@@ -54,19 +55,15 @@ desc 'Install'
 task install: %w[bundle db:setup]
 
 desc 'set ENV'
-task 'spec:setup' do
+task 'test:setup' do
   ENV['RACK_ENV'] = ENV['LOKKA_ENV'] = 'test'
 end
 
-begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(spec: 'spec:setup') do |spec|
-    spec.pattern = 'spec/**/*_spec.rb'
-    spec.rspec_opts = ['-cfd']
-  end
-rescue LoadError => e
-  puts e.message
-  puts e.backtrace
+Rake::TestTask.new(test: 'test:setup') do |t|
+  t.libs << 'test'
+  t.libs << 'lib'
+  t.test_files = FileList['test/**/*_test.rb']
+  t.verbose = true
 end
 
 namespace :admin do

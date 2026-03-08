@@ -1,4 +1,4 @@
-<%= form_for @category, action, method: method do |f| %>
+<% form_for @category, action, method: method do |f| %>
   <% unless @category.errors.empty? %>
     <div id="error">
       <div class="title"><%= t('error') %></div>
@@ -22,7 +22,7 @@
   <div class="field">
     <%= f.label :parent, caption: t('category.parent') %>
     <br/>
-    <% if (categories_without_self = Category.all(:id.not => @category.id)).count > 0 %>
+    <% if (categories_without_self = Category.where.not(id: @category.id)).count > 0 %>
       <%= f.select :parent_id, collection: categories_without_self, fields: %i[title id], include_blank: t('not_select') %>
     <% else %>
       <%= t('no_category') %>

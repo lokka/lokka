@@ -31,6 +31,8 @@ module Markup
          superscript: true,
          space_after_headers: true
        ).render(text)
-     end]
+     end],
+    ['redcloth', 'Textile (RedCloth)',
+     ->(text) { RedCloth.new(text).to_html }]
   ]
 end
