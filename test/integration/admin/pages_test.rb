@@ -61,19 +61,19 @@ class AdminPagesTest < LokkaTestCase
     assert_nil Page(@page.id)
   end
 
-  def test_get_nonexistent_page_returns_404
+  def test_get_nonexistent_page_returns_not_found
     Page.destroy_all
     get '/admin/pages/9999/edit'
     assert_not_found_page
   end
 
-  def test_put_nonexistent_page_returns_404
+  def test_put_nonexistent_page_returns_not_found
     Page.destroy_all
     put '/admin/pages/9999'
     assert_not_found_page
   end
 
-  def test_delete_nonexistent_page_returns_404
+  def test_delete_nonexistent_page_returns_not_found
     Page.destroy_all
     delete '/admin/pages/9999'
     assert_not_found_page

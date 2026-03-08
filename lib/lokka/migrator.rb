@@ -25,7 +25,7 @@ module Lokka
     # Column mappings: old_name => new_name (only where they differ)
     COLUMN_RENAMES = {
       'entries' => {
-        'entry_tags' => nil  # skip dm-tags internal columns if present
+        'entry_tags' => nil # skip dm-tags internal columns if present
       }
     }.freeze
 
@@ -41,7 +41,7 @@ module Lokka
     end
 
     def dump!(source_dsn)
-      puts "=== Lokka DataMapper Dump ==="
+      puts '=== Lokka DataMapper Dump ==='
       puts "Source: #{source_dsn}"
       puts
 
@@ -77,7 +77,7 @@ module Lokka
     end
 
     def import!
-      puts "=== Lokka DataMapper Import ==="
+      puts '=== Lokka DataMapper Import ==='
       puts "Reading #{DUMP_FILE}"
       puts
 
@@ -113,8 +113,8 @@ module Lokka
       reset_sequences!(conn)
 
       puts
-      puts "=== Import Complete ==="
-      counts.each { |t, c| puts "  #{t}: #{c} records" }
+      puts '=== Import Complete ==='
+      counts.each {|t, c| puts "  #{t}: #{c} records" }
       puts
       puts "Total: #{counts.values.sum} records imported"
     end
@@ -132,21 +132,21 @@ module Lokka
 
       count = 0
       rows.each do |row|
-        filtered = row.select { |k, _v| target_columns.include?(k) && !skip_cols.include?(k) }
+        filtered = row.select {|k, _v| target_columns.include?(k) && !skip_cols.include?(k) }
         next if filtered.empty?
 
         columns = filtered.keys
         values = filtered.values
 
         placeholders = values.map { '?' }.join(', ')
-        quoted_columns = columns.map { |c| conn.quote_column_name(c) }.join(', ')
+        quoted_columns = columns.map {|c| conn.quote_column_name(c) }.join(', ')
 
         sql = "INSERT INTO #{conn.quote_table_name(table)} (#{quoted_columns}) VALUES (#{placeholders})"
 
         begin
-          conn.exec_insert(sql, "#{table} INSERT", values.map.with_index { |v, i|
+          conn.exec_insert(sql, "#{table} INSERT", values.map.with_index do |v, i|
             ActiveRecord::Relation::QueryAttribute.new(columns[i], v, ActiveRecord::Type::Value.new)
-          })
+          end)
           count += 1
         rescue ActiveRecord::RecordNotUnique => e
           puts "  ⚠ Duplicate in #{table}, skipping: #{e.message.truncate(80)}"
@@ -162,16 +162,14 @@ module Lokka
       return unless conn.adapter_name =~ /PostgreSQL/i
 
       puts
-      puts "Resetting PostgreSQL sequences..."
+      puts 'Resetting PostgreSQL sequences...'
       TABLES_IN_ORDER.each do |table|
         next if table == 'options'
         next unless conn.tables.include?(table)
 
         begin
           max_id = conn.select_value("SELECT MAX(id) FROM #{conn.quote_table_name(table)}")
-          if max_id
-            conn.execute("SELECT setval(pg_get_serial_sequence('#{table}', 'id'), #{max_id})")
-          end
+          conn.execute("SELECT setval(pg_get_serial_sequence('#{table}', 'id'), #{max_id})") if max_id
         rescue StandardError
           # Table might not have an id column
         end
@@ -179,12 +177,12 @@ module Lokka
     end
 
     def parse_source_dsn(dsn)
-      if dsn =~ /\Asqlite3?:\/\//
+      if dsn =~ %r{\Asqlite3?://}
         path = dsn.sub(%r{\Asqlite3?://}, '')
         { adapter: 'sqlite3', database: path }
-      elsif dsn =~ /\Apostgres(ql)?:\/\//
+      elsif dsn =~ %r{\Apostgres(ql)?://}
         { adapter: 'postgresql', url: dsn }
-      elsif dsn =~ /\Amysql2?:\/\//
+      elsif dsn =~ %r{\Amysql2?://}
         { adapter: 'mysql2', url: dsn }
       elsif File.exist?(dsn)
         { adapter: 'sqlite3', database: File.expand_path(dsn) }

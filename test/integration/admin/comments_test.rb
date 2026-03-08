@@ -64,19 +64,19 @@ class AdminCommentsTest < LokkaTestCase
     assert_equal 0, Comment.spam.size
   end
 
-  def test_get_nonexistent_comment_returns_404
+  def test_get_nonexistent_comment_returns_not_found
     Comment.destroy_all
     get '/admin/comments/9999/edit'
     assert_not_found_page
   end
 
-  def test_put_nonexistent_comment_returns_404
+  def test_put_nonexistent_comment_returns_not_found
     Comment.destroy_all
     put '/admin/comments/9999'
     assert_not_found_page
   end
 
-  def test_delete_nonexistent_comment_returns_404
+  def test_delete_nonexistent_comment_returns_not_found
     Comment.destroy_all
     delete '/admin/comments/9999'
     assert_not_found_page

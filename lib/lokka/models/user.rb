@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
     current_user = find_by(name: name)
     return nil if current_user.nil?
     return current_user if User.encrypt(pass, current_user.salt) == current_user.hashed_password
+
     nil
   end
 

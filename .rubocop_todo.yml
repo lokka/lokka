@@ -14,7 +14,7 @@ Metrics/CyclomaticComplexity:
     - 'lib/lokka/before.rb'
     - 'public/plugin/**/*'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Metrics/ModuleLength:

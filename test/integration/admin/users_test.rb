@@ -74,17 +74,17 @@ class AdminUsersTest < LokkaTestCase
     refute_nil User.find_by(id: @user.id)
   end
 
-  def test_get_nonexistent_user_returns_404
+  def test_get_nonexistent_user_returns_not_found
     get '/admin/users/9999/edit'
     assert_not_found_page
   end
 
-  def test_put_nonexistent_user_returns_404
+  def test_put_nonexistent_user_returns_not_found
     put '/admin/users/9999'
     assert_not_found_page
   end
 
-  def test_delete_nonexistent_user_returns_404
+  def test_delete_nonexistent_user_returns_not_found
     delete '/admin/users/9999'
     assert_not_found_page
   end

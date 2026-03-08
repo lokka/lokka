@@ -54,19 +54,19 @@ class AdminSnippetsTest < LokkaTestCase
     assert_nil Snippet.find_by(id: @snippet.id)
   end
 
-  def test_get_nonexistent_snippet_returns_404
+  def test_get_nonexistent_snippet_returns_not_found
     Snippet.destroy_all
     get '/admin/snippets/9999/edit'
     assert_not_found_page
   end
 
-  def test_put_nonexistent_snippet_returns_404
+  def test_put_nonexistent_snippet_returns_not_found
     Snippet.destroy_all
     put '/admin/snippets/9999'
     assert_not_found_page
   end
 
-  def test_delete_nonexistent_snippet_returns_404
+  def test_delete_nonexistent_snippet_returns_not_found
     Snippet.destroy_all
     delete '/admin/snippets/9999'
     assert_not_found_page

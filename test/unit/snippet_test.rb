@@ -3,7 +3,7 @@
 require_relative '../test_helper'
 
 class SnippetTest < LokkaTestCase
-  def test_edit_link_with_id_1
+  def test_edit_link_with_id_one
     snippet = build(:snippet, id: 1)
     assert_equal '/admin/snippets/1/edit', snippet.edit_link
   end

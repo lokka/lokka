@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTables < ActiveRecord::Migration[8.1]
   def change
     create_table :sites do |t|
@@ -90,7 +92,7 @@ class CreateTables < ActiveRecord::Migration[8.1]
       t.string :tag_context
       t.timestamps null: true
     end
-    add_index :taggings, [:taggable_id, :taggable_type]
+    add_index :taggings, %i[taggable_id taggable_type]
     add_index :taggings, :tag_id
 
     create_table :field_names do |t|
@@ -105,6 +107,6 @@ class CreateTables < ActiveRecord::Migration[8.1]
       t.text :value
       t.timestamps
     end
-    add_index :fields, [:entry_id, :field_name_id]
+    add_index :fields, %i[entry_id field_name_id]
   end
 end

@@ -18,10 +18,10 @@ class Option < ActiveRecord::Base
       option.save
     else
       # Use raw SQL to avoid triggering AR method_missing recursion
-      result = connection.select_value(
+      connection.select_value(
         "SELECT value FROM options WHERE name = #{connection.quote(attribute)}"
       )
-      result
+
     end
   end
 
