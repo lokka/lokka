@@ -38,7 +38,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'haml-lint'
   gem 'rubocop'
 end
 
