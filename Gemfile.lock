@@ -68,14 +68,6 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
-    haml-lint (0.999.999)
-      haml_lint
-    haml_lint (0.70.0)
-      haml (>= 5.0)
-      parallel (~> 1.10)
-      rainbow
-      rubocop (>= 1.0)
-      sysexits (~> 1.1)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     jmespath (1.6.2)
@@ -221,7 +213,6 @@ GEM
     sqlite3 (2.9.0-x86_64-darwin)
     sqlite3 (2.9.0-x86_64-linux-gnu)
     sqlite3 (2.9.0-x86_64-linux-musl)
-    sysexits (1.2.0)
     temple (0.10.4)
     thor (1.5.0)
     tilt (2.7.0)
@@ -257,7 +248,6 @@ DEPENDENCIES
   database_cleaner-active_record
   factory_bot (~> 6.0)
   haml (~> 6.0)
-  haml-lint
   kaminari (~> 1.2)
   kaminari-activerecord
   kramdown
@@ -313,8 +303,6 @@ CHECKSUMS
   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
   factory_bot (6.5.6) sha256=12beb373214dccc086a7a63763d6718c49769d5606f0501e0a4442676917e077
   haml (6.4.0) sha256=b2e20652be52ac9a3be328e8ff411ad007e82fc4e78e1a5cdefad537a697cf6a
-  haml-lint (0.999.999) sha256=5b1fb5d06dbb0db220ea092cf97771bbb5c031e6867265bee9b2edbe0e79e395
-  haml_lint (0.70.0) sha256=a8f09c94ff70a89d7fa633addf26046b76c6e7e64e6bcee1ebb74b5cc0558327
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
   jmespath (1.6.2) sha256=238d774a58723d6c090494c8879b5e9918c19485f7e840f2c1c7532cf84ebcb1
   json (2.18.1) sha256=fe112755501b8d0466b5ada6cf50c8c3f41e897fa128ac5d263ec09eedc9f986
@@ -389,7 +377,6 @@ CHECKSUMS
   sqlite3 (2.9.0-x86_64-darwin) sha256=59fe51baa3cb33c36d27ce78b4ed9360cd33ccca09498c2ae63850c97c0a6026
   sqlite3 (2.9.0-x86_64-linux-gnu) sha256=72fff9bd750070ba3af695511ba5f0e0a2d8a9206f84869640b3e99dfaf3d5a5
   sqlite3 (2.9.0-x86_64-linux-musl) sha256=ef716ba7a66d7deb1ccc402ac3a6d7343da17fac862793b7f0be3d2917253c90
-  sysexits (1.2.0) sha256=598241c4ae57baa403c125182dfdcc0d1ac4c0fb606dd47fbed57e4aaf795662
   temple (0.10.4) sha256=b7a1e94b6f09038ab0b6e4fe0126996055da2c38bec53a8a336f075748fff72c
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   tilt (2.7.0) sha256=0d5b9ba69f6a36490c64b0eee9f6e9aad517e20dcc848800a06eb116f08c6ab3
