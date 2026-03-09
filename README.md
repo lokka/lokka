@@ -2,7 +2,7 @@
 
 > **Note**
 > Lokka 1.0.0 has migrated from DataMapper to **ActiveRecord**.
-> If you are upgrading from an older version, please see the [Migration Guide](https://github.com/lokka/lokka/wiki/Migration-Guide-DataMapper-to-ActiveRecord).
+> If you are upgrading from v0.6.0 or earlier, please see the [Migration Guide](https://github.com/lokka/lokka/wiki/Migration-Guide-DataMapper-to-ActiveRecord).
 
 CMS written in Ruby for cloud computing.
 
