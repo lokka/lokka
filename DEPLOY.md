@@ -1,6 +1,6 @@
 # Deploying Lokka with Kamal
 
-This guide explains how to deploy Lokka to a Sakura VPS (or any Linux server) using Kamal.
+This guide explains how to deploy Lokka to a Linux server using Kamal.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ KAMAL_REGISTRY_USERNAME=your-github-username
 KAMAL_REGISTRY_PASSWORD=ghp_your-personal-access-token
 
 # Server configuration
-DEPLOY_HOST=your-sakura-vps-ip
+DEPLOY_HOST=your-server-ip
 DEPLOY_DOMAIN=your-domain.com
 LETSENCRYPT_EMAIL=your-email@example.com
 
