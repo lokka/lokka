@@ -26,7 +26,6 @@ gem 'sinatra', '~> 4.0'
 gem 'sinatra-activerecord', '~> 2.0'
 gem 'sinatra-contrib', '~> 4.0'
 gem 'sinatra-flash', '~> 0.3.0'
-gem 'slim', '~> 5.0'
 gem 'tilt', '~> 2.0'
 
 Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }
