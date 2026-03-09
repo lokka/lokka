@@ -39,6 +39,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'kamal', '~> 2.0'
   gem 'rubocop'
 end
 

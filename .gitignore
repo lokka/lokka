@@ -22,3 +22,7 @@ database.yml
 
 /public/**/node_modules
 .node-version
+
+# Kamal secrets (keep secrets.example, ignore actual secrets)
+.kamal/secrets
+!.kamal/secrets.example

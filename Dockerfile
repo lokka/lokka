@@ -1,21 +1,45 @@
-FROM ruby:2.6-alpine
+# syntax=docker/dockerfile:1
+ARG RUBY_VERSION=3.4
+FROM ruby:${RUBY_VERSION}-slim AS base
 
-RUN mkdir -p /app
 WORKDIR /app
 
-COPY Gemfile.docker /app/Gemfile
-COPY Gemfile.lock /app/
+ENV BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_WITHOUT="development:test"
 
-RUN gem install bundler
-RUN apk add --no-cache bash nodejs mysql-client mysql-dev sqlite-dev less
-RUN apk add --no-cache alpine-sdk \
-      --virtual .build_deps libxml2-dev libxslt-dev zlib zlib-dev \
-      && cd /app \
-      && bundle install -j4 --without postgresql:sqlite \
-      && apk del alpine-sdk .build_deps \
-      && rm -rf /tmp/* /var/cache/apk/*
+FROM base AS build
 
-COPY . /app
-COPY Gemfile.docker /app/Gemfile
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    git \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-CMD ["bundle", "exec", "rackup", "-o", "0.0.0.0"]
+COPY Gemfile Gemfile.lock ./
+RUN bundle install && \
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
+
+COPY . .
+
+FROM base
+
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    curl \
+    libpq5 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
+COPY --from=build /app /app
+
+RUN groupadd --system --gid 1000 lokka && \
+    useradd lokka --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    chown -R lokka:lokka /app
+
+USER lokka:lokka
+
+EXPOSE 3000
+
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

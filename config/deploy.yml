@@ -1,0 +1,71 @@
+# Kamal deployment configuration for Lokka CMS
+# See https://kamal-deploy.org/docs/configuration/ for details
+
+service: lokka
+
+image: lokka/lokka
+
+servers:
+  web:
+    hosts:
+      - <%= ENV['DEPLOY_HOST'] %>
+    labels:
+      traefik.http.routers.lokka.rule: Host(`<%= ENV['DEPLOY_DOMAIN'] %>`)
+      traefik.http.routers.lokka.entrypoints: websecure
+      traefik.http.routers.lokka.tls.certresolver: letsencrypt
+
+proxy:
+  ssl: true
+  host: <%= ENV['DEPLOY_DOMAIN'] %>
+
+registry:
+  server: ghcr.io
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  clear:
+    RACK_ENV: production
+    WEB_CONCURRENCY: 2
+  secret:
+    - DATABASE_URL
+    - SECRET_KEY_BASE
+
+volumes:
+  - "lokka_uploads:/app/public/uploads"
+
+accessories:
+  db:
+    image: postgres:16
+    host: <%= ENV['DEPLOY_HOST'] %>
+    port: 5432
+    env:
+      clear:
+        POSTGRES_DB: lokka_production
+      secret:
+        - POSTGRES_USER
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
+
+healthcheck:
+  path: /
+  port: 3000
+  interval: 10s
+
+traefik:
+  options:
+    publish:
+      - "443:443"
+    volume:
+      - "letsencrypt:/letsencrypt"
+  args:
+    entryPoints.web.address: ":80"
+    entryPoints.websecure.address: ":443"
+    entryPoints.web.http.redirections.entryPoint.to: websecure
+    entryPoints.web.http.redirections.entryPoint.scheme: https
+    certificatesResolvers.letsencrypt.acme.email: <%= ENV['LETSENCRYPT_EMAIL'] %>
+    certificatesResolvers.letsencrypt.acme.storage: /letsencrypt/acme.json
+    certificatesResolvers.letsencrypt.acme.httpChallenge.entryPoint: web
