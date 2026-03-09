@@ -46,11 +46,6 @@ DEPLOY_HOST=your-server-ip
 DEPLOY_DOMAIN=your-domain.com
 LETSENCRYPT_EMAIL=your-email@example.com
 
-# Database credentials
-POSTGRES_USER=lokka
-POSTGRES_PASSWORD=$(openssl rand -hex 32)
-DATABASE_URL=postgres://lokka:your-password@lokka-db:5432/lokka_production
-
 # Application secret
 SECRET_KEY_BASE=$(openssl rand -hex 64)
 ```
@@ -65,7 +60,7 @@ Create a GitHub Personal Access Token with `write:packages` permission:
 
 ## Deploy
 
-First time setup (creates containers and database):
+First time setup (creates containers):
 
 ```bash
 kamal setup
@@ -95,7 +90,7 @@ kamal deploy
 # View logs
 kamal app logs
 
-# Access Rails console
+# Access console
 kamal app exec -i 'bundle exec irb -r ./init'
 
 # Restart the app
@@ -106,6 +101,23 @@ kamal details
 
 # Rollback to previous version
 kamal rollback
+```
+
+## Database
+
+Lokka uses SQLite in production. The database file is stored in a Docker volume (`lokka_db`) and persists across deployments.
+
+### Backup
+
+```bash
+kamal app exec 'cat /app/db/production.sqlite3' > backup.sqlite3
+```
+
+### Restore
+
+```bash
+cat backup.sqlite3 | kamal app exec -i 'cat > /app/db/production.sqlite3'
+kamal app restart
 ```
 
 ## Troubleshooting
@@ -122,7 +134,7 @@ kamal app details
 kamal traefik logs
 ```
 
-### SSH into the server
+### SSH into the container
 
 ```bash
 kamal app exec -i bash

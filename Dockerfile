@@ -14,7 +14,7 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     build-essential \
     git \
-    libpq-dev \
+    libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY Gemfile Gemfile.lock ./
@@ -28,7 +28,7 @@ FROM base
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     curl \
-    libpq5 \
+    libsqlite3-0 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"

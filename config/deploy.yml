@@ -29,26 +29,13 @@ env:
   clear:
     RACK_ENV: production
     WEB_CONCURRENCY: 2
+    DATABASE_URL: sqlite3:///app/db/production.sqlite3
   secret:
-    - DATABASE_URL
     - SECRET_KEY_BASE
 
 volumes:
+  - "lokka_db:/app/db"
   - "lokka_uploads:/app/public/uploads"
-
-accessories:
-  db:
-    image: postgres:16
-    host: <%= ENV['DEPLOY_HOST'] %>
-    port: 5432
-    env:
-      clear:
-        POSTGRES_DB: lokka_production
-      secret:
-        - POSTGRES_USER
-        - POSTGRES_PASSWORD
-    directories:
-      - data:/var/lib/postgresql/data
 
 healthcheck:
   path: /

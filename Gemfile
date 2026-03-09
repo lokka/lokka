@@ -28,15 +28,9 @@ gem 'sinatra-contrib', '~> 4.0'
 gem 'sinatra-flash', '~> 0.3.0'
 gem 'tilt', '~> 2.0'
 
+gem 'sqlite3', '~> 2.0'
+
 Dir['public/plugin/lokka-*/Gemfile'].each {|path| load(path) }
-
-group :production do
-  gem 'pg', '~> 1.5'
-end
-
-group :development, :test do
-  gem 'sqlite3', '~> 2.0'
-end
 
 group :development do
   gem 'kamal', '~> 2.0'
