@@ -3,89 +3,204 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }}</title>
+  <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ site.description }}">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #2a3a4a;
+      color: #c0d0e0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
       line-height: 1.6;
-      color: #333;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
+    }
+    a { color: #6ca0dc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .header {
+      background: linear-gradient(135deg, #3a4a5a 0%, #2a3a4a 100%);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    .header h1 { font-size: 48px; color: #fff; margin-bottom: 5px; }
+    .header h1 a { color: #fff; text-decoration: none; }
+    .header .subtitle { font-size: 18px; color: #8aa; font-weight: normal; }
+    .hero-description {
+      max-width: 600px;
+      margin: 20px auto;
+      color: #a0b0c0;
+      padding: 0 20px;
+    }
+    .cloud-ruby {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      gap: 10px;
+      margin: 15px 0;
     }
-    .container {
-      max-width: 800px;
-      text-align: center;
-      color: #fff;
+    .cloud-ruby span {
+      background: #4a5a6a;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
     }
-    h1 {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    }
-    h1 + p {
-      font-size: 1.3rem;
-      opacity: 0.9;
-      margin-bottom: 2rem;
-    }
-    h2 {
-      font-size: 1.5rem;
-      margin-top: 3rem;
-      margin-bottom: 1rem;
-    }
-    h3 {
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    p {
-      margin-bottom: 1rem;
-      opacity: 0.9;
-    }
-    a {
-      color: #fff;
-    }
-    .btn {
+    .download-btn {
       display: inline-block;
-      padding: 0.8rem 1.5rem;
-      margin: 0.5rem;
-      font-size: 1rem;
-      text-decoration: none;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.2);
-      border: 2px solid rgba(255,255,255,0.5);
-      transition: transform 0.2s, box-shadow 0.2s;
+      background: #4a6a8a;
+      color: #fff;
+      padding: 10px 30px;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 15px;
     }
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    .download-btn:hover { background: #5a7a9a; text-decoration: none; }
+    .nav { background: #1a2a3a; padding: 15px 0; }
+    .nav ul {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
     }
-    .btn-primary {
-      background: #fff;
-      color: #667eea;
-      font-weight: 600;
-      border: none;
+    .nav a { color: #8ab; font-size: 14px; }
+    .nav a:hover { color: #fff; }
+    .breadcrumb {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      font-size: 12px;
+      color: #6a7a8a;
     }
-    hr {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.3);
-      margin: 3rem 0 1rem;
+    .breadcrumb a { color: #6a7a8a; }
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      display: flex;
+      gap: 30px;
+    }
+    .content {
+      flex: 2;
+      background: #3a4a5a;
+      padding: 25px;
+      border-radius: 5px;
+    }
+    .content h2 { color: #6ca0dc; font-size: 24px; margin-bottom: 15px; }
+    .content h3 { color: #8ab; font-size: 18px; margin: 20px 0 10px; }
+    .content p { margin-bottom: 15px; }
+    .content ul, .content ol { margin-left: 20px; margin-bottom: 15px; }
+    .content li { margin-bottom: 5px; }
+    .content code {
+      background: #2a3a4a;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    .content pre {
+      background: #1a2a3a;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 15px 0;
+      font-family: monospace;
+      font-size: 13px;
+    }
+    .content pre code { background: none; padding: 0; }
+    .content hr { border: none; border-top: 1px solid #4a5a6a; margin: 20px 0; }
+    .date { color: #6a7a8a; font-size: 12px; margin-top: 20px; }
+    .sidebar {
+      flex: 1;
+      background: #3a4a5a;
+      padding: 20px;
+      border-radius: 5px;
+      height: fit-content;
+    }
+    .sidebar h3 {
+      color: #8ab;
+      font-size: 14px;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #4a5a6a;
+    }
+    .sidebar ul { list-style: none; }
+    .sidebar li {
+      padding: 8px 0;
+      border-bottom: 1px solid #4a5a6a;
+      font-size: 13px;
+    }
+    .sidebar li:last-child { border-bottom: none; }
+    .footer { text-align: center; padding: 30px; color: #6a7a8a; font-size: 12px; }
+    @media (max-width: 768px) {
+      .main { flex-direction: column; }
+      .nav ul { flex-wrap: wrap; gap: 15px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    {{ content }}
+  <header class="header">
+    <h1><a href="{{ '/' | relative_url }}">Lokka</a></h1>
+    {% if page.show_hero %}
+    <p class="subtitle">CMS for Cloud</p>
+    <p class="hero-description">
+      Lokka is a blogging/CMS tool for the personal cloud. Users who are accustomed to WordPress or other existing systems like it will find it easy to manage. It's easy on theme designers, and provides a clean plugin API for Ruby developers.
+    </p>
+    <div class="cloud-ruby">
+      <span>cloud</span>
+      <span>&times;</span>
+      <span><a href="http://www.ruby-lang.org/en/">Ruby</a></span>
+    </div>
+    <a href="https://github.com/lokka/lokka" class="download-btn">Download</a>
+    {% endif %}
+  </header>
+
+  <nav class="nav">
+    <ul>
+      <li><a href="{{ '/getting-started' | relative_url }}">Getting Started</a></li>
+      <li><a href="{{ '/document' | relative_url }}">Documentation</a></li>
+      <li><a href="https://github.com/lokka/lokka">Download</a></li>
+      <li><a href="{{ '/plugins' | relative_url }}">Plugins</a></li>
+      <li><a href="https://github.com/lokka/lokka">Source Code</a></li>
+    </ul>
+  </nav>
+
+  {% if page.breadcrumb %}
+  <div class="breadcrumb">
+    <a href="{{ '/' | relative_url }}">Home</a> &raquo; {{ page.breadcrumb }}
   </div>
+  {% endif %}
+
+  <main class="main">
+    <article class="content">
+      {{ content }}
+    </article>
+
+    <aside class="sidebar">
+      <h3>Recent Entries</h3>
+      <ul>
+        <li><a href="{{ '/entries/lokka-050-released' | relative_url }}">Lokka 0.5.0 released</a></li>
+        <li><a href="{{ '/entries/lokka-lt-in-tokyurubykaigi04' | relative_url }}">Lokka LT in TokyuRubyKaigi04</a></li>
+        <li><a href="{{ '/entries/lokka-lt-in-rubyconf2011' | relative_url }}">Lokka LT in RubyConf2011</a></li>
+        <li><a href="{{ '/entries/lokkathon-12' | relative_url }}">Lokkathon #12</a></li>
+        <li><a href="{{ '/entries/lokkathon-11' | relative_url }}">Lokkathon #11</a></li>
+        <li><a href="{{ '/entries/lokka-040-released' | relative_url }}">Lokka 0.4.0 released</a></li>
+        <li><a href="{{ '/entries/the-first-anniversery-of-lokka-project' | relative_url }}">The first anniversary of Lokka project</a></li>
+        <li><a href="{{ '/entries/lokkathon-6' | relative_url }}">Lokkathon #6</a></li>
+        <li><a href="{{ '/entries/lokkathon-5' | relative_url }}">Lokkathon #5</a></li>
+        <li><a href="{{ '/entries/lokkathon-4' | relative_url }}">Lokkathon #4</a></li>
+        <li><a href="{{ '/entries/lokkathon-3' | relative_url }}">Lokkathon #3</a></li>
+        <li><a href="{{ '/entries/fluxflex-supports-lokka' | relative_url }}">fluxflex supports Lokka!</a></li>
+        <li><a href="{{ '/entries/heroku-ja-meetup-1-lightning-talk-paas-friendly-cms-lokka' | relative_url }}">Heroku-ja Meetup #1</a></li>
+        <li><a href="{{ '/entries/lokka-030-released' | relative_url }}">Lokka 0.3.0 Released</a></li>
+        <li><a href="{{ '/entries/lokka-020-released' | relative_url }}">Lokka 0.2.0 Released</a></li>
+        <li><a href="{{ '/entries/lokka-010-released' | relative_url }}">Lokka 0.1.0 Released</a></li>
+        <li><a href="{{ '/entries/pyha-renamed-to-lokka' | relative_url }}">Pyha renamed to Lokka</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    Lokka
+  </footer>
 </body>
 </html>
