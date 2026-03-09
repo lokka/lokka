@@ -9,7 +9,7 @@ CMS written in Ruby for cloud computing.
 ## Requirements
 
 - Ruby 3.2 or later
-- SQLite (development) / PostgreSQL (production)
+- SQLite
 
 ## Features
 
@@ -31,27 +31,11 @@ $ bundle exec rackup
 
 View at: http://localhost:9292/
 
-## Deploy to Heroku
+## Deployment
 
-```sh
-$ git clone git://github.com/lokka/lokka.git
-$ cd lokka
-$ heroku create
-$ git push heroku main
-$ heroku addons:create heroku-postgresql:essential-0
-$ heroku run rake db:setup
-$ heroku open
-```
+See the [Deployment Guide](https://github.com/lokka/lokka/wiki/Deployment) for production deployment instructions using Kamal.
 
-or just copy and paste
-
-```sh
-curl -L http://bit.ly/ROX0lk | bash -s
-```
-
-to your terminal
-
-## Docker
+## Docker (Development)
 
 ```sh
 $ docker-compose build
