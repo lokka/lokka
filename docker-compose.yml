@@ -14,7 +14,9 @@ services:
     image: lokka/lokka
     environment:
       DB_HOST: db
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile # NOTE: If you want Dockerfile.prod to work, write Dockerfile.prod
     command: ["bundle", "exec", "rackup", "-o", "0.0.0.0"]
     volumes:
       - .:/app
