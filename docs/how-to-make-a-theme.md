@@ -15,7 +15,7 @@ date:
 
 <p>exampleディレクトリの作成</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5404610295/" title="theme by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5293/5404610295_b18c77eb4a.jpg" width="500" height="284" alt="theme"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5404610295/" title="theme by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5293/5404610295_b18c77eb4a.jpg" width="500" height="284" alt="theme"></a></p>
 
 <p>テーマのディレクトリの中にテンプレートファイルを作成します。テンプレートの形式は複数から選べますが、一番簡単なerbで作ってみます。</p>
 
@@ -23,39 +23,39 @@ date:
 
 <p>まずは個別ページのテンプレートを書いてみます。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5405243042/" title="entry.erb — untitled by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5297/5405243042_4fc6a7d96e.jpg" width="500" height="307" alt="entry.erb — untitled"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5405243042/" title="entry.erb — untitled by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5297/5405243042_4fc6a7d96e.jpg" width="500" height="307" alt="entry.erb — untitled"></a></p>
 
 <p>exampleテーマを使うように設定します。themeディレクトリにexampleディレクトリを作成した時点でテーマが認識されているので、管理画面の"テーマ"から"example"のテーマを選択します。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5405248068/" title="Test Site - Lokka by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5133/5405248068_a1e1cb8d53.jpg" width="500" height="370" alt="Test Site - Lokka"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5405248068/" title="Test Site - Lokka by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5133/5405248068_a1e1cb8d53.jpg" width="500" height="370" alt="Test Site - Lokka"></a></p>
 
 <p>そして、個別ページを見てみましょう。(最初から1エントリーある筈なので http://localhost:9646/1 にアクセスします。)</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5404644687/" title="Example Individual Page by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5135/5404644687_c8b8724100.jpg" width="500" height="370" alt="Example Individual Page"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5404644687/" title="Example Individual Page by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5135/5404644687_c8b8724100.jpg" width="500" height="370" alt="Example Individual Page"></a></p>
 
 <p>単なるHTMLですが、ちゃんと表示されました。</p>
 
 <p>しかし、静的なHTMLを表示するだけではつまらないのでサイトのタイトルを表示してみましょう。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5404661147/" title="entry.erb — untitled by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5100/5404661147_e719a90115.jpg" width="482" height="374" alt="entry.erb — untitled"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5404661147/" title="entry.erb — untitled by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5100/5404661147_e719a90115.jpg" width="482" height="374" alt="entry.erb — untitled"></a></p>
 
 <p>h1タグの部分にサイトのタイトルを表示するように変更しました。&lt;% と %&gt;を囲うのがerb形式のテンプレートの記法です。&lt;%= %&gt;のように=が最初に付くと内容を表示するという意味になります。(これはphp/wordpressの&lt;?php echo ?&gt;と同じです。)</p>
 
 <p>また http://localhost:9646/1 にアクセスして確認してみましょう。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5405274724/" title="Example Individual Page by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5019/5405274724_9d67555e41.jpg" width="500" height="370" alt="Example Individual Page"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5405274724/" title="Example Individual Page by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5019/5405274724_9d67555e41.jpg" width="500" height="370" alt="Example Individual Page"></a></p>
 
 <p>サイトのタイトルが表示されました。この内容は管理画面の"設定" &gt; "タイトル" で変更することが出来ます。同じようにサイトの詳細も &lt;%= @site.description %&gt;と書けば表示されます。</p>
 
 <p>今度は個別ページなので、エントリーの内容を表示してみましょう。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5404686803/" title="entry.erb — untitled by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5178/5404686803_c42169b9c8.jpg" width="482" height="374" alt="entry.erb — untitled"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5404686803/" title="entry.erb — untitled by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5178/5404686803_c42169b9c8.jpg" width="482" height="374" alt="entry.erb — untitled"></a></p>
 
 <p>http://localhost:9646/1 というURLからわかるように、IDが1のエントリーを表示するためのテンプレート内容になっています。</p>
 
 <p>上記URLから判断して、IDが1のエントリーが@entryという変数の中に自動的に入っているので、@entry.titleや@entry.bodyでそれぞれエントリーのタイトルと本文が取り出せます。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5404696749/" title="Example Individual Page by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5214/5404696749_c883449bc1.jpg" width="500" height="370" alt="Example Individual Page"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5404696749/" title="Example Individual Page by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5214/5404696749_c883449bc1.jpg" width="500" height="370" alt="Example Individual Page"></a></p>
 
 <p>表示されました。</p>
 
@@ -65,13 +65,13 @@ date:
 
 <p>entries.erbというファイル名で一覧のページのテンプレートを作成します。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5405443776/" title="entries.erb — untitled by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5095/5405443776_73ebb7d308.jpg" width="500" height="312" alt="entries.erb — untitled"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5405443776/" title="entries.erb — untitled by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5095/5405443776_73ebb7d308.jpg" width="500" height="312" alt="entries.erb — untitled"></a></p>
 
 <p>一覧は個別より少し複雑です。&lt;% @posts.each do |post| %&gt;から&lt;% end %&gt;の書き方に注目して下さい。do ~ endは一組になっていて（ブロックと言います）、@posts.each do ~ end は@postsの個数分だけdo ~ endを繰り返すという構文です。投稿(Post)が3個あれば3回繰り返されます。</p>
 
 <p>結果は下記のように表示されます。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/5404734539/" title="Example List Page by komagata, on Flickr"><img src="http://farm6.static.flickr.com/5056/5404734539_bcffd82763.jpg" width="500" height="370" alt="Example List Page"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/5404734539/" title="Example List Page by komagata, on Flickr"><img src="https://farm6.static.flickr.com/5056/5404734539_bcffd82763.jpg" width="500" height="370" alt="Example List Page"></a></p>
 
 <h3>How to use images, css and other</h3>
 

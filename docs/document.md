@@ -12,9 +12,9 @@ date:
 <li><a href="/contributor">Contribute</a></li><li><a href="/showcase">Showcase</a></li></ul>
 <h3>etc</h3>
 <ul>
-<li><a href="http://docs.komagata.org/tags/lokka/">komagata's blog</a> (Japanese)</li>
-<li><a href="http://tomykaira.hatenablog.com/search?q=lokka">tomykaira makes love with codes</a> (Japanese)</li>
-<li><a href="http://blog.champierre.com/tags/Lokka/">僕は発展途上技術者</a> (Japanese)</li>
+<li><a href="https://docs.komagata.org/tags/lokka/">komagata's blog</a> (Japanese)</li>
+<li><a href="https://tomykaira.hatenablog.com/search?q=lokka">tomykaira makes love with codes</a> (Japanese)</li>
+<li><a href="https://blog.champierre.com/tags/Lokka/">僕は発展途上技術者</a> (Japanese)</li>
 </ul>	Page	2011-07-04 02:49:00
 
 <p class="date"></p>

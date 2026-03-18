@@ -9,7 +9,7 @@ date:
 
 <p>On Arg 10 is The first anniversery of Lokka project.</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/6059435576/" title="Commit History for komagata/lokka - GitHub by komagata, on Flickr"><img src="http://farm7.static.flickr.com/6185/6059435576_01ea1fc9b4_o.png" width="210" height="121" alt="Commit History for komagata/lokka - GitHub"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/6059435576/" title="Commit History for komagata/lokka - GitHub by komagata, on Flickr"><img src="https://farm6.static.flickr.com/6185/6059435576_01ea1fc9b4_o.png" width="210" height="121" alt="Commit History for komagata/lokka - GitHub"></a></p>
 
 <h3>Why did you made Lokka?</h3>
 
@@ -21,7 +21,7 @@ date:
 
 <p>Lokka project had 13 committers.</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/6058904873/" title="Administration for komagata/lokka - GitHub by komagata, on Flickr"><img src="http://farm7.static.flickr.com/6083/6058904873_eac29033d9_o.png" width="460" height="522" alt="Administration for komagata/lokka - GitHub"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/6058904873/" title="Administration for komagata/lokka - GitHub by komagata, on Flickr"><img src="https://farm6.static.flickr.com/6083/6058904873_eac29033d9_o.png" width="460" height="522" alt="Administration for komagata/lokka - GitHub"></a></p>
 
 <p>They was writing hard a lot of code for this software. I can't really thank you enough.</p>
 
@@ -31,7 +31,7 @@ date:
 
 <p>8月10日はLokkaのプロジェクトが開始されてから丁度1年目の日にあたります。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/6059435576/" title="Commit History for komagata/lokka - GitHub by komagata, on Flickr"><img src="http://farm7.static.flickr.com/6185/6059435576_01ea1fc9b4_o.png" width="210" height="121" alt="Commit History for komagata/lokka - GitHub"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/6059435576/" title="Commit History for komagata/lokka - GitHub by komagata, on Flickr"><img src="https://farm6.static.flickr.com/6185/6059435576_01ea1fc9b4_o.png" width="210" height="121" alt="Commit History for komagata/lokka - GitHub"></a></p>
 
 <h3>何故Lokkaを作ったのか</h3>
 
@@ -43,7 +43,7 @@ date:
 
 <p>Lokkaは現在13人のコミッターの方々がいます。</p>
 
-<p><a href="http://www.flickr.com/photos/komagata/6058904873/" title="Administration for komagata/lokka - GitHub by komagata, on Flickr"><img src="http://farm7.static.flickr.com/6083/6058904873_eac29033d9_o.png" width="460" height="522" alt="Administration for komagata/lokka - GitHub"></a></p>
+<p><a href="https://www.flickr.com/photos/komagata/6058904873/" title="Administration for komagata/lokka - GitHub by komagata, on Flickr"><img src="https://farm6.static.flickr.com/6083/6058904873_eac29033d9_o.png" width="460" height="522" alt="Administration for komagata/lokka - GitHub"></a></p>
 
 <p>彼らは僕の想像以上に大量のコードをコミットしてくださって、感謝してもしきれません。</p>
 

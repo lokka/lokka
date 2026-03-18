@@ -15,11 +15,11 @@ date:
 
 <h3>Demand and bug report</h3>
 
-<p>It is possible to report on the demand of an additional function and the bug <a href="http://github.com/komagata/lokka/issues">here</a>.</p>
+<p>It is possible to report on the demand of an additional function and the bug <a href="https://github.com/komagata/lokka/issues">here</a>.</p>
 
 <h3>Discussion</h3>
 
-<p>Please feel free to <a href="http://lingr.com/room/lokka_ja">lokka</a>, <a href="http://lingr.com/room/lokka_ja">lokka_ja</a> #lokka (for English) and #lokka-ja (for Japanese) channels of irc.freenode.net of IRC to do of join.</p>
+<p>Please feel free to <a href="https://lingr.com/room/lokka_ja">lokka</a>, <a href="https://lingr.com/room/lokka_ja">lokka_ja</a> #lokka (for English) and #lokka-ja (for Japanese) channels of irc.freenode.net of IRC to do of join.</p>
 
 <p>If you have any trouble installing or it doesn't work properly, we will do our best to help you solve your problem.</p>	Page	2010-09-19 09:51:41
 
