@@ -62,7 +62,7 @@
       <%= label_tag "#{@name}_fields_#{field_name.name}", caption: field_name.name %>
       <br>
       <%
-        value_for_field = if @entry.new?
+        value_for_field = if @entry.new_record?
                             params[@name] ? params[@name]['fields'][field_name.name] : ''
                           else
                             @entry.send(field_name.name)
