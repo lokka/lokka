@@ -14,6 +14,7 @@ class Entry < ActiveRecord::Base
 
   before_validation :clear_blank_category_id
   after_save :update_fields
+  after_save :update_tags
 
   default_scope { order(created_at: :desc) }
 
@@ -48,8 +49,6 @@ class Entry < ActiveRecord::Base
       name.force_encoding(Encoding.default_external).gsub(reg, '').strip
     end
     @tag_list = @tag_list.reject(&:blank?).uniq.sort
-
-    update_tags
   end
 
   def tag_list
