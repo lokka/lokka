@@ -10,6 +10,10 @@ module Lokka
       register Sinatra::Reloader
     end
 
+    configure :development, :test do
+      set :host_authorization, { permitted_hosts: [] }
+    end
+
     configure do
       enable :method_override, :raise_errors, :static, :sessions
       register Padrino::Helpers
@@ -39,6 +43,8 @@ module Lokka
     end
 
     require 'lokka/app/admin'
+    require 'lokka/app/api'
+    register Lokka::Api
     require 'lokka/app/entries'
 
     not_found do

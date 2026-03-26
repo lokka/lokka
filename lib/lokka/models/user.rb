@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
     current_user = find_by(name: name)
     return nil if current_user.nil?
     return current_user if User.encrypt(pass, current_user.salt) == current_user.hashed_password
-
     nil
   end
 
@@ -35,6 +34,16 @@ class User < ActiveRecord::Base
 
   def admin?
     permission_level == 1
+  end
+
+  def generate_api_token!
+    update!(api_token: SecureRandom.hex(32))
+    api_token
+  end
+
+  def self.authenticate_by_token(token)
+    return nil if token.blank?
+    find_by(api_token: token)
   end
 
   def password_require?
