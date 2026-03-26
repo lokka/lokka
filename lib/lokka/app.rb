@@ -44,6 +44,7 @@ module Lokka
 
     require 'lokka/app/admin'
     require 'lokka/app/api'
+    register Lokka::Api
     require 'lokka/app/entries'
 
     not_found do
