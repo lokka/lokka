@@ -160,23 +160,10 @@
     <aside class="sidebar">
       <h3>Recent Entries</h3>
       <ul>
-        <li><a href="{{ '/entries/lokka-050-released' | relative_url }}">Lokka 0.5.0 released</a></li>
-        <li><a href="{{ '/entries/lokka-lt-in-tokyurubykaigi04' | relative_url }}">Lokka LT in TokyuRubyKaigi04</a></li>
-        <li><a href="{{ '/entries/lokka-lt-in-rubyconf2011' | relative_url }}">Lokka LT in RubyConf2011</a></li>
-        <li><a href="{{ '/entries/lokkathon-12' | relative_url }}">Lokkathon #12</a></li>
-        <li><a href="{{ '/entries/lokkathon-11' | relative_url }}">Lokkathon #11</a></li>
-        <li><a href="{{ '/entries/lokka-040-released' | relative_url }}">Lokka 0.4.0 released</a></li>
-        <li><a href="{{ '/entries/the-first-anniversery-of-lokka-project' | relative_url }}">The first anniversary of Lokka project</a></li>
-        <li><a href="{{ '/entries/lokkathon-6' | relative_url }}">Lokkathon #6</a></li>
-        <li><a href="{{ '/entries/lokkathon-5' | relative_url }}">Lokkathon #5</a></li>
-        <li><a href="{{ '/entries/lokkathon-4' | relative_url }}">Lokkathon #4</a></li>
-        <li><a href="{{ '/entries/lokkathon-3' | relative_url }}">Lokkathon #3</a></li>
-        <li><a href="{{ '/entries/fluxflex-supports-lokka' | relative_url }}">fluxflex supports Lokka!</a></li>
-        <li><a href="{{ '/entries/heroku-ja-meetup-1-lightning-talk-paas-friendly-cms-lokka' | relative_url }}">Heroku-ja Meetup #1</a></li>
-        <li><a href="{{ '/entries/lokka-030-released' | relative_url }}">Lokka 0.3.0 Released</a></li>
-        <li><a href="{{ '/entries/lokka-020-released' | relative_url }}">Lokka 0.2.0 Released</a></li>
-        <li><a href="{{ '/entries/lokka-010-released' | relative_url }}">Lokka 0.1.0 Released</a></li>
-        <li><a href="{{ '/entries/pyha-renamed-to-lokka' | relative_url }}">Pyha renamed to Lokka</a></li>
+        {% assign entries = site.pages | where_exp: "p", "p.path contains 'entries/'" | sort: "date" | reverse %}
+        {% for entry in entries %}
+        <li><a href="{{ entry.url | relative_url }}">{{ entry.breadcrumb | default: entry.title }}</a></li>
+        {% endfor %}
       </ul>
     </aside>
   </main>
