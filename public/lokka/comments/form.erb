@@ -11,6 +11,7 @@
 <% end %>
 <form id="comment_form" action="<%= request.path_info %>" method="post">
   <script>document.write('<input type="hidden" name="check" value="check" />');</script>
+  <%= antispam_fields if respond_to?(:antispam_fields) %>
   <p>
     <label for="comment_name"><%= t('comment.name') %></label>
     <br>

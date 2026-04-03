@@ -1,0 +1,36 @@
+ja:
+  antispam:
+    title: "Antispam 設定"
+    description: "コメントスパム対策の設定を行います。複数の手法を組み合わせることで効果的にスパムをブロックできます。"
+    enable: "有効にする"
+    settings_saved: "Antispam の設定を保存しました"
+    seconds: "秒"
+
+    honeypot:
+      title: "ハニーポット"
+      description: "人間には見えない隠しフィールドを追加し、ボットが入力した場合にスパムと判定します。"
+
+    timing:
+      title: "時間チェック"
+      description: "フォーム表示から投稿までの時間が短すぎる場合にスパムと判定します。"
+      min_seconds: "最小投稿時間"
+
+    content:
+      title: "コンテンツフィルタ"
+      description: "コメント内容を解析してスパムパターンを検出します。"
+      max_urls: "最大URL数"
+      ng_words: "NGワード（カンマ区切り）"
+      ng_words_placeholder: "spam,viagra,casino"
+
+    turnstile:
+      title: "Cloudflare Turnstile"
+      description: "Cloudflareの無料CAPTCHA（ユーザーには見えない形で動作）を使用します。キーはCloudflareダッシュボードで取得してください。"
+      site_key: "サイトキー"
+      secret_key: "シークレットキー"
+
+    rate_limit:
+      title: "レートリミット"
+      description: "同一IPアドレスからの連続投稿を制限します。"
+      max: "最大投稿数"
+      window: "時間枠"
+      comments: "件"
