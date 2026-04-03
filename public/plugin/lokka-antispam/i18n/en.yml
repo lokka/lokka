@@ -1,0 +1,36 @@
+en:
+  antispam:
+    title: "Antispam Settings"
+    description: "Configure comment spam protection. Combining multiple methods provides more effective spam blocking."
+    enable: "Enable"
+    settings_saved: "Antispam settings saved"
+    seconds: "seconds"
+
+    honeypot:
+      title: "Honeypot"
+      description: "Adds hidden fields invisible to humans. Comments are marked as spam if bots fill them in."
+
+    timing:
+      title: "Timing Check"
+      description: "Marks comments as spam if submitted too quickly after the form is displayed."
+      min_seconds: "Minimum submission time"
+
+    content:
+      title: "Content Filter"
+      description: "Analyzes comment content to detect spam patterns."
+      max_urls: "Maximum URLs"
+      ng_words: "NG words (comma-separated)"
+      ng_words_placeholder: "spam,viagra,casino"
+
+    turnstile:
+      title: "Cloudflare Turnstile"
+      description: "Uses Cloudflare's free invisible CAPTCHA. Get your keys from the Cloudflare dashboard."
+      site_key: "Site Key"
+      secret_key: "Secret Key"
+
+    rate_limit:
+      title: "Rate Limit"
+      description: "Limits repeated submissions from the same IP address."
+      max: "Maximum comments"
+      window: "Time window"
+      comments: "comments"

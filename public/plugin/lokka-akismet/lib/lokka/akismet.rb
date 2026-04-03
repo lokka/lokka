@@ -10,6 +10,9 @@ module Lokka
       app.before do
         path = request.env['PATH_INFO']
         if params['comment'] && %r{^/admin/comments} !~ path
+          # Skip if another plugin already marked as spam
+          next if params['comment']['status'].to_i == 2
+
           params['comment']['status'] = if logged_in?
                                           1 # approved
                                         elsif spam?
@@ -54,7 +57,7 @@ module Lokka
 
     def spam?
       key = akismet_key
-      return false unless key
+      return false if key.to_s.empty?
 
       host = "#{key}.rest.akismet.com"
       queries = []
