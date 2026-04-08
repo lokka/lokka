@@ -1,0 +1,96 @@
+<h2><%= t('antispam.title') %></h2>
+<p><%= t('antispam.description') %></p>
+
+<form action="<%= url('/admin/plugins/antispam') %>" method="post">
+  <input type="hidden" name="_method" value="put">
+
+  <fieldset>
+    <legend><%= t('antispam.honeypot.title') %></legend>
+    <p class="description"><%= t('antispam.honeypot.description') %></p>
+    <div class="field">
+      <label>
+        <input type="checkbox" name="antispam[honeypot_enabled]" value="1"<%= ' checked' if @settings[:honeypot_enabled] %>>
+        <%= t('antispam.enable') %>
+      </label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('antispam.timing.title') %></legend>
+    <p class="description"><%= t('antispam.timing.description') %></p>
+    <div class="field">
+      <label>
+        <input type="checkbox" name="antispam[timing_enabled]" value="1"<%= ' checked' if @settings[:timing_enabled] %>>
+        <%= t('antispam.enable') %>
+      </label>
+    </div>
+    <div class="field">
+      <label><%= t('antispam.timing.min_seconds') %></label>
+      <input type="number" name="antispam[timing_min_seconds]" value="<%= @settings[:timing_min_seconds] %>" min="1" max="60">
+      <%= t('antispam.seconds') %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('antispam.content.title') %></legend>
+    <p class="description"><%= t('antispam.content.description') %></p>
+    <div class="field">
+      <label>
+        <input type="checkbox" name="antispam[content_enabled]" value="1"<%= ' checked' if @settings[:content_enabled] %>>
+        <%= t('antispam.enable') %>
+      </label>
+    </div>
+    <div class="field">
+      <label><%= t('antispam.content.max_urls') %></label>
+      <input type="number" name="antispam[content_max_urls]" value="<%= @settings[:content_max_urls] %>" min="0" max="100">
+    </div>
+    <div class="field">
+      <label><%= t('antispam.content.ng_words') %></label>
+      <textarea name="antispam[content_ng_words]" rows="3" placeholder="<%= t('antispam.content.ng_words_placeholder') %>"><%= @settings[:content_ng_words] %></textarea>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('antispam.turnstile.title') %></legend>
+    <p class="description"><%= t('antispam.turnstile.description') %></p>
+    <div class="field">
+      <label>
+        <input type="checkbox" name="antispam[turnstile_enabled]" value="1"<%= ' checked' if @settings[:turnstile_enabled] %>>
+        <%= t('antispam.enable') %>
+      </label>
+    </div>
+    <div class="field">
+      <label><%= t('antispam.turnstile.site_key') %></label>
+      <input type="text" name="antispam[turnstile_site_key]" value="<%= @settings[:turnstile_site_key] %>" size="50">
+    </div>
+    <div class="field">
+      <label><%= t('antispam.turnstile.secret_key') %></label>
+      <input type="password" name="antispam[turnstile_secret_key]" value="<%= @settings[:turnstile_secret_key] %>" size="50">
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><%= t('antispam.rate_limit.title') %></legend>
+    <p class="description"><%= t('antispam.rate_limit.description') %></p>
+    <div class="field">
+      <label>
+        <input type="checkbox" name="antispam[rate_limit_enabled]" value="1"<%= ' checked' if @settings[:rate_limit_enabled] %>>
+        <%= t('antispam.enable') %>
+      </label>
+    </div>
+    <div class="field">
+      <label><%= t('antispam.rate_limit.max') %></label>
+      <input type="number" name="antispam[rate_limit_max]" value="<%= @settings[:rate_limit_max] %>" min="1" max="100">
+      <%= t('antispam.rate_limit.comments') %>
+    </div>
+    <div class="field">
+      <label><%= t('antispam.rate_limit.window') %></label>
+      <input type="number" name="antispam[rate_limit_window]" value="<%= @settings[:rate_limit_window] %>" min="10" max="3600">
+      <%= t('antispam.seconds') %>
+    </div>
+  </fieldset>
+
+  <div class="field">
+    <input type="submit" value="<%= t('save') %>">
+  </div>
+</form>

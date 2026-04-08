@@ -24,7 +24,7 @@ module Lokka
       app.get '/admin/plugins/antispam' do
         login_required
         @settings = antispam_settings
-        haml :"#{antispam_view}index", layout: :'admin/layout'
+        erb :"#{antispam_view}index", layout: :'admin/layout'
       end
 
       app.put '/admin/plugins/antispam' do
