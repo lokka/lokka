@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.summary = 'CMS for Cloud.'
 
   s.add_runtime_dependency 'activerecord', '~> 7.2'
-  s.add_runtime_dependency 'activesupport', '~> 7.2'
+  s.add_runtime_dependency 'activesupport', '>= 7.2', '< 9.0'
   s.add_runtime_dependency 'builder'
   s.add_runtime_dependency 'haml', '~> 6.0'
   s.add_runtime_dependency 'i18n'
