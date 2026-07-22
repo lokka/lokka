@@ -1,0 +1,8 @@
+en:
+  turnstile:
+    title: Turnstile
+    description: Protect public comments with Cloudflare Turnstile.
+    site_key: Site key
+    secret_key: Secret key
+    updated: Turnstile settings were updated.
+    verification_failed: Human verification failed. Please try again.

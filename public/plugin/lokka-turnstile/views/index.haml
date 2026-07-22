@@ -1,0 +1,16 @@
+%h2= t('turnstile.title')
+%p= t('turnstile.description')
+%form{ action: url('/admin/plugins/turnstile'), method: :post }
+  %input{ type: :hidden, name: :_method, value: 'put' }
+  .field
+    %label{ for: :turnstile_site_key }= t('turnstile.site_key')
+    %br
+    %input{ type: :text, id: :turnstile_site_key, name: :turnstile_site_key, value: Option.turnstile_site_key }
+  %br
+  .field
+    %label{ for: :turnstile_secret_key }= t('turnstile.secret_key')
+    %br
+    %input{ type: :password, id: :turnstile_secret_key, name: :turnstile_secret_key, value: Option.turnstile_secret_key }
+  %br
+  .field
+    %input{ type: :submit, value: t('save') }

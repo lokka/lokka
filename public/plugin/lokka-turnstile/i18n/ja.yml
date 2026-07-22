@@ -1,0 +1,8 @@
+ja:
+  turnstile:
+    title: Turnstile
+    description: Cloudflare Turnstileで公開コメントを保護します。
+    site_key: サイトキー
+    secret_key: シークレットキー
+    updated: Turnstileの設定を更新しました。
+    verification_failed: 人間であることを確認できませんでした。もう一度お試しください。
