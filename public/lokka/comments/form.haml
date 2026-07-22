@@ -21,4 +21,7 @@
     = f.label :body, caption: t('comment.body')
     %br
     = f.text_area :body, rows: 10, cols: 40
+  - if turnstile_enabled? && !logged_in?
+    %script{ src: 'https://challenges.cloudflare.com/turnstile/v0/api.js', async: true, defer: true }
+    .cf-turnstile{ data: { sitekey: turnstile_site_key } }
   = f.submit t('post_comment'), class: 'button'

@@ -27,5 +27,9 @@
     <br>
     <textarea id="comment_body" name="comment[body]" rows="10" cols="40"><%= h(@comment.body) %></textarea>
   </p>
+  <% if turnstile_enabled? && !logged_in? %>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <div class="cf-turnstile" data-sitekey="<%= h(turnstile_site_key) %>"></div>
+  <% end %>
   <input type="submit" value="<%= t('post_comment') %>" class="button">
 </form>
