@@ -1,0 +1,13 @@
+<h2>Gyazo</h2>
+<p>When an access token is configured, images dropped or pasted into the editor are uploaded to Gyazo.</p>
+<form action="<%= url('/admin/plugins/gyazo') %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <div class="field">
+    <label for="gyazo_access_token">Access token</label>
+    <br>
+    <input type="password" id="gyazo_access_token" name="gyazo_access_token" value="<%= Option.gyazo_access_token %>">
+  </div>
+  <p>
+    <input type="submit" value="<%= t('save') %>">
+  </p>
+</form>
