@@ -120,6 +120,31 @@ class PostTest < LokkaTestCase
     refute_equal original_tags, entry.tags.to_a
   end
 
+  def test_tag_collection_reads_persisted_tags_on_a_fresh_instance
+    entry = create(:post, tag_collection: 'foo,bar')
+    reopened = Post.find(entry.id)
+
+    assert_respond_to reopened, :tag_collection
+    assert_equal 'bar,foo', reopened.tag_collection
+  end
+
+  def test_tag_collection_reads_normalized_pending_tags
+    entry = build(:post)
+    entry.tag_collection = ' foo!, bar,foo!,, 日本語 '
+
+    assert_equal 'bar,foo,日本語', entry.tag_collection
+    assert_empty entry.tag_list
+  end
+
+  def test_tag_collection_reads_pending_blank_instead_of_persisted_tags
+    entry = create(:post, tag_collection: 'foo')
+    reopened = Post.find(entry.id)
+    reopened.tag_collection = ''
+
+    assert_equal '', reopened.tag_collection
+    assert_equal ['foo'], reopened.tag_list
+  end
+
   # #description
   def test_kramdown_description
     post = create(:kramdown)

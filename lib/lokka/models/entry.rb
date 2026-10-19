@@ -43,6 +43,10 @@ class Entry < ActiveRecord::Base
     Comment.where(status: Comment::APPROVED, entry_id: id)
   end
 
+  def tag_collection
+    (@tag_list || tag_list).join(',')
+  end
+
   def tag_collection=(string)
     reg = /[^\p{Word}._]/iu
     @tag_list = string.to_s.split(',').map do |name|
