@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'nokogiri'
+
 require_relative '../../test_helper'
 require_relative '../../support/admin_helper'
 require_relative '../../support/custom_assertions'
@@ -53,6 +55,36 @@ class AdminPagesTest < LokkaTestCase
     put "/admin/pages/#{@page.id}", page: { body: 'updated' }
     assert last_response.redirect?
     assert_equal 'updated', Page(@page.id).body
+  end
+
+  def test_page_tags_survive_creation_edit_reopen_and_unchanged_save
+    sample = attributes_for(:page, tag_collection: ' ruby!, lokka,ruby! ')
+    post '/admin/pages', page: sample
+
+    assert last_response.redirect?
+    entry = Page.find_by!(title: sample[:title])
+    assert_equal %w[lokka ruby], entry.reload.tag_list.sort
+
+    get "/admin/pages/#{entry.id}/edit"
+    input = Nokogiri::HTML(last_response.body).at_css('input[name="page[tag_collection]"]')
+    refute_nil input
+    put "/admin/pages/#{entry.id}", page: { tag_collection: input['value'].to_s }
+
+    assert last_response.redirect?
+    assert_equal %w[lokka ruby], entry.reload.tag_list.sort
+    assert_equal 'lokka,ruby', input['value']
+  end
+
+  def test_invalid_page_update_preserves_normalized_attempted_tags
+    @page.update!(tag_collection: 'original')
+
+    put "/admin/pages/#{@page.id}", page: { title: '', tag_collection: ' ruby!,lokka,ruby! ' }
+
+    assert last_response.ok?
+    input = Nokogiri::HTML(last_response.body).at_css('input[name="page[tag_collection]"]')
+    refute_nil input
+    assert_equal 'lokka,ruby', input['value']
+    assert_equal ['original'], @page.reload.tag_list
   end
 
   def test_delete_admin_pages_deletes_page
